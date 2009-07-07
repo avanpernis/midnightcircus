@@ -49,14 +49,30 @@ namespace TokenAssist
                     DataTable dataTable = new DataTable();
                     dataTable.Load(sqlReader);
 
-                    string value = dataTable.Rows[0]["value"] as string;
-                    value = Encoding.Default.GetString(System.Convert.FromBase64String(value));
+                    string value = null;
 
-                    // the dropbox path has a python pickle -- we need to work around this.
-                    // The 'V' in the start specifies it is an unicode string object.
-                    // The \u005C is a backslash in unicode.
-                    // After that, there is '\npX\n.' which specifies the protocol it uses (p1) and the end of the object (lone dot).
-                    return value.Substring(1, value.IndexOf("\n") - 1).Replace(@"\u005C", @"\");
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        value = dataTable.Rows[0]["value"] as string;
+                        value = Encoding.Default.GetString(System.Convert.FromBase64String(value));
+
+                        // the dropbox path has a python pickle -- we need to work around this.
+                        // The 'V' in the start specifies it is an unicode string object.
+                        // The \u005C is a backslash in unicode.
+                        // After that, there is '\npX\n.' which specifies the protocol it uses (p1) and the end of the object (lone dot).
+                        value = value.Substring(1, value.IndexOf("\n") - 1).Replace(@"\u005C", @"\");
+                    }
+                    else
+                    {
+                        value = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"My Dropbox");
+                    }
+
+                    if (value == null)
+                    {
+                        throw new Exception("Couldn't find dropbox");
+                    }
+                    else
+                        return value;
                 }
             }
         }

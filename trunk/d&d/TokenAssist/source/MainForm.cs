@@ -55,10 +55,17 @@ namespace TokenAssist
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = Dnd4eFileFilter;
-            dialog.InitialDirectory = Path.Combine(Dropbox.Folder, @"D&D\Characters");
-            if (dialog.ShowDialog() == DialogResult.OK)
+            try
             {
-                mTextBoxSource.Text = dialog.FileName;
+                dialog.InitialDirectory = Path.Combine(Dropbox.Folder, @"D&D\Characters");
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    mTextBoxSource.Text = dialog.FileName;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to find dropbox folder", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
