@@ -109,7 +109,7 @@ namespace TokenAssist
         private static string GetPowerUrl(XmlNode xmlNodeUrls, string name)
         {
             // using \" here because some names have that darned apostrophe
-            string url = GetDescendantAttributeText(xmlNodeUrls, string.Format("RulesElement[@name=\"{0}\"]", name), "url");
+            string url = GetDescendantAttributeText(xmlNodeUrls, string.Format("RulesElement[@name=\"{0}\" and @type=\"Power\"]", name), "url");
 
             return (url != null) ? url : null;
         }
