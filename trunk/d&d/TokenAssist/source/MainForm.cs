@@ -63,7 +63,7 @@ namespace TokenAssist
                     mTextBoxSource.Text = dialog.FileName;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Unable to find dropbox folder", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
