@@ -24,13 +24,14 @@ namespace TokenAssist
                 foreach (Power power in character.Powers)
                 {   
                     string macro = TokenTemplate;
-                    macro = macro.Replace("POWER_NAME", power.Name);
-                    macro = macro.Replace("ATTACK_BONUS", power.AttackBonus.ToString());
-                    macro = macro.Replace("DAMAGE", power.Damage);
-                    macro = macro.Replace("ATTACK_STAT", power.AttackStat.ToString());
-                    macro = macro.Replace("DEFENSE", power.Defense.ToString());
-                    macro = macro.Replace("MULTIPLE_TARGETS", "0");
-                    macro = macro.Replace("POWER_CARD", (power.CompendiumEntry != null) ? power.CompendiumEntry : string.Empty);
+                    macro = macro.Replace("__POWER_NAME__", power.Name);
+                    macro = macro.Replace("__ATTACK_BONUS__", power.AttackBonus.ToString());
+                    macro = macro.Replace("__DAMAGE__", power.Damage);
+                    macro = macro.Replace("__MAX_DAMAGE__", power.MaxDamage);
+                    macro = macro.Replace("__ATTACK_STAT__", power.AttackStat.ToString());
+                    macro = macro.Replace("__DEFENSE__", power.Defense.ToString());
+                    macro = macro.Replace("__MULTIPLE_TARGETS__", "0");
+                    macro = macro.Replace("__POWER_CARD__", (power.CompendiumEntry != null) ? power.CompendiumEntry : string.Empty);
                     writer.WriteLine(macro);
 
                     writer.WriteLine("======================================================================");
