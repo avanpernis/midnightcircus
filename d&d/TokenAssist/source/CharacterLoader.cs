@@ -48,6 +48,8 @@ namespace TokenAssist
             power.Action = GetPowerAction(xmlNodePower);
             power.AttackBonus = GetPowerAttackBonus(xmlNodePower);
             power.Damage = GetPowerDamage(xmlNodePower);
+            power.AttackStat = GetPowerAttackStat(xmlNodePower);
+            power.Defense = GetPowerDefense(xmlNodePower);
 
             return power;
         }
@@ -55,41 +57,18 @@ namespace TokenAssist
         private static Power.UsageType GetPowerUsage(XmlNode xmlNodePower)
         {
             string usage = GetDescendantNodeText(xmlNodePower, "specific[@name='Power Usage']");
+            usage = usage.Replace("-", ""); // remove the hyphen so that we can enum parse for 'at-will'
 
-            switch (usage)
-            {
-                case "At-Will":
-                    return Power.UsageType.AtWill;
-                case "Encounter":
-                    return Power.UsageType.Encounter;
-                case "Daily":
-                    return Power.UsageType.Daily;
-                default:
-                    return Power.UsageType.Undefined;
-            }
+            return (usage != null) ? (Power.UsageType)Enum.Parse(typeof(Power.UsageType), usage) : Power.UsageType.Undefined;
         }
 
         private static Power.ActionType GetPowerAction(XmlNode xmlNodePower)
         {
             string action = GetDescendantNodeText(xmlNodePower, "specific[@name='Action Type']");
+            action = action.Replace("Action", ""); // remove "Action" suffix so that we can enum parse for 'free', 'minor', 'move', and 'standard
+            action = action.Replace(" ", ""); // remove spaces so that we can enum parse for 'immediate interrupt' and 'immediate reaction'
 
-            switch (action)
-            {
-                case "Free":
-                    return Power.ActionType.Free;
-                case "Minor":
-                    return Power.ActionType.Minor;
-                case "Move":
-                    return Power.ActionType.Move;
-                case "Standard":
-                    return Power.ActionType.Standard;
-                case "Immediate Interrupt":
-                    return Power.ActionType.ImmediateInterrupt;
-                case "Immediate Reaction":
-                    return Power.ActionType.ImmediateReaction;
-                default:
-                    return Power.ActionType.Undefined;
-            }
+            return (action != null) ? (Power.ActionType)Enum.Parse(typeof(Power.ActionType), action) : Power.ActionType.Undefined;
         }
 
         private static int GetPowerAttackBonus(XmlNode xmlNodePower)
@@ -104,6 +83,20 @@ namespace TokenAssist
             string damage = GetDescendantNodeText(xmlNodePower, "Weapon/Damage");
 
             return (damage != null) ? damage : Power.DefaultDamage;
+        }
+
+        private static Power.AttackStatType GetPowerAttackStat(XmlNode xmlNodePower)
+        {
+            string attackStat = GetDescendantNodeText(xmlNodePower, "Weapon/AttackStat");
+
+            return (attackStat != null) ? (Power.AttackStatType)Enum.Parse(typeof(Power.AttackStatType), attackStat) : Power.AttackStatType.Undefined;
+        }
+
+        private static Power.DefenseType GetPowerDefense(XmlNode xmlNodePower)
+        {
+            string defense = GetDescendantNodeText(xmlNodePower, "Weapon/Defense");
+
+            return (defense != null) ? (Power.DefenseType)Enum.Parse(typeof(Power.DefenseType), defense) : Power.DefenseType.Undefined;
         }
 
         private static string GetPowerUrl(XmlNode xmlNodeUrls, string name)

@@ -1,0 +1,43 @@
+<!-- generic variables that will be populated by TokenAssist -->
+[H : PowerName = "POWER_NAME"]
+[H : AttackBonus = "ATTACK_BONUS"]
+[H : Damage = "DAMAGE"]
+[H : AttackStat = "ATTACK_STAT"] 
+[H : Defense = "DEFENSE"]
+[H : MultipleTargets = MULTIPLE_TARGETS]
+
+<!-- html power card, as found in the compendium -->
+[H : PowerCard = "POWER_CARD"]
+
+<!-- retrieve previously stored values -->
+[H : NumberOfTargets = getStrProp(CombatStatus, "LastNumberOfTargets")]
+[H : CombatAdvantage = getStrProp(CombatStatus, "LastCombatAdvantage")]
+[H : TargetCover = getStrProp(CombatStatus, "LastTargetCover")]
+[H : TargetConcealment = getStrProp(CombatStatus, "LastTargetConcealment")]
+[H : TempAttackBonus = getStrProp(CombatStatus, "LastTempAttackBonus")]
+[H : TempDamageBonus = getStrProp(CombatStatus, "LastTempDamageBonus")]
+
+<!-- prompt for target information, tactical state, temporary bonuses, etc... -->
+[H : InputPrompt = input(
+   "Attack Bonus: " + AttackBonus + ", Damage: " + Damage + " | <html>" + PowerCard + "</html> | | LABEL | SPAN = TRUE",
+   "UNUSED | <html></html> | | LABEL | SPAN = TRUE",
+   if(MultipleTargets == 1, "NumberOfTargets | " + NumberOfTargets + " | Number Of Targets | TEXT", ""),
+   "CombatAdvantage | " + CombatAdvantage + " | Combat Advantage | CHECK",
+   "TargetCover | None, Partial, Superior | Target Cover | RADIO | SELECT = " + TargetCover,
+   "TargetConcealment | None, Partial, Total | Target Concealment | RADIO | SELECT = " + TargetConcealment,
+   "TempAttackBonus | " + TempAttackBonus + " | Temporary Attack Bonus | TEXT",
+   "TempDamageBonus | " + TempDamageBonus + " | Temporary Damage Bonus | TEXT")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+
+<!-- store the values for next time -->
+[H : PropsUsedList = "NumberOfTargets, CombatAdvantage, TargetCover, TargetConcealment, TempAttackBonus, TempDamageBonus"]
+[H, C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
+
+<!-- show the power card to the other players -->
+{PowerCard}
+
+<!-- resolve the roll -->
+<b>Attack Bonus:</b> {AttackBonus}<br>
+<b>Damage:</b> {Damage}
