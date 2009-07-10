@@ -26,6 +26,26 @@ namespace TokenAssist
             Undefined
         }
 
+        public enum AttackStatType
+        {
+            Strength,
+            Dexterity,
+            Constitution,
+            Intelligence,
+            Wisdom,
+            Charisma,
+            Undefined
+        }
+
+        public enum DefenseType
+        {
+            AC,
+            Fortitude,
+            Reflex,
+            Will,
+            Undefined
+        }
+
         public const int DefaultAttackBonus = int.MinValue;
         public static readonly string DefaultDamage;
 
@@ -64,6 +84,18 @@ namespace TokenAssist
             set { mDamage = value; }
         }
 
+        public AttackStatType AttackStat
+        {
+            get { return mAttackStat; }
+            set { mAttackStat = value; }
+        }
+
+        public DefenseType Defense
+        {
+            get { return mDefense; }
+            set { mDefense = value; }
+        }
+
         public string Url
         {
             get { return mUrl; }
@@ -81,6 +113,8 @@ namespace TokenAssist
         private ActionType mAction = ActionType.Undefined;
         private int mAttackBonus = DefaultAttackBonus;
         private string mDamage = DefaultDamage;
+        private AttackStatType mAttackStat = AttackStatType.Undefined;
+        private DefenseType mDefense = DefenseType.Undefined;
         private string mUrl = null;
         private string mCompendiumEntry = null;
     }

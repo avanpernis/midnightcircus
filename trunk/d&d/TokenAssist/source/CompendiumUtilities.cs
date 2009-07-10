@@ -66,10 +66,11 @@ namespace TokenAssist
                 results = results.Replace(@"<img src=""", @"<img src=""http://www.wizards.com/dndinsider/compendium/");
 
                 // maptool tries to do funky things with things in brackets [ ], so replace things in brackets
-                results = Regex.Replace(results, @"(\[\w*\])", delegate(Match match)
-                    {
-                        return match.Result(@"{""$1""}");
-                    });
+                // NOTE: no longer needed since we embed the final result in a variable, but keeping around the code in case we change our minds...
+                //results = Regex.Replace(results, @"(\[\w*\])", delegate(Match match)
+                //    {
+                //        return match.Result(@"{""$1""}");
+                //    });
 
                 // maptool does not handle the 'float' CSS specification so we need to manually adjust the name and level of the power               
                 results = Regex.Replace(results, @"\<span[\s\w=""]*>([\w'\s]+)</span\s*>([\w'\s]+)<", delegate(Match match)
@@ -83,10 +84,10 @@ namespace TokenAssist
                 results = results.Replace(@"<h1 class=""encounterpower""", @"<h1 style=""font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #961334;""");
                 results = results.Replace(@"<h1 class=""dailypower""", @"<h1 style=""font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #4d4d4f;""");
                 results = results.Replace(@"<p class=""flavor""", @"<p style=""padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;""");
-                results = results.Replace(@"<p class=""powerstat""", @"<p style=""padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;""");
+                results = results.Replace(@"<p class=""powerstat""", @"<p style=""padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;""");               
 
-                // do some final pretty formatting, like indentation
-                results = ApplyIndentation(results);
+                // do some final pretty formatting
+                results = ApplyFormatting(results);
 
                 return results;
             }
@@ -96,7 +97,7 @@ namespace TokenAssist
             }
         }
 
-        private static string ApplyIndentation(string input)
+        private static string ApplyFormatting(string input)
         {
             // cannot load the xml into an xml document with the &nbsp; so temporarily convert while processing in xml
             string results = input.Replace("&nbsp;", "nbsp");
@@ -106,7 +107,8 @@ namespace TokenAssist
 
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(results);
-            xmlWriter.Formatting = Formatting.Indented;
+            xmlWriter.Formatting = Formatting.None; // maptool does not like newlines in input dialogs
+            xmlWriter.QuoteChar = '\''; // this makes it easier to use string attributes inside of the html string
             xmlDocument.WriteContentTo(xmlWriter);
 
             xmlWriter.Flush();
