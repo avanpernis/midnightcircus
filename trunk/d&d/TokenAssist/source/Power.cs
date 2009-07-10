@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace TokenAssist
 {
@@ -82,6 +83,19 @@ namespace TokenAssist
         {
             get { return mDamage; }
             set { mDamage = value; }
+        }
+
+        public string MaxDamage
+        {
+            get
+            {
+                return Regex.Replace(Damage, @"(\d*)d(\d+)", delegate(Match match)
+                {
+                    int value1 = int.Parse(match.Groups[1].Value);
+                    int value2 = int.Parse(match.Groups[2].Value);
+                    return match.Result((value1 * value2).ToString());
+                });
+            }
         }
 
         public AttackStatType AttackStat

@@ -1,13 +1,14 @@
 <!-- generic variables that will be populated by TokenAssist -->
-[H : PowerName = "POWER_NAME"]
-[H : AttackBonus = "ATTACK_BONUS"]
-[H : Damage = "DAMAGE"]
-[H : AttackStat = "ATTACK_STAT"] 
-[H : Defense = "DEFENSE"]
-[H : MultipleTargets = MULTIPLE_TARGETS]
+[H : PowerName = "__POWER_NAME__"]
+[H : AttackBonus = "__ATTACK_BONUS__"]
+[H : Damage = "__DAMAGE__"]
+[H : MaxDamage = eval("__MAX_DAMAGE__")]
+[H : AttackStat = "__ATTACK_STAT__"] 
+[H : Defense = "__DEFENSE__"]
+[H : MultipleTargets = __MULTIPLE_TARGETS__]
 
 <!-- html power card, as found in the compendium -->
-[H : PowerCard = "POWER_CARD"]
+[H : PowerCard = "__POWER_CARD__"]
 
 <!-- retrieve previously stored values -->
 [H : NumberOfTargets = getStrProp(CombatStatus, "LastNumberOfTargets")]
@@ -38,6 +39,23 @@
 <!-- show the power card to the other players -->
 {PowerCard}
 
-<!-- resolve the roll -->
-<b>Attack Bonus:</b> {AttackBonus}<br>
-<b>Damage:</b> {Damage}
+<!-- apply combat advantage, cover, concealment, and temporary attack bonus
+[H: AttackBonus = AttackBonus
+   + if(CombatAdvantage, 2, 0)
+   - if(TargetCover == 0, 0, if(TargetCover == 1, 2, 5))
+   - if(TargetConcealment == 0, 0, if(TargetConcealment == 1, 2, 5))
+   + TempAttackBonus]
+
+<!-- apply temporary damage bonus -->
+[H: Damage = Damage + "+" + TempDamageBonus]
+
+<!-- attack roll -->
+[H: AttackRoll = 1d20]
+[H: AttackResult = AttackRoll + AttackBonus]
+
+<!-- damage roll -->
+[H: CriticalRange = 20]
+[H: DamageRoll = if(AttackRoll >= CriticalRange, MaxDamage, eval(Damage))]
+
+<b>Attack: </b>{AttackResult}<br>
+<b>Damage: </b>{DamageRoll}
