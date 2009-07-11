@@ -1,10 +1,8 @@
-<!-- generic variables that will be populated by TokenAssist -->
+<!-- generic variables that were populated by TokenAssist -->
 [H : PowerName = "__POWER_NAME__"]
 [H : AttackBonus = "__ATTACK_BONUS__"]
 [H : Damage = "__DAMAGE__"]
 [H : MaxDamage = eval("__MAX_DAMAGE__")]
-[H : AttackStat = "__ATTACK_STAT__"] 
-[H : Defense = "__DEFENSE__"]
 [H : MultipleTargets = __MULTIPLE_TARGETS__]
 
 <!-- html power card, as found in the compendium -->
