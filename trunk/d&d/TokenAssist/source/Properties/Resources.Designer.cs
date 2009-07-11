@@ -68,11 +68,45 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
+        ///[H : PowerName = &quot;__POWER_NAME__&quot;]
+        ///
+        ///&lt;!-- html power card, as found in the compendium --&gt;
+        ///[H : PowerCard = &quot;__POWER_CARD__&quot;]
+        ///
+        ///&lt;!-- show the user the power they are about to use --&gt;
+        ///[H : InputPrompt = input(PowerName + &quot; | &lt;html&gt;&quot; + PowerCard + &quot;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;)]
+        ///
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPrompt)]
+        ///
+        ///&lt;!-- show the power card to the other players --&gt;
+        ///{PowerCard}.
         /// </summary>
-        internal static string template {
+        internal static string NoWeaponTemplate {
             get {
-                return ResourceManager.GetString("template", resourceCulture);
+                return ResourceManager.GetString("NoWeaponTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
+        ///[H : PowerName = &quot;__POWER_NAME__&quot;]
+        ///[H : AttackBonus = &quot;__ATTACK_BONUS__&quot;]
+        ///[H : Damage = &quot;__DAMAGE__&quot;]
+        ///[H : MaxDamage = eval(&quot;__MAX_DAMAGE__&quot;)]
+        ///[H : MultipleTargets = __MULTIPLE_TARGETS__]
+        ///
+        ///&lt;!-- html power card, as found in the compendium --&gt;
+        ///[H : PowerCard = &quot;__POWER_CARD__&quot;]
+        ///
+        ///&lt;!-- retrieve previously stored values --&gt;
+        ///[H : NumberOfTargets = getStrProp(CombatStatus, &quot;LastNumberOfTargets&quot;)]
+        ///[H : CombatAdvantage = getStrProp(CombatStatu [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string WeaponTemplate {
+            get {
+                return ResourceManager.GetString("WeaponTemplate", resourceCulture);
             }
         }
     }

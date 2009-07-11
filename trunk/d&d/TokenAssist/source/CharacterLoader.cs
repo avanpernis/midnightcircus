@@ -46,12 +46,28 @@ namespace TokenAssist
             power.Name = GetAttributeText(xmlNodePower, "name");
             power.Usage = GetPowerUsage(xmlNodePower);
             power.Action = GetPowerAction(xmlNodePower);
-            power.AttackBonus = GetPowerAttackBonus(xmlNodePower);
-            power.Damage = GetPowerDamage(xmlNodePower);
-            power.AttackStat = GetPowerAttackStat(xmlNodePower);
-            power.Defense = GetPowerDefense(xmlNodePower);
+
+            XmlNodeList xmlNodeWeapons = xmlNodePower.SelectNodes("Weapon");
+
+            foreach (XmlNode xmlNodeWeapon in xmlNodeWeapons)
+            {
+                Weapon weapon = LoadWeapon(xmlNodeWeapon);
+
+                power.Weapons.Add(weapon);
+            }
 
             return power;
+        }
+
+        private static Weapon LoadWeapon(XmlNode xmlNodeWeapon)
+        {
+            Weapon weapon = new Weapon();
+
+            weapon.Name = GetAttributeText(xmlNodeWeapon, "name");
+            weapon.AttackBonus = GetWeaponAttackBonus(xmlNodeWeapon);
+            weapon.Damage = GetWeaponDamage(xmlNodeWeapon);
+
+            return weapon;
         }
 
         private static Power.UsageType GetPowerUsage(XmlNode xmlNodePower)
@@ -71,40 +87,26 @@ namespace TokenAssist
             return (action != null) ? (Power.ActionType)Enum.Parse(typeof(Power.ActionType), action) : Power.ActionType.Undefined;
         }
 
-        private static int GetPowerAttackBonus(XmlNode xmlNodePower)
-        {
-            string attackBonus = GetDescendantNodeText(xmlNodePower, "Weapon/AttackBonus");
-
-            return (attackBonus != null) ? int.Parse(attackBonus) : Power.DefaultAttackBonus;
-        }
-
-        private static string GetPowerDamage(XmlNode xmlNodePower)
-        {
-            string damage = GetDescendantNodeText(xmlNodePower, "Weapon/Damage");
-
-            return (damage != null) ? damage : Power.DefaultDamage;
-        }
-
-        private static Power.AttackStatType GetPowerAttackStat(XmlNode xmlNodePower)
-        {
-            string attackStat = GetDescendantNodeText(xmlNodePower, "Weapon/AttackStat");
-
-            return (attackStat != null) ? (Power.AttackStatType)Enum.Parse(typeof(Power.AttackStatType), attackStat) : Power.AttackStatType.Undefined;
-        }
-
-        private static Power.DefenseType GetPowerDefense(XmlNode xmlNodePower)
-        {
-            string defense = GetDescendantNodeText(xmlNodePower, "Weapon/Defense");
-
-            return (defense != null) ? (Power.DefenseType)Enum.Parse(typeof(Power.DefenseType), defense) : Power.DefenseType.Undefined;
-        }
-
         private static string GetPowerUrl(XmlNode xmlNodeUrls, string name)
         {
             // using \" here because some names have that darned apostrophe
             string url = GetDescendantAttributeText(xmlNodeUrls, string.Format("RulesElement[@name=\"{0}\" and @type=\"Power\"]", name), "url");
 
             return (url != null) ? url : null;
+        }
+
+        private static int GetWeaponAttackBonus(XmlNode xmlNodeWeapon)
+        {
+            string attackBonus = GetDescendantNodeText(xmlNodeWeapon, "AttackBonus");
+
+            return (attackBonus != null) ? int.Parse(attackBonus) : int.MinValue;
+        }
+
+        private static string GetWeaponDamage(XmlNode xmlNodeWeapon)
+        {
+            string damage = GetDescendantNodeText(xmlNodeWeapon, "Damage");
+
+            return (damage != null) ? damage : null;
         }
 
         private static string GetDescendantAttributeText(XmlNode xmlNodeParent, string xPath, string attributeName)
