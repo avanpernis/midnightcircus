@@ -18,6 +18,7 @@ namespace TokenAssist
 
         public enum ActionType
         {
+            No,
             Free,
             Minor,
             Move,
@@ -27,12 +28,8 @@ namespace TokenAssist
             Undefined
         }
 
-        public const int DefaultAttackBonus = int.MinValue;
-        public static readonly string DefaultDamage;
-
         static Power()
         {
-            DefaultDamage = int.MinValue.ToString();
         }
 
         public string Name
