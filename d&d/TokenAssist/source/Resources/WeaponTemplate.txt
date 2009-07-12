@@ -85,9 +85,17 @@
 [H : MaxDamageOutput = "<span style='color:red'>" + MaxDamage + "</span>"]
 [H : DamageResultOutput = if(AllCriticalHits == 1, MaxDamageOutput, if(CriticalHit == 1, DamageOutput + ", " + MaxDamageOutput, DamageOutput))]
 
+<!-- build a pretty output string to indicate what types of cover and concealment the target may have -->
+[H : CoverConcealmentOutput = if(TargetCover != 0 || TargetConcealment != 0, "The enemy has ", "")
+   + if(TargetCover == 0, "", if(TargetCover == 1, "<b>Cover</b>", "<b>Superior Cover</b>"))
+   + if(TargetCover > 0 && TargetConcealment > 0, " and ", "")
+   + if(TargetConcealment == 0, "", if(TargetConcealment == 1, "<b>Concealment</b>", "<b>Total Concealment</b>"))
+   + if(TargetCover != 0 || TargetConcealment != 0, ".<br>", "")]
+
 <!-- show the power card to the other players -->
 {PowerCard}
 
 <!-- show the attack results -->
-You use your <b>{Weapon}</b> to attack the enemy (<b>{AttackResultOutput}</b>).<br>
+You use your <b>{Weapon}</b> to attack (<b>{AttackResultOutput}</b>){if(CombatAdvantage == 1, " while having <b>Combat Advantage</b>", "")}.<br>
+{CoverConcealmentOutput}
 You do <b>{DamageResultOutput}</b> points of damage!
