@@ -1,15 +1,17 @@
 <!-- generic variables that were populated by TokenAssist -->
 [H : PowerName = "__POWER_NAME__"]
-[H : AttackBonus = "__ATTACK_BONUS__"]
-[H : Damage = "__DAMAGE__"]
-[H : MaxDamage = eval("__MAX_DAMAGE__")]
+[H : WeaponList = "__WEAPON_LIST__"]
+[H : AttackBonusList = "__ATTACK_BONUS_LIST__"]
+[H : DamageList = "__DAMAGE_LIST__"]
+[H : MaxDamageList = "__MAX_DAMAGE_LIST__"]
 [H : MultipleTargets = __MULTIPLE_TARGETS__]
 
 <!-- html power card, as found in the compendium -->
 [H : PowerCard = "__POWER_CARD__"]
 
 <!-- retrieve previously stored values -->
-[H : NumberOfTargets = getStrProp(CombatStatus, "LastNumberOfTargets")]
+[H : WeaponChoice = getStrProp(CombatStatus, "LastWeaponChoice")]
+[H : NumberOfTargets = if(MultipleTargets == 1, getStrProp(CombatStatus, "LastNumberOfTargets"), 1)]
 [H : CombatAdvantage = getStrProp(CombatStatus, "LastCombatAdvantage")]
 [H : TargetCover = getStrProp(CombatStatus, "LastTargetCover")]
 [H : TargetConcealment = getStrProp(CombatStatus, "LastTargetConcealment")]
@@ -18,8 +20,9 @@
 
 <!-- prompt for target information, tactical state, temporary bonuses, etc... -->
 [H : InputPrompt = input(
-   "Attack Bonus: " + AttackBonus + ", Damage: " + Damage + " | <html>" + PowerCard + "</html> | | LABEL | SPAN = TRUE",
+   PowerName + " | <html>" + PowerCard + "</html> | | LABEL | SPAN = TRUE",
    "UNUSED | <html></html> | | LABEL | SPAN = TRUE",
+   "WeaponChoice | " + WeaponList + " | Weapon Choice | RADIO | SELECT = " + WeaponChoice,
    if(MultipleTargets == 1, "NumberOfTargets | " + NumberOfTargets + " | Number Of Targets | TEXT", ""),
    "CombatAdvantage | " + CombatAdvantage + " | Combat Advantage | CHECK",
    "TargetCover | None, Partial, Superior | Target Cover | RADIO | SELECT = " + TargetCover,
@@ -31,29 +34,60 @@
 [H : abort(InputPrompt)]
 
 <!-- store the values for next time -->
-[H : PropsUsedList = "NumberOfTargets, CombatAdvantage, TargetCover, TargetConcealment, TempAttackBonus, TempDamageBonus"]
+[H : PropsUsedList = "WeaponChoice, NumberOfTargets, CombatAdvantage, TargetCover, TargetConcealment, TempAttackBonus, TempDamageBonus"]
 [H, C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
-<!-- show the power card to the other players -->
-{PowerCard}
+<!-- get the values associated with the selected weapon -->
+[H : Weapon = listGet(WeaponList, WeaponChoice)]
+[H : AttackBonus = listGet(AttackBonusList, WeaponChoice)]
+[H : Damage = listGet(DamageList, WeaponChoice)]
+[H : MaxDamage = listGet(MaxDamageList, WeaponChoice)]
 
-<!-- apply combat advantage, cover, concealment, and temporary attack bonus
-[H: AttackBonus = AttackBonus
+<!-- attack rolls -->
+[H : AttackRolls = ""]
+[H, C(NumberOfTargets) : AttackRolls = AttackRolls + 1d20 + ", "]
+
+<!-- critical detection -->
+[H : CriticalRange = 20]
+[H : CriticalHit = 0]
+[H, C(NumberOfTargets) : CriticalHit = if(eval("" + listGet(AttackRolls, roll.count)) >= CriticalRange, 1, CriticalHit)]
+[H : AllCriticalHits = 1]
+[H, C(NumberOfTargets) : AllCriticalHits = if(eval("" + listGet(AttackRolls, roll.count)) < CriticalRange, 0, AllCriticalHits)]
+
+<!-- apply combat advantage, cover, concealment, and temporary attack bonus -->
+[H : AttackBonus = AttackBonus
    + if(CombatAdvantage, 2, 0)
    - if(TargetCover == 0, 0, if(TargetCover == 1, 2, 5))
    - if(TargetConcealment == 0, 0, if(TargetConcealment == 1, 2, 5))
    + TempAttackBonus]
 
-<!-- apply temporary damage bonus -->
-[H: Damage = Damage + "+" + TempDamageBonus]
+[H : AttackResults = ""]
+[H, C(NumberOfTargets) : AttackResults = AttackResults + (eval("" + listGet(AttackRolls, roll.count)) + AttackBonus) + ", "]
 
-<!-- attack roll -->
-[H: AttackRoll = 1d20]
-[H: AttackResult = AttackRoll + AttackBonus]
+<!-- build a pretty output string to indicate which attacks were criticals and which were not -->
+[H : AttackResultOutput = ""]
+[H, C(NumberOfTargets), CODE :
+{
+   [H: AttackResult = listGet(AttackResults, roll.count)]
 
-<!-- damage roll -->
-[H: CriticalRange = 20]
-[H: DamageRoll = if(AttackRoll >= CriticalRange, MaxDamage, eval(Damage))]
+   <!-- red text if critical, black otherwise -->
+   [H : AttackResultColor = if(eval("" + listGet(AttackRolls, roll.count)) >= CriticalRange, "red", "black")]
 
-<b>Attack: </b>{AttackResult}<br>
-<b>Damage: </b>{DamageRoll}
+   [H: AttackResultOutput = AttackResultOutput + "<span style='color:" + AttackResultColor + "'>" + AttackResult + "</span>" + if(roll.count < NumberOfTargets - 1, ", ", "")]
+}]
+
+<!-- damage roll (include temporary damage bonus) -->
+[H : DamageRoll = eval(Damage + "+" + TempDamageBonus)]
+[H: MaxDamage = eval("" + MaxDamage + "+" + TempDamageBonus)]
+
+<!-- build a pretty output string to indicate which damage was critical and which was not -->
+[H : DamageOutput = "<span style='color:black'>" + DamageRoll + "</span>"]
+[H : MaxDamageOutput = "<span style='color:red'>" + MaxDamage + "</span>"]
+[H : DamageResultOutput = if(AllCriticalHits == 1, MaxDamageOutput, if(CriticalHit == 1, DamageOutput + ", " + MaxDamageOutput, DamageOutput))]
+
+<!-- show the power card to the other players -->
+{PowerCard}
+
+<!-- show the attack results -->
+You use your <b>{Weapon}</b> to attack the enemy (<b>{AttackResultOutput}</b>).<br>
+You do <b>{DamageResultOutput}</b> points of damage!
