@@ -68,6 +68,15 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string MacroCreationTemplate {
+            get {
+                return ResourceManager.GetString("MacroCreationTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
         ///[H : PowerName = &quot;__POWER_NAME__&quot;]
         ///
@@ -92,17 +101,17 @@ namespace TokenAssist.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
         ///[H : PowerName = &quot;__POWER_NAME__&quot;]
-        ///[H : AttackBonus = &quot;__ATTACK_BONUS__&quot;]
-        ///[H : Damage = &quot;__DAMAGE__&quot;]
-        ///[H : MaxDamage = eval(&quot;__MAX_DAMAGE__&quot;)]
+        ///[H : WeaponList = &quot;__WEAPON_LIST__&quot;]
+        ///[H : AttackBonusList = &quot;__ATTACK_BONUS_LIST__&quot;]
+        ///[H : DamageList = &quot;__DAMAGE_LIST__&quot;]
+        ///[H : MaxDamageList = &quot;__MAX_DAMAGE_LIST__&quot;]
         ///[H : MultipleTargets = __MULTIPLE_TARGETS__]
         ///
         ///&lt;!-- html power card, as found in the compendium --&gt;
         ///[H : PowerCard = &quot;__POWER_CARD__&quot;]
         ///
         ///&lt;!-- retrieve previously stored values --&gt;
-        ///[H : NumberOfTargets = getStrProp(CombatStatus, &quot;LastNumberOfTargets&quot;)]
-        ///[H : CombatAdvantage = getStrProp(CombatStatu [rest of string was truncated]&quot;;.
+        ///[H : WeaponChoice = getStrProp(CombatStatus, &quot;LastWeaponCho [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string WeaponTemplate {
             get {
