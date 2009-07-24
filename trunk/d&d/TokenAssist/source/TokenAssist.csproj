@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="CompendiumUtilities.cs" />
     <Compile Include="Dropbox.cs" />
+    <Compile Include="MagicItem.cs" />
     <Compile Include="Power.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
