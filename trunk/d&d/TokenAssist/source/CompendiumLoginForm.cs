@@ -16,8 +16,10 @@ namespace TokenAssist
 
         private void mLoginButton_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             CompendiumAccess.Instance.Login(mEmailText.Text, mPasswordText.Text);
             Close();
+            Cursor.Current = Cursors.Default;
         }
     }
 }
