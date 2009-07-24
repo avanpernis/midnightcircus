@@ -61,11 +61,11 @@
   <ItemGroup>
     <Compile Include="Character.cs" />
     <Compile Include="CharacterLoader.cs" />
-    <Compile Include="CompendiumAuthenticator.cs">
+    <Compile Include="CompendiumLoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CompendiumAuthenticator.Designer.cs">
-      <DependentUpon>CompendiumAuthenticator.cs</DependentUpon>
+    <Compile Include="CompendiumLoginForm.Designer.cs">
+      <DependentUpon>CompendiumLoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="CompendiumUtilities.cs" />
     <Compile Include="Dropbox.cs" />
@@ -78,8 +78,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CompendiumAuthenticator.resx">
-      <DependentUpon>CompendiumAuthenticator.cs</DependentUpon>
+    <EmbeddedResource Include="CompendiumLoginForm.resx">
+      <DependentUpon>CompendiumLoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -103,6 +103,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Resources\CompendiumAccess.cs" />
     <Compile Include="TokenGenerator.cs" />
     <Compile Include="Weapon.cs" />
   </ItemGroup>
