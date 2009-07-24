@@ -12,41 +12,33 @@ namespace TokenAssist
 {
     public static class CompendiumUtilities
     {
-        private static readonly CompendiumAuthenticator sAuthenticator = new CompendiumAuthenticator();
-        private static readonly WebClient sWebClient = new WebClient();
+        private static readonly CompendiumLoginForm loginForm = new CompendiumLoginForm();
 
         public static bool Authenticate()
         {
-            // Have the user login to the compendium via the .NET web browser control. We will use its established
-            // cookie for future screen scrapes.
-            bool authenticated = (sAuthenticator.ShowDialog() == DialogResult.OK);
-
-            if (authenticated)
+            if (!CompendiumAccess.Connected)
             {
-                sWebClient.Headers.Clear();
-
-                // do this once now, instead of per entry later
-                sWebClient.Headers.Add("Cookie", sAuthenticator.Cookie);
+                loginForm.ShowDialog();
             }
-
-            return authenticated;
+            
+            return CompendiumAccess.Connected;
         }
 
         private static string Matcher(Match match)
         {
             return string.Format(@"{{""{0}""}}", match.Value);
         }
-
+        
         public static string GetUrl(string url)
         {
-            return ASCIIEncoding.ASCII.GetString(sWebClient.DownloadData(url));
+            return CompendiumAccess.Instance.GetUrl(url);
         }
 
         public static string GetStyleSheet()
         {
             return GetUrl(@"http://www.wizards.com/dndinsider/compendium/styles/detail.css");
         }
-
+        
         public static string GetEntry(string url)
         {
             try
