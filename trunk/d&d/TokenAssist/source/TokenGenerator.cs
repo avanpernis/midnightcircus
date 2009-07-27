@@ -34,6 +34,55 @@ namespace TokenAssist
             }
         }
 
+        private static string GetMacroName(Power power)
+        {
+            return string.Format(@"<b>{0}</b><br>{1} {2}", power.Name, power.Action.ToString(), power.AttackTypeAndRange);
+        }
+
+        private static string GetMacroBackgroundColor(Power.UsageType usageType)
+        {
+            switch (usageType)
+            {
+                case Power.UsageType.AtWill:
+                    return "green";
+                case Power.UsageType.Encounter:
+                    return "red";
+                case Power.UsageType.Daily:
+                    return "black";
+                default:
+                    return null;
+            }
+        }
+
+        private static string GetMacroForegroundColor(Power.UsageType usageType)
+        {
+            switch (usageType)
+            {
+                case Power.UsageType.AtWill:
+                    return "black";
+                case Power.UsageType.Encounter:
+                case Power.UsageType.Daily:
+                    return "white";
+                default:
+                    return null;
+            }
+        }
+
+        private static string GetMacroGroup(Power.UsageType usageType)
+        {
+            switch (usageType)
+            {
+                case Power.UsageType.AtWill:
+                    return "At-Will";
+                case Power.UsageType.Encounter:
+                    return "Encounter";
+                case Power.UsageType.Daily:
+                    return "Daily";
+                default:
+                    return null;
+            }
+        }
+
         public static void Dump(Character character, string filename)
         {
             using (StreamWriter writer = new StreamWriter(filename))
@@ -73,7 +122,7 @@ namespace TokenAssist
                         macro = macro.Replace(@"__ATTACK_BONUS_LIST__", attackBonusList);
                         macro = macro.Replace(@"__DAMAGE_LIST__", damageList);
                         macro = macro.Replace(@"__MAX_DAMAGE_LIST__", maxDamageList);
-                        macro = macro.Replace(@"__MULTIPLE_TARGETS__", "0");
+                        macro = macro.Replace(@"__MULTIPLE_TARGETS__", power.AllowsForMultipleAttacks ? "1" : "0");
                         macro = macro.Replace(@"__POWER_CARD__", (power.CompendiumEntry != null) ? power.CompendiumEntry : string.Empty);
                     }
 
@@ -81,10 +130,10 @@ namespace TokenAssist
                     string encodedMacro = HttpUtility.UrlEncode(macro);
 
                     string macroCreation = MacroCreationTemplate;
-                    macroCreation = macroCreation.Replace(@"__MACRO_NAME__", power.Name);
-                    macroCreation = macroCreation.Replace(@"__MACRO_BACKGROUND_COLOR__", "blue");
-                    macroCreation = macroCreation.Replace(@"__MACRO_FOREGROUND_COLOR__", "white");
-                    macroCreation = macroCreation.Replace(@"__MACRO_GROUP__", "At-Will");
+                    macroCreation = macroCreation.Replace(@"__MACRO_NAME__", GetMacroName(power));
+                    macroCreation = macroCreation.Replace(@"__MACRO_BACKGROUND_COLOR__", GetMacroBackgroundColor(power.Usage));
+                    macroCreation = macroCreation.Replace(@"__MACRO_FOREGROUND_COLOR__", GetMacroForegroundColor(power.Usage));
+                    macroCreation = macroCreation.Replace(@"__MACRO_GROUP__", GetMacroGroup(power.Usage));
                     macroCreation = macroCreation.Replace(@"__MACRO_CODE__", encodedMacro);
 
                     writer.WriteLine(macroCreation);

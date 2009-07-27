@@ -50,6 +50,18 @@ namespace TokenAssist
             set { mAction = value; }
         }
 
+        public string AttackTypeAndRange
+        {
+            get { return mAttackTypeAndRange; }
+            set { mAttackTypeAndRange = value; }
+        }
+
+        public bool AllowsForMultipleAttacks
+        {
+            get { return mAllowsForMultipleAttacks; }
+            set { mAllowsForMultipleAttacks = value; }
+        }
+
         public List<Weapon> Weapons
         {
             get { return mWeapons; }
@@ -71,6 +83,8 @@ namespace TokenAssist
         private string mName = string.Empty;
         private UsageType mUsage = UsageType.Undefined;
         private ActionType mAction = ActionType.Undefined;
+        private string mAttackTypeAndRange = string.Empty;
+        private bool mAllowsForMultipleAttacks = false;
         private List<Weapon> mWeapons = new List<Weapon>();       
         private string mUrl = null;
         private string mCompendiumEntry = null;
