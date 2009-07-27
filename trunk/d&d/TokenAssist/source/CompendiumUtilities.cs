@@ -54,6 +54,9 @@ namespace TokenAssist
                 // for some reason, compendium uses 3 ?'s for an apostrophe
                 results = results.Replace(@"???", @"'");
 
+                // sometimes there are funky unicode apostrophes as well
+                results = results.Replace("\u2019", @"'");
+
                 // we need to fully qualify the urls for images
                 results = results.Replace(@"<img src=""", @"<img src=""http://www.wizards.com/dndinsider/compendium/");
 
