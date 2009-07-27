@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace TokenAssist
@@ -31,6 +32,14 @@ namespace TokenAssist
                 if (power.Url != null)
                 {
                     power.CompendiumEntry = CompendiumUtilities.GetEntry(power.Url);
+
+                    if (power.CompendiumEntry != null)
+                    {
+                        // we need to do these AFTER getting the compendium entry because it is the only place
+                        // that contains this information.
+                        power.AttackTypeAndRange = GetPowerAttackTypeAndRange(power.CompendiumEntry);
+                        power.AllowsForMultipleAttacks = GetPowerAllowsForMultipleAttacks(power.CompendiumEntry);
+                    }
                 }
 
                 character.Powers.Add(power);
@@ -95,6 +104,40 @@ namespace TokenAssist
             return (url != null) ? url : null;
         }
 
+        private static string GetPowerAttackTypeAndRange(string entry)
+        {
+            // find all paragraph blocks
+            Regex pPattern = new Regex(@"<p[^>]*>(.*?)</p>");
+            MatchCollection pMatches = pPattern.Matches(entry);
+
+            // using the second paragraph block, search for all bold blocks (and trailing cruft)
+            Regex attackPattern = new Regex(@"<b>.*?</b>[^<]*");
+            MatchCollection matches = attackPattern.Matches(pMatches[1].Groups[1].Value);
+            string result = matches[matches.Count - 1].ToString();
+
+            // replace all tags with empty string
+            Regex tagsPattern = new Regex("<[^>]*>");
+            return tagsPattern.Replace(result, "");
+        }
+
+        private static bool GetPowerAllowsForMultipleAttacks(string entry)
+        {
+            Regex targetPattern = new Regex(@"<p[^>]*><b>\s*Target\s*</b>\s*:?\s*(.*?)</p>");
+            Match match = targetPattern.Match(entry);
+
+            bool allowsForMultipleAttacks = false;
+
+            if (match.Success)
+            {
+                string targetInfo = match.Groups[1].Value;
+
+                allowsForMultipleAttacks |= targetInfo.Contains("Each enemy");
+                allowsForMultipleAttacks |= targetInfo.Contains("Each creature");
+            }
+
+            return allowsForMultipleAttacks;
+        }
+
         private static int GetWeaponAttackBonus(XmlNode xmlNodeWeapon)
         {
             string attackBonus = GetDescendantNodeText(xmlNodeWeapon, "AttackBonus");
@@ -129,30 +172,5 @@ namespace TokenAssist
 
             return (xmlNodeDescendant != null) ? xmlNodeDescendant.InnerText.Trim() : null;
         }
-
-//        <Power name="Melee Basic Attack">
-//            <specific name="Power Usage"> At-Will </specific>
-//            <specific name="Action Type"> Standard Action </specific>
-//            <Weapon name="Pinning Battleaxe +2">
-//               <RulesElement name="Battleaxe" type="Weapon" internal-id="ID_FMP_WEAPON_12" url="http://www.wizards.com/dndinsider/compendium/item.aspx?fid=12&amp;ftype=3" charelem="b32d870" legality="rules-legal" />
-//               <RulesElement name="Pinning Weapon +2" type="Magic Item" internal-id="ID_FMP_MAGIC_ITEM_2261" url="http://www.wizards.com/dndinsider/compendium/item.aspx?fid=2261&amp;ftype=1" charelem="b302638" legality="rules-legal" />
-//               <AttackBonus> 13 </AttackBonus>
-//               <Damage> 1d10+8 </Damage>
-//               <AttackStat> Strength </AttackStat>
-//               <Defense> AC </Defense>
-//               <HitComponents> +5 Strength modifier.
-//+3 half your level.
-//+2 proficiency bonus.
-//+2 enhancement bonus.
-//+1 bonus - Weapon Expertise (Axe)
-
-// </HitComponents>
-//               <DamageComponents> +5 Strength modifier.
-//+2 enhancement bonus.
-//+1 Feat bonus - Weapon Focus (Axe)
-
-// </DamageComponents>
-//            </Weapon>
-//         </Power>
     }
 }
