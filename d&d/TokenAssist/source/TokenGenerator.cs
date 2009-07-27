@@ -34,6 +34,15 @@ namespace TokenAssist
             }
         }
 
+        public static string LimitedUse
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.LimitedUseTemplate;
+            }
+        }
+
+
         private static string GetMacroName(Power power)
         {
             return string.Format(@"<b>{0}</b><br>{1} {2}", power.Name, power.Action.ToString(), power.AttackTypeAndRange);
@@ -87,6 +96,8 @@ namespace TokenAssist
         {
             using (StreamWriter writer = new StreamWriter(filename))
             {
+                int EncounterPowerCount = 0; // Keep track of Encounter Power IDs
+                int DailyPowerCount = 0; // Keep track of Daily Power IDs
                 foreach (Power power in character.Powers)
                 {
                     string macro = null;
@@ -125,6 +136,28 @@ namespace TokenAssist
                         macro = macro.Replace(@"__MULTIPLE_TARGETS__", power.AllowsForMultipleAttacks ? "1" : "0");
                         macro = macro.Replace(@"__POWER_CARD__", (power.CompendiumEntry != null) ? power.CompendiumEntry : string.Empty);
                     }
+
+                    // insert macro into Encounter or Daily macro
+
+                    if (power.Usage == Power.UsageType.Encounter || power.Usage == Power.UsageType.Daily)
+                    {
+                        string tempMacro = LimitedUse;
+                        macro = tempMacro.Replace(@"__MACRO_TEXT__",macro);
+                        macro = macro.Replace(@"__MACRO_NAME__", GetMacroName(power));
+                        switch (power.Usage)
+                        {
+                            case Power.UsageType.Encounter:
+                                macro = macro.Replace(@"__POWER_ID__",string.Format("{0}",EncounterPowerCount++));
+                                macro = macro.Replace(@"__USAGE_TYPE__","Encounter");
+                                break;
+                            case Power.UsageType.Daily:
+                                macro = macro.Replace(@"__POWER_ID__",string.Format("{0}",DailyPowerCount++));
+                                macro = macro.Replace(@"__USAGE_TYPE__","Daily");
+                                break;
+                        }
+                    }
+
+                
 
                     // encode all special characters as proper url supported characters
                     string encodedMacro = HttpUtility.UrlEncode(macro);
