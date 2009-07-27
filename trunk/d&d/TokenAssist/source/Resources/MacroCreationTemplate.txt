@@ -6,10 +6,13 @@
 [H : MacroCode = "__MACRO_CODE__"]
 
 <!-- construct the macro properties -->
-[H : MacroProperties = "autoexec=true;"]
+[H : MacroProperties = "autoExecute=true;"]
 [H : MacroProperties = setStrProp(MacroProperties, "color", MacroBackgroundColor)]
 [H : MacroProperties = setStrProp(MacroProperties, "fontColor", MacroForegroundColor)]
 [H : MacroProperties = setStrProp(MacroProperties, "group", MacroGroup)]
 
 <!-- create a macro with the specified name, code, and properties -->
 [H : createMacro(MacroName, decode(MacroCode), MacroProperties)]
+
+<!-- HACK: would be nice to set 'applyToSelected' above, but maptool does not allow this during macro creation -->
+[H : setMacroProps(MacroName, "applyToSelected=true;")]
