@@ -96,6 +96,7 @@
 {PowerCard}
 
 <!-- show the attack results -->
+<b>{PowerName} +{AttackBonus}</b><br>
 You use your <b>{Weapon}</b> to attack (<b>{AttackResultOutput}</b>){if(CombatAdvantage == 1, " while having <b>Combat Advantage</b>", "")}.<br>
 {CoverConcealmentOutput}
 You do <b>{DamageResultOutput}</b> points of damage!
