@@ -22,12 +22,12 @@ namespace TokenAssist
             XmlNode xmlNodePowersRoot = xmlDocument.SelectSingleNode("//PowerStats");
 
             // we use this to get the url which contains extra information about each power
-            XmlNode xmlNodeUrlsRoot = xmlDocument.SelectSingleNode("//RulesElementTally");
+            XmlNode xmlNodePowerUrlsRoot = xmlDocument.SelectSingleNode("//RulesElementTally");
 
             foreach (XmlNode xmlNodePower in xmlNodePowersRoot.ChildNodes)
             {
                 Power power = LoadPower(xmlNodePower);
-                power.Url = GetPowerUrl(xmlNodeUrlsRoot, power.Name);
+                power.Url = GetPowerUrl(xmlNodePowerUrlsRoot, power.Name);
 
                 if (power.Url != null)
                 {
@@ -43,6 +43,16 @@ namespace TokenAssist
                 }
 
                 character.Powers.Add(power);
+            }
+
+            // look for all magic items
+            XmlNodeList xmlNodeListMagicItems = xmlDocument.SelectNodes("//LootTally/loot[@count>0]/RulesElement[@type='Magic Item']");
+
+            foreach (XmlNode xmlNodeMagicItem in xmlNodeListMagicItems)
+            {
+                MagicItem magicItem = LoadMagicItem(xmlNodeMagicItem);
+
+                character.MagicItems.Add(magicItem);
             }
 
             return character;
@@ -66,6 +76,21 @@ namespace TokenAssist
             }
 
             return power;
+        }
+
+        private static MagicItem LoadMagicItem(XmlNode xmlNodeMagicItem)
+        {
+            MagicItem magicItem = new MagicItem();
+
+            magicItem.Name = GetAttributeText(xmlNodeMagicItem, "name");
+            magicItem.Url = GetAttributeText(xmlNodeMagicItem, "url");
+
+            if (magicItem.Url != null)
+            {
+                magicItem.CompendiumEntry = CompendiumUtilities.GetEntry(magicItem.Url);
+            }
+
+            return magicItem;
         }
 
         private static Weapon LoadWeapon(XmlNode xmlNodeWeapon)
@@ -117,7 +142,7 @@ namespace TokenAssist
 
             // replace all tags with empty string
             Regex tagsPattern = new Regex("<[^>]*>");
-            return tagsPattern.Replace(result, "");
+            return tagsPattern.Replace(result, "").Trim();
         }
 
         private static bool GetPowerAllowsForMultipleAttacks(string entry)
@@ -150,7 +175,7 @@ namespace TokenAssist
             string damage = GetDescendantNodeText(xmlNodeWeapon, "Damage");
 
             return (damage != null) ? damage : null;
-        }
+        }       
 
         private static string GetDescendantAttributeText(XmlNode xmlNodeParent, string xPath, string attributeName)
         {
