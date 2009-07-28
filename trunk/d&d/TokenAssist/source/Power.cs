@@ -26,11 +26,7 @@ namespace TokenAssist
             ImmediateInterrupt,
             ImmediateReaction,
             Undefined
-        }
-
-        static Power()
-        {
-        }
+        }       
 
         public string Name
         {
