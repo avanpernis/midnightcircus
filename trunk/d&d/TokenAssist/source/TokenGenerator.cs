@@ -42,10 +42,22 @@ namespace TokenAssist
             }
         }
 
+        public static string MagicItemTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.MagicItemTemplate;
+            }
+        }
 
         private static string GetMacroName(Power power)
         {
             return string.Format(@"<b>{0}</b><br>{1} {2}", power.Name, power.Action.ToString(), power.AttackTypeAndRange);
+        }
+
+        private static string GetMacroName(MagicItem magicItem)
+        {
+            return string.Format(@"<b>{0}</b>", magicItem.Name);
         }
 
         private static string GetMacroBackgroundColor(Power.UsageType usageType)
@@ -63,6 +75,11 @@ namespace TokenAssist
             }
         }
 
+        private static string GetMacroBackgroundColor(MagicItem magicItem)
+        {
+            return "orange";
+        }
+
         private static string GetMacroForegroundColor(Power.UsageType usageType)
         {
             switch (usageType)
@@ -75,6 +92,11 @@ namespace TokenAssist
                 default:
                     return null;
             }
+        }
+
+        private static string GetMacroForegroundColor(MagicItem magicItem)
+        {
+            return "black";
         }
 
         private static string GetMacroGroup(Power.UsageType usageType)
@@ -90,6 +112,11 @@ namespace TokenAssist
                 default:
                     return null;
             }
+        }
+
+        private static string GetMacroGroup(MagicItem magicItem)
+        {
+            return "Magic Item";
         }
 
         public static void Dump(Character character, string filename)
@@ -157,24 +184,42 @@ namespace TokenAssist
                         }
                     }
 
-                
+                    macro = FinalizeMacro(macro, GetMacroName(power), GetMacroBackgroundColor(power.Usage), GetMacroForegroundColor(power.Usage), GetMacroGroup(power.Usage));
 
-                    // encode all special characters as proper url supported characters
-                    string encodedMacro = HttpUtility.UrlEncode(macro);
+                    writer.WriteLine(macro);
 
-                    string macroCreation = MacroCreationTemplate;
-                    macroCreation = macroCreation.Replace(@"__MACRO_NAME__", GetMacroName(power));
-                    macroCreation = macroCreation.Replace(@"__MACRO_BACKGROUND_COLOR__", GetMacroBackgroundColor(power.Usage));
-                    macroCreation = macroCreation.Replace(@"__MACRO_FOREGROUND_COLOR__", GetMacroForegroundColor(power.Usage));
-                    macroCreation = macroCreation.Replace(@"__MACRO_GROUP__", GetMacroGroup(power.Usage));
-                    macroCreation = macroCreation.Replace(@"__MACRO_CODE__", encodedMacro);
+                    // separator for readability
+                    writer.WriteLine(@"<!-- ======================================================================= -->");
+                }
 
-                    writer.WriteLine(macroCreation);
+                foreach (MagicItem magicItem in character.MagicItems)
+                {
+                    string macro = MagicItemTemplate;
+                    macro = macro.Replace(@"__MAGIC_ITEM_NAME__", magicItem.Name);
+                    macro = macro.Replace(@"__MAGIC_ITEM_CARD__", (magicItem.CompendiumEntry != null) ? magicItem.CompendiumEntry : string.Empty);
+
+                    macro = FinalizeMacro(macro, GetMacroName(magicItem), GetMacroBackgroundColor(magicItem), GetMacroForegroundColor(magicItem), GetMacroGroup(magicItem));
+
+                    writer.WriteLine(macro);
 
                     // separator for readability
                     writer.WriteLine(@"<!-- ======================================================================= -->");
                 }
             }
+        }
+
+        private static string FinalizeMacro(string macro, string name, string backgroundColor, string foregroundColor, string group)
+        {
+            string macroCreation = MacroCreationTemplate;
+            macroCreation = macroCreation.Replace(@"__MACRO_NAME__", name);
+            macroCreation = macroCreation.Replace(@"__MACRO_BACKGROUND_COLOR__", backgroundColor);
+            macroCreation = macroCreation.Replace(@"__MACRO_FOREGROUND_COLOR__", foregroundColor);
+            macroCreation = macroCreation.Replace(@"__MACRO_GROUP__", group);
+
+            // encode all special characters as proper url supported characters
+            macroCreation = macroCreation.Replace(@"__MACRO_CODE__", HttpUtility.UrlEncode(macro));
+
+            return macroCreation;
         }
     }
 }
