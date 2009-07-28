@@ -1,0 +1,14 @@
+<!-- generic variables that were populated by TokenAssist -->
+[H : MagicItemName = "__MAGIC_ITEM_NAME__"]
+
+<!-- html magic item card, as found in the compendium -->
+[H : MagicItemCard = "__MAGIC_ITEM_CARD__"]
+
+<!-- show the user the magic item they are about to use -->
+[H : InputPrompt = input(MagicItemName + " | <html>" + MagicItemCard + "</html> | | LABEL | SPAN = TRUE")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+
+<!-- show the magic item card to the other players -->
+{MagicItemCard}
