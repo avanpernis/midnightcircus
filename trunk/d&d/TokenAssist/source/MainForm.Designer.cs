@@ -36,16 +36,25 @@
             this.mLabelDestination = new System.Windows.Forms.Label();
             this.mButtonOK = new System.Windows.Forms.Button();
             this.mPanelMain = new System.Windows.Forms.Panel();
+            this.mButtonBrowseDropbox = new System.Windows.Forms.Button();
             this.mStatusStrip = new System.Windows.Forms.StatusStrip();
             this.mProgressBar = new System.Windows.Forms.ProgressBar();
-            this.mButtonBrowseDropbox = new System.Windows.Forms.Button();
+            this.mButtonCancel = new System.Windows.Forms.Button();
+            this.mMenu = new System.Windows.Forms.MenuStrip();
+            this.mMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.mMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.mSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.mPanelMain.SuspendLayout();
+            this.mMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // mLabelSource
             // 
             this.mLabelSource.AutoSize = true;
-            this.mLabelSource.Location = new System.Drawing.Point(12, 14);
+            this.mLabelSource.Location = new System.Drawing.Point(12, 40);
             this.mLabelSource.Name = "mLabelSource";
             this.mLabelSource.Size = new System.Drawing.Size(380, 13);
             this.mLabelSource.TabIndex = 0;
@@ -56,7 +65,7 @@
             // 
             this.mTextBoxSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.mTextBoxSource.Location = new System.Drawing.Point(15, 30);
+            this.mTextBoxSource.Location = new System.Drawing.Point(15, 56);
             this.mTextBoxSource.Name = "mTextBoxSource";
             this.mTextBoxSource.Size = new System.Drawing.Size(415, 20);
             this.mTextBoxSource.TabIndex = 1;
@@ -64,7 +73,7 @@
             // mButtonBrowseSource
             // 
             this.mButtonBrowseSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mButtonBrowseSource.Location = new System.Drawing.Point(436, 21);
+            this.mButtonBrowseSource.Location = new System.Drawing.Point(436, 47);
             this.mButtonBrowseSource.Name = "mButtonBrowseSource";
             this.mButtonBrowseSource.Size = new System.Drawing.Size(30, 20);
             this.mButtonBrowseSource.TabIndex = 2;
@@ -75,7 +84,7 @@
             // mBrowseDestination
             // 
             this.mBrowseDestination.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mBrowseDestination.Location = new System.Drawing.Point(436, 105);
+            this.mBrowseDestination.Location = new System.Drawing.Point(436, 131);
             this.mBrowseDestination.Name = "mBrowseDestination";
             this.mBrowseDestination.Size = new System.Drawing.Size(30, 20);
             this.mBrowseDestination.TabIndex = 5;
@@ -87,7 +96,7 @@
             // 
             this.mTextBoxDestination.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.mTextBoxDestination.Location = new System.Drawing.Point(15, 105);
+            this.mTextBoxDestination.Location = new System.Drawing.Point(15, 131);
             this.mTextBoxDestination.Name = "mTextBoxDestination";
             this.mTextBoxDestination.Size = new System.Drawing.Size(415, 20);
             this.mTextBoxDestination.TabIndex = 4;
@@ -95,7 +104,7 @@
             // mLabelDestination
             // 
             this.mLabelDestination.AutoSize = true;
-            this.mLabelDestination.Location = new System.Drawing.Point(12, 89);
+            this.mLabelDestination.Location = new System.Drawing.Point(12, 115);
             this.mLabelDestination.Name = "mLabelDestination";
             this.mLabelDestination.Size = new System.Drawing.Size(273, 13);
             this.mLabelDestination.TabIndex = 3;
@@ -104,7 +113,7 @@
             // mButtonOK
             // 
             this.mButtonOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.mButtonOK.Location = new System.Drawing.Point(202, 141);
+            this.mButtonOK.Location = new System.Drawing.Point(262, 166);
             this.mButtonOK.Name = "mButtonOK";
             this.mButtonOK.Size = new System.Drawing.Size(75, 23);
             this.mButtonOK.TabIndex = 6;
@@ -114,6 +123,7 @@
             // 
             // mPanelMain
             // 
+            this.mPanelMain.Controls.Add(this.mButtonCancel);
             this.mPanelMain.Controls.Add(this.mButtonBrowseDropbox);
             this.mPanelMain.Controls.Add(this.mLabelSource);
             this.mPanelMain.Controls.Add(this.mTextBoxSource);
@@ -122,15 +132,28 @@
             this.mPanelMain.Controls.Add(this.mTextBoxDestination);
             this.mPanelMain.Controls.Add(this.mBrowseDestination);
             this.mPanelMain.Controls.Add(this.mButtonOK);
+            this.mPanelMain.Controls.Add(this.mMenu);
             this.mPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mPanelMain.Location = new System.Drawing.Point(0, 0);
             this.mPanelMain.Name = "mPanelMain";
-            this.mPanelMain.Size = new System.Drawing.Size(478, 179);
+            this.mPanelMain.Size = new System.Drawing.Size(478, 204);
             this.mPanelMain.TabIndex = 7;
+            // 
+            // mButtonBrowseDropbox
+            // 
+            this.mButtonBrowseDropbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButtonBrowseDropbox.BackgroundImage = global::TokenAssist.Properties.Resources.dropbox;
+            this.mButtonBrowseDropbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.mButtonBrowseDropbox.Location = new System.Drawing.Point(436, 67);
+            this.mButtonBrowseDropbox.Name = "mButtonBrowseDropbox";
+            this.mButtonBrowseDropbox.Size = new System.Drawing.Size(30, 30);
+            this.mButtonBrowseDropbox.TabIndex = 7;
+            this.mButtonBrowseDropbox.UseVisualStyleBackColor = true;
+            this.mButtonBrowseDropbox.Click += new System.EventHandler(this.mButtonBrowseDropbox_Click);
             // 
             // mStatusStrip
             // 
-            this.mStatusStrip.Location = new System.Drawing.Point(0, 179);
+            this.mStatusStrip.Location = new System.Drawing.Point(0, 204);
             this.mStatusStrip.Name = "mStatusStrip";
             this.mStatusStrip.Size = new System.Drawing.Size(478, 22);
             this.mStatusStrip.TabIndex = 0;
@@ -145,30 +168,91 @@
             this.mProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.mProgressBar.TabIndex = 7;
             // 
-            // mButtonBrowseDropbox
+            // mButtonCancel
             // 
-            this.mButtonBrowseDropbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mButtonBrowseDropbox.BackgroundImage = global::TokenAssist.Properties.Resources.dropbox;
-            this.mButtonBrowseDropbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.mButtonBrowseDropbox.Location = new System.Drawing.Point(436, 41);
-            this.mButtonBrowseDropbox.Name = "mButtonBrowseDropbox";
-            this.mButtonBrowseDropbox.Size = new System.Drawing.Size(30, 30);
-            this.mButtonBrowseDropbox.TabIndex = 7;
-            this.mButtonBrowseDropbox.UseVisualStyleBackColor = true;
-            this.mButtonBrowseDropbox.Click += new System.EventHandler(this.mButtonBrowseDropbox_Click);
+            this.mButtonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.mButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.mButtonCancel.Location = new System.Drawing.Point(142, 166);
+            this.mButtonCancel.Name = "mButtonCancel";
+            this.mButtonCancel.Size = new System.Drawing.Size(75, 23);
+            this.mButtonCancel.TabIndex = 8;
+            this.mButtonCancel.Text = "Cancel";
+            this.mButtonCancel.UseVisualStyleBackColor = true;
+            this.mButtonCancel.Click += new System.EventHandler(this.mButtonCancel_Click);
+            // 
+            // mMenu
+            // 
+            this.mMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mMenuItemFile,
+            this.mMenuItemHelp});
+            this.mMenu.Location = new System.Drawing.Point(0, 0);
+            this.mMenu.Name = "mMenu";
+            this.mMenu.Size = new System.Drawing.Size(478, 24);
+            this.mMenu.TabIndex = 9;
+            this.mMenu.Text = "mMenu";
+            // 
+            // mMenuItemFile
+            // 
+            this.mMenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mMenuItemOpen,
+            this.mSeparator1,
+            this.mMenuItemExit});
+            this.mMenuItemFile.Name = "mMenuItemFile";
+            this.mMenuItemFile.Size = new System.Drawing.Size(35, 20);
+            this.mMenuItemFile.Text = "&File";
+            // 
+            // mMenuItemExit
+            // 
+            this.mMenuItemExit.Name = "mMenuItemExit";
+            this.mMenuItemExit.Size = new System.Drawing.Size(152, 22);
+            this.mMenuItemExit.Text = "E&xit";
+            this.mMenuItemExit.Click += new System.EventHandler(this.mMenuItemExit_Click);
+            // 
+            // mMenuItemOpen
+            // 
+            this.mMenuItemOpen.Name = "mMenuItemOpen";
+            this.mMenuItemOpen.Size = new System.Drawing.Size(152, 22);
+            this.mMenuItemOpen.Text = "&Open";
+            this.mMenuItemOpen.Click += new System.EventHandler(this.mMenuItemOpen_Click);
+            // 
+            // mSeparator1
+            // 
+            this.mSeparator1.Name = "mSeparator1";
+            this.mSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // mMenuItemHelp
+            // 
+            this.mMenuItemHelp.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.mMenuItemHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mMenuItemAbout});
+            this.mMenuItemHelp.Name = "mMenuItemHelp";
+            this.mMenuItemHelp.Size = new System.Drawing.Size(40, 20);
+            this.mMenuItemHelp.Text = "&Help";
+            // 
+            // mMenuItemAbout
+            // 
+            this.mMenuItemAbout.Name = "mMenuItemAbout";
+            this.mMenuItemAbout.Size = new System.Drawing.Size(152, 22);
+            this.mMenuItemAbout.Text = "&About";
+            this.mMenuItemAbout.Click += new System.EventHandler(this.mMenuItemAbout_Click);
             // 
             // MainForm
             // 
+            this.AcceptButton = this.mButtonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 201);
+            this.CancelButton = this.mButtonCancel;
+            this.ClientSize = new System.Drawing.Size(478, 226);
             this.Controls.Add(this.mPanelMain);
             this.Controls.Add(this.mProgressBar);
             this.Controls.Add(this.mStatusStrip);
+            this.MainMenuStrip = this.mMenu;
             this.Name = "MainForm";
             this.Text = "TokenAssist";
             this.mPanelMain.ResumeLayout(false);
             this.mPanelMain.PerformLayout();
+            this.mMenu.ResumeLayout(false);
+            this.mMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -187,6 +271,14 @@
         private System.Windows.Forms.StatusStrip mStatusStrip;
         private System.Windows.Forms.ProgressBar mProgressBar;
         private System.Windows.Forms.Button mButtonBrowseDropbox;
+        private System.Windows.Forms.Button mButtonCancel;
+        private System.Windows.Forms.MenuStrip mMenu;
+        private System.Windows.Forms.ToolStripMenuItem mMenuItemFile;
+        private System.Windows.Forms.ToolStripMenuItem mMenuItemExit;
+        private System.Windows.Forms.ToolStripMenuItem mMenuItemOpen;
+        private System.Windows.Forms.ToolStripSeparator mSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem mMenuItemHelp;
+        private System.Windows.Forms.ToolStripMenuItem mMenuItemAbout;
     }
 }
 
