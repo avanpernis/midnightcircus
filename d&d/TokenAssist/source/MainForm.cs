@@ -41,7 +41,7 @@ namespace TokenAssist
             }
         }
 
-        private void mButtonBrowseSource_Click(object sender, EventArgs e)
+        private void BrowseForSourceFile()
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = Dnd4eFileFilter;
@@ -49,6 +49,26 @@ namespace TokenAssist
             {
                 mTextBoxSource.Text = dialog.FileName;
             }
+        }
+
+        private void mMenuItemOpen_Click(object sender, EventArgs e)
+        {
+            BrowseForSourceFile();
+        }
+
+        private void mMenuItemExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void mMenuItemAbout_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(@"TokenAssist (Midnight Circus)", this.Text);
+        }
+
+        private void mButtonBrowseSource_Click(object sender, EventArgs e)
+        {
+            BrowseForSourceFile();
         }
 
         private void mButtonBrowseDropbox_Click(object sender, EventArgs e)
@@ -76,6 +96,11 @@ namespace TokenAssist
             {
                 mTextBoxDestination.Text = dialog.SelectedPath;
             }
+        }
+
+        private void mButtonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void mButtonOK_Click(object sender, EventArgs e)
