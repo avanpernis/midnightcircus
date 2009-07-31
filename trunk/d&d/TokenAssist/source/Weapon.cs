@@ -49,9 +49,16 @@ namespace TokenAssist
             }
         }
 
+        public string CriticalDamage
+        {
+            get { return mCriticalDamage; }
+            set { mCriticalDamage = value; }
+        }
+
         private string mName = string.Empty;
         private int mAttackBonus = int.MinValue;
         private string mDamage = null;
         private string mMaxDamage = null;
+        private string mCriticalDamage = null;
     }
 }

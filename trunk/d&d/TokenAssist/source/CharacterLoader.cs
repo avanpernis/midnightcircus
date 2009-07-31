@@ -100,6 +100,7 @@ namespace TokenAssist
             weapon.Name = GetAttributeText(xmlNodeWeapon, "name");
             weapon.AttackBonus = GetWeaponAttackBonus(xmlNodeWeapon);
             weapon.Damage = GetWeaponDamage(xmlNodeWeapon);
+            weapon.CriticalDamage = GetWeaponCriticalDamage(xmlNodeWeapon);
 
             return weapon;
         }
@@ -175,7 +176,31 @@ namespace TokenAssist
             string damage = GetDescendantNodeText(xmlNodeWeapon, "Damage");
 
             return (damage != null) ? damage : null;
-        }       
+        }
+
+        private static string GetWeaponCriticalDamage(XmlNode xmlNodeWeapon)
+        {
+            // get the url for the magic weapon
+            string url = GetDescendantAttributeText(xmlNodeWeapon, "RulesElement[@type='Magic Item']", "url");
+
+            if (url == null)
+            {
+                // not a magic weapon, so no critical damage
+                return "0";
+            }
+
+            string compendiumEntry = CompendiumUtilities.GetEntry(url);
+
+            if (compendiumEntry == null)
+            {
+                return "0";
+            }
+
+            Regex criticalPattern = new Regex(@"<b>Critical</b>:\s*([^\s]*)");
+            Match match = criticalPattern.Match(compendiumEntry);
+
+            return match.Success ? match.Groups[1].Value : "0";
+        }
 
         private static string GetDescendantAttributeText(XmlNode xmlNodeParent, string xPath, string attributeName)
         {

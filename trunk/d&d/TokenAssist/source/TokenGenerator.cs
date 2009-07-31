@@ -145,6 +145,7 @@ namespace TokenAssist
                         string attackBonusList = string.Empty;
                         string damageList = string.Empty;
                         string maxDamageList = string.Empty;
+                        string criticalDamageList = string.Empty;
 
                         foreach (Weapon weapon in power.Weapons)
                         {
@@ -152,6 +153,7 @@ namespace TokenAssist
                             attackBonusList += (attackBonusList.Length == 0) ? weapon.AttackBonus.ToString() : string.Format(", {0}", weapon.AttackBonus);
                             damageList += (damageList.Length == 0) ? weapon.Damage : string.Format(", {0}", weapon.Damage);
                             maxDamageList += (maxDamageList.Length == 0) ? weapon.MaxDamage : string.Format(", {0}", weapon.MaxDamage);
+                            criticalDamageList += (criticalDamageList.Length == 0) ? weapon.CriticalDamage : string.Format(", {0}", weapon.CriticalDamage);
                         }
 
                         macro = WeaponTemplate;
@@ -160,6 +162,7 @@ namespace TokenAssist
                         macro = macro.Replace(@"__ATTACK_BONUS_LIST__", attackBonusList);
                         macro = macro.Replace(@"__DAMAGE_LIST__", damageList);
                         macro = macro.Replace(@"__MAX_DAMAGE_LIST__", maxDamageList);
+                        macro = macro.Replace(@"__CRITICAL_DAMAGE_LIST__", criticalDamageList);
                         macro = macro.Replace(@"__MULTIPLE_TARGETS__", power.AllowsForMultipleAttacks ? "1" : "0");
                         macro = macro.Replace(@"__POWER_CARD__", (power.CompendiumEntry != null) ? power.CompendiumEntry : string.Empty);
                     }

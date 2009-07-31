@@ -10,15 +10,17 @@ Powers on Magic Items
 Character Token Image and Portrait image
 Trim PC Token properties
 Set character properties (HP, #HS, etc.)
-Cache info from WotC for future use
 create NPC version for Bad Guys
 Duplicate / adapt needed Library macros (Healing, Damage, Action Points, etc)
 Initiative macro
+Feat List using live compendium entries
+Consumable Magic Items (Potions etc)
+Character override files (eg. Rogosh has a feat that makes his Font of Life power different from the norm)
 
 
 
 In Development:
-Extra crit Damage from Magic weapons - Brian
+Cache info from WotC for future use - Dan
 Skill and Ability checks - Ben
 
 
@@ -28,3 +30,4 @@ Macros created
 Macros sorted by Usage (At-Will, Encounter, Daily)
 Limited usage code implemented
 Magic Items listed
+Extra crit Damage from Magic weapons
