@@ -101,6 +101,8 @@ namespace TokenAssist
             weapon.AttackBonus = GetWeaponAttackBonus(xmlNodeWeapon);
             weapon.Damage = GetWeaponDamage(xmlNodeWeapon);
             weapon.CriticalDamage = GetWeaponCriticalDamage(xmlNodeWeapon);
+            weapon.AttackStat = GetWeaponAttackStat(xmlNodeWeapon);
+            weapon.Defense = GetWeaponDefense(xmlNodeWeapon);
 
             return weapon;
         }
@@ -200,6 +202,20 @@ namespace TokenAssist
             Match match = criticalPattern.Match(compendiumEntry);
 
             return match.Success ? match.Groups[1].Value : "0";
+        }
+
+        private static Weapon.AttackStatType GetWeaponAttackStat(XmlNode xmlNodeWeapon)
+        {
+            string attackStat = GetDescendantNodeText(xmlNodeWeapon, "AttackStat");
+
+            return (attackStat != null) ? (Weapon.AttackStatType)Enum.Parse(typeof(Weapon.AttackStatType), attackStat) : Weapon.AttackStatType.Undefined;
+        }
+
+        private static Weapon.DefenseType GetWeaponDefense(XmlNode xmlNodeWeapon)
+        {
+            string defense = GetDescendantNodeText(xmlNodeWeapon, "Defense");
+
+            return (defense != null) ? (Weapon.DefenseType)Enum.Parse(typeof(Weapon.DefenseType), defense) : Weapon.DefenseType.Undefined;
         }
 
         private static string GetDescendantAttributeText(XmlNode xmlNodeParent, string xPath, string attributeName)
