@@ -146,6 +146,8 @@ namespace TokenAssist
                         string damageList = string.Empty;
                         string maxDamageList = string.Empty;
                         string criticalDamageList = string.Empty;
+                        string attackStatList = string.Empty;
+                        string defenseList = string.Empty;
 
                         foreach (Weapon weapon in power.Weapons)
                         {
@@ -154,6 +156,8 @@ namespace TokenAssist
                             damageList += (damageList.Length == 0) ? weapon.Damage : string.Format(", {0}", weapon.Damage);
                             maxDamageList += (maxDamageList.Length == 0) ? weapon.MaxDamage : string.Format(", {0}", weapon.MaxDamage);
                             criticalDamageList += (criticalDamageList.Length == 0) ? weapon.CriticalDamage : string.Format(", {0}", weapon.CriticalDamage);
+                            attackStatList += (attackStatList.Length == 0) ? weapon.AttackStat.ToString() : string.Format(", {0}", weapon.AttackStat.ToString());
+                            defenseList += (defenseList.Length == 0) ? weapon.Defense.ToString() : string.Format(", {0}", weapon.Defense.ToString());
                         }
 
                         macro = WeaponTemplate;
@@ -163,6 +167,8 @@ namespace TokenAssist
                         macro = macro.Replace(@"__DAMAGE_LIST__", damageList);
                         macro = macro.Replace(@"__MAX_DAMAGE_LIST__", maxDamageList);
                         macro = macro.Replace(@"__CRITICAL_DAMAGE_LIST__", criticalDamageList);
+                        macro = macro.Replace(@"__ATTACK_STAT_LIST__", attackStatList);
+                        macro = macro.Replace(@"__DEFENSE_LIST__", defenseList);
                         macro = macro.Replace(@"__MULTIPLE_TARGETS__", power.AllowsForMultipleAttacks ? "1" : "0");
                         macro = macro.Replace(@"__POWER_CARD__", (power.CompendiumEntry != null) ? power.CompendiumEntry : string.Empty);
                     }

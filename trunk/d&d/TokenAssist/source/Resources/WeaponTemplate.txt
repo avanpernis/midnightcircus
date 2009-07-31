@@ -5,6 +5,8 @@
 [H : DamageList = "__DAMAGE_LIST__"]
 [H : MaxDamageList = "__MAX_DAMAGE_LIST__"]
 [H : CriticalDamageList = "__CRITICAL_DAMAGE_LIST__"]
+[H : AttackStatList = "__ATTACK_STAT_LIST__"]
+[H : DefenseList = "__DEFENSE_LIST__"]
 [H : MultipleTargets = __MULTIPLE_TARGETS__]
 
 <!-- html power card, as found in the compendium -->
@@ -44,6 +46,8 @@
 [H : Damage = listGet(DamageList, WeaponChoice)]
 [H : MaxDamage = listGet(MaxDamageList, WeaponChoice)]
 [H : CriticalDamage = listGet(CriticalDamageList, WeaponChoice)]
+[H : AttackStat = listGet(AttackStatList, WeaponChoice)]
+[H : Defense = listGet(DefenseList, WeaponChoice)]
 
 <!-- attack rolls -->
 [H : AttackRolls = ""]
@@ -98,7 +102,7 @@
 {PowerCard}
 
 <!-- show the attack results -->
-<b>{PowerName} +{AttackBonus}</b><br>
+{PowerName} <b>+{AttackBonus} {AttackStat} vs {Defense}</b><br>
 You use your <b>{Weapon}</b> to attack (<b>{AttackResultOutput}</b>){if(CombatAdvantage == 1, " while having <b>Combat Advantage</b>", "")}.<br>
 {CoverConcealmentOutput}
 You do <b>{DamageResultOutput}</b> points of damage!
