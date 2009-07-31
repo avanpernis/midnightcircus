@@ -42,6 +42,14 @@ namespace TokenAssist
             }
         }
 
+        public static string FeatTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.FeatTemplate;
+            }
+        }
+
         public static string MagicItemTemplate
         {
             get
@@ -53,6 +61,11 @@ namespace TokenAssist
         private static string GetMacroName(Power power)
         {
             return string.Format(@"<b>{0}</b><br>{1} {2}", power.Name, power.Action.ToString(), power.AttackTypeAndRange);
+        }
+
+        private static string GetMacroName(Feat feat)
+        {
+            return string.Format(@"<b>{0}</b>", feat.Name);
         }
 
         private static string GetMacroName(MagicItem magicItem)
@@ -75,6 +88,11 @@ namespace TokenAssist
             }
         }
 
+        private static string GetMacroBackgroundColor(Feat feat)
+        {
+            return "blue";
+        }
+
         private static string GetMacroBackgroundColor(MagicItem magicItem)
         {
             return "orange";
@@ -92,6 +110,11 @@ namespace TokenAssist
                 default:
                     return null;
             }
+        }
+
+        private static string GetMacroForegroundColor(Feat feat)
+        {
+            return "white";
         }
 
         private static string GetMacroForegroundColor(MagicItem magicItem)
@@ -112,6 +135,11 @@ namespace TokenAssist
                 default:
                     return null;
             }
+        }
+
+        private static string GetMacroGroup(Feat feat)
+        {
+            return "Feat";
         }
 
         private static string GetMacroGroup(MagicItem magicItem)
@@ -194,6 +222,20 @@ namespace TokenAssist
                     }
 
                     macro = FinalizeMacro(macro, GetMacroName(power), GetMacroBackgroundColor(power.Usage), GetMacroForegroundColor(power.Usage), GetMacroGroup(power.Usage));
+
+                    writer.WriteLine(macro);
+
+                    // separator for readability
+                    writer.WriteLine(@"<!-- ======================================================================= -->");
+                }
+
+                foreach (Feat feat in character.Feats)
+                {
+                    string macro = FeatTemplate;
+                    macro = macro.Replace(@"__FEAT_NAME__", feat.Name);
+                    macro = macro.Replace(@"__FEAT_CARD__", (feat.CompendiumEntry != null) ? feat.CompendiumEntry : string.Empty);
+
+                    macro = FinalizeMacro(macro, GetMacroName(feat), GetMacroBackgroundColor(feat), GetMacroForegroundColor(feat), GetMacroGroup(feat));
 
                     writer.WriteLine(macro);
 

@@ -13,7 +13,6 @@ Set character properties (HP, #HS, etc.)
 create NPC version for Bad Guys
 Duplicate / adapt needed Library macros (Healing, Damage, Action Points, etc)
 Initiative macro
-Feat List using live compendium entries
 Consumable Magic Items (Potions etc)
 Character override files (eg. Rogosh has a feat that makes his Font of Life power different from the norm)
 
@@ -32,3 +31,4 @@ Macros sorted by Usage (At-Will, Encounter, Daily)
 Limited usage code implemented
 Magic Items listed
 Extra crit Damage from Magic weapons
+Feat List

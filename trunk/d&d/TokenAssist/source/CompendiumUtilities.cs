@@ -81,6 +81,7 @@ namespace TokenAssist
                 results = results.Replace(@"<h1 class=""atwillpower""", @"<h1 style=""font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;""");
                 results = results.Replace(@"<h1 class=""encounterpower""", @"<h1 style=""font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #961334;""");
                 results = results.Replace(@"<h1 class=""dailypower""", @"<h1 style=""font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #4d4d4f;""");
+                results = results.Replace(@"<h1 class=""player""", @"<h1 style=""font-size: 1.35em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #1d3d5e;""");
                 results = results.Replace(@"<h1 class=""magicitem""", @"<h1 style=""font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #d8941d;""");
                 results = results.Replace(@"<p class=""flavor""", @"<p style=""padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;""");
                 results = results.Replace(@"<p class=""powerstat""", @"<p style=""padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;""");               
