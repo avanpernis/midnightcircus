@@ -21,6 +21,7 @@ Character override files (eg. Rogosh has a feat that makes his Font of Life powe
 
 In Development:
 Cache info from WotC for future use - Dan
+Cache the authentication cookies - Dan
 Skill and Ability checks - Ben
 
 
