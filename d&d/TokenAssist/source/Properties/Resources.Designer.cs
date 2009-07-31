@@ -68,6 +68,28 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
+        ///[H : FeatName = &quot;__FEAT_NAME__&quot;]
+        ///
+        ///&lt;!-- html feat card, as found in the compendium --&gt;
+        ///[H : FeatCard = &quot;__FEAT_CARD__&quot;]
+        ///
+        ///&lt;!-- show the user the feat they have selected --&gt;
+        ///[H : InputPrompt = input(FeatName + &quot; | &lt;html&gt;&quot; + FeatCard + &quot;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;)]
+        ///
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPrompt)]
+        ///
+        ///&lt;!-- show the feat to the other players --&gt;
+        ///{FeatCard}.
+        /// </summary>
+        internal static string FeatTemplate {
+            get {
+                return ResourceManager.GetString("FeatTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!-- The Power ID is a list of numbers that identify the power. A Unique number is required for each use of the power. No power should use a number that is part of another Power&apos;s List unless their usage is tied together like Cleric&apos;s Channel Divinity powers --&gt;
         ///[H:CurrentPowerID=&quot;__POWER_ID__&quot;]
         ///[H:CurrentPowerUses=listCount(&quot;&quot;+CurrentPowerID)]
@@ -150,13 +172,12 @@ namespace TokenAssist.Properties {
         ///[H : AttackBonusList = &quot;__ATTACK_BONUS_LIST__&quot;]
         ///[H : DamageList = &quot;__DAMAGE_LIST__&quot;]
         ///[H : MaxDamageList = &quot;__MAX_DAMAGE_LIST__&quot;]
+        ///[H : CriticalDamageList = &quot;__CRITICAL_DAMAGE_LIST__&quot;]
+        ///[H : AttackStatList = &quot;__ATTACK_STAT_LIST__&quot;]
+        ///[H : DefenseList = &quot;__DEFENSE_LIST__&quot;]
         ///[H : MultipleTargets = __MULTIPLE_TARGETS__]
         ///
-        ///&lt;!-- html power card, as found in the compendium --&gt;
-        ///[H : PowerCard = &quot;__POWER_CARD__&quot;]
-        ///
-        ///&lt;!-- retrieve previously stored values --&gt;
-        ///[H : WeaponChoice = getStrProp(CombatStatus, &quot;LastWeaponCho [rest of string was truncated]&quot;;.
+        ///&lt;!-- html power card, as found in the compendium --&gt;        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string WeaponTemplate {
             get {

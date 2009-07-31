@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="CompendiumUtilities.cs" />
     <Compile Include="Dropbox.cs" />
+    <Compile Include="Feat.cs" />
     <Compile Include="MagicItem.cs" />
     <Compile Include="Power.cs" />
     <Compile Include="MainForm.cs">
@@ -121,6 +122,7 @@
     <None Include="Resources\MacroCreationTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\FeatTemplate.txt" />
     <Content Include="Resources\LimitedUseTemplate.txt" />
     <Content Include="Resources\MagicItemTemplate.txt" />
   </ItemGroup>

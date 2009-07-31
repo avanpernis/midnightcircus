@@ -19,6 +19,12 @@ namespace TokenAssist
             set { mPowers = value; }
         }
 
+        public List<Feat> Feats
+        {
+            get { return mFeats; }
+            set { mFeats = value; }
+        }
+
         public List<MagicItem> MagicItems
         {
             get { return mMagicItems; }
@@ -27,6 +33,7 @@ namespace TokenAssist
 
         private string mName = string.Empty;
         private List<Power> mPowers = new List<Power>();
+        private List<Feat> mFeats = new List<Feat>();
         private List<MagicItem> mMagicItems = new List<MagicItem>();
     }
 }

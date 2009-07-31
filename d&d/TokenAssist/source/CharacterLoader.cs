@@ -19,15 +19,16 @@ namespace TokenAssist
             XmlNode xmlNodeDetails = xmlDocument.SelectSingleNode("//Details");
             character.Name = GetDescendantNodeText(xmlNodeDetails, "name");
 
-            XmlNode xmlNodePowersRoot = xmlDocument.SelectSingleNode("//PowerStats");
+            // we use this to get the url information for powers and feats
+            XmlNode xmlNodeUrlsRoot = xmlDocument.SelectSingleNode("//RulesElementTally");
 
-            // we use this to get the url which contains extra information about each power
-            XmlNode xmlNodePowerUrlsRoot = xmlDocument.SelectSingleNode("//RulesElementTally");
+            // look for all powers
+            XmlNode xmlNodePowersRoot = xmlDocument.SelectSingleNode("//PowerStats");
 
             foreach (XmlNode xmlNodePower in xmlNodePowersRoot.ChildNodes)
             {
                 Power power = LoadPower(xmlNodePower);
-                power.Url = GetPowerUrl(xmlNodePowerUrlsRoot, power.Name);
+                power.Url = GetPowerUrl(xmlNodeUrlsRoot, power.Name);
 
                 if (power.Url != null)
                 {
@@ -43,6 +44,16 @@ namespace TokenAssist
                 }
 
                 character.Powers.Add(power);
+            }
+
+            // look for all feats
+            XmlNodeList xmlNodeListFeats = xmlNodeUrlsRoot.SelectNodes("RulesElement[@type='Feat']");
+
+            foreach (XmlNode xmlnodeFeat in xmlNodeListFeats)
+            {
+                Feat feat = LoadFeat(xmlnodeFeat);
+
+                character.Feats.Add(feat);
             }
 
             // look for all magic items
@@ -76,6 +87,23 @@ namespace TokenAssist
             }
 
             return power;
+        }
+
+        private static Feat LoadFeat(XmlNode xmlNodeFeat)
+        {
+            Feat feat = new Feat();
+
+            feat.Name = GetAttributeText(xmlNodeFeat, "name");
+            feat.Url = GetAttributeText(xmlNodeFeat, "url");
+
+            if (feat.Url != null)
+            {
+                feat.CompendiumEntry = CompendiumUtilities.GetEntry(feat.Url);
+            }
+
+            feat.ShortDescription = GetDescendantNodeText(xmlNodeFeat, "specific[@name='Short Description']");
+
+            return feat;
         }
 
         private static MagicItem LoadMagicItem(XmlNode xmlNodeMagicItem)
