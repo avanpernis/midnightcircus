@@ -6,22 +6,24 @@ Please feel free to add desired or possible features to the To Do list.  If you'
 7/30/2009 *** The To Do list isn't sorted currently.  Let's just brainstorm possible features right now. ***
 
 To Do:
-Powers on Magic Items
 Character Token Image and Portrait image
 Trim PC Token properties
 Set character properties (HP, #HS, etc.)
 create NPC version for Bad Guys
 Duplicate / adapt needed Library macros (Healing, Damage, Action Points, etc)
 Initiative macro
-Consumable Magic Items (Potions etc)
 Character override files (eg. Rogosh has a feat that makes his Font of Life power different from the norm)
-
+Make the Ranger work:
+  1) beast powers dont seem to work properly
+  2) dual attack powers (like twin strike)
 
 
 In Development:
 Cache info from WotC for future use - Dan
 Cache the authentication cookies - Dan
 Skill and Ability checks - Ben
+Consumable Magic Items (Potions etc) - Brian
+Powers on Magic Items - Brian
 
 
 Completed:
