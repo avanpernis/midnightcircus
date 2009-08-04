@@ -6,6 +6,8 @@ Please feel free to add desired or possible features to the To Do list.  If you'
 7/30/2009 *** The To Do list isn't sorted currently.  Let's just brainstorm possible features right now. ***
 
 To Do:
+
+Make the Ranger work!  (Ranged/Melee modal powers)
 Character Token Image and Portrait image
 Trim PC Token properties
 Set character properties (HP, #HS, etc.)
