@@ -116,6 +116,12 @@ namespace TokenAssist
             if (magicItem.Url != null)
             {
                 magicItem.CompendiumEntry = CompendiumUtilities.GetEntry(magicItem.Url);
+
+                if (magicItem.CompendiumEntry != null)
+                {
+                    // see if this magic item has a power
+                    GetMagicItemPower(magicItem);
+                }
             }
 
             return magicItem;
@@ -146,10 +152,8 @@ namespace TokenAssist
         private static Power.ActionType GetPowerAction(XmlNode xmlNodePower)
         {
             string action = GetDescendantNodeText(xmlNodePower, "specific[@name='Action Type']");
-            action = action.Replace("Action", ""); // remove "Action" suffix so that we can enum parse for 'free', 'minor', 'move', and 'standard
-            action = action.Replace(" ", ""); // remove spaces so that we can enum parse for 'immediate interrupt' and 'immediate reaction'
 
-            return (action != null) ? (Power.ActionType)Enum.Parse(typeof(Power.ActionType), action) : Power.ActionType.Undefined;
+            return GetAction(action);
         }
 
         private static string GetPowerUrl(XmlNode xmlNodeUrls, string name)
@@ -243,7 +247,44 @@ namespace TokenAssist
         {
             string defense = GetDescendantNodeText(xmlNodeWeapon, "Defense");
 
-            return (defense != null) ? (Weapon.DefenseType)Enum.Parse(typeof(Weapon.DefenseType), defense) : Weapon.DefenseType.Undefined;
+            if (defense != null)
+            {
+                Regex wordPattern = new Regex(@"\w+");
+                Match match = wordPattern.Match(defense);
+
+                if (match.Success)
+                {
+                    defense = match.Groups[0].Value;
+                }
+
+                return (Weapon.DefenseType)Enum.Parse(typeof(Weapon.DefenseType), defense);
+            }
+
+            return Weapon.DefenseType.Undefined;
+        }
+
+        private static void GetMagicItemPower(MagicItem magicItem)
+        {
+            Regex powerPattern = new Regex(@"Power\s*\(([^)/]*)[^)]*\):\s*([^.]*)");
+            Match match = powerPattern.Match(magicItem.CompendiumEntry);
+
+            // this magic item may have a power -- if so, figure out its usage and action types
+            if (match.Success)
+            {
+                string usage = match.Groups[1].Value.Trim();
+                usage = usage.Replace("-", ""); // remove the hyphen so that we can enum parse for 'at-will'
+                usage = usage.Replace(" ", ""); // remove spaces so that we can enum parse for 'healing surge'
+                magicItem.PowerUsage = (MagicItem.PowerUsageType)Enum.Parse(typeof(MagicItem.PowerUsageType), usage);
+                magicItem.PowerAction = GetAction(match.Groups[2].Value.Trim());               
+            }
+        }
+
+        private static Power.ActionType GetAction(string action)
+        {
+            action = action.Replace("Action", ""); // remove "Action" suffix so that we can enum parse for 'free', 'minor', 'move', and 'standard
+            action = action.Replace(" ", ""); // remove spaces so that we can enum parse for 'immediate interrupt' and 'immediate reaction'
+
+            return (Power.ActionType)Enum.Parse(typeof(Power.ActionType), action);
         }
 
         private static string GetDescendantAttributeText(XmlNode xmlNodeParent, string xPath, string attributeName)

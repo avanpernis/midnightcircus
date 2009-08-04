@@ -70,7 +70,14 @@ namespace TokenAssist
 
         private static string GetMacroName(MagicItem magicItem)
         {
-            return string.Format(@"<b>{0}</b>", magicItem.Name);
+            string macroName = string.Format(@"<b>{0}</b>", magicItem.Name);
+
+            if (magicItem.HasPower)
+            {
+                macroName += string.Format("<br>{0}", magicItem.PowerAction.ToString());
+            }
+
+            return macroName;
         }
 
         private static string GetMacroBackgroundColor(Power.UsageType usageType)
@@ -147,12 +154,32 @@ namespace TokenAssist
             return "Magic Item";
         }
 
+        private static string GetMacroGroup(MagicItem.PowerUsageType usageType)
+        {
+            switch (usageType)
+            {
+                case MagicItem.PowerUsageType.AtWill:
+                    return "At-Will";
+                case MagicItem.PowerUsageType.Encounter:
+                    return "Encounter";
+                case MagicItem.PowerUsageType.Daily:
+                    return "Daily";
+                case MagicItem.PowerUsageType.HealingSurge:
+                    return "Healing-Surge";
+                case MagicItem.PowerUsageType.Consumable:
+                    return "Consumable";
+                default:
+                    return null;
+            }
+        }
+
         public static void Dump(Character character, string filename)
         {
             using (StreamWriter writer = new StreamWriter(filename))
             {
                 int EncounterPowerCount = 0; // Keep track of Encounter Power IDs
                 int DailyPowerCount = 0; // Keep track of Daily Power IDs
+
                 foreach (Power power in character.Powers)
                 {
                     string macro = null;
@@ -255,6 +282,40 @@ namespace TokenAssist
 
                     // separator for readability
                     writer.WriteLine(@"<!-- ======================================================================= -->");
+
+                    if (magicItem.HasPower)
+                    {
+                        // create a separate macro for the power usage in the appropriate power macro group
+                        macro = NoWeaponTemplate;
+
+                        macro = macro.Replace(@"__POWER_NAME__", magicItem.Name);
+                        macro = macro.Replace(@"__POWER_CARD__", (magicItem.CompendiumEntry != null) ? magicItem.CompendiumEntry : string.Empty);
+
+                        if (magicItem.PowerUsage == MagicItem.PowerUsageType.Encounter || magicItem.PowerUsage == MagicItem.PowerUsageType.Daily)
+                        {
+                            string tempMacro = LimitedUse;
+                            macro = tempMacro.Replace(@"__MACRO_TEXT__", macro);
+                            macro = macro.Replace(@"__MACRO_NAME__", GetMacroName(magicItem));
+                            switch (magicItem.PowerUsage)
+                            {
+                                case MagicItem.PowerUsageType.Encounter:
+                                    macro = macro.Replace(@"__POWER_ID__", string.Format("{0}", EncounterPowerCount++));
+                                    macro = macro.Replace(@"__USAGE_TYPE__", "Encounter");
+                                    break;
+                                case MagicItem.PowerUsageType.Daily:
+                                    macro = macro.Replace(@"__POWER_ID__", string.Format("{0}", DailyPowerCount++));
+                                    macro = macro.Replace(@"__USAGE_TYPE__", "Daily");
+                                    break;
+                            }
+                        }
+
+                        macro = FinalizeMacro(macro, GetMacroName(magicItem), GetMacroBackgroundColor(magicItem), GetMacroForegroundColor(magicItem), GetMacroGroup(magicItem.PowerUsage));
+
+                        writer.WriteLine(macro);
+
+                        // separator for readability
+                        writer.WriteLine(@"<!-- ======================================================================= -->");
+                    }
                 }
             }
         }

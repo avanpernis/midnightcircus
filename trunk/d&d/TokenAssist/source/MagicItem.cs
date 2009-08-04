@@ -8,6 +8,16 @@ namespace TokenAssist
 {
     public class MagicItem
     {
+        public enum PowerUsageType
+        {
+            AtWill,
+            Encounter,
+            Daily,
+            HealingSurge,
+            Consumable,
+            Undefined
+        }
+
         public string Name
         {
             get { return mName; }
@@ -26,8 +36,27 @@ namespace TokenAssist
             set { mCompendiumEntry = value; }
         }
 
+        public PowerUsageType PowerUsage
+        {
+            get { return mPowerUsage; }
+            set { mPowerUsage = value; }
+        }
+
+        public Power.ActionType PowerAction
+        {
+            get { return mPowerAction; }
+            set { mPowerAction = value; }
+        }
+
+        public bool HasPower
+        {
+            get { return (PowerUsage != PowerUsageType.Undefined) && (PowerAction != Power.ActionType.Undefined); }
+        }
+
         private string mName = string.Empty;
         private string mUrl = null;
         private string mCompendiumEntry = null;
+        private PowerUsageType mPowerUsage = PowerUsageType.Undefined;
+        private Power.ActionType mPowerAction = Power.ActionType.Undefined;
     }
 }
