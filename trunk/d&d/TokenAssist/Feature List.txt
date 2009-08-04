@@ -7,7 +7,6 @@ Please feel free to add desired or possible features to the To Do list.  If you'
 
 To Do:
 
-Make the Ranger work!  (Ranged/Melee modal powers)
 Character Token Image and Portrait image
 Trim PC Token properties
 Set character properties (HP, #HS, etc.)
@@ -18,6 +17,7 @@ Character override files (eg. Rogosh has a feat that makes his Font of Life powe
 Make the Ranger work:
   1) beast powers dont seem to work properly
   2) dual attack powers (like twin strike)
+  3) Ranged/Melee modal powers
 
 
 In Development:
