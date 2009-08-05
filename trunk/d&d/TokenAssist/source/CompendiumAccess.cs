@@ -12,24 +12,68 @@ namespace TokenAssist
     public sealed class CompendiumAccess
     {
         private const string loginUrl = @"http://www.wizards.com/dndinsider/compendium/login.aspx?page=power&id=5093";
+        private const string checkUrl = @"http://www.wizards.com/dndinsider/compendium/power.aspx?id=5093";
         private const string validateText = @"First published in";
 
+        private const string cookieFilename = "cookies.dat";
+        private static readonly Uri sCompendiumUri = new UriBuilder("http", "www.wizards.com").Uri;
+        
         private static CookieContainer mSessionCookies = null;
 
-        private static bool mConnected = false;
+        private static bool? mConnected = null;
         public static bool Connected
         {
             get
             {
-                return mConnected;
+                // if we are undecided, go ahead and try
+                if (mConnected == null)
+                {
+                    CompendiumAccess.Instance.CheckAccess();
+                }
+
+                return (mConnected == true) ? true : false;
             }
         }
 
-
-        public bool Login(string user, string password)
+        public CompendiumAccess()
         {
             System.Net.ServicePointManager.Expect100Continue = false;
+        }
 
+
+        /// <summary>
+        /// Check if we have compendium access using the currently stored cookies.
+        /// Updates the connected property with the result as well
+        /// </summary>
+        public bool CheckAccess()
+        {
+            mConnected = false;
+
+            // if we have no cookies, we can't very well be logged in
+            if (mSessionCookies == null)
+            {
+                return false;
+            }
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(checkUrl);
+            request.CookieContainer = mSessionCookies;
+
+            string responseFromServer = GetUrl(request);
+            if (responseFromServer.Contains(validateText))
+            {
+                mConnected = true;
+            }
+            
+            return (mConnected == true) ? true : false;;
+        }
+
+
+        /// <summary>
+        /// Attempt to login to the compendium
+        /// *NOTE* This will throw out any existing authentication cookies you had
+        /// </summary>
+        public bool Login(string user, string password)
+        {
             mSessionCookies = new CookieContainer();
             mConnected = false;
 
@@ -100,11 +144,14 @@ namespace TokenAssist
             responseFromServer = GetUrl(request);
 
             if (responseFromServer.Contains(validateText))
+            {
                 mConnected = true;
+                SaveCookies();
+            }
 
-            return mConnected;
+            return (mConnected == true) ? true : false;
         }
-
+        
         public string GetUrl(string url)
         {
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
@@ -159,6 +206,51 @@ namespace TokenAssist
             } while ((hops <= maxRedirects) && (!foundIt));
 
             return result;
+        }
+
+
+        /// <summary>
+        /// Save the current cookies to a local file
+        /// </summary>
+        public void SaveCookies()
+        {
+            using (StreamWriter writer = new StreamWriter(cookieFilename))
+            {
+                foreach (Cookie c in mSessionCookies.GetCookies(sCompendiumUri))
+                {
+                    writer.WriteLine(c.ToString());
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Load the current cookies from the local store
+        /// </summary>
+        public void ReadCookies()
+        {
+            mSessionCookies = new CookieContainer();
+
+            try
+            {
+                using (StreamReader reader = new StreamReader(cookieFilename))
+                {
+                    string line = null;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        string[] items = line.Split('=');
+                        if (items.Length == 2)
+                        {
+                            Cookie newCookie = new Cookie(items[0], items[1]);
+                            mSessionCookies.Add(sCompendiumUri, newCookie);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                mSessionCookies = null;
+            }
         }
 
         // singleton handling
