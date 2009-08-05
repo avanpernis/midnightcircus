@@ -31,25 +31,17 @@ namespace TokenAssist
             set { mMagicItems = value; }
         }
 
-        public List<Stat> Abilities
+        public List<Stat> Stats
         {
-            get { return mAbilities; }
-            set { mAbilities = value; }
+            get { return mStats; }
+            set { mStats = value; }
         }
-
-        public List<Stat> Skills
-        {
-            get { return mSkills; }
-            set { mSkills = value; }
-        }
-
-
+                
         private string mName = string.Empty;
         private List<Power> mPowers = new List<Power>();
         private List<Feat> mFeats = new List<Feat>();
         private List<MagicItem> mMagicItems = new List<MagicItem>();
-        private List<Stat> mAbilities = new List<Stat>();
-        private List<Stat> mSkills = new List<Stat>();
+        private List<Stat> mStats = new List<Stat>();
 
     }
 }
