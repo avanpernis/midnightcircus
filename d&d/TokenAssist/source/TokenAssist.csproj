@@ -106,6 +106,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="CompendiumAccess.cs" />
+    <Compile Include="Stat.cs" />
     <Compile Include="TokenGenerator.cs" />
     <Compile Include="UserSettings.cs" />
     <Compile Include="Weapon.cs" />
