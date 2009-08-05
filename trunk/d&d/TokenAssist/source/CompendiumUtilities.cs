@@ -57,8 +57,13 @@ namespace TokenAssist
                 // sometimes there are funky unicode apostrophes as well
                 results = results.Replace("\u2019", @"'");
 
+                // sometimes there are strange unicode spaces
+                results = results.Replace("\uF020", @" ");
+
                 // some magic items use a unicode circle to separate things like "(Consumable • Healing)"
-                results = results.Replace("\u2022", @"/");
+                // it also used to as the bullet for an unordered list in some powers
+                // replace it with the equivalent HTML code
+                results = results.Replace("\u2022", @"&middot;");
 
                 // we need to fully qualify the urls for images
                 results = results.Replace(@"<img src=""", @"<img src=""http://www.wizards.com/dndinsider/compendium/");
@@ -99,8 +104,9 @@ namespace TokenAssist
 
         private static string ApplyFormatting(string input)
         {
-            // cannot load the xml into an xml document with the &nbsp; so temporarily convert while processing in xml
+            // cannot load the xml into an xml document with the &XXX; style HTML codes so temporarily convert while processing in xml
             string results = input.Replace("&nbsp;", "nbsp");
+            results = results.Replace("&middot;", "middot");
 
             MemoryStream memoryStream = new MemoryStream();
             XmlTextWriter xmlWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
@@ -117,8 +123,9 @@ namespace TokenAssist
             StreamReader streamReader = new StreamReader(memoryStream);
             results = streamReader.ReadToEnd();
 
-            // restore the &nbsp; elements
+            // restore the &XXX; HTML elements
             results = results.Replace("nbsp", "&nbsp;");
+            results = results.Replace("middot", "&middot;");
 
             return results;
         }
