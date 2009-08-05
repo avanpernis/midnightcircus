@@ -265,17 +265,24 @@ namespace TokenAssist
 
         private static void GetMagicItemPower(MagicItem magicItem)
         {
-            Regex powerPattern = new Regex(@"Power\s*\(([^)/]*)[^)]*\):\s*([^.]*)");
-            Match match = powerPattern.Match(magicItem.CompendiumEntry);
+            Regex usagePattern = new Regex(@"Power\s*\(([^)&]*)");
+            Match usageMatch = usagePattern.Match(magicItem.CompendiumEntry);
 
             // this magic item may have a power -- if so, figure out its usage and action types
-            if (match.Success)
+            if (usageMatch.Success)
             {
-                string usage = match.Groups[1].Value.Trim();
+                string usage = usageMatch.Groups[1].Value.Trim();
                 usage = usage.Replace("-", ""); // remove the hyphen so that we can enum parse for 'at-will'
                 usage = usage.Replace(" ", ""); // remove spaces so that we can enum parse for 'healing surge'
                 magicItem.PowerUsage = (MagicItem.PowerUsageType)Enum.Parse(typeof(MagicItem.PowerUsageType), usage);
-                magicItem.PowerAction = GetAction(match.Groups[2].Value.Trim());               
+            }
+
+            Regex actionPattern = new Regex(@"Power\s*\([^:]*:([^.]*)");
+            Match actionMatch = actionPattern.Match(magicItem.CompendiumEntry);
+
+            if (actionMatch.Success)
+            {
+                magicItem.PowerAction = GetAction(actionMatch.Groups[1].Value.Trim());               
             }
         }
 
