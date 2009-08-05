@@ -23,11 +23,6 @@ namespace TokenAssist
             
             return CompendiumAccess.Connected;
         }
-
-        private static string Matcher(Match match)
-        {
-            return string.Format(@"{{""{0}""}}", match.Value);
-        }
         
         public static string GetUrl(string url)
         {
