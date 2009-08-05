@@ -41,7 +41,7 @@
             this.mLoginButton.Location = new System.Drawing.Point(189, 104);
             this.mLoginButton.Name = "mLoginButton";
             this.mLoginButton.Size = new System.Drawing.Size(119, 25);
-            this.mLoginButton.TabIndex = 0;
+            this.mLoginButton.TabIndex = 5;
             this.mLoginButton.Text = "Login";
             this.mLoginButton.UseVisualStyleBackColor = true;
             this.mLoginButton.Click += new System.EventHandler(this.mLoginButton_Click);
@@ -52,7 +52,7 @@
             this.mCancelButton.Location = new System.Drawing.Point(36, 104);
             this.mCancelButton.Name = "mCancelButton";
             this.mCancelButton.Size = new System.Drawing.Size(119, 25);
-            this.mCancelButton.TabIndex = 1;
+            this.mCancelButton.TabIndex = 4;
             this.mCancelButton.Text = "Cancel";
             this.mCancelButton.UseVisualStyleBackColor = true;
             // 
@@ -61,7 +61,7 @@
             this.mEmailText.Location = new System.Drawing.Point(95, 20);
             this.mEmailText.Name = "mEmailText";
             this.mEmailText.Size = new System.Drawing.Size(241, 20);
-            this.mEmailText.TabIndex = 2;
+            this.mEmailText.TabIndex = 1;
             // 
             // mPasswordText
             // 
@@ -77,7 +77,7 @@
             this.label1.Location = new System.Drawing.Point(33, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 4;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Email:";
             // 
             // label2
@@ -86,7 +86,7 @@
             this.label2.Location = new System.Drawing.Point(12, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 13);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Password:";
             // 
             // CompendiumLoginForm
