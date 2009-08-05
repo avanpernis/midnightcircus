@@ -27,24 +27,16 @@ namespace TokenAssist
 
             // defaulting the destination folder to the desktop seems useful
             mTextBoxDestination.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        }
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-
-            // authenticate with the D&D Compendium if needed
-            if (!CompendiumUtilities.Authenticate())
-            {
-                MessageBox.Show("Unable to authenticate with D&D Compendium", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-            }
+            // attempt to load our local cookie cache
+            CompendiumAccess.Instance.ReadCookies();
         }
 
         private void BrowseForSourceFile()
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = Dnd4eFileFilter;
+            dialog.RestoreDirectory = true;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 mTextBoxSource.Text = dialog.FileName;
@@ -75,6 +67,7 @@ namespace TokenAssist
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = Dnd4eFileFilter;
+            dialog.RestoreDirectory = true;
             try
             {
                 dialog.InitialDirectory = Path.Combine(Dropbox.Folder, @"D&D\Characters");
@@ -105,6 +98,13 @@ namespace TokenAssist
 
         private void mButtonOK_Click(object sender, EventArgs e)
         {
+            // authenticate with the D&D Compendium if needed
+            if (!CompendiumUtilities.Authenticate())
+            {
+                MessageBox.Show("Unable to authenticate with D&D Compendium", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+
             if (string.IsNullOrEmpty(mTextBoxSource.Text))
             {
                 MessageBox.Show(mLabelSource.Text, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
