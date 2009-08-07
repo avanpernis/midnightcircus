@@ -1,0 +1,5 @@
+<!-- our token is of type 4ePlayer which is defined in the campaign properties file -->
+{setPropertyType("4ePlayer")}
+
+<!-- our token is a PC token -->
+{setPC()}
