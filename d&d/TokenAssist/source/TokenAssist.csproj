@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\FeatTemplate.txt" />
+    <None Include="Resources\HeaderTemplate.txt" />
     <Content Include="Resources\LimitedUseTemplate.txt" />
     <Content Include="Resources\MagicItemTemplate.txt" />
   </ItemGroup>

@@ -90,12 +90,27 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- our token is of type 4ePlayer which is defined in the campaign properties file --&gt;
+        ///{setPropertyType(&quot;4ePlayer&quot;)}
+        ///
+        ///&lt;!-- our token is a PC token --&gt;
+        ///{setPC()}.
+        /// </summary>
+        internal static string HeaderTemplate {
+            get {
+                return ResourceManager.GetString("HeaderTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!-- The Power ID is a list of numbers that identify the power. A Unique number is required for each use of the power. No power should use a number that is part of another Power&apos;s List unless their usage is tied together like Cleric&apos;s Channel Divinity powers --&gt;
         ///[H:CurrentPowerID=&quot;__POWER_ID__&quot;]
         ///[H:CurrentPowerUses=listCount(&quot;&quot;+CurrentPowerID)]
         ///[H:Used = 0]
         ///[H:Reuse = 0]
-        ///[H,C(CurrentPowerUses):Used = Used + if(band(2^eval(&quot;&quot;+listGet(&quot;&quot;+CurrentPowerID, roll.count)),getStrProp(CombatStatus, &quot;__USAGE_TYPE [rest of string was truncated]&quot;;.
+        ///[H:PowersUsed = getStrProp(CombatStatus, &quot;__USAGE_TYPE__PowersUsed&quot;)]
+        ///[H:PowersUsed = if(PowersUsed == &quot;&quot;, 0, PowersUsed)]
+        ///[H,C(Cur [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string LimitedUseTemplate {
             get {

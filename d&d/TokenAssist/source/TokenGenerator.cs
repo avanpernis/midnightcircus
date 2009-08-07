@@ -10,6 +10,14 @@ namespace TokenAssist
 {
     public static class TokenGenerator
     {
+        public static string HeaderTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.HeaderTemplate;
+            }
+        }
+
         public static string MacroCreationTemplate
         {
             get
@@ -177,6 +185,13 @@ namespace TokenAssist
         {
             using (StreamWriter writer = new StreamWriter(filename))
             {
+                string header = HeaderTemplate;
+
+                writer.WriteLine(header);
+
+                // separator for readability
+                writer.WriteLine(@"<!-- ======================================================================= -->");
+
                 int EncounterPowerCount = 0; // Keep track of Encounter Power IDs
                 int DailyPowerCount = 0; // Keep track of Daily Power IDs
 
