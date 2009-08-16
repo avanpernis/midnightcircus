@@ -97,7 +97,7 @@ namespace TokenAssist
             }
         }
 
-        private static string ApplyFormatting(string input)
+        public static string ApplyFormatting(string input)
         {
             // cannot load the xml into an xml document with the &XXX; style HTML codes so temporarily convert while processing in xml
             string results = input.Replace("&nbsp;", "nbsp");

@@ -128,6 +128,7 @@
     <None Include="Resources\HeaderTemplate.txt" />
     <Content Include="Resources\LimitedUseTemplate.txt" />
     <Content Include="Resources\MagicItemTemplate.txt" />
+    <None Include="Resources\SecondWind.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

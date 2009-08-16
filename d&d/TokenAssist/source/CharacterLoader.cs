@@ -9,6 +9,14 @@ namespace TokenAssist
 {
     public static class CharacterLoader
     {
+        public static string SecondWind
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.SecondWind;
+            }
+        }
+
         public static Character Load(string filename)
         {
             Character character = new Character();
@@ -61,6 +69,16 @@ namespace TokenAssist
 
                 character.Powers.Add(power);
             }
+
+            // every character gets a second wind power -- set it up with the standard properties (can be overridden per character if needed)
+            Power secondWind = new Power();
+            secondWind.Name = "Second Wind";
+            secondWind.Usage = Power.UsageType.Encounter;
+            secondWind.Action = Power.ActionType.Standard;
+            secondWind.CompendiumEntry = CompendiumUtilities.ApplyFormatting(SecondWind);
+            secondWind.AttackTypeAndRange = GetPowerAttackTypeAndRange(secondWind.CompendiumEntry);
+            secondWind.AllowsForMultipleAttacks = GetPowerAllowsForMultipleAttacks(secondWind.CompendiumEntry);
+            character.Powers.Add(secondWind);
 
             // look for all feats
             XmlNodeList xmlNodeListFeats = xmlNodeUrlsRoot.SelectNodes("RulesElement[@type='Feat']");
