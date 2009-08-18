@@ -1,11 +1,12 @@
 Feature List for TokenAssist application
-7/30/2009
+$Date$ 
 
 Please feel free to add desired or possible features to the To Do list.  If you'd like to work on something, move that item to the In Development list, along with your name so we know who's working on what.  The completed list is there so that we don't try to reinvent the wheel, and so that we all know what TokenAssist is capable of.  If I've forgotten (or don't know about) an already existing feature, please feel free to add it.
 
 7/30/2009 *** The To Do list isn't sorted currently.  Let's just brainstorm possible features right now. ***
 
 To Do:
+------
 Trim PC Token properties
 Set character properties (HP, #HS, etc.)
 create NPC version for Bad Guys
@@ -20,15 +21,16 @@ show attack bonus for weapon choices
 
 
 In Development:
+---------------
 Cache info from WotC for future use - Dan
 Skill and Ability checks - Ben
 Initiative macro - Ben
 Consumable Magic Items (Potions etc) - Brian
 Powers on Magic Items - Brian
-Character Token Image and Portrait image - Andrew
 
 
 Completed:
+----------
 primary second wind power
 Basic Powers
 Macros created
@@ -38,3 +40,9 @@ Magic Items listed
 Extra crit Damage from Magic weapons
 Feat List
 Cache the authentication cookies - Dan
+
+
+Requires Rethink:
+-----------------
+Character Token Image and Portrait image - Andrew
+	
