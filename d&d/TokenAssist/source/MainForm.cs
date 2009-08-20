@@ -23,13 +23,60 @@ namespace TokenAssist
         {
             InitializeComponent();
 
-            mTextBoxSource.Text = source;
+            UpdateSourceFiles();
+            UpdateDestinations();
+
+            ChosenSourceFile = source;
 
             // defaulting the destination folder to the desktop seems useful
-            mTextBoxDestination.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            ChosenOutputFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             // attempt to load our local cookie cache
             CompendiumAccess.Instance.ReadCookies();
+        }
+
+        private string ChosenSourceFile
+        {
+            get
+            {
+                return mComboBoxSource.Text;
+            }
+            set
+            {
+                mComboBoxSource.Text = value;
+            }
+        }
+
+        private string ChosenOutputFolder
+        {
+            get
+            {
+                return mComboBoxDestination.Text;
+            }
+            set
+            {
+                mComboBoxDestination.Text = value;
+            }
+        }
+
+        private void UpdateSourceFiles()
+        {
+            UpdateHistory(mComboBoxSource, UserSettings.Instance.FilenameHistory);
+        }
+
+        private void UpdateDestinations()
+        {
+            UpdateHistory(mComboBoxDestination, UserSettings.Instance.DestinationHistory);
+        }
+
+        private static void UpdateHistory(ComboBox comboBox, List<string> history)
+        {
+            comboBox.Items.Clear();
+
+            foreach (string item in history)
+            {
+                comboBox.Items.Add(item);
+            }
         }
 
         private void BrowseForSourceFile()
@@ -39,7 +86,7 @@ namespace TokenAssist
             dialog.RestoreDirectory = true;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                mTextBoxSource.Text = dialog.FileName;
+                ChosenSourceFile = dialog.FileName;
             }
         }
 
@@ -73,7 +120,7 @@ namespace TokenAssist
                 dialog.InitialDirectory = Path.Combine(Dropbox.Folder, @"D&D\Characters");
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    mTextBoxSource.Text = dialog.FileName;
+                    ChosenSourceFile = dialog.FileName;
                 }
             }
             catch (Exception)
@@ -87,7 +134,7 @@ namespace TokenAssist
             FolderBrowserDialog dialog = new FolderBrowserDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                mTextBoxDestination.Text = dialog.SelectedPath;
+                ChosenOutputFolder = dialog.SelectedPath;
             }
         }
 
@@ -105,19 +152,19 @@ namespace TokenAssist
                 this.Close();
             }
 
-            if (string.IsNullOrEmpty(mTextBoxSource.Text))
+            if (string.IsNullOrEmpty(ChosenSourceFile))
             {
                 MessageBox.Show(mLabelSource.Text, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (string.IsNullOrEmpty(mTextBoxDestination.Text))
+            if (string.IsNullOrEmpty(ChosenOutputFolder))
             {
                 MessageBox.Show(mLabelDestination.Text, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            string destination = Path.Combine(mTextBoxDestination.Text, Path.ChangeExtension(Path.GetFileName(mTextBoxSource.Text), ".txt"));
+            string destination = Path.Combine(ChosenOutputFolder, Path.ChangeExtension(Path.GetFileName(ChosenSourceFile), ".txt"));
 
             if (File.Exists(destination))
             {
@@ -129,12 +176,19 @@ namespace TokenAssist
                 }
             }
 
+            // save the user's choices
+            UserSettings.Instance.OpenedFile(ChosenSourceFile);
+            UpdateSourceFiles();
+
+            UserSettings.Instance.UsedDestination(ChosenOutputFolder);
+            UpdateDestinations();
+
             try
             {
                 Cursor.Current = Cursors.WaitCursor;
                 mPanelMain.Enabled = false;
 
-                Character character = CharacterLoader.Load(mTextBoxSource.Text);
+                Character character = CharacterLoader.Load(ChosenSourceFile);
 
                 TokenGenerator.Dump(character, destination);
             }
