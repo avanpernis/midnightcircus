@@ -29,24 +29,24 @@
         private void InitializeComponent()
         {
             this.mLabelSource = new System.Windows.Forms.Label();
-            this.mTextBoxSource = new System.Windows.Forms.TextBox();
             this.mButtonBrowseSource = new System.Windows.Forms.Button();
             this.mBrowseDestination = new System.Windows.Forms.Button();
-            this.mTextBoxDestination = new System.Windows.Forms.TextBox();
             this.mLabelDestination = new System.Windows.Forms.Label();
             this.mButtonOK = new System.Windows.Forms.Button();
             this.mPanelMain = new System.Windows.Forms.Panel();
-            this.mButtonBrowseDropbox = new System.Windows.Forms.Button();
-            this.mStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.mProgressBar = new System.Windows.Forms.ProgressBar();
+            this.mComboBoxSource = new System.Windows.Forms.ComboBox();
             this.mButtonCancel = new System.Windows.Forms.Button();
+            this.mButtonBrowseDropbox = new System.Windows.Forms.Button();
             this.mMenu = new System.Windows.Forms.MenuStrip();
             this.mMenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.mMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.mSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.mStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.mProgressBar = new System.Windows.Forms.ProgressBar();
+            this.mComboBoxDestination = new System.Windows.Forms.ComboBox();
             this.mPanelMain.SuspendLayout();
             this.mMenu.SuspendLayout();
             this.SuspendLayout();
@@ -60,15 +60,6 @@
             this.mLabelSource.TabIndex = 0;
             this.mLabelSource.Text = "Please specify the Character Builder file (.dnd4e) that you would like to convert" +
                 ".";
-            // 
-            // mTextBoxSource
-            // 
-            this.mTextBoxSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.mTextBoxSource.Location = new System.Drawing.Point(15, 56);
-            this.mTextBoxSource.Name = "mTextBoxSource";
-            this.mTextBoxSource.Size = new System.Drawing.Size(415, 20);
-            this.mTextBoxSource.TabIndex = 1;
             // 
             // mButtonBrowseSource
             // 
@@ -92,15 +83,6 @@
             this.mBrowseDestination.UseVisualStyleBackColor = true;
             this.mBrowseDestination.Click += new System.EventHandler(this.mBrowseDestination_Click);
             // 
-            // mTextBoxDestination
-            // 
-            this.mTextBoxDestination.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.mTextBoxDestination.Location = new System.Drawing.Point(15, 131);
-            this.mTextBoxDestination.Name = "mTextBoxDestination";
-            this.mTextBoxDestination.Size = new System.Drawing.Size(415, 20);
-            this.mTextBoxDestination.TabIndex = 4;
-            // 
             // mLabelDestination
             // 
             this.mLabelDestination.AutoSize = true;
@@ -123,13 +105,13 @@
             // 
             // mPanelMain
             // 
+            this.mPanelMain.Controls.Add(this.mComboBoxDestination);
+            this.mPanelMain.Controls.Add(this.mComboBoxSource);
             this.mPanelMain.Controls.Add(this.mButtonCancel);
             this.mPanelMain.Controls.Add(this.mButtonBrowseDropbox);
             this.mPanelMain.Controls.Add(this.mLabelSource);
-            this.mPanelMain.Controls.Add(this.mTextBoxSource);
             this.mPanelMain.Controls.Add(this.mButtonBrowseSource);
             this.mPanelMain.Controls.Add(this.mLabelDestination);
-            this.mPanelMain.Controls.Add(this.mTextBoxDestination);
             this.mPanelMain.Controls.Add(this.mBrowseDestination);
             this.mPanelMain.Controls.Add(this.mButtonOK);
             this.mPanelMain.Controls.Add(this.mMenu);
@@ -139,34 +121,13 @@
             this.mPanelMain.Size = new System.Drawing.Size(478, 204);
             this.mPanelMain.TabIndex = 7;
             // 
-            // mButtonBrowseDropbox
+            // mComboBoxSource
             // 
-            this.mButtonBrowseDropbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mButtonBrowseDropbox.BackgroundImage = global::TokenAssist.Properties.Resources.dropbox;
-            this.mButtonBrowseDropbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.mButtonBrowseDropbox.Location = new System.Drawing.Point(436, 67);
-            this.mButtonBrowseDropbox.Name = "mButtonBrowseDropbox";
-            this.mButtonBrowseDropbox.Size = new System.Drawing.Size(30, 30);
-            this.mButtonBrowseDropbox.TabIndex = 7;
-            this.mButtonBrowseDropbox.UseVisualStyleBackColor = true;
-            this.mButtonBrowseDropbox.Click += new System.EventHandler(this.mButtonBrowseDropbox_Click);
-            // 
-            // mStatusStrip
-            // 
-            this.mStatusStrip.Location = new System.Drawing.Point(0, 204);
-            this.mStatusStrip.Name = "mStatusStrip";
-            this.mStatusStrip.Size = new System.Drawing.Size(478, 22);
-            this.mStatusStrip.TabIndex = 0;
-            this.mStatusStrip.Text = "statusStrip1";
-            // 
-            // mProgressBar
-            // 
-            this.mProgressBar.Location = new System.Drawing.Point(43, 72);
-            this.mProgressBar.MarqueeAnimationSpeed = 50;
-            this.mProgressBar.Name = "mProgressBar";
-            this.mProgressBar.Size = new System.Drawing.Size(392, 23);
-            this.mProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.mProgressBar.TabIndex = 7;
+            this.mComboBoxSource.FormattingEnabled = true;
+            this.mComboBoxSource.Location = new System.Drawing.Point(15, 56);
+            this.mComboBoxSource.Name = "mComboBoxSource";
+            this.mComboBoxSource.Size = new System.Drawing.Size(415, 21);
+            this.mComboBoxSource.TabIndex = 10;
             // 
             // mButtonCancel
             // 
@@ -179,6 +140,18 @@
             this.mButtonCancel.Text = "Cancel";
             this.mButtonCancel.UseVisualStyleBackColor = true;
             this.mButtonCancel.Click += new System.EventHandler(this.mButtonCancel_Click);
+            // 
+            // mButtonBrowseDropbox
+            // 
+            this.mButtonBrowseDropbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButtonBrowseDropbox.BackgroundImage = global::TokenAssist.Properties.Resources.dropbox;
+            this.mButtonBrowseDropbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.mButtonBrowseDropbox.Location = new System.Drawing.Point(436, 67);
+            this.mButtonBrowseDropbox.Name = "mButtonBrowseDropbox";
+            this.mButtonBrowseDropbox.Size = new System.Drawing.Size(30, 30);
+            this.mButtonBrowseDropbox.TabIndex = 7;
+            this.mButtonBrowseDropbox.UseVisualStyleBackColor = true;
+            this.mButtonBrowseDropbox.Click += new System.EventHandler(this.mButtonBrowseDropbox_Click);
             // 
             // mMenu
             // 
@@ -201,24 +174,24 @@
             this.mMenuItemFile.Size = new System.Drawing.Size(35, 20);
             this.mMenuItemFile.Text = "&File";
             // 
-            // mMenuItemExit
-            // 
-            this.mMenuItemExit.Name = "mMenuItemExit";
-            this.mMenuItemExit.Size = new System.Drawing.Size(152, 22);
-            this.mMenuItemExit.Text = "E&xit";
-            this.mMenuItemExit.Click += new System.EventHandler(this.mMenuItemExit_Click);
-            // 
             // mMenuItemOpen
             // 
             this.mMenuItemOpen.Name = "mMenuItemOpen";
-            this.mMenuItemOpen.Size = new System.Drawing.Size(152, 22);
+            this.mMenuItemOpen.Size = new System.Drawing.Size(111, 22);
             this.mMenuItemOpen.Text = "&Open";
             this.mMenuItemOpen.Click += new System.EventHandler(this.mMenuItemOpen_Click);
             // 
             // mSeparator1
             // 
             this.mSeparator1.Name = "mSeparator1";
-            this.mSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.mSeparator1.Size = new System.Drawing.Size(108, 6);
+            // 
+            // mMenuItemExit
+            // 
+            this.mMenuItemExit.Name = "mMenuItemExit";
+            this.mMenuItemExit.Size = new System.Drawing.Size(111, 22);
+            this.mMenuItemExit.Text = "E&xit";
+            this.mMenuItemExit.Click += new System.EventHandler(this.mMenuItemExit_Click);
             // 
             // mMenuItemHelp
             // 
@@ -232,9 +205,34 @@
             // mMenuItemAbout
             // 
             this.mMenuItemAbout.Name = "mMenuItemAbout";
-            this.mMenuItemAbout.Size = new System.Drawing.Size(152, 22);
+            this.mMenuItemAbout.Size = new System.Drawing.Size(114, 22);
             this.mMenuItemAbout.Text = "&About";
             this.mMenuItemAbout.Click += new System.EventHandler(this.mMenuItemAbout_Click);
+            // 
+            // mStatusStrip
+            // 
+            this.mStatusStrip.Location = new System.Drawing.Point(0, 204);
+            this.mStatusStrip.Name = "mStatusStrip";
+            this.mStatusStrip.Size = new System.Drawing.Size(478, 22);
+            this.mStatusStrip.TabIndex = 0;
+            this.mStatusStrip.Text = "statusStrip1";
+            // 
+            // mProgressBar
+            // 
+            this.mProgressBar.Location = new System.Drawing.Point(43, 72);
+            this.mProgressBar.MarqueeAnimationSpeed = 50;
+            this.mProgressBar.Name = "mProgressBar";
+            this.mProgressBar.Size = new System.Drawing.Size(392, 23);
+            this.mProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.mProgressBar.TabIndex = 7;
+            // 
+            // mComboBoxDestination
+            // 
+            this.mComboBoxDestination.FormattingEnabled = true;
+            this.mComboBoxDestination.Location = new System.Drawing.Point(15, 131);
+            this.mComboBoxDestination.Name = "mComboBoxDestination";
+            this.mComboBoxDestination.Size = new System.Drawing.Size(415, 21);
+            this.mComboBoxDestination.TabIndex = 11;
             // 
             // MainForm
             // 
@@ -261,10 +259,8 @@
         #endregion
 
         private System.Windows.Forms.Label mLabelSource;
-        private System.Windows.Forms.TextBox mTextBoxSource;
         private System.Windows.Forms.Button mButtonBrowseSource;
         private System.Windows.Forms.Button mBrowseDestination;
-        private System.Windows.Forms.TextBox mTextBoxDestination;
         private System.Windows.Forms.Label mLabelDestination;
         private System.Windows.Forms.Button mButtonOK;
         private System.Windows.Forms.Panel mPanelMain;
@@ -279,6 +275,8 @@
         private System.Windows.Forms.ToolStripSeparator mSeparator1;
         private System.Windows.Forms.ToolStripMenuItem mMenuItemHelp;
         private System.Windows.Forms.ToolStripMenuItem mMenuItemAbout;
+        private System.Windows.Forms.ComboBox mComboBoxSource;
+        private System.Windows.Forms.ComboBox mComboBoxDestination;
     }
 }
 
