@@ -198,5 +198,32 @@ namespace TokenAssist
                 Cursor.Current = Cursors.Default;
             }
         }
+
+        private void mMenuItemRecentFiles_DropDownOpening(object sender, EventArgs e)
+        {
+            mMenuItemRecentFiles.DropDownItems.Clear();
+
+            int count = 0;
+
+            foreach (string filename in UserSettings.Instance.FilenameHistory)
+            {
+                ToolStripMenuItem menuItem = new ToolStripMenuItem();
+
+                // for ampersands to show up, we need to have two of them
+                menuItem.Text = string.Format("&{0} {1}", (++count % 10), filename.Replace("&", "&&"));
+                menuItem.Tag = filename;
+
+                menuItem.Click += new EventHandler(menuItemRecentFile_Click);
+
+                mMenuItemRecentFiles.DropDownItems.Add(menuItem);
+            }
+        }
+
+        void menuItemRecentFile_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            ChosenSourceFile = menuItem.Tag as string;
+        }
     }
 }
