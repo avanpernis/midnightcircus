@@ -47,6 +47,9 @@
             this.mStatusStrip = new System.Windows.Forms.StatusStrip();
             this.mProgressBar = new System.Windows.Forms.ProgressBar();
             this.mComboBoxDestination = new System.Windows.Forms.ComboBox();
+            this.mSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.mMenuItemRecentFiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.mSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.mPanelMain.SuspendLayout();
             this.mMenu.SuspendLayout();
             this.SuspendLayout();
@@ -169,6 +172,8 @@
             this.mMenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mMenuItemOpen,
             this.mSeparator1,
+            this.mMenuItemRecentFiles,
+            this.mSeparator2,
             this.mMenuItemExit});
             this.mMenuItemFile.Name = "mMenuItemFile";
             this.mMenuItemFile.Size = new System.Drawing.Size(35, 20);
@@ -177,19 +182,19 @@
             // mMenuItemOpen
             // 
             this.mMenuItemOpen.Name = "mMenuItemOpen";
-            this.mMenuItemOpen.Size = new System.Drawing.Size(111, 22);
+            this.mMenuItemOpen.Size = new System.Drawing.Size(152, 22);
             this.mMenuItemOpen.Text = "&Open";
             this.mMenuItemOpen.Click += new System.EventHandler(this.mMenuItemOpen_Click);
             // 
             // mSeparator1
             // 
             this.mSeparator1.Name = "mSeparator1";
-            this.mSeparator1.Size = new System.Drawing.Size(108, 6);
+            this.mSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // mMenuItemExit
             // 
             this.mMenuItemExit.Name = "mMenuItemExit";
-            this.mMenuItemExit.Size = new System.Drawing.Size(111, 22);
+            this.mMenuItemExit.Size = new System.Drawing.Size(152, 22);
             this.mMenuItemExit.Text = "E&xit";
             this.mMenuItemExit.Click += new System.EventHandler(this.mMenuItemExit_Click);
             // 
@@ -234,6 +239,25 @@
             this.mComboBoxDestination.Size = new System.Drawing.Size(415, 21);
             this.mComboBoxDestination.TabIndex = 11;
             // 
+            // mSeparator2
+            // 
+            this.mSeparator2.Name = "mSeparator2";
+            this.mSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // mMenuItemRecentFiles
+            // 
+            this.mMenuItemRecentFiles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mSeparator3});
+            this.mMenuItemRecentFiles.Name = "mMenuItemRecentFiles";
+            this.mMenuItemRecentFiles.Size = new System.Drawing.Size(152, 22);
+            this.mMenuItemRecentFiles.Text = "Recent &Files";
+            this.mMenuItemRecentFiles.DropDownOpening += new System.EventHandler(this.mMenuItemRecentFiles_DropDownOpening);
+            // 
+            // mSeparator3
+            // 
+            this.mSeparator3.Name = "mSeparator3";
+            this.mSeparator3.Size = new System.Drawing.Size(149, 6);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.mButtonOK;
@@ -277,6 +301,9 @@
         private System.Windows.Forms.ToolStripMenuItem mMenuItemAbout;
         private System.Windows.Forms.ComboBox mComboBoxSource;
         private System.Windows.Forms.ComboBox mComboBoxDestination;
+        private System.Windows.Forms.ToolStripMenuItem mMenuItemRecentFiles;
+        private System.Windows.Forms.ToolStripSeparator mSeparator2;
+        private System.Windows.Forms.ToolStripSeparator mSeparator3;
     }
 }
 
