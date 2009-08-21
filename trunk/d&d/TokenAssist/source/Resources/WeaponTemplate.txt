@@ -23,7 +23,12 @@
 
 <!-- build a list of weapons and their respective attack bonuses to faciliate selection by the user -->
 [H : WeaponAndBonusList = ""]
-[H, C(listCount(WeaponList)) : WeaponAndBonusList = WeaponAndBonusList + listGet(WeaponList, roll.count) + " (+" + listGet(AttackBonusList, roll.count) +"), "]
+[H, C(listCount(WeaponList)), CODE :
+{
+   [H : AttackBonus = listGet(AttackBonusList, roll.count)]
+   [H : AttackBonusPrefix = if(eval("" + AttackBonus) < 0, "", "+")]
+   [H : WeaponAndBonusList = WeaponAndBonusList + listGet(WeaponList, roll.count) + " (" + AttackBonusPrefix + AttackBonus +"), "]
+}]
 
 <!-- prompt for target information, tactical state, temporary bonuses, etc... -->
 [H : InputPrompt = input(
@@ -106,7 +111,7 @@
 {PowerCard}
 
 <!-- show the attack results -->
-{PowerName} <b>+{AttackBonus} {AttackStat} vs {Defense}</b><br>
+{PowerName} <b>{if(AttackBonus < 0, "", "+")}{AttackBonus} {AttackStat} vs {Defense}</b><br>
 You use your <b>{Weapon}</b> to attack (<b>{AttackResultOutput}</b>){if(CombatAdvantage == 1, " while having <b>Combat Advantage</b>", "")}.<br>
 {CoverConcealmentOutput}
 You do <b>{DamageResultOutput}</b> points of damage!
