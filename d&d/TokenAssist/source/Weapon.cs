@@ -8,17 +8,6 @@ namespace TokenAssist
 {
     public class Weapon
     {
-        public enum AttackStatType
-        {
-            Strength,
-            Dexterity,
-            Constitution,
-            Wisdom,
-            Intelligence,
-            Charisma,
-            Undefined
-        }
-
         public enum DefenseType
         {
             AC,
@@ -71,7 +60,7 @@ namespace TokenAssist
             set { mCriticalDamage = value; }
         }
 
-        public AttackStatType AttackStat
+        public string AttackStat
         {
             get { return mAttackStat; }
             set { mAttackStat = value; }
@@ -88,7 +77,7 @@ namespace TokenAssist
         private string mDamage = null;
         private string mMaxDamage = null;
         private string mCriticalDamage = null;
-        private AttackStatType mAttackStat = AttackStatType.Undefined;
+        private string mAttackStat = null;
         private DefenseType mDefense = DefenseType.Undefined;
     }
 }
