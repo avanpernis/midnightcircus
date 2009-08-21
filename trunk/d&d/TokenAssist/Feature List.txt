@@ -16,7 +16,6 @@ Make the Ranger work:
   1) beast powers dont seem to work properly
   2) dual attack powers (like twin strike)
   3) Ranged/Melee modal powers
-melee/ranged basic attack descriptions
 
 
 In Development:
@@ -40,6 +39,7 @@ Extra crit Damage from Magic weapons
 Feat List
 Cache the authentication cookies
 show attack bonus for weapon choices
+melee/ranged basic attack descriptions
 
 
 Requires Rethink:

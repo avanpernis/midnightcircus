@@ -9,6 +9,22 @@ namespace TokenAssist
 {
     public static class CharacterLoader
     {
+        public static string MeleeBasicAttack
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.MeleeBasicAttack;
+            }
+        }
+
+        public static string RangedBasicAttack
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.RangedBasicAttack;
+            }
+        }
+
         public static string SecondWind
         {
             get
@@ -65,6 +81,19 @@ namespace TokenAssist
                         power.AttackTypeAndRange = GetPowerAttackTypeAndRange(power.CompendiumEntry);
                         power.AllowsForMultipleAttacks = GetPowerAllowsForMultipleAttacks(power.CompendiumEntry);
                     }
+                }
+
+                if (power.Name == "Melee Basic Attack")
+                {
+                    // special case: add a power card manually
+                    power.CompendiumEntry = CompendiumUtilities.ApplyFormatting(MeleeBasicAttack);
+                    power.AttackTypeAndRange = "Melee weapon";
+                }
+                else if (power.Name == "Ranged Basic Attack")
+                {
+                    // special case: add a power card manually
+                    power.CompendiumEntry = CompendiumUtilities.ApplyFormatting(RangedBasicAttack);
+                    power.AttackTypeAndRange = "Ranged weapon";
                 }
 
                 character.Powers.Add(power);
