@@ -21,11 +21,15 @@
 [H : TempAttackBonus = getStrProp(CombatStatus, "LastTempAttackBonus")]
 [H : TempDamageBonus = getStrProp(CombatStatus, "LastTempDamageBonus")]
 
+<!-- build a list of weapons and their respective attack bonuses to faciliate selection by the user -->
+[H : WeaponAndBonusList = ""]
+[H, C(listCount(WeaponList)) : WeaponAndBonusList = WeaponAndBonusList + listGet(WeaponList, roll.count) + " (+" + listGet(AttackBonusList, roll.count) +"), "]
+
 <!-- prompt for target information, tactical state, temporary bonuses, etc... -->
 [H : InputPrompt = input(
    PowerName + " | <html>" + PowerCard + "</html> | | LABEL | SPAN = TRUE",
    "UNUSED | <html></html> | | LABEL | SPAN = TRUE",
-   "WeaponChoice | " + WeaponList + " | Weapon Choice | RADIO | SELECT = " + WeaponChoice,
+   "WeaponChoice | " + WeaponAndBonusList + " | Weapon Choice | RADIO | SELECT = " + WeaponChoice,
    if(MultipleTargets == 1, "NumberOfTargets | " + NumberOfTargets + " | Number Of Targets | TEXT", ""),
    "CombatAdvantage | " + CombatAdvantage + " | Combat Advantage | CHECK",
    "TargetCover | None, Partial, Superior | Target Cover | RADIO | SELECT = " + TargetCover,
