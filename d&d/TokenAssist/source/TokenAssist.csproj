@@ -128,6 +128,8 @@
     <None Include="Resources\HeaderTemplate.txt" />
     <Content Include="Resources\LimitedUseTemplate.txt" />
     <Content Include="Resources\MagicItemTemplate.txt" />
+    <None Include="Resources\RangedBasicAttack.html" />
+    <None Include="Resources\MeleeBasicAttack.html" />
     <None Include="Resources\SecondWind.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

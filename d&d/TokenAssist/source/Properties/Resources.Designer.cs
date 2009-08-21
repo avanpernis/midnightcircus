@@ -159,6 +159,20 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;
+        ///  &lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;&apos;&gt;Melee Basic Attack&lt;/h1&gt;
+        ///  &lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;
+        ///    &lt;i&gt;You strike at a nearby foe.&lt;/i&gt;
+        ///  &lt;/p&gt;
+        ///&lt;/div&gt;.
+        /// </summary>
+        internal static string MeleeBasicAttack {
+            get {
+                return ResourceManager.GetString("MeleeBasicAttack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
         ///[H : PowerName = &quot;__POWER_NAME__&quot;]
         ///
@@ -182,12 +196,20 @@ namespace TokenAssist.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;
-        ///  &lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #961334;&apos;&gt;Second Wind&lt;/h1&gt;
+        ///  &lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;&apos;&gt;Melee Basic Attack&lt;/h1&gt;
         ///  &lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;
-        ///    &lt;i&gt;You dig into your resolve and endurance to find an extra burst of vitality.&lt;/i&gt;
+        ///    &lt;i&gt;You strike at a nearby foe.&lt;/i&gt;
         ///  &lt;/p&gt;
-        ///  &lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;
-        ///    &lt;b&gt;Encounter&lt;/b&gt;&amp;nbsp;&amp;nbsp; &lt;img  [rest of string was truncated]&quot;;.
+        ///&lt;/div&gt;.
+        /// </summary>
+        internal static string RangedBasicAttack {
+            get {
+                return ResourceManager.GetString("RangedBasicAttack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #961334;&apos;&gt;Second Wind&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You dig into your resolve and endurance to find an extra burst of vitality.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;Encounter&lt;/b&gt;&amp;nbsp;&amp;nbsp; &lt;img src=&apos;http://www.wizards.com/ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SecondWind {
             get {
