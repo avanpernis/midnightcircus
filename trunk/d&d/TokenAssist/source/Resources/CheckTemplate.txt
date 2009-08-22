@@ -46,4 +46,4 @@
 [H : CheckResultOutput = "<span style='color:" + CheckResultColor + "'>" + CheckResult + "</span>"]
 
 <!-- show the check results -->
-<b>{CheckName}</b> ({CheckBonusPrefix}{CheckBonus}) Check: <b>{CheckResultOutput}</b>
+<b>{CheckName} Check</b> ({CheckBonusPrefix}{CheckBonus}): <b>{CheckResultOutput}</b>

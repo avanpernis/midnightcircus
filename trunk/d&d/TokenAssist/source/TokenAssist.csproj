@@ -129,8 +129,10 @@
     <None Include="Resources\CheckTemplate.txt" />
     <Content Include="Resources\FeatTemplate.txt" />
     <None Include="Resources\HeaderTemplate.txt" />
+    <Content Include="Resources\InitiativeTemplate.txt" />
     <Content Include="Resources\LimitedUseTemplate.txt" />
     <Content Include="Resources\MagicItemTemplate.txt" />
+    <Content Include="Resources\SavingThrowTemplate.txt" />
     <None Include="Resources\RangedBasicAttack.html" />
     <None Include="Resources\MeleeBasicAttack.html" />
     <None Include="Resources\SecondWind.html" />

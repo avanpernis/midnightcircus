@@ -174,7 +174,7 @@ namespace TokenAssist
         private static Stat LoadStat(XmlNode xmlNodeStat)
         {
             Stat stat = new Stat();
-            stat.Name = GetAttributeText(xmlNodeStat, "name");
+            stat.Name = GetAttributeText(xmlNodeStat, "name").ToLower(); // seems to be some case issues between different files
             stat.Value = int.Parse(GetAttributeText(xmlNodeStat, "value"));
 
             return stat;
