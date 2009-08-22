@@ -1,0 +1,49 @@
+<!-- generic variables that were populated by TokenAssist -->
+[H : CheckNameList = "__CHECK_NAME_LIST__"]
+[H : CheckBonusList = "__CHECK_BONUS_LIST__"]
+
+<!-- retrieve previously stored values -->
+[H : LastCheckChoice = getStrProp(CombatStatus, "LastCheckChoice")]
+[H : LastTempCheckBonus = getStrProp(CombatStatus, "LastTempCheckBonus")]
+
+<!-- build a list of checks and bonuses to display in order to faciliate selection by the user -->
+[H : CheckNameAndBonusList = ""]
+[H, C(listCount(CheckNameList)), CODE :
+{
+   [H : CheckName = listGet(CheckNameList, roll.count)]
+   [H : CheckBonus = listGet(CheckBonusList, roll.count)]
+   [H : CheckBonusPrefix = if(eval("" + CheckBonus) < 0, "", "+")]
+   [H : CheckNameAndBonusList = CheckNameAndBonusList + CheckName + " (" + CheckBonusPrefix + CheckBonus +"), "]
+}]
+
+[H : InputPrompt = input(
+   "CheckChoice | " + CheckNameAndBonusList + " | Check | LIST | SELECT = " + getStrProp(CombatStatus, "LastCheckChoice"),
+   "TempCheckBonus | " + getStrProp(CombatStatus, "LastTempCheckBonus") + " | Temporary bonus | TEXT")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+
+<!-- store the values for next time -->
+[H : PropsUsedList = "CheckChoice, TempCheckBonus"]
+[H, C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
+
+<!-- get the values associated with the selected check -->
+[H : CheckName = listGet(CheckNameList, CheckChoice)]
+[H : CheckBonus = listGet(CheckBonusList, CheckChoice) + TempCheckBonus]
+[H : CheckBonusPrefix = if(eval("" + CheckBonus) < 0, "", "+")]
+
+<!-- make the check -->
+[H : CheckRoll = 1d20]
+
+<!-- twenty detection -->
+[H : Twenty = if(CheckRoll == 20, 1, 0)]
+
+<!-- adjust the check -->
+[H : CheckResult = CheckRoll + CheckBonus]
+
+<!-- red text if twenty, black otherwise -->
+[H : CheckResultColor = if(Twenty == 1, "red", "black")]
+[H : CheckResultOutput = "<span style='color:" + CheckResultColor + "'>" + CheckResult + "</span>"]
+
+<!-- show the check results -->
+<b>{CheckName}</b> ({CheckBonusPrefix}{CheckBonus}) Check: <b>{CheckResultOutput}</b>

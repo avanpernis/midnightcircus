@@ -60,6 +60,28 @@ namespace TokenAssist.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
+        ///[H : FeatName = &quot;__FEAT_NAME__&quot;]
+        ///
+        ///&lt;!-- html feat card, as found in the compendium --&gt;
+        ///[H : FeatCard = &quot;__FEAT_CARD__&quot;]
+        ///
+        ///&lt;!-- show the user the feat they have selected --&gt;
+        ///[H : InputPrompt = input(FeatName + &quot; | &lt;html&gt;&quot; + FeatCard + &quot;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;)]
+        ///
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPrompt)]
+        ///
+        ///&lt;!-- show the feat to the other players --&gt;
+        ///{FeatCard}.
+        /// </summary>
+        internal static string CheckTemplate {
+            get {
+                return ResourceManager.GetString("CheckTemplate", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap dropbox {
             get {
                 object obj = ResourceManager.GetObject("dropbox", resourceCulture);
@@ -94,11 +116,23 @@ namespace TokenAssist.Properties {
         ///{setPropertyType(&quot;4ePlayer&quot;)}
         ///
         ///&lt;!-- our token is a PC token --&gt;
-        ///{setPC()}.
+        ///{setPC()}
+        ///
+        ///&lt;!-- character details --&gt;
+        ///{setProperty(&quot;Level&quot;, __LEVEL__)}.
         /// </summary>
         internal static string HeaderTemplate {
             get {
                 return ResourceManager.GetString("HeaderTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string InitiativeTemplate {
+            get {
+                return ResourceManager.GetString("InitiativeTemplate", resourceCulture);
             }
         }
         
@@ -159,12 +193,7 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;
-        ///  &lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;&apos;&gt;Melee Basic Attack&lt;/h1&gt;
-        ///  &lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;
-        ///    &lt;i&gt;You strike at a nearby foe.&lt;/i&gt;
-        ///  &lt;/p&gt;
-        ///&lt;/div&gt;.
+        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;&apos;&gt;Melee Basic Attack: Basic Attack&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You resort to the simple attack you learned when you first picked up a melee weapon.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;At-Will&lt;/b&gt;&amp;nbsp;&amp;nbsp; &lt;img  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MeleeBasicAttack {
             get {
@@ -195,16 +224,20 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;
-        ///  &lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;&apos;&gt;Melee Basic Attack&lt;/h1&gt;
-        ///  &lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;
-        ///    &lt;i&gt;You strike at a nearby foe.&lt;/i&gt;
-        ///  &lt;/p&gt;
-        ///&lt;/div&gt;.
+        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;&apos;&gt;Ranged Basic Attack: Basic Attack&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You resort to the simple attack you learned when you first picked up a ranged weapon.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;At-Will&lt;/b&gt;&amp;nbsp;&amp;nbsp; &lt;im [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RangedBasicAttack {
             get {
                 return ResourceManager.GetString("RangedBasicAttack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string SavingThrowTemplate {
+            get {
+                return ResourceManager.GetString("SavingThrowTemplate", resourceCulture);
             }
         }
         

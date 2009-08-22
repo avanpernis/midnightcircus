@@ -49,14 +49,8 @@ namespace TokenAssist
             foreach (XmlNode xmlNodeStat in xmlNodeStatBlock.ChildNodes)
             {
                 Stat stat = LoadStat(xmlNodeStat);
-/*                switch (Stat.StatType )
-                {
-                    case Stat.StatType.Ability:
-                    case Stat.StatType.SavingThrow:
-                    case Stat.StatType.Skill:
-                        character.Stats.Add(stat);
-                }
- */
+
+                character.Stats.Add(stat.Name, stat);
             }
 
             // we use this to get the url information for many things
@@ -181,31 +175,7 @@ namespace TokenAssist
         {
             Stat stat = new Stat();
             stat.Name = GetAttributeText(xmlNodeStat, "name");
-            stat.Value = GetAttributeText(xmlNodeStat, "value");
-
-            switch (stat.Name)
-            {
-                case "Acrobatics":
-                case "Arcana":
-                case "Bluff":
-                case "Diplomacy":
-                case "Dungeoneering":
-                case "Endurance":
-                case "Heal":
-                case "History":
-                case "Insight":
-                case "Intimidate":
-                case "Nature":
-                case "Perception":
-                case "Religion":
-                case "Stealth":
-                case "Streetwise":
-                case "Thievery":
-                case "Athletics":
-                    break;
-                default:
-                    break;
-            }
+            stat.Value = int.Parse(GetAttributeText(xmlNodeStat, "value"));
 
             return stat;
         }
