@@ -26,7 +26,7 @@ namespace TokenAssist
             ImmediateInterrupt,
             ImmediateReaction,
             Undefined
-        }       
+        }
 
         public string Name
         {
@@ -62,7 +62,7 @@ namespace TokenAssist
         {
             get { return mWeapons; }
             set { mWeapons = value; }
-        }       
+        }
 
         public string Url
         {
@@ -81,7 +81,7 @@ namespace TokenAssist
         private ActionType mAction = ActionType.Undefined;
         private string mAttackTypeAndRange = string.Empty;
         private bool mAllowsForMultipleAttacks = false;
-        private List<Weapon> mWeapons = new List<Weapon>();       
+        private List<Weapon> mWeapons = new List<Weapon>();
         private string mUrl = null;
         private string mCompendiumEntry = null;
     }
