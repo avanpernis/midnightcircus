@@ -59,8 +59,11 @@ namespace TokenAssist
  */
             }
 
-            // we use this to get the url information for powers and feats
-            XmlNode xmlNodeUrlsRoot = xmlDocument.SelectSingleNode("//RulesElementTally");
+            // we use this to get the url information for many things
+            XmlNode xmlNodeRules = xmlDocument.SelectSingleNode("//RulesElementTally");
+
+            character.Race = GetRace(xmlNodeRules);
+            character.Class = GetClass(xmlNodeRules);
 
             // look for all powers
             XmlNode xmlNodePowersRoot = xmlDocument.SelectSingleNode("//PowerStats");
@@ -68,7 +71,7 @@ namespace TokenAssist
             foreach (XmlNode xmlNodePower in xmlNodePowersRoot.ChildNodes)
             {
                 Power power = LoadPower(xmlNodePower);
-                power.Url = GetPowerUrl(xmlNodeUrlsRoot, power.Name);
+                power.Url = GetPowerUrl(xmlNodeRules, power.Name);
 
                 if (power.Url != null)
                 {
@@ -110,7 +113,7 @@ namespace TokenAssist
             character.Powers.Add(secondWind);
 
             // look for all feats
-            XmlNodeList xmlNodeListFeats = xmlNodeUrlsRoot.SelectNodes("RulesElement[@type='Feat']");
+            XmlNodeList xmlNodeListFeats = xmlNodeRules.SelectNodes("RulesElement[@type='Feat']");
 
             foreach (XmlNode xmlnodeFeat in xmlNodeListFeats)
             {
@@ -130,6 +133,28 @@ namespace TokenAssist
             }
 
             return character;
+        }
+
+        private static Race GetRace(XmlNode xmlNodeRules)
+        {
+            XmlNode xmlNodeRace = xmlNodeRules.SelectSingleNode("RulesElement[@type='Race']");
+
+            Race race = new Race();
+            race.Name = GetAttributeText(xmlNodeRace, "name");
+            race.Url = GetAttributeText(xmlNodeRace, "url");
+
+            return race;
+        }
+
+        private static Class GetClass(XmlNode xmlNodeRules)
+        {
+            XmlNode xmlNodeRace = xmlNodeRules.SelectSingleNode("RulesElement[@type='Class']");
+
+            Class cls = new Class();
+            cls.Name = GetAttributeText(xmlNodeRace, "name");
+            cls.Url = GetAttributeText(xmlNodeRace, "url");
+
+            return cls;
         }
 
         private static Power LoadPower(XmlNode xmlNodePower)

@@ -13,6 +13,18 @@ namespace TokenAssist
             set { mName = value; }
         }
 
+        public Race Race
+        {
+            get { return mRace; }
+            set { mRace = value; }
+        }
+
+        public Class Class
+        {
+            get { return mClass; }
+            set { mClass = value; }
+        }
+
         public List<Power> Powers
         {
             get { return mPowers; }
@@ -36,12 +48,13 @@ namespace TokenAssist
             get { return mStats; }
             set { mStats = value; }
         }
-                
+
         private string mName = string.Empty;
+        private Race mRace;
+        private Class mClass;
         private List<Power> mPowers = new List<Power>();
         private List<Feat> mFeats = new List<Feat>();
         private List<MagicItem> mMagicItems = new List<MagicItem>();
         private List<Stat> mStats = new List<Stat>();
-
     }
 }

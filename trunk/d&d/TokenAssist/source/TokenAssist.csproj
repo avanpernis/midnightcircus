@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Character.cs" />
     <Compile Include="CharacterLoader.cs" />
+    <Compile Include="Class.cs" />
     <Compile Include="CompendiumLoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +107,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="CompendiumAccess.cs" />
+    <Compile Include="Race.cs" />
     <Compile Include="Stat.cs" />
     <Compile Include="TokenGenerator.cs" />
     <Compile Include="UserSettings.cs" />
