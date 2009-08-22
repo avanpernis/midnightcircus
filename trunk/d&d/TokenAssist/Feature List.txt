@@ -20,8 +20,6 @@ Make the Ranger work:
 In Development:
 ---------------
 Cache info from WotC for future use - Dan
-Skill and Ability checks - Ben
-Initiative macro - Ben
 Consumable Magic Items (Potions etc) - Brian
 Powers on Magic Items - Brian
 
@@ -40,6 +38,8 @@ Cache the authentication cookies
 show attack bonus for weapon choices
 melee/ranged basic attack descriptions
 beast powers dont seem to work properly
+Skill and Ability checks
+Initiative macro
 
 
 Requires Rethink:
