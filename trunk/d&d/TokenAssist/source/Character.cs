@@ -43,7 +43,7 @@ namespace TokenAssist
             set { mMagicItems = value; }
         }
 
-        public List<Stat> Stats
+        public Dictionary<string, Stat> Stats
         {
             get { return mStats; }
             set { mStats = value; }
@@ -55,6 +55,6 @@ namespace TokenAssist
         private List<Power> mPowers = new List<Power>();
         private List<Feat> mFeats = new List<Feat>();
         private List<MagicItem> mMagicItems = new List<MagicItem>();
-        private List<Stat> mStats = new List<Stat>();
+        private Dictionary<string, Stat> mStats = new Dictionary<string, Stat>();
     }
 }

@@ -83,17 +83,17 @@
 [H : AttackResultOutput = ""]
 [H, C(NumberOfTargets), CODE :
 {
-   [H: AttackResult = listGet(AttackResults, roll.count)]
+   [H : AttackResult = listGet(AttackResults, roll.count)]
 
    <!-- red text if critical, black otherwise -->
    [H : AttackResultColor = if(eval("" + listGet(AttackRolls, roll.count)) >= CriticalRange, "red", "black")]
 
-   [H: AttackResultOutput = AttackResultOutput + "<span style='color:" + AttackResultColor + "'>" + AttackResult + "</span>" + if(roll.count < NumberOfTargets - 1, ", ", "")]
+   [H : AttackResultOutput = AttackResultOutput + "<span style='color:" + AttackResultColor + "'>" + AttackResult + "</span>" + if(roll.count < NumberOfTargets - 1, ", ", "")]
 }]
 
 <!-- damage roll (include temporary damage bonus) -->
 [H : DamageRoll = eval(Damage + "+" + TempDamageBonus)]
-[H: MaxDamage = eval("" + MaxDamage + "+" + CriticalDamage + "+" + TempDamageBonus)]
+[H : MaxDamage = eval("" + MaxDamage + "+" + CriticalDamage + "+" + TempDamageBonus)]
 
 <!-- build a pretty output string to indicate which damage was critical and which was not -->
 [H : DamageOutput = "<span style='color:black'>" + DamageRoll + "</span>"]

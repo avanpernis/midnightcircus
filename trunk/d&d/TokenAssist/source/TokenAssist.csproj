@@ -126,6 +126,7 @@
     <None Include="Resources\MacroCreationTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\CheckTemplate.txt" />
     <Content Include="Resources\FeatTemplate.txt" />
     <None Include="Resources\HeaderTemplate.txt" />
     <Content Include="Resources\LimitedUseTemplate.txt" />

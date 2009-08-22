@@ -3,3 +3,6 @@
 
 <!-- our token is a PC token -->
 {setPC()}
+
+<!-- character details -->
+{setProperty("Level", __LEVEL__)}

@@ -18,6 +18,14 @@ namespace TokenAssist
             }
         }
 
+        public static string CheckTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.CheckTemplate;
+            }
+        }
+
         public static string MacroCreationTemplate
         {
             get
@@ -181,16 +189,90 @@ namespace TokenAssist
             }
         }
 
+        private static string GetAbilityCheckNameList()
+        {
+            return "Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma";
+        }
+
+        private static string GetAbilityCheckBonusList(Character character)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            int levelBonus = character.Stats["HALF-LEVEL"].Value;
+
+            builder.Append((character.Stats["Strength modifier"].Value + levelBonus).ToString() + ", ");
+            builder.Append((character.Stats["Dexterity modifier"].Value + levelBonus).ToString() + ", ");
+            builder.Append((character.Stats["Constitution modifier"].Value + levelBonus).ToString() + ", ");
+            builder.Append((character.Stats["Intelligence Modifier"].Value + levelBonus).ToString() + ", "); // yes, this has a capital 'M' but the others do not
+            builder.Append((character.Stats["Wisdom modifier"].Value + levelBonus).ToString() + ", ");
+            builder.Append((character.Stats["Charisma modifier"].Value + levelBonus).ToString());
+
+            return builder.ToString();
+        }
+
+        private static string GetSkillCheckNameList()
+        {
+            return "Acrobatics, Arcana, Athletics, Bluff, Diplomacy, Dungeoneering, Endurance, Heal, History, Insight, Intimidate, Nature, Perception, Religion, Stealth, Streetwise, Thievery";
+        }
+
+        private static string GetSkillCheckBonusList(Character character)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append(character.Stats["Acrobatics"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Arcana"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Athletics"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Acrobatics"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Bluff"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Diplomacy"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Dungeoneering"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Endurance"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Heal"].Value.ToString() + ", ");
+            builder.Append(character.Stats["History"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Insight"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Intimidate"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Nature"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Perception"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Religion"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Stealth"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Streetwise"].Value.ToString() + ", ");
+            builder.Append(character.Stats["Thievery"].Value.ToString() + ", ");
+
+            return builder.ToString();
+        }
+
         public static void Dump(Character character, string filename)
         {
             using (StreamWriter writer = new StreamWriter(filename))
             {
                 string header = HeaderTemplate;
+                header = header.Replace(@"__LEVEL__", character.Stats["Level"].Value.ToString());
 
                 writer.WriteLine(header);
 
                 // separator for readability
                 writer.WriteLine(@"<!-- ======================================================================= -->");
+
+                // ability checks
+                string abilityChecks = CheckTemplate;
+                abilityChecks = abilityChecks.Replace(@"__CHECK_NAME_LIST__", GetAbilityCheckNameList());
+                abilityChecks = abilityChecks.Replace(@"__CHECK_BONUS_LIST__", GetAbilityCheckBonusList(character));
+
+                abilityChecks = FinalizeMacro(abilityChecks, "<b>Ability</b>", "white", "black", "1:Checks");
+
+                writer.WriteLine(abilityChecks);
+
+                // separator for readability
+                writer.WriteLine(@"<!-- ======================================================================= -->");
+
+                // skill checks
+                string skillChecks = CheckTemplate;
+                skillChecks = skillChecks.Replace(@"__CHECK_NAME_LIST__", GetSkillCheckNameList());
+                skillChecks = skillChecks.Replace(@"__CHECK_BONUS_LIST__", GetSkillCheckBonusList(character));
+
+                skillChecks = FinalizeMacro(skillChecks, "<b>Skill</b>", "white", "black", "1:Checks");
+
+                writer.WriteLine(skillChecks);
 
                 int EncounterPowerCount = 0; // Keep track of Encounter Power IDs
                 int DailyPowerCount = 0; // Keep track of Daily Power IDs
