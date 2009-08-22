@@ -26,6 +26,22 @@ namespace TokenAssist
             }
         }
 
+        public static string SavingThrowTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.SavingThrowTemplate;
+            }
+        }
+
+        public static string InitiativeTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.InitiativeTemplate;
+            }
+        }
+
         public static string MacroCreationTemplate
         {
             get
@@ -198,14 +214,14 @@ namespace TokenAssist
         {
             StringBuilder builder = new StringBuilder();
 
-            int levelBonus = character.Stats["HALF-LEVEL"].Value;
+            int levelBonus = character.Stats["half-level"].Value;
 
-            builder.Append((character.Stats["Strength modifier"].Value + levelBonus).ToString() + ", ");
-            builder.Append((character.Stats["Dexterity modifier"].Value + levelBonus).ToString() + ", ");
-            builder.Append((character.Stats["Constitution modifier"].Value + levelBonus).ToString() + ", ");
-            builder.Append((character.Stats["Intelligence Modifier"].Value + levelBonus).ToString() + ", "); // yes, this has a capital 'M' but the others do not
-            builder.Append((character.Stats["Wisdom modifier"].Value + levelBonus).ToString() + ", ");
-            builder.Append((character.Stats["Charisma modifier"].Value + levelBonus).ToString());
+            builder.Append((character.Stats["strength modifier"].Value + levelBonus).ToString() + ", ");
+            builder.Append((character.Stats["dexterity modifier"].Value + levelBonus).ToString() + ", ");
+            builder.Append((character.Stats["constitution modifier"].Value + levelBonus).ToString() + ", ");
+            builder.Append((character.Stats["intelligence modifier"].Value + levelBonus).ToString() + ", ");
+            builder.Append((character.Stats["wisdom modifier"].Value + levelBonus).ToString() + ", ");
+            builder.Append((character.Stats["charisma modifier"].Value + levelBonus).ToString());
 
             return builder.ToString();
         }
@@ -219,24 +235,24 @@ namespace TokenAssist
         {
             StringBuilder builder = new StringBuilder();
 
-            builder.Append(character.Stats["Acrobatics"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Arcana"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Athletics"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Acrobatics"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Bluff"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Diplomacy"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Dungeoneering"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Endurance"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Heal"].Value.ToString() + ", ");
-            builder.Append(character.Stats["History"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Insight"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Intimidate"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Nature"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Perception"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Religion"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Stealth"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Streetwise"].Value.ToString() + ", ");
-            builder.Append(character.Stats["Thievery"].Value.ToString() + ", ");
+            builder.Append(character.Stats["acrobatics"].Value.ToString() + ", ");
+            builder.Append(character.Stats["arcana"].Value.ToString() + ", ");
+            builder.Append(character.Stats["athletics"].Value.ToString() + ", ");
+            builder.Append(character.Stats["acrobatics"].Value.ToString() + ", ");
+            builder.Append(character.Stats["bluff"].Value.ToString() + ", ");
+            builder.Append(character.Stats["diplomacy"].Value.ToString() + ", ");
+            builder.Append(character.Stats["dungeoneering"].Value.ToString() + ", ");
+            builder.Append(character.Stats["endurance"].Value.ToString() + ", ");
+            builder.Append(character.Stats["heal"].Value.ToString() + ", ");
+            builder.Append(character.Stats["history"].Value.ToString() + ", ");
+            builder.Append(character.Stats["insight"].Value.ToString() + ", ");
+            builder.Append(character.Stats["intimidate"].Value.ToString() + ", ");
+            builder.Append(character.Stats["nature"].Value.ToString() + ", ");
+            builder.Append(character.Stats["perception"].Value.ToString() + ", ");
+            builder.Append(character.Stats["religion"].Value.ToString() + ", ");
+            builder.Append(character.Stats["stealth"].Value.ToString() + ", ");
+            builder.Append(character.Stats["streetwise"].Value.ToString() + ", ");
+            builder.Append(character.Stats["thievery"].Value.ToString() + ", ");
 
             return builder.ToString();
         }
@@ -246,7 +262,7 @@ namespace TokenAssist
             using (StreamWriter writer = new StreamWriter(filename))
             {
                 string header = HeaderTemplate;
-                header = header.Replace(@"__LEVEL__", character.Stats["Level"].Value.ToString());
+                header = header.Replace(@"__LEVEL__", character.Stats["level"].Value.ToString());
 
                 writer.WriteLine(header);
 
@@ -273,6 +289,31 @@ namespace TokenAssist
                 skillChecks = FinalizeMacro(skillChecks, "<b>Skill</b>", "white", "black", "1:Checks");
 
                 writer.WriteLine(skillChecks);
+
+                // separator for readability
+                writer.WriteLine(@"<!-- ======================================================================= -->");
+
+                // saving throw
+                string savingThrow = SavingThrowTemplate;
+                savingThrow = savingThrow.Replace(@"__SAVE_BONUS__", character.Stats["saving throws"].Value.ToString());
+
+                savingThrow = FinalizeMacro(savingThrow, "<b>Saving Throw</b>", "white", "black", "1:Checks");
+
+                writer.WriteLine(savingThrow);
+
+                // separator for readability
+                writer.WriteLine(@"<!-- ======================================================================= -->");
+
+                // initiative
+                string initiative = InitiativeTemplate;
+                initiative = initiative.Replace(@"__INIT_BONUS__", character.Stats["initiative"].Value.ToString());
+
+                initiative = FinalizeMacro(initiative, "<b>Initiative</b>", "white", "black", "1:Checks");
+
+                writer.WriteLine(initiative);
+
+                // separator for readability
+                writer.WriteLine(@"<!-- ======================================================================= -->");
 
                 int EncounterPowerCount = 0; // Keep track of Encounter Power IDs
                 int DailyPowerCount = 0; // Keep track of Daily Power IDs
