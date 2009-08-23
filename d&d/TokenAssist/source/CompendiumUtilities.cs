@@ -142,5 +142,17 @@ namespace TokenAssist
 
             return results;
         }
+
+        public static Character ActiveCharacter
+        {
+            set
+            {
+                mCache.ActiveCharacter = value;
+            }
+            get
+            {
+                return mCache.ActiveCharacter;
+            }
+        }
     }
 }

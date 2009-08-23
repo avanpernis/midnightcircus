@@ -37,6 +37,8 @@ namespace TokenAssist
         {
             Character character = new Character();
 
+            CompendiumUtilities.ActiveCharacter = character;
+
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.Load(filename);
 

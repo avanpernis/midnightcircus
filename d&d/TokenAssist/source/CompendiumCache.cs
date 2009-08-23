@@ -108,7 +108,7 @@ namespace TokenAssist
             {
                 string filename = null;
                 if (mActiveChar.Name != null)
-                    filename = Path.Combine(mCharsDir, mActiveChar.Name + ".html");
+                    filename = Path.Combine(mCharsDir, mActiveChar.Name + @"\" + id + ".html");
 
                 if (File.Exists(filename))
                 {
