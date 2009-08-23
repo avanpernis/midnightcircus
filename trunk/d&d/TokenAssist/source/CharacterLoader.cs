@@ -69,7 +69,7 @@ namespace TokenAssist
 
                 if (power.Url != null)
                 {
-                    power.CompendiumEntry = CompendiumUtilities.GetEntry(power.Url);
+                    power.CompendiumEntry = CompendiumUtilities.GetPower(power.Url);
 
                     if (power.CompendiumEntry != null)
                     {
@@ -189,7 +189,7 @@ namespace TokenAssist
 
             if (feat.Url != null)
             {
-                feat.CompendiumEntry = CompendiumUtilities.GetEntry(feat.Url);
+                feat.CompendiumEntry = CompendiumUtilities.GetFeat(feat.Url);
             }
 
             feat.ShortDescription = GetDescendantNodeText(xmlNodeFeat, "specific[@name='Short Description']");
@@ -206,7 +206,7 @@ namespace TokenAssist
 
             if (magicItem.Url != null)
             {
-                magicItem.CompendiumEntry = CompendiumUtilities.GetEntry(magicItem.Url);
+                magicItem.CompendiumEntry = CompendiumUtilities.GetItem(magicItem.Url);
 
                 if (magicItem.CompendiumEntry != null)
                 {
@@ -314,7 +314,7 @@ namespace TokenAssist
                 return "0";
             }
 
-            string compendiumEntry = CompendiumUtilities.GetEntry(url);
+            string compendiumEntry = CompendiumUtilities.GetItem(url);
 
             if (compendiumEntry == null)
             {

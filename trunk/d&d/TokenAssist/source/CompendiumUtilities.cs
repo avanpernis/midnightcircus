@@ -13,6 +13,7 @@ namespace TokenAssist
     public static class CompendiumUtilities
     {
         private static readonly CompendiumLoginForm loginForm = new CompendiumLoginForm();
+        private static readonly CompendiumCache mCache = new CompendiumCache();
 
         public static bool Authenticate()
         {
@@ -24,21 +25,38 @@ namespace TokenAssist
             return CompendiumAccess.Connected;
         }
         
-        public static string GetUrl(string url)
-        {
-            return CompendiumAccess.Instance.GetUrl(url);
-        }
-
         public static string GetStyleSheet()
         {
             return GetUrl(@"http://www.wizards.com/dndinsider/compendium/styles/detail.css");
         }
-        
-        public static string GetEntry(string url)
+
+        public static string GetPower(string url)
+        {
+            return mCache.Get(EntryType.TYPE_POWER, url);
+        }
+
+
+        public static string GetItem(string url)
+        {
+            return mCache.Get(EntryType.TYPE_ITEM, url);
+        }
+
+
+        public static string GetFeat(string url)
+        {
+            return  mCache.Get(EntryType.TYPE_FEAT, url);
+        }
+
+        public static string GetRawUrl(string url)
+        {
+            return CompendiumAccess.Instance.GetUrl(url);
+        }
+
+        public static string GetUrl(string url)
         {
             try
             {
-                string results = GetUrl(url);
+                string results = CompendiumAccess.Instance.GetUrl(url);
 
                 // first we strip off all the surrounding crap that makes this an html document
                 int start = results.IndexOf(@"<div id=""detail"">");
@@ -88,7 +106,7 @@ namespace TokenAssist
 
                 // do some final pretty formatting
                 results = ApplyFormatting(results);
-
+                
                 return results;
             }
             catch
