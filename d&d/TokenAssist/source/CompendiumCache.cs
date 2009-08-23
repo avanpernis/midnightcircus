@@ -150,7 +150,7 @@ namespace TokenAssist
                 result = CompendiumUtilities.GetUrl(url);
 
                 // if it came down to asking the compendium and we have an id to use, go store it in the cache
-                if (id != null)
+                if ((id != null) && (result != null))
                 {
                     using (StreamWriter writer = new StreamWriter(cacheName))
                     {
