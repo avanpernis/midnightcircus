@@ -158,7 +158,6 @@ namespace TokenAssist
             req.CookieContainer = mSessionCookies;
             req.AllowAutoRedirect = false;
             req.SendChunked = false;
-            req.CookieContainer = mSessionCookies;
 
             return GetUrl(req);
         }
@@ -194,7 +193,6 @@ namespace TokenAssist
                         Stream dataStream = response.GetResponseStream();
                         StreamReader reader = new StreamReader(dataStream);
                         result = reader.ReadToEnd();
-                        Debug.WriteLine("read " + result);
                         reader.Close();
                         dataStream.Close();
                     }

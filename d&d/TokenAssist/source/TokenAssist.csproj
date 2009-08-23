@@ -62,6 +62,7 @@
     <Compile Include="Character.cs" />
     <Compile Include="CharacterLoader.cs" />
     <Compile Include="Class.cs" />
+    <Compile Include="CompendiumCache.cs" />
     <Compile Include="CompendiumLoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
