@@ -22,6 +22,7 @@ namespace TokenAssist
             Free,
             Minor,
             Move,
+            Opportunity,
             Standard,
             ImmediateInterrupt,
             ImmediateReaction,
