@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace TokenAssist
@@ -35,12 +37,24 @@ namespace TokenAssist
 
         public static Character Load(string filename)
         {
+            // Make a temporary copy of the character file to work on
+            filename = MakeTempCopy(filename);
+
             Character character = new Character();
 
             CompendiumUtilities.ActiveCharacter = character;
 
             XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.Load(filename);
+
+            try
+            {
+                xmlDocument.Load(filename);
+            }
+            catch (XmlException e)
+            {
+                MessageBox.Show(e.Message, "Error Reading Character", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return character;
+            }
 
             XmlNode xmlNodeDetails = xmlDocument.SelectSingleNode("//Details");
             character.Name = GetDescendantNodeText(xmlNodeDetails, "name");
@@ -127,6 +141,10 @@ namespace TokenAssist
 
                 character.MagicItems.Add(magicItem);
             }
+
+
+            // Remove the temporary copy of the file
+            File.Delete(filename);
 
             return character;
         }
@@ -399,6 +417,53 @@ namespace TokenAssist
             XmlNode xmlNodeDescendant = xmlNodeParent.SelectSingleNode(xPath);
 
             return (xmlNodeDescendant != null) ? xmlNodeDescendant.InnerText.Trim() : null;
+        }
+
+        /// <summary>
+        /// The .dnd4e file may not be directly readable by the XmlDocument class. 
+        /// Therefore we make a temporary copy and check for known incompatibilities,
+        /// repairing those incompatibilities if found.
+        /// </summary>
+        /// <param name="filename">The filename of the .dnd4e file to make a copy of.</param>
+        /// <returns>The full path of the temporary copy.</returns>
+        private static string MakeTempCopy(string filename)
+        {
+            // Create a temporary file
+            string tempFilename = Path.GetTempFileName();
+
+            // Open the .dnd4e file for reading
+            StreamReader input = new StreamReader(filename);
+
+            // Open the temp file for writing
+            StreamWriter output = new StreamWriter(tempFilename);
+
+            // Create a regular expression to match names that have parentheses in them.
+            // For example:
+            //     <ID_INTERNAL_CLASS_FEATURE_VESTIGE_PACT_(HYBRID) />
+            //     <ID_INTERNAL_FEAT_FOCUSED_EXPERTISE_(TRIPLE-HEADED_FLAIL) />
+            //     <ID_INTERNAL_FEAT_FOCUSED_EXPERTISE_(XEN'DRIK_BOOMERANG) />
+            Regex nameHasParens = new Regex(@"\x3C\w+\x28[\w'-]+\x29");
+
+            // Copy the file
+            string text;
+            do
+            {
+                text = input.ReadLine();
+
+                // Find names that have parentheses in them and remove the parentheses.
+                if (text != null && nameHasParens.IsMatch(text))
+                {
+                    text = text.Replace("(", "");
+                    text = text.Replace(")", "");
+                    text = text.Replace("'", "-");
+                }
+
+                output.WriteLine(text);
+            } while (text != null);
+            input.Close();
+            output.Close();
+   
+            return tempFilename;
         }
     }
 }
