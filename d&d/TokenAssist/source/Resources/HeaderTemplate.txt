@@ -6,3 +6,13 @@
 
 <!-- character details -->
 {setProperty("Level", __LEVEL__)}
+
+<!-- hit point management -->
+[H : HPManager = setStrProp(HPManager, "CurrentHP", __MAX_HIT_POINTS__)]
+[H : HPManager = setStrProp(HPManager, "MaxHP", __MAX_HIT_POINTS__)]
+[H : HPManager = setStrProp(HPManager, "TempHP", 0)]
+[H : HPManager = setStrProp(HPManager, "HSRemaining", __HEALING_SURGES_PER_DAY__)]
+[H : HPManager = setStrProp(HPManager, "HSPerDay", __HEALING_SURGES_PER_DAY__)]
+[H : HPManager = setStrProp(HPManager, "HSBonus", __HEALING_SURGE_BONUS__)]
+[H : HPManager = setStrProp(HPManager, "HSValue", floor(__MAX_HIT_POINTS__ / 4) + __HEALING_SURGE_BONUS__)]
+[H : HPManager = setStrProp(HPManager, "HPDisplay", 217)]
