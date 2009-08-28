@@ -49,6 +49,18 @@ namespace TokenAssist
             set { mStats = value; }
         }
 
+        /// <summary>
+        /// Get the value of the specified stat if it exists. If the specified stat does not exist,
+        /// it is assumed that the value of the stat is effectively zero.
+        /// </summary>
+        /// <param name="statName">the name of the stat to retrieve</param>
+        /// <returns>the value of the specified stat if it exists, otherwise zero</returns>
+        public int GetStatValue(string statName)
+        {
+            Stat stat;
+            return mStats.TryGetValue(statName, out stat) ? stat.Value : 0;
+        }
+
         private string mName = string.Empty;
         private Race mRace;
         private Class mClass;

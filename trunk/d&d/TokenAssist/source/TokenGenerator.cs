@@ -90,6 +90,15 @@ namespace TokenAssist
             }
         }
 
+        private static string GetCheckMacroName(string name)
+        {
+            return string.Format(@"<b>{0}</b>", name);
+        }
+
+        const string CheckMacroBackgroundColor = "white";
+        const string CheckMacroForegroundColor = "black";
+        const string CheckMacroGroup = "1:Check";
+
         private static string GetMacroName(Power power)
         {
             return string.Format(@"<b>{0}</b><br>{1} {2}", power.Name, power.Action.ToString(), power.AttackTypeAndRange);
@@ -263,6 +272,9 @@ namespace TokenAssist
             {
                 string header = HeaderTemplate;
                 header = header.Replace(@"__LEVEL__", character.Stats["level"].Value.ToString());
+                header = header.Replace(@"__MAX_HIT_POINTS__", character.Stats["hit points"].Value.ToString());
+                header = header.Replace(@"__HEALING_SURGES_PER_DAY__", character.Stats["healing surges"].Value.ToString());
+                header = header.Replace(@"__HEALING_SURGE_BONUS__", character.GetStatValue("healing surge value").ToString());
 
                 writer.WriteLine(header);
 
@@ -274,7 +286,7 @@ namespace TokenAssist
                 abilityChecks = abilityChecks.Replace(@"__CHECK_NAME_LIST__", GetAbilityCheckNameList());
                 abilityChecks = abilityChecks.Replace(@"__CHECK_BONUS_LIST__", GetAbilityCheckBonusList(character));
 
-                abilityChecks = FinalizeMacro(abilityChecks, "<b>Ability</b>", "white", "black", "1:Checks");
+                abilityChecks = FinalizeMacro(abilityChecks, GetCheckMacroName("Ability"), CheckMacroBackgroundColor, CheckMacroForegroundColor, CheckMacroGroup);
 
                 writer.WriteLine(abilityChecks);
 
@@ -286,7 +298,7 @@ namespace TokenAssist
                 skillChecks = skillChecks.Replace(@"__CHECK_NAME_LIST__", GetSkillCheckNameList());
                 skillChecks = skillChecks.Replace(@"__CHECK_BONUS_LIST__", GetSkillCheckBonusList(character));
 
-                skillChecks = FinalizeMacro(skillChecks, "<b>Skill</b>", "white", "black", "1:Checks");
+                skillChecks = FinalizeMacro(skillChecks, GetCheckMacroName("Skill"), CheckMacroBackgroundColor, CheckMacroForegroundColor, CheckMacroGroup);
 
                 writer.WriteLine(skillChecks);
 
@@ -295,9 +307,9 @@ namespace TokenAssist
 
                 // saving throw
                 string savingThrow = SavingThrowTemplate;
-                savingThrow = savingThrow.Replace(@"__SAVE_BONUS__", character.Stats["saving throws"].Value.ToString());
+                savingThrow = savingThrow.Replace(@"__SAVE_BONUS__", character.GetStatValue("saving throws").ToString());
 
-                savingThrow = FinalizeMacro(savingThrow, "<b>Saving Throw</b>", "white", "black", "1:Checks");
+                savingThrow = FinalizeMacro(savingThrow, GetCheckMacroName("Saving Throw"), CheckMacroBackgroundColor, CheckMacroForegroundColor, CheckMacroGroup);
 
                 writer.WriteLine(savingThrow);
 
@@ -308,7 +320,7 @@ namespace TokenAssist
                 string initiative = InitiativeTemplate;
                 initiative = initiative.Replace(@"__INIT_BONUS__", character.Stats["initiative"].Value.ToString());
 
-                initiative = FinalizeMacro(initiative, "<b>Initiative</b>", "white", "black", "1:Checks");
+                initiative = FinalizeMacro(initiative, GetCheckMacroName("Initiative"), CheckMacroBackgroundColor, CheckMacroForegroundColor, CheckMacroGroup);
 
                 writer.WriteLine(initiative);
 
