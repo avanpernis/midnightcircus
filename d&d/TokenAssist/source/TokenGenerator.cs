@@ -26,6 +26,30 @@ namespace TokenAssist
             }
         }
 
+        public static string HealingTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.HealingTemplate;
+            }
+        }
+
+        public static string DamageTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.DamageTemplate;
+            }
+        }
+
+        public static string TempHPTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.TempHPTemplate;
+            }
+        }
+
         public static string SavingThrowTemplate
         {
             get
@@ -98,6 +122,15 @@ namespace TokenAssist
         const string CheckMacroBackgroundColor = "white";
         const string CheckMacroForegroundColor = "black";
         const string CheckMacroGroup = "1:Check";
+
+        private static string GetHealingMacroName(string name)
+        {
+            return string.Format(@"<b>{0}</b>", name);
+        }
+
+        const string HealingMacroBackgroundColor = "white";
+        const string HealingMacroForegroundColor = "black";
+        const string HealingMacroGroup = "2:Healing";
 
         private static string GetMacroName(Power power)
         {
@@ -272,6 +305,20 @@ namespace TokenAssist
             {
                 string header = HeaderTemplate;
                 header = header.Replace(@"__LEVEL__", character.Stats["level"].Value.ToString());
+                header = header.Replace(@"__SPEED__", character.Stats["speed"].Value.ToString());
+
+                header = header.Replace(@"__STRENGTH__", character.Stats["strength"].Value.ToString());
+                header = header.Replace(@"__DEXTERITY__", character.Stats["dexterity"].Value.ToString());
+                header = header.Replace(@"__CONSTITUTION__", character.Stats["constitution"].Value.ToString());
+                header = header.Replace(@"__INTELLIGENCE__", character.Stats["intelligence"].Value.ToString());
+                header = header.Replace(@"__WISDOM__", character.Stats["wisdom"].Value.ToString());
+                header = header.Replace(@"__CHARISMA__", character.Stats["charisma"].Value.ToString());
+
+                header = header.Replace(@"__AC__", character.Stats["ac"].Value.ToString());
+                header = header.Replace(@"__FORTITUDE__", character.Stats["fortitude defense"].Value.ToString());
+                header = header.Replace(@"__REFLEX__", character.Stats["reflex defense"].Value.ToString());
+                header = header.Replace(@"__WILL__", character.Stats["will defense"].Value.ToString());
+
                 header = header.Replace(@"__MAX_HIT_POINTS__", character.Stats["hit points"].Value.ToString());
                 header = header.Replace(@"__HEALING_SURGES_PER_DAY__", character.Stats["healing surges"].Value.ToString());
                 header = header.Replace(@"__HEALING_SURGE_BONUS__", character.GetStatValue("healing surge value").ToString());
@@ -323,6 +370,14 @@ namespace TokenAssist
                 initiative = FinalizeMacro(initiative, GetCheckMacroName("Initiative"), CheckMacroBackgroundColor, CheckMacroForegroundColor, CheckMacroGroup);
 
                 writer.WriteLine(initiative);
+
+                // separator for readability
+                writer.WriteLine(@"<!-- ======================================================================= -->");
+
+                // healing
+                string healing = FinalizeMacro(HealingTemplate, GetHealingMacroName("Healing"), HealingMacroBackgroundColor, HealingMacroForegroundColor, HealingMacroGroup);
+
+                writer.WriteLine(healing);
 
                 // separator for readability
                 writer.WriteLine(@"<!-- ======================================================================= -->");

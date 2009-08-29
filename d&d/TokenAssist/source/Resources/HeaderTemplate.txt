@@ -6,8 +6,23 @@
 
 <!-- character details -->
 {setProperty("Level", __LEVEL__)}
+{setProperty("Speed", __SPEED__)}
 
-<!-- hit point management -->
+<!-- ability scores -->
+[H : AbilityScore = setStrProp(AbilityScore, "Strength", __STRENGTH__)]
+[H : AbilityScore = setStrProp(AbilityScore, "Dexterity", __DEXTERITY__)]
+[H : AbilityScore = setStrProp(AbilityScore, "Constitution", __CONSTITUTION__)]
+[H : AbilityScore = setStrProp(AbilityScore, "Intelligence", __INTELLIGENCE__)]
+[H : AbilityScore = setStrProp(AbilityScore, "Wisdom", __WISDOM__)]
+[H : AbilityScore = setStrProp(AbilityScore, "Charisma", __CHARISMA__)]
+
+<!-- defenses -->
+{setProperty("AC", __AC__)}
+{setProperty("Fortitude", __FORTITUDE__)}
+{setProperty("Reflex", __REFLEX__)}
+{setProperty("Will", __WILL__)}
+
+<!-- hit points -->
 [H : HPManager = setStrProp(HPManager, "CurrentHP", __MAX_HIT_POINTS__)]
 [H : HPManager = setStrProp(HPManager, "MaxHP", __MAX_HIT_POINTS__)]
 [H : HPManager = setStrProp(HPManager, "TempHP", 0)]

@@ -62,23 +62,29 @@ namespace TokenAssist.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
-        ///[H : FeatName = &quot;__FEAT_NAME__&quot;]
+        ///[H : CheckNameList = &quot;__CHECK_NAME_LIST__&quot;]
+        ///[H : CheckBonusList = &quot;__CHECK_BONUS_LIST__&quot;]
         ///
-        ///&lt;!-- html feat card, as found in the compendium --&gt;
-        ///[H : FeatCard = &quot;__FEAT_CARD__&quot;]
+        ///&lt;!-- retrieve previously stored values --&gt;
+        ///[H : LastCheckChoice = getStrProp(CombatStatus, &quot;LastCheckChoice&quot;)]
+        ///[H : LastTempCheckBonus = getStrProp(CombatStatus, &quot;LastTempCheckBonus&quot;)]
         ///
-        ///&lt;!-- show the user the feat they have selected --&gt;
-        ///[H : InputPrompt = input(FeatName + &quot; | &lt;html&gt;&quot; + FeatCard + &quot;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;)]
-        ///
-        ///&lt;!-- bail if the user cancels the dialog --&gt;
-        ///[H : abort(InputPrompt)]
-        ///
-        ///&lt;!-- show the feat to the other players --&gt;
-        ///{FeatCard}.
+        ///&lt;!-- build a list of checks and bonuses to display in order to faciliate selection by the user --&gt;
+        ///[H : CheckNameAndBonusList = &quot;&quot;]
+        ///[H, C(listCount(CheckNameList)) [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CheckTemplate {
             get {
                 return ResourceManager.GetString("CheckTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DamageTemplate {
+            get {
+                return ResourceManager.GetString("DamageTemplate", resourceCulture);
             }
         }
         
@@ -119,7 +125,13 @@ namespace TokenAssist.Properties {
         ///{setPC()}
         ///
         ///&lt;!-- character details --&gt;
-        ///{setProperty(&quot;Level&quot;, __LEVEL__)}.
+        ///{setProperty(&quot;Level&quot;, __LEVEL__)}
+        ///{setProperty(&quot;Speed&quot;, __SPEED__)}
+        ///
+        ///&lt;!-- ability scores --&gt;
+        ///[H : AbilityScore = setStrProp(AbilityScore, &quot;Strength&quot;, __STRENGTH__)]
+        ///[H : AbilityScore = setStrProp(AbilityScore, &quot;Dexterity&quot;, __DEXTERITY__)]
+        ///[H : AbilityScore = setStrProp(AbilityScore, &quot;Constitution&quot;, __CONSTIT [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string HeaderTemplate {
             get {
@@ -128,7 +140,32 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to [H: canceled = input(
+        ///	&quot; Trash | HP: &quot; +eval(&quot;&quot;+getStrProp(HPManager, &quot;CurrentHP&quot;)) + &quot; / &quot; + eval(&quot;&quot;+getStrProp(HPManager, &quot;MaxHP&quot;)) + &quot; --- HS Value : &quot; + eval(&quot;&quot;+getStrProp(HPManager, &quot;HSValue&quot;)) + &quot; | HS Remaining: &quot; + eval(&quot;&quot;+getStrProp(HPManager, &quot;HSRemaining&quot;)) + &quot; / &quot; +eval(&quot;&quot;+getStrProp(HPManager, &quot;HSPerDay&quot;)) + &quot; | Label&quot;,
+        ///	&quot; AmountChoice | &quot;+getStrProp(CombatStatus, &quot;LastAmountChoice&quot;)+&quot; | Enter amount to heal | TEXT&quot;, 
+        ///	&quot; CostHS | &quot;+getStrProp(CombatStatus, &quot;LastCostHS&quot;)+&quot; | Spend HS | CHECK  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string HealingTemplate {
+            get {
+                return ResourceManager.GetString("HealingTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
+        ///[H : InitBonus = &quot;__INIT_BONUS__&quot;]
+        ///
+        ///&lt;!-- retrieve previously stored values --&gt;
+        ///[H : LastTempInitBonus = getStrProp(CombatStatus, &quot;LastTempInitBonus&quot;)]
+        ///
+        ///[H : InputPrompt = input(
+        ///   &quot;UNUSED | Bonus (+&quot; + InitBonus + &quot;) | Roll Initiative | LABEL&quot;,
+        ///   &quot;TempInitBonus | &quot; + getStrProp(CombatStatus, &quot;LastTempInitBonus&quot;) + &quot; | Temporary bonus | TEXT&quot;)]
+        ///
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPrompt)]
+        ///
+        ///&lt;!-- store the va [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string InitiativeTemplate {
             get {
@@ -233,7 +270,20 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
+        ///[H : SaveBonus = &quot;__SAVE_BONUS__&quot;]
+        ///
+        ///&lt;!-- retrieve previously stored values --&gt;
+        ///[H : LastTempSaveBonus = getStrProp(CombatStatus, &quot;LastTempSaveBonus&quot;)]
+        ///
+        ///[H : InputPrompt = input(
+        ///   &quot;UNUSED | Bonus (+&quot; + SaveBonus + &quot;) | Saving Throw | LABEL&quot;,
+        ///   &quot;TempSaveBonus | &quot; + getStrProp(CombatStatus, &quot;LastTempSaveBonus&quot;) + &quot; | Temporary bonus | TEXT&quot;)]
+        ///
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPrompt)]
+        ///
+        ///&lt;!-- store the value [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SavingThrowTemplate {
             get {
@@ -247,6 +297,15 @@ namespace TokenAssist.Properties {
         internal static string SecondWind {
             get {
                 return ResourceManager.GetString("SecondWind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string TempHPTemplate {
+            get {
+                return ResourceManager.GetString("TempHPTemplate", resourceCulture);
             }
         }
         
