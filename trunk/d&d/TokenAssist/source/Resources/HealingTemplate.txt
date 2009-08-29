@@ -1,0 +1,50 @@
+<!-- retrieve current hit point values -->
+[H : CurrentHP = getStrProp(HPManager, "CurrentHP")]
+[H : MaxHP = getStrProp(HPManager, "MaxHP")]
+[H : HSRemaining = getStrProp(HPManager, "HSRemaining")]
+[H : HSPerDay = getStrProp(HPManager, "HSPerDay")]
+[H : HSValue = getStrProp(HPManager, "HSValue")]
+
+<!-- show the user healing options -->
+[H : InputPrompt = input(
+	"UNUSED | " + CurrentHP + " / " + MaxHP + " | Hit Points | Label",
+	"UNUSED | " + HSRemaining + " / " + HSPerDay + " (Value: " + HSValue + ") | Healing Surges | Label",
+	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
+	"HealingAmount | " + getStrProp(CombatStatus, "LastHealingAmount") + " | Amount to Heal | TEXT",
+	"SpendHealingSurge | " + getStrProp(CombatStatus, "LastSpendHealingSurge") + " | Spend Healing Surge? | CHECK ")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+
+<!-- Saves Choices -->
+[H : PropsUsedList = "HealingAmount, SpendHealingSurge"]
+[H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
+
+<!-- Confirm that the user has a healing surge -->
+[H : NoHealingSurgesAlert = if(SpendHealingSurge == 1 && HSRemaining < 1, 'input("UNUSUED | No Healing Surges Left | Unable to Heal | LABEL")', "HSRemaining")]
+[H : eval(NoHealingSurgesAlert)]
+[H : abort(if(SpendHealingSurge == 1 && HSRemaining < 1, 0, 1))]
+
+<!-- if receiving healing when below 0, set to 0 before healing -->
+<!-- after healing, clamp to max hit points -->
+[H : CurrentHP = max(0, CurrentHP)]
+[H : CurrentHP = min(CurrentHP + HealingAmount, MaxHP)]
+
+<!-- store the result -->
+[H : HPManager = setStrProp(HPManager, "CurrentHP", CurrentHP)]
+
+<!-- burn a healing surge if necessary -->
+[H : HSRemaining = if(SpendHealingSurge == 1, HSRemaining - 1, HSRemaining)]
+[H : HPManager = setStrProp(HPManager, "HSRemaining", HSRemaining)]
+
+<!-- output the results -->
+<b>{"Healed for " + HealingAmount + " Hit Points!"}</b><br>
+<b>{CurrentHP + " / " + MaxHP}</b> Hit Points Remaining<br>
+{if(SpendHealingSurge == 1, "Spent a Healing Surge: <b>" + HSRemaining + " / " + HSPerDay + "</b> Remaining", "")}
+
+<!-- update token state appropriately -->
+[H : state.Helpless = if(CurrentHP > 0, 0, 1)]
+[H : state.Dead = 1 - max(0, min(1, (MaxHP * 0.5) + CurrentHP))]
+[H : state.Prone = state.Dead + state.Prone + state.Helpless]
+[H : state.Bloodied = if(CurrentHP / MaxHP < 0.5, 1, 0)]
+[H : bar.Health = CurrentHP / MaxHP]
