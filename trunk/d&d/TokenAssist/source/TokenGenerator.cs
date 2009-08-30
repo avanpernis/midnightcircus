@@ -379,6 +379,16 @@ namespace TokenAssist
 
                 writer.WriteLine(healing);
 
+                // damage
+                string damage = FinalizeMacro(DamageTemplate, GetHealingMacroName("Damage"), HealingMacroBackgroundColor, HealingMacroForegroundColor, HealingMacroGroup);
+
+                writer.WriteLine(damage);
+
+                // temp hit points
+                string temphp = FinalizeMacro(TempHPTemplate, GetHealingMacroName("Temp HP"), HealingMacroBackgroundColor, HealingMacroForegroundColor, HealingMacroGroup);
+
+                writer.WriteLine(temphp);
+
                 // separator for readability
                 writer.WriteLine(@"<!-- ======================================================================= -->");
 

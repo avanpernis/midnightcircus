@@ -1,0 +1,39 @@
+<!-- retrieve current hit point values -->
+[H : CurrentHP = getStrProp(HPManager, "CurrentHP")]
+[H : MaxHP = getStrProp(HPManager, "MaxHP")]
+[H : TempHP = getStrProp(HPManager, "TempHP")]
+[H : HSRemaining = getStrProp(HPManager, "HSRemaining")]
+[H : HSPerDay = getStrProp(HPManager, "HSPerDay")]
+[H : HSValue = getStrProp(HPManager, "HSValue")]
+
+<!-- show the user healing options -->
+[H : InputPrompt = input(
+	"UNUSED | " + CurrentHP + " / " + MaxHP + if(TempHP > 0, " (Temp: " + TempHP + ")", "") + " | Hit Points | Label",
+	"UNUSED | " + HSRemaining + " / " + HSPerDay + " (Value: " + HSValue + ") | Healing Surges | Label",
+	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
+	"TempHPAmount | " + getStrProp(CombatStatus, "LastTempHPAmount") + " | Amount of Temp HP | TEXT",
+	"TempHPStacks | " + getStrProp(CombatStatus, "LastTempHPStacks") + " | Temp HP Stacks? | CHECK ")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+
+<!-- Saves Choices -->
+[H : PropsUsedList = "TempHPAmount, TempHPStacks"]
+[H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
+
+<!-- if the temp hit points are not stackable, the new value is simply the maximum of the current and new values -->
+[H: TempHP = if(TempHPStacks == 1, TempHP + TempHPAmount, max(TempHP, TempHPAmount))]
+
+<!-- store the result -->
+[H : HPManager = setStrProp(HPManager, "TempHP", TempHP)]
+
+<!-- output the results -->
+{if(TempHPStacks == 1, "You stack an additional <b>" + TempHPAmount + "</b> Temporary Hit Points!<br>", "")}
+<b>{"You now have " + TempHP + " Temporary Hit Points!"}</b>
+
+<!-- update token state appropriately -->
+[H:state.Helpless = if(eval(""+getStrProp(HPManager, "CurrentHP"))>0, 0, 1)]
+[H:state.Dead = 1 - max(0,min(1,(eval(""+getStrProp(HPManager, "MaxHP"))*0.5)+eval(""+getStrProp(HPManager, "CurrentHP"))))]
+[H:state.Prone = state.Dead + state.Prone + state.Helpless]
+[H:state.Bloodied = if(eval(""+getStrProp(HPManager, "CurrentHP"))/eval(""+getStrProp(HPManager, "MaxHP"))<0.5,1,0)]
+[H:bar.Health = eval(""+getStrProp(HPManager, "CurrentHP"))/eval(""+getStrProp(HPManager, "MaxHP"))]
