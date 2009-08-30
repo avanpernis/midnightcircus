@@ -1,13 +1,14 @@
 <!-- retrieve current hit point values -->
 [H : CurrentHP = getStrProp(HPManager, "CurrentHP")]
 [H : MaxHP = getStrProp(HPManager, "MaxHP")]
+[H : TempHP = getStrProp(HPManager, "TempHP")]
 [H : HSRemaining = getStrProp(HPManager, "HSRemaining")]
 [H : HSPerDay = getStrProp(HPManager, "HSPerDay")]
 [H : HSValue = getStrProp(HPManager, "HSValue")]
 
 <!-- show the user healing options -->
 [H : InputPrompt = input(
-	"UNUSED | " + CurrentHP + " / " + MaxHP + " | Hit Points | Label",
+	"UNUSED | " + CurrentHP + " / " + MaxHP + if(TempHP > 0, " (Temp: " + TempHP + ")", "") + " | Hit Points | Label",
 	"UNUSED | " + HSRemaining + " / " + HSPerDay + " (Value: " + HSValue + ") | Healing Surges | Label",
 	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
 	"HealingAmount | " + getStrProp(CombatStatus, "LastHealingAmount") + " | Amount to Heal | TEXT",

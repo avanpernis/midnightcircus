@@ -1,0 +1,45 @@
+<!-- retrieve current hit point values -->
+[H : CurrentHP = getStrProp(HPManager, "CurrentHP")]
+[H : MaxHP = getStrProp(HPManager, "MaxHP")]
+[H : TempHP = getStrProp(HPManager, "TempHP")]
+[H : HSRemaining = getStrProp(HPManager, "HSRemaining")]
+[H : HSPerDay = getStrProp(HPManager, "HSPerDay")]
+[H : HSValue = getStrProp(HPManager, "HSValue")]
+
+<!-- show the user healing options -->
+[H : InputPrompt = input(
+	"UNUSED | " + CurrentHP + " / " + MaxHP + if(TempHP > 0, " (Temp: " + TempHP + ")", "") + " | Hit Points | Label",
+	"UNUSED | " + HSRemaining + " / " + HSPerDay + " (Value: " + HSValue + ") | Healing Surges | Label",
+	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
+	"DamageAmount | " + getStrProp(CombatStatus, "LastDamageAmount") + " | Amount of Damage | TEXT")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+
+<!-- Saves Choices -->
+[H : PropsUsedList = "DamageAmount"]
+[H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
+
+<!-- first burn any temp hit points that might exist -->
+[H : TempHP = TempHP - DamageAmount]
+
+<!-- if the above went negative, add it to current hp (effectively a subtract) -->
+[H : CurrentHP = CurrentHP + min(0, TempHP)]
+
+<!-- now adjust the temp hit points if they went negative -->
+[H : TempHP = max(0, TempHP)]
+
+<!-- store the result -->
+[H : HPManager = setStrProp(HPManager, "CurrentHP", CurrentHP)]
+[H : HPManager = setStrProp(HPManager, "TempHP", TempHP)]
+
+<!-- output the results -->
+<b>{"Damaged for " + DamageAmount + " Hit Points!"}</b><br>
+<b>{CurrentHP + " / " + MaxHP}</b> Hit Points Remaining<br>
+
+<!-- update token state appropriately -->
+[H : state.Helpless = if(CurrentHP > 0, 0, 1)]
+[H : state.Dead = 1 - max(0, min(1, (MaxHP * 0.5) + CurrentHP))]
+[H : state.Prone = state.Dead + state.Prone + state.Helpless]
+[H : state.Bloodied = if(CurrentHP / MaxHP < 0.5, 1, 0)]
+[H : bar.Health = CurrentHP / MaxHP]
