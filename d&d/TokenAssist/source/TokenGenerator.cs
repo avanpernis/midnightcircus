@@ -58,6 +58,14 @@ namespace TokenAssist
             }
         }
 
+        public static string ActionPointTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.ActionPointTemplate;
+            }
+        }
+
         public static string SavingThrowTemplate
         {
             get
@@ -131,23 +139,14 @@ namespace TokenAssist
         const string CheckMacroForegroundColor = "black";
         const string CheckMacroGroup = "1:Check";
 
-        private static string GetHealingMacroName(string name)
+        private static string GetMiscMacroName(string name)
         {
             return string.Format(@"<b>{0}</b>", name);
         }
 
-        const string HealingMacroBackgroundColor = "white";
-        const string HealingMacroForegroundColor = "black";
-        const string HealingMacroGroup = "2:Healing";
-
-        private static string GetRestMacroName(string name)
-        {
-            return string.Format(@"<b>{0}</b>", name);
-        }
-
-        const string RestMacroBackgroundColor = "cyan";
-        const string RestMacroForegroundColor = "black";
-        const string RestMacroGroup = "3:Rest";
+        const string MiscMacroBackgroundColor = "white";
+        const string MiscMacroForegroundColor = "black";
+        const string MiscMacroGroup = "2:Misc";
 
         private static string GetMacroName(Power power)
         {
@@ -342,9 +341,6 @@ namespace TokenAssist
 
                 writer.WriteLine(header);
 
-                // separator for readability
-                writer.WriteLine(@"<!-- ======================================================================= -->");
-
                 // ability checks
                 string abilityChecks = CheckTemplate;
                 abilityChecks = abilityChecks.Replace(@"__CHECK_NAME_LIST__", GetAbilityCheckNameList());
@@ -353,9 +349,6 @@ namespace TokenAssist
                 abilityChecks = FinalizeMacro(abilityChecks, GetCheckMacroName("Ability"), CheckMacroBackgroundColor, CheckMacroForegroundColor, CheckMacroGroup);
 
                 writer.WriteLine(abilityChecks);
-
-                // separator for readability
-                writer.WriteLine(@"<!-- ======================================================================= -->");
 
                 // skill checks
                 string skillChecks = CheckTemplate;
@@ -366,9 +359,6 @@ namespace TokenAssist
 
                 writer.WriteLine(skillChecks);
 
-                // separator for readability
-                writer.WriteLine(@"<!-- ======================================================================= -->");
-
                 // saving throw
                 string savingThrow = SavingThrowTemplate;
                 savingThrow = savingThrow.Replace(@"__SAVE_BONUS__", character.GetStatValue("saving throws").ToString());
@@ -376,9 +366,6 @@ namespace TokenAssist
                 savingThrow = FinalizeMacro(savingThrow, GetCheckMacroName("Saving Throw"), CheckMacroBackgroundColor, CheckMacroForegroundColor, CheckMacroGroup);
 
                 writer.WriteLine(savingThrow);
-
-                // separator for readability
-                writer.WriteLine(@"<!-- ======================================================================= -->");
 
                 // initiative
                 string initiative = InitiativeTemplate;
@@ -388,31 +375,30 @@ namespace TokenAssist
 
                 writer.WriteLine(initiative);
 
-                // separator for readability
-                writer.WriteLine(@"<!-- ======================================================================= -->");
-
                 // healing
-                string healing = FinalizeMacro(HealingTemplate, GetHealingMacroName("Healing"), HealingMacroBackgroundColor, HealingMacroForegroundColor, HealingMacroGroup);
+                string healing = FinalizeMacro(HealingTemplate, GetMiscMacroName("Healing"), MiscMacroBackgroundColor, MiscMacroForegroundColor, MiscMacroGroup);
 
                 writer.WriteLine(healing);
 
                 // damage
-                string damage = FinalizeMacro(DamageTemplate, GetHealingMacroName("Damage"), HealingMacroBackgroundColor, HealingMacroForegroundColor, HealingMacroGroup);
+                string damage = FinalizeMacro(DamageTemplate, GetMiscMacroName("Damage"), MiscMacroBackgroundColor, MiscMacroForegroundColor, MiscMacroGroup);
 
                 writer.WriteLine(damage);
 
                 // temp hit points
-                string temphp = FinalizeMacro(TempHPTemplate, GetHealingMacroName("Temp HP"), HealingMacroBackgroundColor, HealingMacroForegroundColor, HealingMacroGroup);
+                string temphp = FinalizeMacro(TempHPTemplate, GetMiscMacroName("Temp HP"), MiscMacroBackgroundColor, MiscMacroForegroundColor, MiscMacroGroup);
 
                 writer.WriteLine(temphp);
 
                 // rest
-                string rest = FinalizeMacro(RestTemplate, GetHealingMacroName("Rest"), RestMacroBackgroundColor, RestMacroForegroundColor, RestMacroGroup);
+                string rest = FinalizeMacro(RestTemplate, GetMiscMacroName("Rest"), MiscMacroBackgroundColor, MiscMacroForegroundColor, MiscMacroGroup);
 
                 writer.WriteLine(rest);
 
-                // separator for readability
-                writer.WriteLine(@"<!-- ======================================================================= -->");
+                // action points
+                string actionPoints = FinalizeMacro(ActionPointTemplate, GetMiscMacroName("Spend Action Point"), MiscMacroBackgroundColor, MiscMacroForegroundColor, MiscMacroGroup);
+
+                writer.WriteLine(actionPoints);
 
                 int EncounterPowerCount = 0; // Keep track of Encounter Power IDs
                 int DailyPowerCount = 0; // Keep track of Daily Power IDs
@@ -488,9 +474,6 @@ namespace TokenAssist
                     macro = FinalizeMacro(macro, GetMacroName(power), GetMacroBackgroundColor(power.Usage), GetMacroForegroundColor(power.Usage), GetMacroGroup(power.Usage));
 
                     writer.WriteLine(macro);
-
-                    // separator for readability
-                    writer.WriteLine(@"<!-- ======================================================================= -->");
                 }
 
                 foreach (Feat feat in character.Feats)
@@ -502,9 +485,6 @@ namespace TokenAssist
                     macro = FinalizeMacro(macro, GetMacroName(feat), GetMacroBackgroundColor(feat), GetMacroForegroundColor(feat), GetMacroGroup(feat));
 
                     writer.WriteLine(macro);
-
-                    // separator for readability
-                    writer.WriteLine(@"<!-- ======================================================================= -->");
                 }
 
                 foreach (MagicItem magicItem in character.MagicItems)
@@ -516,9 +496,6 @@ namespace TokenAssist
                     macro = FinalizeMacro(macro, GetMacroName(magicItem), GetMacroBackgroundColor(magicItem), GetMacroForegroundColor(magicItem), GetMacroGroup(magicItem));
 
                     writer.WriteLine(macro);
-
-                    // separator for readability
-                    writer.WriteLine(@"<!-- ======================================================================= -->");
 
                     if (magicItem.HasPower)
                     {
@@ -549,9 +526,6 @@ namespace TokenAssist
                         macro = FinalizeMacro(macro, GetMacroName(magicItem), GetMacroBackgroundColor(magicItem), GetMacroForegroundColor(magicItem), GetMacroGroup(magicItem.PowerUsage));
 
                         writer.WriteLine(macro);
-
-                        // separator for readability
-                        writer.WriteLine(@"<!-- ======================================================================= -->");
                     }
                 }
             }
