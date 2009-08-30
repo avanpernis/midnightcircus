@@ -66,6 +66,14 @@ namespace TokenAssist
             }
         }
 
+        public static string MilestoneTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.MilestoneTemplate;
+            }
+        }
+
         public static string SavingThrowTemplate
         {
             get
@@ -395,10 +403,15 @@ namespace TokenAssist
 
                 writer.WriteLine(rest);
 
-                // action points
-                string actionPoints = FinalizeMacro(ActionPointTemplate, GetMiscMacroName("Spend Action Point"), MiscMacroBackgroundColor, MiscMacroForegroundColor, MiscMacroGroup);
+                // action point
+                string actionPoint = FinalizeMacro(ActionPointTemplate, GetMiscMacroName("Action Point"), MiscMacroBackgroundColor, MiscMacroForegroundColor, MiscMacroGroup);
 
-                writer.WriteLine(actionPoints);
+                writer.WriteLine(actionPoint);
+
+                // milestone
+                string milestone = FinalizeMacro(MilestoneTemplate, GetMiscMacroName("Milestone"), MiscMacroBackgroundColor, MiscMacroForegroundColor, MiscMacroGroup);
+
+                writer.WriteLine(milestone);
 
                 int EncounterPowerCount = 0; // Keep track of Encounter Power IDs
                 int DailyPowerCount = 0; // Keep track of Daily Power IDs

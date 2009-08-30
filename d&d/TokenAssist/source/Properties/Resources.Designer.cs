@@ -61,17 +61,17 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!-- retrieve current hit point values --&gt;
-        ///[H : CurrentHP = getStrProp(HPManager, &quot;CurrentHP&quot;)]
-        ///[H : MaxHP = getStrProp(HPManager, &quot;MaxHP&quot;)]
-        ///[H : TempHP = getStrProp(HPManager, &quot;TempHP&quot;)]
-        ///[H : HSRemaining = getStrProp(HPManager, &quot;HSRemaining&quot;)]
-        ///[H : HSPerDay = getStrProp(HPManager, &quot;HSPerDay&quot;)]
-        ///[H : HSValue = getStrProp(HPManager, &quot;HSValue&quot;)]
+        ///   Looks up a localized string similar to &lt;!-- Confirm that the user has am action point --&gt;
+        ///[H : NoActionPointsAlert = if(ActionPoints &lt; 1, &apos;input(&quot;UNUSED | No Action Points Left | Warning | LABEL&quot;)&apos;, &quot;ActionPoints&quot;)]
+        ///[H : eval(NoActionPointsAlert)]
+        ///[H : abort(if(ActionPoints &lt; 1, 0, 1))]
         ///
-        ///&lt;!-- show the user healing options --&gt;
-        ///[H : InputPrompt = input(
-        ///	&quot;UNUSED | &quot; + CurrentHP + &quot; / &quot; + MaxHP + if(TempHP &gt; 0, &quot; (Temp: &quot; + TempHP + &quot;)&quot;, &quot;&quot;) +  [rest of string was truncated]&quot;;.
+        ///&lt;!-- Confirm the user&apos;s decision to use an action point --&gt;
+        ///[H : InputPrompt = input(&quot;SpendActionPoint | 1 | Spend Action Point? | CHECK&quot;)]
+        ///
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPrompt)]
+        ///[H : abort(if(SpendActionPoint == 0, 0, 1 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ActionPointTemplate {
             get {
@@ -272,6 +272,25 @@ namespace TokenAssist.Properties {
         internal static string MeleeBasicAttack {
             get {
                 return ResourceManager.GetString("MeleeBasicAttack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- Confirm that the user has am action point --&gt;
+        ///[H : NoActionPointsAlert = if(ActionPoints &lt; 1, &apos;input(&quot;UNUSED | No Action Points Left | Warning | LABEL&quot;)&apos;, &quot;ActionPoints&quot;)]
+        ///[H : eval(NoActionPointsAlert)]
+        ///[H : abort(if(ActionPoints &lt; 1, 0, 1))]
+        ///
+        ///&lt;!-- Confirm the user&apos;s decision to use an action point --&gt;
+        ///[H : InputPrompt = input(&quot;SpendActionPoint | 1 | Spend Action Point? | CHECK&quot;)]
+        ///
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPrompt)]
+        ///[H : abort(if(SpendActionPoint == 0, 0, 1 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string MilestoneTemplate {
+            get {
+                return ResourceManager.GetString("MilestoneTemplate", resourceCulture);
             }
         }
         

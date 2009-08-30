@@ -137,6 +137,7 @@
     <Content Include="Resources\LimitedUseTemplate.txt" />
     <Content Include="Resources\MagicItemTemplate.txt" />
     <None Include="Resources\RestTemplate.txt" />
+    <None Include="Resources\MilestoneTemplate.txt" />
     <Content Include="Resources\SavingThrowTemplate.txt" />
     <Content Include="Resources\TempHPTemplate.txt" />
     <None Include="Resources\RangedBasicAttack.html" />
