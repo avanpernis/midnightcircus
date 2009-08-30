@@ -7,6 +7,8 @@
 <!-- character details -->
 {setProperty("Level", __LEVEL__)}
 {setProperty("Speed", __SPEED__)}
+{setProperty("ActionPoints", 1)}
+{setProperty("DailyItemUses", ceiling(Level / 10))}
 
 <!-- ability scores -->
 [H : AbilityScore = setStrProp(AbilityScore, "Strength", __STRENGTH__)]
@@ -30,4 +32,4 @@
 [H : HPManager = setStrProp(HPManager, "HSPerDay", __HEALING_SURGES_PER_DAY__)]
 [H : HPManager = setStrProp(HPManager, "HSBonus", __HEALING_SURGE_BONUS__)]
 [H : HPManager = setStrProp(HPManager, "HSValue", floor(__MAX_HIT_POINTS__ / 4) + __HEALING_SURGE_BONUS__)]
-[H : HPManager = setStrProp(HPManager, "HPDisplay", 217)]
+[H : bar.Health = 1]

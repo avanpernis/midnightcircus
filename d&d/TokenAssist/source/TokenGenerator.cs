@@ -50,6 +50,14 @@ namespace TokenAssist
             }
         }
 
+        public static string RestTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.RestTemplate;
+            }
+        }
+
         public static string SavingThrowTemplate
         {
             get
@@ -131,6 +139,15 @@ namespace TokenAssist
         const string HealingMacroBackgroundColor = "white";
         const string HealingMacroForegroundColor = "black";
         const string HealingMacroGroup = "2:Healing";
+
+        private static string GetRestMacroName(string name)
+        {
+            return string.Format(@"<b>{0}</b>", name);
+        }
+
+        const string RestMacroBackgroundColor = "cyan";
+        const string RestMacroForegroundColor = "black";
+        const string RestMacroGroup = "3:Rest";
 
         private static string GetMacroName(Power power)
         {
@@ -388,6 +405,11 @@ namespace TokenAssist
                 string temphp = FinalizeMacro(TempHPTemplate, GetHealingMacroName("Temp HP"), HealingMacroBackgroundColor, HealingMacroForegroundColor, HealingMacroGroup);
 
                 writer.WriteLine(temphp);
+
+                // rest
+                string rest = FinalizeMacro(RestTemplate, GetHealingMacroName("Rest"), RestMacroBackgroundColor, RestMacroForegroundColor, RestMacroGroup);
+
+                writer.WriteLine(rest);
 
                 // separator for readability
                 writer.WriteLine(@"<!-- ======================================================================= -->");

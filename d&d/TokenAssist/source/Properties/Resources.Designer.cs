@@ -80,7 +80,17 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;!-- retrieve current hit point values --&gt;
+        ///[H : CurrentHP = getStrProp(HPManager, &quot;CurrentHP&quot;)]
+        ///[H : MaxHP = getStrProp(HPManager, &quot;MaxHP&quot;)]
+        ///[H : TempHP = getStrProp(HPManager, &quot;TempHP&quot;)]
+        ///[H : HSRemaining = getStrProp(HPManager, &quot;HSRemaining&quot;)]
+        ///[H : HSPerDay = getStrProp(HPManager, &quot;HSPerDay&quot;)]
+        ///[H : HSValue = getStrProp(HPManager, &quot;HSValue&quot;)]
+        ///
+        ///&lt;!-- show the user healing options --&gt;
+        ///[H : InputPrompt = input(
+        ///	&quot;UNUSED | &quot; + CurrentHP + &quot; / &quot; + MaxHP + if(TempHP &gt; 0, &quot; (Temp: &quot; + TempHP + &quot;)&quot;, &quot;&quot;) +  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DamageTemplate {
             get {
@@ -140,10 +150,17 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [H: canceled = input(
-        ///	&quot; Trash | HP: &quot; +eval(&quot;&quot;+getStrProp(HPManager, &quot;CurrentHP&quot;)) + &quot; / &quot; + eval(&quot;&quot;+getStrProp(HPManager, &quot;MaxHP&quot;)) + &quot; --- HS Value : &quot; + eval(&quot;&quot;+getStrProp(HPManager, &quot;HSValue&quot;)) + &quot; | HS Remaining: &quot; + eval(&quot;&quot;+getStrProp(HPManager, &quot;HSRemaining&quot;)) + &quot; / &quot; +eval(&quot;&quot;+getStrProp(HPManager, &quot;HSPerDay&quot;)) + &quot; | Label&quot;,
-        ///	&quot; AmountChoice | &quot;+getStrProp(CombatStatus, &quot;LastAmountChoice&quot;)+&quot; | Enter amount to heal | TEXT&quot;, 
-        ///	&quot; CostHS | &quot;+getStrProp(CombatStatus, &quot;LastCostHS&quot;)+&quot; | Spend HS | CHECK  [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to &lt;!-- retrieve current hit point values --&gt;
+        ///[H : CurrentHP = getStrProp(HPManager, &quot;CurrentHP&quot;)]
+        ///[H : MaxHP = getStrProp(HPManager, &quot;MaxHP&quot;)]
+        ///[H : TempHP = getStrProp(HPManager, &quot;TempHP&quot;)]
+        ///[H : HSRemaining = getStrProp(HPManager, &quot;HSRemaining&quot;)]
+        ///[H : HSPerDay = getStrProp(HPManager, &quot;HSPerDay&quot;)]
+        ///[H : HSValue = getStrProp(HPManager, &quot;HSValue&quot;)]
+        ///
+        ///&lt;!-- show the user healing options --&gt;
+        ///[H : InputPrompt = input(
+        ///	&quot;UNUSED | &quot; + CurrentHP + &quot; / &quot; + MaxHP + if(TempHP &gt; 0, &quot; (Temp: &quot; + TempHP + &quot;)&quot;, &quot;&quot;) +  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string HealingTemplate {
             get {
@@ -270,6 +287,22 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [H: fail = input(&quot;Rest | Short, Extended | How long are you resting | RADIO | ORIENT=H&quot;)]
+        ///[H:abort(fail)]
+        ///
+        ///[IF(Rest == 0), CODE: {
+        /// [macro(&quot;Short_Rest@&quot;+getMacroLocation()): &quot;&quot;]
+        ///};{
+        /// [macro(&quot;Extended_Rest@&quot;+getMacroLocation()): &quot;&quot;]
+        ///}].
+        /// </summary>
+        internal static string RestTemplate {
+            get {
+                return ResourceManager.GetString("RestTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
         ///[H : SaveBonus = &quot;__SAVE_BONUS__&quot;]
         ///
@@ -301,7 +334,17 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;!-- retrieve current hit point values --&gt;
+        ///[H : CurrentHP = getStrProp(HPManager, &quot;CurrentHP&quot;)]
+        ///[H : MaxHP = getStrProp(HPManager, &quot;MaxHP&quot;)]
+        ///[H : TempHP = getStrProp(HPManager, &quot;TempHP&quot;)]
+        ///[H : HSRemaining = getStrProp(HPManager, &quot;HSRemaining&quot;)]
+        ///[H : HSPerDay = getStrProp(HPManager, &quot;HSPerDay&quot;)]
+        ///[H : HSValue = getStrProp(HPManager, &quot;HSValue&quot;)]
+        ///
+        ///&lt;!-- show the user healing options --&gt;
+        ///[H : InputPrompt = input(
+        ///	&quot;UNUSED | &quot; + CurrentHP + &quot; / &quot; + MaxHP + if(TempHP &gt; 0, &quot; (Temp: &quot; + TempHP + &quot;)&quot;, &quot;&quot;) +  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TempHPTemplate {
             get {
