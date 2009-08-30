@@ -61,6 +61,25 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- retrieve current hit point values --&gt;
+        ///[H : CurrentHP = getStrProp(HPManager, &quot;CurrentHP&quot;)]
+        ///[H : MaxHP = getStrProp(HPManager, &quot;MaxHP&quot;)]
+        ///[H : TempHP = getStrProp(HPManager, &quot;TempHP&quot;)]
+        ///[H : HSRemaining = getStrProp(HPManager, &quot;HSRemaining&quot;)]
+        ///[H : HSPerDay = getStrProp(HPManager, &quot;HSPerDay&quot;)]
+        ///[H : HSValue = getStrProp(HPManager, &quot;HSValue&quot;)]
+        ///
+        ///&lt;!-- show the user healing options --&gt;
+        ///[H : InputPrompt = input(
+        ///	&quot;UNUSED | &quot; + CurrentHP + &quot; / &quot; + MaxHP + if(TempHP &gt; 0, &quot; (Temp: &quot; + TempHP + &quot;)&quot;, &quot;&quot;) +  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ActionPointTemplate {
+            get {
+                return ResourceManager.GetString("ActionPointTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
         ///[H : CheckNameList = &quot;__CHECK_NAME_LIST__&quot;]
         ///[H : CheckBonusList = &quot;__CHECK_BONUS_LIST__&quot;]
@@ -137,11 +156,12 @@ namespace TokenAssist.Properties {
         ///&lt;!-- character details --&gt;
         ///{setProperty(&quot;Level&quot;, __LEVEL__)}
         ///{setProperty(&quot;Speed&quot;, __SPEED__)}
+        ///{setProperty(&quot;ActionPoints&quot;, 1)}
+        ///{setProperty(&quot;DailyItemUses&quot;, ceiling(Level / 10))}
         ///
         ///&lt;!-- ability scores --&gt;
         ///[H : AbilityScore = setStrProp(AbilityScore, &quot;Strength&quot;, __STRENGTH__)]
-        ///[H : AbilityScore = setStrProp(AbilityScore, &quot;Dexterity&quot;, __DEXTERITY__)]
-        ///[H : AbilityScore = setStrProp(AbilityScore, &quot;Constitution&quot;, __CONSTIT [rest of string was truncated]&quot;;.
+        ///[H : AbilityScore = setStrProp(AbilityScore, &quot;Dexterity&quot;,  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string HeaderTemplate {
             get {
@@ -287,14 +307,20 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [H: fail = input(&quot;Rest | Short, Extended | How long are you resting | RADIO | ORIENT=H&quot;)]
-        ///[H:abort(fail)]
+        ///   Looks up a localized string similar to &lt;!-- show the user rest options --&gt;
+        ///[H : InputPrompt = input(
+        ///	&quot;RestType | Short, Extended | How long are you resting? | RADIO&quot;)]
         ///
-        ///[IF(Rest == 0), CODE: {
-        /// [macro(&quot;Short_Rest@&quot;+getMacroLocation()): &quot;&quot;]
-        ///};{
-        /// [macro(&quot;Extended_Rest@&quot;+getMacroLocation()): &quot;&quot;]
-        ///}].
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPrompt)]
+        ///
+        ///&lt;!-- regardless of rest type, all encounter powers are restored --&gt;
+        ///[H: CombatStatus = setStrProp(CombatStatus, &quot;EncounterPowersUsed&quot;, 0), CombatStatus)]
+        ///
+        ///[H:blah = &quot;&quot;]
+        ///
+        ///&lt;!-- restore the text color so the macros appear as usable once again --&gt;
+        ///[H, FOREACH(index, getMacroGroup(&quot;Encounter&quot;)), CODE  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RestTemplate {
             get {

@@ -22,7 +22,7 @@
 [H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- Confirm that the user has a healing surge -->
-[H : NoHealingSurgesAlert = if(SpendHealingSurge == 1 && HSRemaining < 1, 'input("UNUSUED | No Healing Surges Left | Unable to Heal | LABEL")', "HSRemaining")]
+[H : NoHealingSurgesAlert = if(SpendHealingSurge == 1 && HSRemaining < 1, 'input("UNUSED | No Healing Surges Left | Unable to Heal | LABEL")', "HSRemaining")]
 [H : eval(NoHealingSurgesAlert)]
 [H : abort(if(SpendHealingSurge == 1 && HSRemaining < 1, 0, 1))]
 

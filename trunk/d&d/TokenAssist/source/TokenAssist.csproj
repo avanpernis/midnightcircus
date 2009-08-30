@@ -128,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CheckTemplate.txt" />
+    <None Include="Resources\ActionPointTemplate.txt" />
     <Content Include="Resources\DamageTemplate.txt" />
     <Content Include="Resources\FeatTemplate.txt" />
     <None Include="Resources\HeaderTemplate.txt" />
