@@ -74,7 +74,7 @@ namespace TokenAssist
                 results = results.Replace("\uF020", @" ");
 
                 // some magic items use a unicode circle to separate things like "(Consumable • Healing)"
-                // it also used to as the bullet for an unordered list in some powers
+                // it is also used as the bullet for an unordered list in some powers
                 // replace it with the equivalent HTML code
                 results = results.Replace("\u2022", @"&middot;");
 
