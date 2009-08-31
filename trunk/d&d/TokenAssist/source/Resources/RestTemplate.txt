@@ -30,13 +30,9 @@
 		[setMacroProps(index, "fontcolor=" + if(MacroBackgroundColor == "black", "white", "black"))]
 	}]
 	
-	<!-- restore hit points to maximum -->
-	[H : MaxHP = getStrProp(HPManager, "MaxHP")]
-	[H : HSPerDay = getStrProp(HPManager, "HSPerDay")]
-	
-	<!-- restore healing surges to maximum -->
-	[H : HPManager = setStrProp(HPManager, "CurrentHP", MaxHP)]
-	[H : HPManager = setStrProp(HPManager, "HSRemaining", HSPerDay)]
+	<!-- restore hit points and healing surges to maximum -->
+	[H : CurrentHitPoints = MaxHitPoints]
+	[H : CurrentHealingSurges = MaxHealingSurges]
 	
 	<!-- set available action points to 1 -->
 	[H : ActionPoints = 1]
@@ -45,8 +41,8 @@
 	[H : DailyItemUses = ceiling(Level / 10)]
 	
 	You take an extended rest and recover all of your encounter and daily powers.<br>
-	You have <b>{MaxHP}</b> Hit Points.<br>
-	You have <b>{HSPerDay}</b> Healing Surges.<br>
+	You have <b>{CurrentHitPoints}</b> Hit Points.<br>
+	You have <b>{CurrentHealingSurges}</b> Healing Surges.<br>
 	You have <b>{ActionPoints}</b> Action Point.<br>
 	You have <b>{DailyItemUses}</b> Daily Item Use{if(DailyItemUses > 1, "s", "")}.<br>
 	

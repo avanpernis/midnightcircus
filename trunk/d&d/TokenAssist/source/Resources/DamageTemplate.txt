@@ -1,15 +1,7 @@
-<!-- retrieve current hit point values -->
-[H : CurrentHP = getStrProp(HPManager, "CurrentHP")]
-[H : MaxHP = getStrProp(HPManager, "MaxHP")]
-[H : TempHP = getStrProp(HPManager, "TempHP")]
-[H : HSRemaining = getStrProp(HPManager, "HSRemaining")]
-[H : HSPerDay = getStrProp(HPManager, "HSPerDay")]
-[H : HSValue = getStrProp(HPManager, "HSValue")]
-
-<!-- show the user healing options -->
+<!-- show the user damage options -->
 [H : InputPrompt = input(
-	"UNUSED | " + CurrentHP + " / " + MaxHP + if(TempHP > 0, " (Temp: " + TempHP + ")", "") + " | Hit Points | Label",
-	"UNUSED | " + HSRemaining + " / " + HSPerDay + " (Value: " + HSValue + ") | Healing Surges | Label",
+	"UNUSED | " + CurrentHitPoints + " / " + MaxHitPoints + if(TempHitPoints > 0, " (Temp: " + TempHitPoints + ")", "") + " | Hit Points | Label",
+	"UNUSED | " + CurrentHealingSurges + " / " + MaxHealingSurges + " (Value: " + HealingSurgeValue + ") | Healing Surges | Label",
 	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
 	"DamageAmount | " + getStrProp(CombatStatus, "LastDamageAmount") + " | Amount of Damage | TEXT")]
 
@@ -21,25 +13,21 @@
 [H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- first burn any temp hit points that might exist -->
-[H : TempHP = TempHP - DamageAmount]
+[H : TempHitPoints = TempHitPoints - DamageAmount]
 
 <!-- if the above went negative, add it to current hp (effectively a subtract) -->
-[H : CurrentHP = CurrentHP + min(0, TempHP)]
+[H : CurrentHitPoints = CurrentHitPoints + min(0, TempHitPoints)]
 
 <!-- now adjust the temp hit points if they went negative -->
-[H : TempHP = max(0, TempHP)]
-
-<!-- store the result -->
-[H : HPManager = setStrProp(HPManager, "CurrentHP", CurrentHP)]
-[H : HPManager = setStrProp(HPManager, "TempHP", TempHP)]
+[H : TempHitPoints = max(0, TempHitPoints)]
 
 <!-- output the results -->
 <b>{"Damaged for " + DamageAmount + " Hit Points!"}</b><br>
-<b>{CurrentHP + " / " + MaxHP}</b> Hit Points Remaining<br>
+<b>{CurrentHitPoints + " / " + MaxHitPoints}</b> Hit Points Remaining<br>
 
 <!-- update token state appropriately -->
-[H : state.Helpless = if(CurrentHP > 0, 0, 1)]
-[H : state.Dead = 1 - max(0, min(1, (MaxHP * 0.5) + CurrentHP))]
+[H : state.Helpless = if(CurrentHitPoints > 0, 0, 1)]
+[H : state.Dead = 1 - max(0, min(1, (MaxHitPoints * 0.5) + CurrentHitPoints))]
 [H : state.Prone = state.Dead + state.Prone + state.Helpless]
-[H : state.Bloodied = if(CurrentHP / MaxHP < 0.5, 1, 0)]
-[H : bar.Health = CurrentHP / MaxHP]
+[H : state.Bloodied = if(CurrentHitPoints / MaxHitPoints < 0.5, 1, 0)]
+[H : bar.Health = CurrentHitPoints / MaxHitPoints]

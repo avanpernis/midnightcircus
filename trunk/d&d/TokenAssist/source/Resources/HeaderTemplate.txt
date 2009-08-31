@@ -11,12 +11,12 @@
 {setProperty("DailyItemUses", ceiling(Level / 10))}
 
 <!-- ability scores -->
-[H : AbilityScore = setStrProp(AbilityScore, "Strength", __STRENGTH__)]
-[H : AbilityScore = setStrProp(AbilityScore, "Dexterity", __DEXTERITY__)]
-[H : AbilityScore = setStrProp(AbilityScore, "Constitution", __CONSTITUTION__)]
-[H : AbilityScore = setStrProp(AbilityScore, "Intelligence", __INTELLIGENCE__)]
-[H : AbilityScore = setStrProp(AbilityScore, "Wisdom", __WISDOM__)]
-[H : AbilityScore = setStrProp(AbilityScore, "Charisma", __CHARISMA__)]
+{setProperty("Strength", __STRENGTH__)}
+{setProperty("Dexterity", __DEXTERITY__)}
+{setProperty("Constitution", __CONSTITUTION__)}
+{setProperty("Intelligence", __INTELLIGENCE__)}
+{setProperty("Wisdom", __WISDOM__)}
+{setProperty("Charisma", __CHARISMA__)}
 
 <!-- defenses -->
 {setProperty("AC", __AC__)}
@@ -25,11 +25,10 @@
 {setProperty("Will", __WILL__)}
 
 <!-- hit points -->
-[H : HPManager = setStrProp(HPManager, "CurrentHP", __MAX_HIT_POINTS__)]
-[H : HPManager = setStrProp(HPManager, "MaxHP", __MAX_HIT_POINTS__)]
-[H : HPManager = setStrProp(HPManager, "TempHP", 0)]
-[H : HPManager = setStrProp(HPManager, "HSRemaining", __HEALING_SURGES_PER_DAY__)]
-[H : HPManager = setStrProp(HPManager, "HSPerDay", __HEALING_SURGES_PER_DAY__)]
-[H : HPManager = setStrProp(HPManager, "HSBonus", __HEALING_SURGE_BONUS__)]
-[H : HPManager = setStrProp(HPManager, "HSValue", floor(__MAX_HIT_POINTS__ / 4) + __HEALING_SURGE_BONUS__)]
+{setProperty("CurrentHitPoints", __MAX_HIT_POINTS__)}
+{setProperty("MaxHitPoints", __MAX_HIT_POINTS__)}
+{setProperty("TempHitPoints", 0)}
+{setProperty("CurrentHealingSurges", __HEALING_SURGES_PER_DAY__)}
+{setProperty("MaxHealingSurges", __HEALING_SURGES_PER_DAY__)}
+{setProperty("HealingSurgeValue", floor(__MAX_HIT_POINTS__ / 4) + __HEALING_SURGE_BONUS__))}
 [H : bar.Health = 1]
