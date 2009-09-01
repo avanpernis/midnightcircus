@@ -470,7 +470,6 @@ namespace TokenAssist
                     {
                         string tempMacro = LimitedUse;
                         macro = tempMacro.Replace(@"__MACRO_TEXT__",macro);
-                        macro = macro.Replace(@"__MACRO_NAME__", GetMacroName(power));
                         switch (power.Usage)
                         {
                             case Power.UsageType.Encounter:
