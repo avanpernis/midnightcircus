@@ -247,7 +247,7 @@ namespace TokenAssist
             weapon.Damage = GetWeaponDamage(xmlNodeWeapon);
             weapon.CriticalDamage = GetWeaponCriticalDamage(xmlNodeWeapon);
             weapon.AttackStat = GetDescendantNodeText(xmlNodeWeapon, "AttackStat");
-            weapon.Defense = GetWeaponDefense(xmlNodeWeapon);
+            weapon.Defense = GetDescendantNodeText(xmlNodeWeapon, "Defense");
 
             return weapon;
         }
@@ -345,26 +345,6 @@ namespace TokenAssist
             Match match = criticalPattern.Match(compendiumEntry);
 
             return match.Success ? match.Groups[1].Value : "0";
-        }
-
-        private static Weapon.DefenseType GetWeaponDefense(XmlNode xmlNodeWeapon)
-        {
-            string defense = GetDescendantNodeText(xmlNodeWeapon, "Defense");
-
-            if (defense != null)
-            {
-                Regex wordPattern = new Regex(@"\w+");
-                Match match = wordPattern.Match(defense);
-
-                if (match.Success)
-                {
-                    defense = match.Groups[0].Value;
-                }
-
-                return (Weapon.DefenseType)Enum.Parse(typeof(Weapon.DefenseType), defense);
-            }
-
-            return Weapon.DefenseType.Undefined;
         }
 
         private static void GetMagicItemPower(MagicItem magicItem)

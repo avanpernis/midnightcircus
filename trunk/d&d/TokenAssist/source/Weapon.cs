@@ -8,15 +8,6 @@ namespace TokenAssist
 {
     public class Weapon
     {
-        public enum DefenseType
-        {
-            AC,
-            Fortitude,
-            Reflex,
-            Will,
-            Undefined
-        }
-
         public string Name
         {
             get { return mName; }
@@ -66,7 +57,7 @@ namespace TokenAssist
             set { mAttackStat = value; }
         }
 
-        public DefenseType Defense
+        public string Defense
         {
             get { return mDefense; }
             set { mDefense = value; }
@@ -78,6 +69,6 @@ namespace TokenAssist
         private string mMaxDamage = null;
         private string mCriticalDamage = null;
         private string mAttackStat = null;
-        private DefenseType mDefense = DefenseType.Undefined;
+        private string mDefense = null;
     }
 }
