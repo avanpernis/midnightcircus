@@ -73,6 +73,9 @@ namespace TokenAssist
                 // sometimes there are strange unicode spaces
                 results = results.Replace("\uF020", @" ");
 
+                // sometimes there are weird non-hyphen characters used for negative modifiers/penalties
+                results = results.Replace("\u2013", @"-");
+
                 // some magic items use a unicode circle to separate things like "(Consumable • Healing)"
                 // it is also used as the bullet for an unordered list in some powers
                 // replace it with the equivalent HTML code
