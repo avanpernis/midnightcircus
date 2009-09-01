@@ -18,5 +18,5 @@ __MACRO_TEXT__
 [H:CombatStatus = setStrProp(CombatStatus, "__USAGE_TYPE__PowersUsed", bor(2^eval(""+listGet(""+CurrentPowerID, Used)),PowersUsed) )]
 
 <!-- Changes the font to gray when all power is used up. You much enter the exact name of macro in setMacroProps() for it to work -->
-[H:PowerUsed = if(Used == (CurrentPoweruses - 1), 'setMacroProps("__MACRO_NAME__", "fontcolor=gray")' , "0")]
+[H:PowerUsed = if(Used == (CurrentPoweruses - 1), 'setMacroProps(getMacroButtonIndex(), "fontcolor=gray")' , "0")]
 [H:eval(""+PowerUsed)]

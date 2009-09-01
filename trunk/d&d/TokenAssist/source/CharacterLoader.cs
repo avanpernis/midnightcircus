@@ -320,7 +320,7 @@ namespace TokenAssist
         {
             string damage = GetDescendantNodeText(xmlNodeWeapon, "Damage");
 
-            return (damage != null) ? damage : null;
+            return string.IsNullOrEmpty(damage) ? "0" : damage;
         }
 
         private static string GetWeaponCriticalDamage(XmlNode xmlNodeWeapon)
