@@ -123,6 +123,8 @@ namespace TokenAssist
                     catch (Exception)
                     {
                     }
+                    result = CompendiumUtilities.ApplyStyleSheet(result);
+                    result = CompendiumUtilities.ApplyFormatting(result);
                 }
             }
 
@@ -141,6 +143,8 @@ namespace TokenAssist
                 catch (Exception)
                 {
                 }
+                result = CompendiumUtilities.ApplyStyleSheet(result);
+                result = CompendiumUtilities.ApplyFormatting(result);
             }
             
 
