@@ -304,7 +304,6 @@ namespace TokenAssist
             builder.Append(character.Stats["acrobatics"].Value.ToString() + ", ");
             builder.Append(character.Stats["arcana"].Value.ToString() + ", ");
             builder.Append(character.Stats["athletics"].Value.ToString() + ", ");
-            builder.Append(character.Stats["acrobatics"].Value.ToString() + ", ");
             builder.Append(character.Stats["bluff"].Value.ToString() + ", ");
             builder.Append(character.Stats["diplomacy"].Value.ToString() + ", ");
             builder.Append(character.Stats["dungeoneering"].Value.ToString() + ", ");
