@@ -138,6 +138,14 @@ namespace TokenAssist
             }
         }
 
+        public static string MagicItemHealingSurgeTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.MagicItemHealingSurgeTemplate;
+            }
+        }
+
         private static string GetCheckMacroName(string name)
         {
             return string.Format(@"<b>{0}</b>", name);
@@ -498,6 +506,8 @@ namespace TokenAssist
                     writer.WriteLine(macro);
                 }
 
+                int HealingSurgeMagicItemCount = 0; // Keep track of Magic Item IDs for items that can be recharged with a healing surge
+
                 foreach (MagicItem magicItem in character.MagicItems)
                 {
                     string macro = MagicItemTemplate;
@@ -511,26 +521,44 @@ namespace TokenAssist
                     if (magicItem.HasPower)
                     {
                         // create a separate macro for the power usage in the appropriate power macro group
-                        macro = NoWeaponTemplate;
-
-                        macro = macro.Replace(@"__POWER_NAME__", magicItem.Name);
-                        macro = macro.Replace(@"__POWER_CARD__", (magicItem.CompendiumEntry != null) ? magicItem.CompendiumEntry : string.Empty);
-
-                        if (magicItem.PowerUsage == MagicItem.PowerUsageType.Encounter || magicItem.PowerUsage == MagicItem.PowerUsageType.Daily)
+                        if (magicItem.PowerUsage == MagicItem.PowerUsageType.HealingSurge)
                         {
-                            string tempMacro = LimitedUse;
-                            macro = tempMacro.Replace(@"__MACRO_TEXT__", macro);
-                            macro = macro.Replace(@"__MACRO_NAME__", GetMacroName(magicItem));
-                            switch (magicItem.PowerUsage)
+                            // healing surges require a special sort of limited use macro
+                            macro = MagicItemHealingSurgeTemplate;
+
+                            macro = macro.Replace(@"__POWER_ID__", string.Format("{0}", HealingSurgeMagicItemCount++));
+                            macro = macro.Replace(@"__MACRO_TEXT__", NoWeaponTemplate);
+                            macro = macro.Replace(@"__POWER_NAME__", magicItem.Name);
+                            macro = macro.Replace(@"__POWER_CARD__", (magicItem.CompendiumEntry != null) ? magicItem.CompendiumEntry : string.Empty);
+                        }
+                        // TODO: we need to handle consumables differently
+                        //else if (magicItem.PowerUsage == MagicItem.PowerUsageType.Consumable)
+                        //{
+                        //}
+                        else
+                        {
+                            // at-will, encounter, and daily magic item uses can be handled similarly to normal powers
+                            macro = NoWeaponTemplate;
+
+                            macro = macro.Replace(@"__POWER_NAME__", magicItem.Name);
+                            macro = macro.Replace(@"__POWER_CARD__", (magicItem.CompendiumEntry != null) ? magicItem.CompendiumEntry : string.Empty);
+
+                            if (magicItem.PowerUsage == MagicItem.PowerUsageType.Encounter || magicItem.PowerUsage == MagicItem.PowerUsageType.Daily)
                             {
-                                case MagicItem.PowerUsageType.Encounter:
-                                    macro = macro.Replace(@"__POWER_ID__", string.Format("{0}", EncounterPowerCount++));
-                                    macro = macro.Replace(@"__USAGE_TYPE__", "Encounter");
-                                    break;
-                                case MagicItem.PowerUsageType.Daily:
-                                    macro = macro.Replace(@"__POWER_ID__", string.Format("{0}", DailyPowerCount++));
-                                    macro = macro.Replace(@"__USAGE_TYPE__", "Daily");
-                                    break;
+                                string tempMacro = LimitedUse;
+                                macro = tempMacro.Replace(@"__MACRO_TEXT__", macro);
+                                macro = macro.Replace(@"__MACRO_NAME__", GetMacroName(magicItem));
+                                switch (magicItem.PowerUsage)
+                                {
+                                    case MagicItem.PowerUsageType.Encounter:
+                                        macro = macro.Replace(@"__POWER_ID__", string.Format("{0}", EncounterPowerCount++));
+                                        macro = macro.Replace(@"__USAGE_TYPE__", "Encounter");
+                                        break;
+                                    case MagicItem.PowerUsageType.Daily:
+                                        macro = macro.Replace(@"__POWER_ID__", string.Format("{0}", DailyPowerCount++));
+                                        macro = macro.Replace(@"__USAGE_TYPE__", "Daily");
+                                        break;
+                                }
                             }
                         }
 
