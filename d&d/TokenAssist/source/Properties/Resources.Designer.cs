@@ -99,17 +99,14 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!-- retrieve current hit point values --&gt;
-        ///[H : CurrentHP = getStrProp(HPManager, &quot;CurrentHP&quot;)]
-        ///[H : MaxHP = getStrProp(HPManager, &quot;MaxHP&quot;)]
-        ///[H : TempHP = getStrProp(HPManager, &quot;TempHP&quot;)]
-        ///[H : HSRemaining = getStrProp(HPManager, &quot;HSRemaining&quot;)]
-        ///[H : HSPerDay = getStrProp(HPManager, &quot;HSPerDay&quot;)]
-        ///[H : HSValue = getStrProp(HPManager, &quot;HSValue&quot;)]
-        ///
-        ///&lt;!-- show the user healing options --&gt;
+        ///   Looks up a localized string similar to &lt;!-- show the user damage options --&gt;
         ///[H : InputPrompt = input(
-        ///	&quot;UNUSED | &quot; + CurrentHP + &quot; / &quot; + MaxHP + if(TempHP &gt; 0, &quot; (Temp: &quot; + TempHP + &quot;)&quot;, &quot;&quot;) +  [rest of string was truncated]&quot;;.
+        ///	&quot;UNUSED | &quot; + CurrentHitPoints + &quot; / &quot; + MaxHitPoints + if(TempHitPoints &gt; 0, &quot; (Temp: &quot; + TempHitPoints + &quot;)&quot;, &quot;&quot;) + &quot; | Hit Points | Label&quot;,
+        ///	&quot;UNUSED | &quot; + CurrentHealingSurges + &quot; / &quot; + MaxHealingSurges + &quot; (Value: &quot; + HealingSurgeValue + &quot;) | Healing Surges | Label&quot;,
+        ///	&quot;UNUSED | &lt;html&gt;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;,
+        ///	&quot;DamageAmount | &quot; + getStrProp(CombatStatus, &quot;LastDamageAmount&quot;) + &quot; | Amount of Damage | TEXT&quot;)]
+        ///
+        ///&lt;!-- bail if the  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DamageTemplate {
             get {
@@ -160,8 +157,9 @@ namespace TokenAssist.Properties {
         ///{setProperty(&quot;DailyItemUses&quot;, ceiling(Level / 10))}
         ///
         ///&lt;!-- ability scores --&gt;
-        ///[H : AbilityScore = setStrProp(AbilityScore, &quot;Strength&quot;, __STRENGTH__)]
-        ///[H : AbilityScore = setStrProp(AbilityScore, &quot;Dexterity&quot;,  [rest of string was truncated]&quot;;.
+        ///{setProperty(&quot;Strength&quot;, __STRENGTH__)}
+        ///{setProperty(&quot;Dexterity&quot;, __DEXTERITY__)}
+        ///{setProperty(&quot;Constitution&quot;, __CONSTITUTION__)} [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string HeaderTemplate {
             get {
@@ -170,17 +168,13 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!-- retrieve current hit point values --&gt;
-        ///[H : CurrentHP = getStrProp(HPManager, &quot;CurrentHP&quot;)]
-        ///[H : MaxHP = getStrProp(HPManager, &quot;MaxHP&quot;)]
-        ///[H : TempHP = getStrProp(HPManager, &quot;TempHP&quot;)]
-        ///[H : HSRemaining = getStrProp(HPManager, &quot;HSRemaining&quot;)]
-        ///[H : HSPerDay = getStrProp(HPManager, &quot;HSPerDay&quot;)]
-        ///[H : HSValue = getStrProp(HPManager, &quot;HSValue&quot;)]
-        ///
-        ///&lt;!-- show the user healing options --&gt;
+        ///   Looks up a localized string similar to &lt;!-- show the user healing options --&gt;
         ///[H : InputPrompt = input(
-        ///	&quot;UNUSED | &quot; + CurrentHP + &quot; / &quot; + MaxHP + if(TempHP &gt; 0, &quot; (Temp: &quot; + TempHP + &quot;)&quot;, &quot;&quot;) +  [rest of string was truncated]&quot;;.
+        ///	&quot;UNUSED | &quot; + CurrentHitPoints + &quot; / &quot; + MaxHitPoints + if(TempHitPoints &gt; 0, &quot; (Temp: &quot; + TempHitPoints + &quot;)&quot;, &quot;&quot;) + &quot; | Hit Points | Label&quot;,
+        ///	&quot;UNUSED | &quot; + CurrentHealingSurges + &quot; / &quot; + MaxHealingSurges + &quot; (Value: &quot; + HealingSurgeValue + &quot;) | Healing Surges | Label&quot;,
+        ///	&quot;UNUSED | &lt;html&gt;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;,
+        ///	&quot;HealingAmount | &quot; + getStrProp(CombatStatus, &quot;LastHealingAmount&quot;) + &quot; | Amount to Heal | TEXT&quot;,
+        ///	&quot;SpendHealingSurge [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string HealingTemplate {
             get {
@@ -212,13 +206,12 @@ namespace TokenAssist.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;!-- The Power ID is a list of numbers that identify the power. A Unique number is required for each use of the power. No power should use a number that is part of another Power&apos;s List unless their usage is tied together like Cleric&apos;s Channel Divinity powers --&gt;
-        ///[H:CurrentPowerID=&quot;__POWER_ID__&quot;]
-        ///[H:CurrentPowerUses=listCount(&quot;&quot;+CurrentPowerID)]
-        ///[H:Used = 0]
-        ///[H:Reuse = 0]
-        ///[H:PowersUsed = getStrProp(CombatStatus, &quot;__USAGE_TYPE__PowersUsed&quot;)]
-        ///[H:PowersUsed = if(PowersUsed == &quot;&quot;, 0, PowersUsed)]
-        ///[H,C(Cur [rest of string was truncated]&quot;;.
+        ///[H : CurrentPowerID = &quot;__POWER_ID__&quot;]
+        ///[H : CurrentPowerUses = listCount(&quot;&quot; + CurrentPowerID)]
+        ///[H : Used = 0]
+        ///[H : Reuse = 0]
+        ///[H : PowersUsed = getStrProp(CombatStatus, &quot;__USAGE_TYPE__PowersUsed&quot;)]
+        ///[H : PowersUsed = if(PowersUsed == &quot;&quot;, 0, Powe [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string LimitedUseTemplate {
             get {
@@ -260,6 +253,27 @@ namespace TokenAssist.Properties {
         ///
         ///&lt;!-- show the magic item card to the other players  [rest of string was truncated]&quot;;.
         /// </summary>
+        internal static string MagicItemHealingSurgeTemplate {
+            get {
+                return ResourceManager.GetString("MagicItemHealingSurgeTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
+        ///[H : MagicItemName = &quot;__MAGIC_ITEM_NAME__&quot;]
+        ///
+        ///&lt;!-- html magic item card, as found in the compendium --&gt;
+        ///[H : MagicItemCard = &quot;__MAGIC_ITEM_CARD__&quot;]
+        ///
+        ///&lt;!-- show the user the magic item they are about to use --&gt;
+        ///[H : InputPrompt = input(MagicItemName + &quot; | &lt;html&gt;&quot; + MagicItemCard + &quot;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;)]
+        ///
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPrompt)]
+        ///
+        ///&lt;!-- show the magic item card to the other players  [rest of string was truncated]&quot;;.
+        /// </summary>
         internal static string MagicItemTemplate {
             get {
                 return ResourceManager.GetString("MagicItemTemplate", resourceCulture);
@@ -276,17 +290,20 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!-- Confirm that the user has am action point --&gt;
-        ///[H : NoActionPointsAlert = if(ActionPoints &lt; 1, &apos;input(&quot;UNUSED | No Action Points Left | Warning | LABEL&quot;)&apos;, &quot;ActionPoints&quot;)]
-        ///[H : eval(NoActionPointsAlert)]
-        ///[H : abort(if(ActionPoints &lt; 1, 0, 1))]
-        ///
-        ///&lt;!-- Confirm the user&apos;s decision to use an action point --&gt;
-        ///[H : InputPrompt = input(&quot;SpendActionPoint | 1 | Spend Action Point? | CHECK&quot;)]
+        ///   Looks up a localized string similar to &lt;!-- Confirm the user&apos;s reaching of a milestone --&gt;
+        ///[H : InputPrompt = input(&quot;ReachedMilestone | 1 | Reached a Milestone? | CHECK&quot;)]
         ///
         ///&lt;!-- bail if the user cancels the dialog --&gt;
         ///[H : abort(InputPrompt)]
-        ///[H : abort(if(SpendActionPoint == 0, 0, 1 [rest of string was truncated]&quot;;.
+        ///[H : abort(if(ReachedMilestone == 0, 0, 1))]
+        ///
+        ///&lt;!-- award an action point and a daily item use --&gt;
+        ///[H : ActionPoints = ActionPoints + 1]
+        ///[H : DailyItemUses = DailyItemUses + 1]
+        ///
+        ///&lt;!-- output the results --&gt;
+        ///You reached a Milestone.&lt;br&gt;
+        ///You have &lt;b&gt;{ActionPoints}&lt;/b&gt; Action Point{if(ActionPoints &gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MilestoneTemplate {
             get {
@@ -379,17 +396,13 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!-- retrieve current hit point values --&gt;
-        ///[H : CurrentHP = getStrProp(HPManager, &quot;CurrentHP&quot;)]
-        ///[H : MaxHP = getStrProp(HPManager, &quot;MaxHP&quot;)]
-        ///[H : TempHP = getStrProp(HPManager, &quot;TempHP&quot;)]
-        ///[H : HSRemaining = getStrProp(HPManager, &quot;HSRemaining&quot;)]
-        ///[H : HSPerDay = getStrProp(HPManager, &quot;HSPerDay&quot;)]
-        ///[H : HSValue = getStrProp(HPManager, &quot;HSValue&quot;)]
-        ///
-        ///&lt;!-- show the user healing options --&gt;
+        ///   Looks up a localized string similar to &lt;!-- show the user healing options --&gt;
         ///[H : InputPrompt = input(
-        ///	&quot;UNUSED | &quot; + CurrentHP + &quot; / &quot; + MaxHP + if(TempHP &gt; 0, &quot; (Temp: &quot; + TempHP + &quot;)&quot;, &quot;&quot;) +  [rest of string was truncated]&quot;;.
+        ///	&quot;UNUSED | &quot; + CurrentHitPoints + &quot; / &quot; + MaxHitPoints + if(TempHitPoints &gt; 0, &quot; (Temp: &quot; + TempHitPoints + &quot;)&quot;, &quot;&quot;) + &quot; | Hit Points | Label&quot;,
+        ///	&quot;UNUSED | &quot; + CurrentHealingSurges + &quot; / &quot; + MaxHealingSurges + &quot; (Value: &quot; + HealingSurgeValue + &quot;) | Healing Surges | Label&quot;,
+        ///	&quot;UNUSED | &lt;html&gt;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;,
+        ///	&quot;TempHPAmount | &quot; + getStrProp(CombatStatus, &quot;LastTempHPAmount&quot;) + &quot; | Amount of Temp HP | TEXT&quot;,
+        ///	&quot;TempHPStacks | &quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TempHPTemplate {
             get {

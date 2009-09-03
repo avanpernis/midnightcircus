@@ -4,7 +4,6 @@
 [H : Used = 0]
 [H : Reuse = 0]
 [H : PowersUsed = getStrProp(CombatStatus, "__USAGE_TYPE__PowersUsed")]
-[H : PowersUsed = if(PowersUsed == "", 0, PowersUsed)]
 [H ,C(CurrentPowerUses) : Used = Used + if(band(2^eval("" + listGet("" + CurrentPowerID, roll.count)), PowersUsed), 1, 0)]
 [H : UsedAlert = if(Used == CurrentPowerUses, 'input("UNUSED | Try Another Power | This Power has already been Used | LABEL", "Reuse | 0 | Reuse this power? | CHECK") ', "Used")]
 [H : eval(UsedAlert)]
@@ -15,8 +14,8 @@
 <!-- Insert Macro Text Here-->
 __MACRO_TEXT__
 
-[H : CombatStatus = setStrProp(CombatStatus, "__USAGE_TYPE__PowersUsed", bor(2^eval("" + listGet("" + CurrentPowerID, Used)),PowersUsed) )]
+[H : CombatStatus = setStrProp(CombatStatus, "__USAGE_TYPE__PowersUsed", bor(2^eval("" + listGet("" + CurrentPowerID, Used)), PowersUsed))]
 
 <!-- Changes the font color to indicate when the power is used up. -->
-[H : PowerUsed = if(Used == (CurrentPoweruses - 1), 'setMacroProps(getMacroButtonIndex(), "fontcolor=gray")' , "0")]
+[H : PowerUsed = if(Used == (CurrentPowerUses - 1), 'setMacroProps(getMacroButtonIndex(), "fontcolor=gray")', "0")]
 [H : eval("" + PowerUsed)]

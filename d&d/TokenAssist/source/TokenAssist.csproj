@@ -135,6 +135,7 @@
     <Content Include="Resources\HealingTemplate.txt" />
     <Content Include="Resources\InitiativeTemplate.txt" />
     <Content Include="Resources\LimitedUseTemplate.txt" />
+    <None Include="Resources\MagicItemHealingSurgeTemplate.txt" />
     <Content Include="Resources\MagicItemTemplate.txt" />
     <None Include="Resources\RestTemplate.txt" />
     <None Include="Resources\MilestoneTemplate.txt" />
