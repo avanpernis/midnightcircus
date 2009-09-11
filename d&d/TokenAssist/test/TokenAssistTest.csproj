@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="CharacterFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDataFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\source\TokenAssist.csproj">
