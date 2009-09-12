@@ -19,3 +19,18 @@ __MACRO_TEXT__
 <!-- Changes the font color to indicate when the power is used up. -->
 [H : PowerUsed = if(Used == (CurrentPowerUses - 1), 'setMacroProps(getMacroButtonIndex(), "fontcolor=gray")', "0")]
 [H : eval("" + PowerUsed)]
+
+<!-- If this power is a Channel Divinity power, we need to disable all other Channel Divinity powers -->
+[H : ChannelDivinityPower = if(indexOf(getMacroName(), "Channel Divinity") != -1, 1, 0)]
+
+[IF(ChannelDivinityPower == 1), CODE : {
+
+	<!-- disable all other channel divinity powers as well -->
+	[H, FOREACH(index, getMacroGroup("__USAGE_TYPE__")), CODE : {
+		[H : MacroProps = getMacroProps(index)]
+		[H : MacroLabel = getStrProp(MacroProps, "label")]
+		[H : PowerUsed = if(indexOf(MacroLabel, "Channel Divinity") != -1 && Used == (CurrentPowerUses - 1), 'setMacroProps(index, "fontcolor=gray")', "0")]
+		[H : eval("" + PowerUsed)]
+	}]
+
+};{}]
