@@ -17,11 +17,11 @@ namespace TokenAssist
 
     public class CompendiumCache
     {
-        const int SOURCE_NET = 1 << 0;
-        const int SOURCE_CACHE = 1 << 1;
-        const int SOURCE_CHAR = 1 << 2;
-        const int SOURCE_CLASS = 1 << 3;
-        const int SOURCE_RACE = 1 << 4;
+        public const int SOURCE_NET = 1 << 0;
+        public const int SOURCE_CACHE = 1 << 1;
+        public const int SOURCE_CHAR = 1 << 2;
+        public const int SOURCE_CLASS = 1 << 3;
+        public const int SOURCE_RACE = 1 << 4;
 
         Character mActiveChar = null;
         int mAvailableSources = 0;
@@ -30,6 +30,9 @@ namespace TokenAssist
         string mItemsDir = null;
         string mFeatsDir = null;
         string mCharsDir = null;
+        string mRaceDir = null;
+        string mClassDir = null;
+        
         
         public CompendiumCache()
         {
@@ -60,6 +63,14 @@ namespace TokenAssist
                 mCharsDir = Path.Combine(mCacheBase, "Characters");
                 if (!Directory.Exists(mCharsDir))
                     Directory.CreateDirectory(mCharsDir);
+
+                mRaceDir = Path.Combine(mCacheBase, "Race");
+                if (!Directory.Exists(mRaceDir))
+                    Directory.CreateDirectory(mRaceDir);
+
+                mClassDir = Path.Combine(mCacheBase, "Class");
+                if (!Directory.Exists(mClassDir))
+                    Directory.CreateDirectory(mClassDir);
             }
             catch (Exception)
             {
@@ -78,7 +89,7 @@ namespace TokenAssist
                 return mActiveChar;
             }
         }
-
+        
         /// <param name="id">The id to try and find</param>
         /// <returns>A string with the entry</returns>
         public string Get(EntryType type, string url)
@@ -128,6 +139,56 @@ namespace TokenAssist
                 }
             }
 
+            // check for race specific override
+            if ((SourceEnabled(SOURCE_RACE)) && (result == null) && (type == EntryType.TYPE_POWER) && (mActiveChar != null))
+            {
+                string filename = null;
+                if (mActiveChar.Race.Name != null)
+                    filename = Path.Combine(mRaceDir, mActiveChar.Race.Name + @"\" + id + ".html");
+                
+                if (File.Exists(filename))
+                {
+                    try
+                    {
+                        using (StreamReader reader = new StreamReader(filename))
+                        {
+                            result = reader.ReadToEnd();
+                            Debug.WriteLine("     from race cache");
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    result = CompendiumUtilities.ApplyStyleSheet(result);
+                    result = CompendiumUtilities.ApplyFormatting(result);
+                }
+            }
+            
+            // check for class specific override
+            if ((SourceEnabled(SOURCE_CLASS)) && (result == null) && (type == EntryType.TYPE_POWER) && (mActiveChar != null))
+            {
+                string filename = null;
+                if (mActiveChar.Class.Name != null)
+                    filename = Path.Combine(mClassDir, mActiveChar.Class.Name + @"\" + id + ".html");
+
+                if (File.Exists(filename))
+                {
+                    try
+                    {
+                        using (StreamReader reader = new StreamReader(filename))
+                        {
+                            result = reader.ReadToEnd();
+                            Debug.WriteLine("     from class cache");
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                    result = CompendiumUtilities.ApplyStyleSheet(result);
+                    result = CompendiumUtilities.ApplyFormatting(result);
+                }
+            }
+
             // Check the global cache
             string cacheName = Path.Combine(cacheDir, id + ".html");
             if ((SourceEnabled(SOURCE_CACHE)) && (result == null) && (id != null) && (File.Exists(cacheName)))
@@ -147,19 +208,26 @@ namespace TokenAssist
                 result = CompendiumUtilities.ApplyFormatting(result);
             }
             
-
             // no answer yet?  Consult the compendium
             if ((SourceEnabled(SOURCE_NET)) && (result == null))
             {
-                result = CompendiumUtilities.GetUrl(url);
-
-                // if it came down to asking the compendium and we have an id to use, go store it in the cache
-                if ((id != null) && (result != null))
+                if (!CompendiumAccess.Instance.Connected)
                 {
-                    using (StreamWriter writer = new StreamWriter(cacheName))
+                    CompendiumUtilities.PromptForLogin();
+                }
+
+                if (CompendiumAccess.Instance.Connected)
+                {
+                    result = CompendiumUtilities.GetUrl(url);
+                    Debug.WriteLine("     from compendium");
+
+                    // if it came down to asking the compendium and we have an id to use, go store it in the cache
+                    if ((id != null) && (result != null))
                     {
-                        writer.Write(result);
-                        Debug.WriteLine("     from compendium");
+                        using (StreamWriter writer = new StreamWriter(cacheName))
+                        {
+                            writer.Write(result);
+                        }
                     }
                 }
             }
@@ -183,10 +251,17 @@ namespace TokenAssist
         }
 
 
+        public void DisableSource(int cacheType)
+        {
+            mAvailableSources = (mAvailableSources & (~cacheType));
+        }
+
+
         private bool SourceEnabled(int cacheType)
         {
             return ((mAvailableSources & cacheType) != 0);
         }
+
 
         public int CacheSettings
         {

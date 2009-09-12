@@ -15,14 +15,46 @@ namespace TokenAssist
         private static readonly CompendiumLoginForm loginForm = new CompendiumLoginForm();
         private static readonly CompendiumCache mCache = new CompendiumCache();
 
-        public static bool Authenticate()
+        /// <summary>
+        /// Show the login dialog to the user and attempt to login with this information
+        /// </summary>
+        /// <returns>True if we have a connection to the compendium afterwards.  False if the user gave up</returns>
+        public static bool PromptForLogin()
         {
-            if (!CompendiumAccess.Connected)
+            bool done = false;
+            while (!done)
             {
-                loginForm.ShowDialog();
+                // if the user pressed ok, validate the login
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    try
+                    {
+                        CompendiumAccess.Instance.Login(loginForm.Email, loginForm.Password);
+                    }
+                    finally
+                    {
+                        Cursor.Current = Cursors.Default;
+                    }
+
+                    if (CompendiumAccess.Instance.Connected)
+                    {
+                        done = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to authenticate with D&D Compendium", loginForm.Email, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                // otherwise user didn't want to login, bail!
+                else
+                {
+                    done = true;
+                    mCache.DisableSource(CompendiumCache.SOURCE_NET);
+                }
             }
-            
-            return CompendiumAccess.Connected;
+
+            return CompendiumAccess.Instance.Connected;
         }
         
         public static string GetStyleSheet()
@@ -47,72 +79,73 @@ namespace TokenAssist
             return  mCache.Get(EntryType.TYPE_FEAT, url);
         }
 
-        public static string GetRawUrl(string url)
-        {
-            return CompendiumAccess.Instance.GetUrl(url);
-        }
-
         public static string GetUrl(string url)
         {
             try
             {
                 string results = CompendiumAccess.Instance.GetUrl(url);
-
-                // first we strip off all the surrounding crap that makes this an html document
-                int start = results.IndexOf(@"<div id=""detail"">");
-                int end = results.IndexOf(@"</div>", start);
-
-                results = results.Substring(start, end - start + 6).Trim(); // + 6 to get past '</div>'
-
-                // for some reason, compendium uses 3 ?'s for an apostrophe
-                results = results.Replace(@"???", @"'");
-
-                // sometimes there are funky unicode apostrophes as well
-                results = results.Replace("\u2019", @"'");
-
-                // sometimes there are strange unicode spaces
-                results = results.Replace("\uF020", @" ");
-
-                // sometimes there are weird non-hyphen characters used for negative modifiers/penalties
-                results = results.Replace("\u2013", @"-");
-
-                // sometimes there are weird quotation mark characters that do not play nicely
-                results = results.Replace("\u201c", @"'");
-                results = results.Replace("\u201d", @"'");
-
-                // some magic items use a unicode circle to separate things like "(Consumable • Healing)"
-                // it is also used as the bullet for an unordered list in some powers
-                // replace it with the equivalent HTML code
-                results = results.Replace("\u2022", @"&middot;");
-
-                // we need to fully qualify the urls for images
-                results = results.Replace(@"<img src=""", @"<img src=""http://www.wizards.com/dndinsider/compendium/");
-
-                // maptool tries to do funky things with things in brackets [ ], so replace things in brackets
-                // NOTE: no longer needed since we embed the final result in a variable, but keeping around the code in case we change our minds...
-                //results = Regex.Replace(results, @"(\[\w*\])", delegate(Match match)
-                //    {
-                //        return match.Result(@"{""$1""}");
-                //    });
-
-                // maptool does not handle the 'float' CSS specification so we need to manually adjust the name and level of the power               
-                results = Regex.Replace(results, @"\<span[\s\w=""]*>([\w'\s]+)</span\s*>([\w'\s]+)<", delegate(Match match)
-                    {
-                        return match.Result(@"$2: $1<");
-                    });
-
-                // maptool cannot handle the external style sheet, so we need to flatten out the style elements
-                results = ApplyStyleSheet(results);
-
-                // do some final pretty formatting
-                results = ApplyFormatting(results);
-                
+                results = FixCompendiumOutput(results);
                 return results;
             }
             catch
             {
                 return null;
             }
+        }
+
+        public static string FixCompendiumOutput(string raw)
+        {
+            string results = raw;
+            // first we strip off all the surrounding crap that makes this an html document
+            int start = results.IndexOf(@"<div id=""detail"">");
+            int end = results.IndexOf(@"</div>", start);
+
+            results = results.Substring(start, end - start + 6).Trim(); // + 6 to get past '</div>'
+
+            // for some reason, compendium uses 3 ?'s for an apostrophe
+            results = results.Replace(@"???", @"'");
+
+            // sometimes there are funky unicode apostrophes as well
+            results = results.Replace("\u2019", @"'");
+
+            // sometimes there are strange unicode spaces
+            results = results.Replace("\uF020", @" ");
+
+            // sometimes there are weird non-hyphen characters used for negative modifiers/penalties
+            results = results.Replace("\u2013", @"-");
+
+            // sometimes there are weird quotation mark characters that do not play nicely
+            results = results.Replace("\u201c", @"'");
+            results = results.Replace("\u201d", @"'");
+
+            // some magic items use a unicode circle to separate things like "(Consumable • Healing)"
+            // it is also used as the bullet for an unordered list in some powers
+            // replace it with the equivalent HTML code
+            results = results.Replace("\u2022", @"&middot;");
+
+            // we need to fully qualify the urls for images
+            results = results.Replace(@"<img src=""", @"<img src=""http://www.wizards.com/dndinsider/compendium/");
+
+            // maptool tries to do funky things with things in brackets [ ], so replace things in brackets
+            // NOTE: no longer needed since we embed the final result in a variable, but keeping around the code in case we change our minds...
+            //results = Regex.Replace(results, @"(\[\w*\])", delegate(Match match)
+            //    {
+            //        return match.Result(@"{""$1""}");
+            //    });
+
+            // maptool does not handle the 'float' CSS specification so we need to manually adjust the name and level of the power               
+            results = Regex.Replace(results, @"\<span[\s\w=""]*>([\w'\s]+)</span\s*>([\w'\s]+)<", delegate(Match match)
+                {
+                    return match.Result(@"$2: $1<");
+                });
+
+            // maptool cannot handle the external style sheet, so we need to flatten out the style elements
+            results = ApplyStyleSheet(results);
+
+            // do some final pretty formatting
+            results = ApplyFormatting(results);
+
+            return results;
         }
 
         /// <summary>

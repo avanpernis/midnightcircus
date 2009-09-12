@@ -6,6 +6,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace TokenAssist
 {
@@ -20,15 +21,15 @@ namespace TokenAssist
         
         private static CookieContainer mSessionCookies = null;
 
-        private static bool? mConnected = null;
-        public static bool Connected
+        private bool? mConnected = null;
+        public bool Connected
         {
             get
             {
                 // if we are undecided, go ahead and try
                 if (mConnected == null)
                 {
-                    CompendiumAccess.Instance.CheckAccess();
+                    CheckAccess();
                 }
 
                 return (mConnected == true) ? true : false;
