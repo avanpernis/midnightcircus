@@ -166,7 +166,14 @@ namespace TokenAssist
 
         private static string GetMacroName(Power power)
         {
-            return string.Format(@"<b>{0}</b><br>{1} {2}", power.Name, power.Action.ToString(), power.AttackTypeAndRange);
+            string name = power.Name;
+
+            if ((power.CompendiumEntry != null) && (power.CompendiumEntry.Contains("Channel Divinity")))
+            {
+                name = string.Format("Channel Divinity: {0}", name);
+            }
+
+            return string.Format(@"<b>{0}</b><br>{1} {2}", name, power.Action.ToString(), power.AttackTypeAndRange);
         }
 
         private static string GetMacroName(Feat feat)
@@ -420,8 +427,9 @@ namespace TokenAssist
 
                 writer.WriteLine(milestone);
 
-                int EncounterPowerCount = 0; // Keep track of Encounter Power IDs
-                int DailyPowerCount = 0; // Keep track of Daily Power IDs
+                int ChannelDivinityPowerId = 0; // all channel divinity powers will use the same power id
+                int EncounterPowerCount = 1; // all other encounter powers will start at id #1
+                int DailyPowerCount = 0; // daily powers can start at id #0
 
                 foreach (Power power in character.Powers)
                 {
@@ -488,16 +496,19 @@ namespace TokenAssist
                     if (power.Usage == Power.UsageType.Encounter || power.Usage == Power.UsageType.Daily)
                     {
                         string tempMacro = LimitedUse;
-                        macro = tempMacro.Replace(@"__MACRO_TEXT__",macro);
+                        macro = tempMacro.Replace(@"__MACRO_TEXT__", macro);
                         switch (power.Usage)
                         {
                             case Power.UsageType.Encounter:
-                                macro = macro.Replace(@"__POWER_ID__",string.Format("{0}",EncounterPowerCount++));
-                                macro = macro.Replace(@"__USAGE_TYPE__","Encounter");
-                                break;
+                                {
+                                    bool channelDivinity = (power.CompendiumEntry != null) && (power.CompendiumEntry.Contains("Channel Divinity"));
+                                    macro = macro.Replace(@"__POWER_ID__", string.Format("{0}", channelDivinity ? ChannelDivinityPowerId : EncounterPowerCount++));
+                                    macro = macro.Replace(@"__USAGE_TYPE__", "Encounter");
+                                    break;
+                                }
                             case Power.UsageType.Daily:
-                                macro = macro.Replace(@"__POWER_ID__",string.Format("{0}",DailyPowerCount++));
-                                macro = macro.Replace(@"__USAGE_TYPE__","Daily");
+                                macro = macro.Replace(@"__POWER_ID__", string.Format("{0}", DailyPowerCount++));
+                                macro = macro.Replace(@"__USAGE_TYPE__", "Daily");
                                 break;
                         }
                     }
