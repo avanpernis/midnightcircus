@@ -6,9 +6,10 @@
 
 <!-- character details -->
 {setProperty("Level", __LEVEL__)}
+{setProperty("HalfLevel", floor(__LEVEL__ / 2))}
 {setProperty("Speed", __SPEED__)}
 {setProperty("ActionPoints", 1)}
-{setProperty("DailyItemUses", ceiling(Level / 10))}
+{setProperty("DailyItemUses", ceiling(__LEVEL__ / 10))}
 
 <!-- ability scores -->
 {setProperty("Strength", __STRENGTH__)}
@@ -17,6 +18,14 @@
 {setProperty("Intelligence", __INTELLIGENCE__)}
 {setProperty("Wisdom", __WISDOM__)}
 {setProperty("Charisma", __CHARISMA__)}
+
+<!-- ability modifiers -->
+{setProperty("StrengthModifier", __STRENGTH_MODIFIER__)}
+{setProperty("DexterityModifier", __DEXTERITY_MODIFIER__)}
+{setProperty("ConstitutionModifier", __CONSTITUTION_MODIFIER__)}
+{setProperty("IntelligenceModifier", __INTELLIGENCE_MODIFIER__)}
+{setProperty("WisdomModifier", __WISDOM_MODIFIER__)}
+{setProperty("CharismaModifier", __CHARISMA_MODIFIER__)}
 
 <!-- defenses -->
 {setProperty("AC", __AC__)}
@@ -32,3 +41,22 @@
 {setProperty("MaxHealingSurges", __HEALING_SURGES_PER_DAY__)}
 {setProperty("HealingSurgeValue", floor(__MAX_HIT_POINTS__ / 4) + __HEALING_SURGE_BONUS__))}
 [H : bar.Health = 1]
+
+<!-- skills -->
+{setProperty("Acrobatics", __ACROBATICS__)}
+{setProperty("Arcana", __ARCANA__)}
+{setProperty("Athletics", __ATHLETICS__)}
+{setProperty("Bluff", __BLUFF__)}
+{setProperty("Diplomacy", __DIPLOMACY__)}
+{setProperty("Dungeoneering", __DUNGEONEERING__)}
+{setProperty("Endurance", __ENDURANCE__)}
+{setProperty("Heal", __HEAL__)}
+{setProperty("History", __HISTORY__)}
+{setProperty("Insight", __INSIGHT__)}
+{setProperty("Intimidate", __INTIMIDATE__)}
+{setProperty("Nature", __NATURE__)}
+{setProperty("Perception", __PERCEPTION__)}
+{setProperty("Religion", __RELIGION__)}
+{setProperty("Stealth", __STEALTH__)}
+{setProperty("Streetwise", __STREETWISE__)}
+{setProperty("Thievery", __THIEVERY__)}
