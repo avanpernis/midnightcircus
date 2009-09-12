@@ -44,5 +44,21 @@ namespace TokenAssist
                 Cursor.Current = Cursors.Default;
             }
         }
+
+        public string Email
+        {
+            get
+            {
+                return mEmailText.Text;
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return mPasswordText.Text;
+            }
+        }
     }
 }

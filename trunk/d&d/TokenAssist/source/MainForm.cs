@@ -145,13 +145,6 @@ namespace TokenAssist
 
         private void mButtonOK_Click(object sender, EventArgs e)
         {
-            // authenticate with the D&D Compendium if needed
-            if (!CompendiumUtilities.Authenticate())
-            {
-                MessageBox.Show("Unable to authenticate with D&D Compendium", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-            }
-
             if (string.IsNullOrEmpty(ChosenSourceFile))
             {
                 MessageBox.Show(mLabelSource.Text, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
