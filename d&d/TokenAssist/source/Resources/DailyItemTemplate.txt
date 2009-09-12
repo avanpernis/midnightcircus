@@ -1,0 +1,13 @@
+﻿<!-- Decide whether is is currently possible to use a daily item -->
+[H : NoDailyItemUsesAlert = if(DailyItemUses < 1, 'input("UNUSED | No Daily Item Uses Left | Warning | LABEL")', "DailyItemUses")]
+[H : eval(NoDailyItemUsesAlert)]
+[H : abort(if(DailyItemUses < 1, 0, 1))]
+
+<!-- Insert Macro Text Here-->
+__MACRO_TEXT__
+
+<!-- spend the daily item use -->
+[H : DailyItemUses = DailyItemUses - 1]
+
+<!-- output the results -->
+{"Used a Daily Item Power: <b>" + DailyItemUses + "</b> Remaining"}

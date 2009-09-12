@@ -138,6 +138,14 @@ namespace TokenAssist
             }
         }
 
+        public static string DailyItemTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.DailyItemTemplate;
+            }
+        }
+
         public static string MagicItemHealingSurgeTemplate
         {
             get
@@ -613,6 +621,9 @@ namespace TokenAssist
                                     case MagicItem.PowerUsageType.Daily:
                                         macro = macro.Replace(@"__POWER_ID__", string.Format("{0}", DailyPowerCount++));
                                         macro = macro.Replace(@"__USAGE_TYPE__", "Daily");
+
+                                        // now wrap the macro one last time with the daily item template
+                                        macro = DailyItemTemplate.Replace(@"__MACRO_TEXT__", macro);
                                         break;
                                 }
                             }
