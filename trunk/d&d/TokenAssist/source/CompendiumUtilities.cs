@@ -123,8 +123,9 @@ namespace TokenAssist
             // replace it with the equivalent HTML code
             results = results.Replace("\u2022", @"&middot;");
 
-            // we need to fully qualify the urls for images
-            results = results.Replace(@"<img src=""", @"<img src=""http://www.wizards.com/dndinsider/compendium/");
+            // using the compendium link to their diamond image can be slow -- use an HTML character instead
+            // NOTE: would really like to use &diams; but that renders as a box in input dialogs in maptools (prints to the output console fine)
+            results = results.Replace(@"<img src=""images/bullet.gif"" alt=""""/>", @"&loz;");
 
             // maptool tries to do funky things with things in brackets [ ], so replace things in brackets
             // NOTE: no longer needed since we embed the final result in a variable, but keeping around the code in case we change our minds...
@@ -133,7 +134,7 @@ namespace TokenAssist
             //        return match.Result(@"{""$1""}");
             //    });
 
-            // maptool does not handle the 'float' CSS specification so we need to manually adjust the name and level of the power               
+            // maptool does not handle the 'float' CSS specification so we need to manually adjust the name and level of the power
             results = Regex.Replace(results, @"\<span[\s\w=""]*>([\w'\s]+)</span\s*>([\w'\s]+)<", delegate(Match match)
                 {
                     return match.Result(@"$2: $1<");
@@ -175,6 +176,7 @@ namespace TokenAssist
             // cannot load the xml into an xml document with the &XXX; style HTML codes so temporarily convert while processing in xml
             string results = input.Replace("&nbsp;", "nbsp");
             results = results.Replace("&middot;", "middot");
+            results = results.Replace("&loz;", "loz");
 
             MemoryStream memoryStream = new MemoryStream();
             XmlTextWriter xmlWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
@@ -194,6 +196,7 @@ namespace TokenAssist
             // restore the &XXX; HTML elements
             results = results.Replace("nbsp", "&nbsp;");
             results = results.Replace("middot", "&middot;");
+            results = results.Replace("loz", "&loz;");
 
             // any quotation marks that still exist need to be converted to single quotes
             results = results.Replace("\"", @"'");
