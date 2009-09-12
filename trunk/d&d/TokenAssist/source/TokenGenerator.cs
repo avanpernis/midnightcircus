@@ -634,6 +634,19 @@ namespace TokenAssist
                         writer.WriteLine(macro);
                     }
                 }
+
+                // look for any extra macros defined for this character
+                DirectoryInfo extraMacroDirectory = new DirectoryInfo(Path.Combine(Dropbox.Folder, string.Format(@"D&D\TokenAssist\Characters\{0}\Extra", character.Name)));
+
+                if (extraMacroDirectory.Exists)
+                {
+                    foreach (FileInfo extraMacroFile in extraMacroDirectory.GetFiles())
+                    {
+                        Macro extraMacro = ExtraMacroLoader.Load(extraMacroFile.FullName);
+
+                        writer.WriteLine(FinalizeMacro(extraMacro.Contents, extraMacro.Label, extraMacro.BackgroundColor, extraMacro.ForegroundColor, extraMacro.Group));
+                    }
+                }
             }
         }
 
