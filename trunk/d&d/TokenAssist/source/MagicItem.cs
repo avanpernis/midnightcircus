@@ -24,6 +24,12 @@ namespace TokenAssist
             set { mName = value; }
         }
 
+        public int LootCount
+        {
+            get { return mLootCount; }
+            set { mLootCount = value; }
+        }
+
         public string Url
         {
             get { return mUrl; }
@@ -54,6 +60,7 @@ namespace TokenAssist
         }
 
         private string mName = string.Empty;
+        private int mLootCount = 0;
         private string mUrl = null;
         private string mCompendiumEntry = null;
         private PowerUsageType mPowerUsage = PowerUsageType.Undefined;

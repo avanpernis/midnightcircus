@@ -10,15 +10,13 @@ To Do:
 Make the Ranger work:
   1) dual attack powers (like twin strike)
   2) Ranged/Melee modal powers
-unit tests (run all known chars through and make sure no exceptions are thrown)
 
 
 In Development:
 ---------------
 Consumable Magic Items (Potions etc) - Brian
-Powers on Magic Items - Brian
-daily magic items need to check for an available item use and then spend it
-Character override files (eg. Rogosh has a feat that makes his Font of Life power different from the norm, Dwarfs use Second Wind as a minor action)
+daily magic items need to check for an available item use and then spend it - Brian
+Character override files (eg. Rogosh has a feat that makes his Font of Life power different from the norm, Dwarfs use Second Wind as a minor action) - Dan
 
 
 Completed:
@@ -42,6 +40,8 @@ Cache info from WotC for future use - Dan
 healing surge magic items
 Trim PC Token properties
 Duplicate / adapt needed Library macros (Healing, Damage, Action Points, etc)
+unit tests (run all known chars through and make sure no exceptions are thrown)
+Powers on Magic Items - Brian
 
 
 Requires Rethink:
