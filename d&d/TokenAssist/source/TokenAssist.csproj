@@ -129,6 +129,7 @@
   <ItemGroup>
     <None Include="Resources\CheckTemplate.txt" />
     <None Include="Resources\ActionPointTemplate.txt" />
+    <None Include="Resources\ConsumableTemplate.txt" />
     <Content Include="Resources\DamageTemplate.txt" />
     <Content Include="Resources\FeatTemplate.txt" />
     <None Include="Resources\HeaderTemplate.txt" />
