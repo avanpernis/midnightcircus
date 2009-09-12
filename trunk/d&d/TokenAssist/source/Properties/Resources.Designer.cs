@@ -99,20 +99,26 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [H : CurrentMagicItemID = &quot;__POWER_ID__&quot;]
-        ///[H : MagicItemsUsed = getStrProp(CombatStatus, &quot;MagicItemsUsed&quot;)]
-        ///[H : Used = if(band(2^eval(&quot;&quot; + CurrentMagicItemID), MagicItemsUsed), 1, 0)]
-        ///[H : Recharge = 0]
-        ///[H : UsedAlert = if(Used, &apos;input(&quot;UNUSED | Recharge Item | This Magic Item has already been Used | LABEL&quot;, &quot;Recharge | 0 | Recharge this item? | CHECK&quot;) &apos;, &quot;Used&quot;)]
-        ///[H : eval(UsedAlert)]
-        ///[H : abort(if(Used &amp;&amp; !Recharge, 0, 1))]
-        ///
-        ///&lt;!-- If recharging, confirm that the user has a healing surge --&gt;
-        ///[H : [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string ConsumableTemplate {
             get {
                 return ResourceManager.GetString("ConsumableTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- The Power ID is a list of numbers that identify the power. A Unique number is required for each use of the power. No power should use a number that is part of another Power&apos;s List unless their usage is tied together like Cleric&apos;s Channel Divinity powers --&gt;
+        ///[H : CurrentPowerID = &quot;__POWER_ID__&quot;]
+        ///[H : CurrentPowerUses = listCount(&quot;&quot; + CurrentPowerID)]
+        ///[H : Used = 0]
+        ///[H : Reuse = 0]
+        ///[H : PowersUsed = getStrProp(CombatStatus, &quot;__USAGE_TYPE__PowersUsed&quot;)]
+        ///[H ,C(CurrentPowerUses) : Used = Used + if(ban [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DailyItemTemplate {
+            get {
+                return ResourceManager.GetString("DailyItemTemplate", resourceCulture);
             }
         }
         
@@ -170,14 +176,14 @@ namespace TokenAssist.Properties {
         ///
         ///&lt;!-- character details --&gt;
         ///{setProperty(&quot;Level&quot;, __LEVEL__)}
+        ///{setProperty(&quot;HalfLevel&quot;, floor(__LEVEL__ / 2))}
         ///{setProperty(&quot;Speed&quot;, __SPEED__)}
         ///{setProperty(&quot;ActionPoints&quot;, 1)}
-        ///{setProperty(&quot;DailyItemUses&quot;, ceiling(Level / 10))}
+        ///{setProperty(&quot;DailyItemUses&quot;, ceiling(__LEVEL__ / 10))}
         ///
         ///&lt;!-- ability scores --&gt;
         ///{setProperty(&quot;Strength&quot;, __STRENGTH__)}
-        ///{setProperty(&quot;Dexterity&quot;, __DEXTERITY__)}
-        ///{setProperty(&quot;Constitution&quot;, __CONSTITUTION__)} [rest of string was truncated]&quot;;.
+        ///{setProperty(&quot;Dexterity&quot;, __DEXTERIT [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string HeaderTemplate {
             get {
