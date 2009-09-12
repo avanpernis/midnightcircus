@@ -99,6 +99,24 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [H : CurrentMagicItemID = &quot;__POWER_ID__&quot;]
+        ///[H : MagicItemsUsed = getStrProp(CombatStatus, &quot;MagicItemsUsed&quot;)]
+        ///[H : Used = if(band(2^eval(&quot;&quot; + CurrentMagicItemID), MagicItemsUsed), 1, 0)]
+        ///[H : Recharge = 0]
+        ///[H : UsedAlert = if(Used, &apos;input(&quot;UNUSED | Recharge Item | This Magic Item has already been Used | LABEL&quot;, &quot;Recharge | 0 | Recharge this item? | CHECK&quot;) &apos;, &quot;Used&quot;)]
+        ///[H : eval(UsedAlert)]
+        ///[H : abort(if(Used &amp;&amp; !Recharge, 0, 1))]
+        ///
+        ///&lt;!-- If recharging, confirm that the user has a healing surge --&gt;
+        ///[H : [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ConsumableTemplate {
+            get {
+                return ResourceManager.GetString("ConsumableTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!-- show the user damage options --&gt;
         ///[H : InputPrompt = input(
         ///	&quot;UNUSED | &quot; + CurrentHitPoints + &quot; / &quot; + MaxHitPoints + if(TempHitPoints &gt; 0, &quot; (Temp: &quot; + TempHitPoints + &quot;)&quot;, &quot;&quot;) + &quot; | Hit Points | Label&quot;,
@@ -211,7 +229,7 @@ namespace TokenAssist.Properties {
         ///[H : Used = 0]
         ///[H : Reuse = 0]
         ///[H : PowersUsed = getStrProp(CombatStatus, &quot;__USAGE_TYPE__PowersUsed&quot;)]
-        ///[H : PowersUsed = if(PowersUsed == &quot;&quot;, 0, Powe [rest of string was truncated]&quot;;.
+        ///[H ,C(CurrentPowerUses) : Used = Used + if(ban [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string LimitedUseTemplate {
             get {
@@ -239,19 +257,16 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
-        ///[H : MagicItemName = &quot;__MAGIC_ITEM_NAME__&quot;]
+        ///   Looks up a localized string similar to [H : CurrentMagicItemID = &quot;__POWER_ID__&quot;]
+        ///[H : MagicItemsUsed = getStrProp(CombatStatus, &quot;MagicItemsUsed&quot;)]
+        ///[H : Used = if(band(2^eval(&quot;&quot; + CurrentMagicItemID), MagicItemsUsed), 1, 0)]
+        ///[H : Recharge = 0]
+        ///[H : UsedAlert = if(Used, &apos;input(&quot;UNUSED | Recharge Item | This Magic Item has already been Used | LABEL&quot;, &quot;Recharge | 0 | Recharge this item? | CHECK&quot;) &apos;, &quot;Used&quot;)]
+        ///[H : eval(UsedAlert)]
+        ///[H : abort(if(Used &amp;&amp; !Recharge, 0, 1))]
         ///
-        ///&lt;!-- html magic item card, as found in the compendium --&gt;
-        ///[H : MagicItemCard = &quot;__MAGIC_ITEM_CARD__&quot;]
-        ///
-        ///&lt;!-- show the user the magic item they are about to use --&gt;
-        ///[H : InputPrompt = input(MagicItemName + &quot; | &lt;html&gt;&quot; + MagicItemCard + &quot;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;)]
-        ///
-        ///&lt;!-- bail if the user cancels the dialog --&gt;
-        ///[H : abort(InputPrompt)]
-        ///
-        ///&lt;!-- show the magic item card to the other players  [rest of string was truncated]&quot;;.
+        ///&lt;!-- If recharging, confirm that the user has a healing surge --&gt;
+        ///[H : [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MagicItemHealingSurgeTemplate {
             get {
@@ -355,8 +370,8 @@ namespace TokenAssist.Properties {
         ///
         ///[H:blah = &quot;&quot;]
         ///
-        ///&lt;!-- restore the text color so the macros appear as usable once again --&gt;
-        ///[H, FOREACH(index, getMacroGroup(&quot;Encounter&quot;)), CODE  [rest of string was truncated]&quot;;.
+        ///&lt;!-- restore the text color so encounter powers appear as usable once again --&gt;
+        ///[H, FOREACH(index, getMacroGroup(&quot;Encounter&quot;)), [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RestTemplate {
             get {
