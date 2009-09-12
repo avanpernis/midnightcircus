@@ -352,6 +352,13 @@ namespace TokenAssist
                 header = header.Replace(@"__WISDOM__", character.Stats["wisdom"].Value.ToString());
                 header = header.Replace(@"__CHARISMA__", character.Stats["charisma"].Value.ToString());
 
+                header = header.Replace(@"__STRENGTH_MODIFIER__", character.Stats["strength modifier"].Value.ToString());
+                header = header.Replace(@"__DEXTERITY_MODIFIER__", character.Stats["dexterity modifier"].Value.ToString());
+                header = header.Replace(@"__CONSTITUTION_MODIFIER__", character.Stats["constitution modifier"].Value.ToString());
+                header = header.Replace(@"__INTELLIGENCE_MODIFIER__", character.Stats["intelligence modifier"].Value.ToString());
+                header = header.Replace(@"__WISDOM_MODIFIER__", character.Stats["wisdom modifier"].Value.ToString());
+                header = header.Replace(@"__CHARISMA_MODIFIER__", character.Stats["charisma modifier"].Value.ToString());
+
                 header = header.Replace(@"__AC__", character.Stats["ac"].Value.ToString());
                 header = header.Replace(@"__FORTITUDE__", character.Stats["fortitude defense"].Value.ToString());
                 header = header.Replace(@"__REFLEX__", character.Stats["reflex defense"].Value.ToString());
@@ -360,6 +367,24 @@ namespace TokenAssist
                 header = header.Replace(@"__MAX_HIT_POINTS__", character.Stats["hit points"].Value.ToString());
                 header = header.Replace(@"__HEALING_SURGES_PER_DAY__", character.Stats["healing surges"].Value.ToString());
                 header = header.Replace(@"__HEALING_SURGE_BONUS__", character.GetStatValue("healing surge value").ToString());
+
+                header = header.Replace(@"__ACROBATICS__", character.Stats["acrobatics"].Value.ToString());
+                header = header.Replace(@"__ARCANA__", character.Stats["arcana"].Value.ToString());
+                header = header.Replace(@"__ATHLETICS__", character.Stats["athletics"].Value.ToString());
+                header = header.Replace(@"__BLUFF__", character.Stats["bluff"].Value.ToString());
+                header = header.Replace(@"__DIPLOMACY__", character.Stats["diplomacy"].Value.ToString());
+                header = header.Replace(@"__DUNGEONEERING__", character.Stats["dungeoneering"].Value.ToString());
+                header = header.Replace(@"__ENDURANCE__", character.Stats["endurance"].Value.ToString());
+                header = header.Replace(@"__HEAL__", character.Stats["heal"].Value.ToString());
+                header = header.Replace(@"__HISTORY__", character.Stats["history"].Value.ToString());
+                header = header.Replace(@"__INSIGHT__", character.Stats["insight"].Value.ToString());
+                header = header.Replace(@"__INTIMIDATE__", character.Stats["intimidate"].Value.ToString());
+                header = header.Replace(@"__NATURE__", character.Stats["nature"].Value.ToString());
+                header = header.Replace(@"__PERCEPTION__", character.Stats["perception"].Value.ToString());
+                header = header.Replace(@"__RELIGION__", character.Stats["religion"].Value.ToString());
+                header = header.Replace(@"__STEALTH__", character.Stats["stealth"].Value.ToString());
+                header = header.Replace(@"__STREETWISE__", character.Stats["streetwise"].Value.ToString());
+                header = header.Replace(@"__THIEVERY__", character.Stats["thievery"].Value.ToString());
 
                 writer.WriteLine(header);
 
