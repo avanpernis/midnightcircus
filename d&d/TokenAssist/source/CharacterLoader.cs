@@ -222,6 +222,7 @@ namespace TokenAssist
             MagicItem magicItem = new MagicItem();
 
             magicItem.Name = GetAttributeText(xmlNodeMagicItem, "name");
+            magicItem.LootCount = int.Parse(GetAttributeText(xmlNodeMagicItem.ParentNode, "count"));
             magicItem.Url = GetAttributeText(xmlNodeMagicItem, "url");
 
             if (magicItem.Url != null)
