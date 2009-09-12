@@ -162,6 +162,9 @@ namespace TokenAssist
             results = results.Replace("nbsp", "&nbsp;");
             results = results.Replace("middot", "&middot;");
 
+            // any quotation marks that still exist need to be converted to single quotes
+            results = results.Replace("\"", @"'");
+
             return results;
         }
 
