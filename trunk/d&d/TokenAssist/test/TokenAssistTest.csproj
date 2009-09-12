@@ -72,6 +72,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>"..\..\..\external\NUnit 2.5.2\bin\net-2.0\nunit.exe" "$(TargetPath)" /run</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

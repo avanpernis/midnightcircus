@@ -1,0 +1,1 @@
+start /b "..\external\NUnit 2.5.2\bin\net-2.0\nunit.exe" bin\Release\TokenAssistTest.dll
