@@ -15,12 +15,11 @@ Make the Ranger work:
 In Development:
 ---------------
 Consumable Magic Items (Potions etc) - Brian
-daily magic items need to check for an available item use and then spend it - Brian
-Character override files (eg. Rogosh has a feat that makes his Font of Life power different from the norm, Dwarfs use Second Wind as a minor action) - Dan
 
 
 Completed:
 ----------
+daily magic items need to check for an available item use and then spend it - Brian
 primary second wind power
 Basic Powers
 Macros created
@@ -42,6 +41,7 @@ Trim PC Token properties
 Duplicate / adapt needed Library macros (Healing, Damage, Action Points, etc)
 unit tests (run all known chars through and make sure no exceptions are thrown)
 Powers on Magic Items - Brian
+Character override files (eg. Rogosh has a feat that makes his Font of Life power different from the norm, Dwarfs use Second Wind as a minor action) - Dan
 
 
 Requires Rethink:
