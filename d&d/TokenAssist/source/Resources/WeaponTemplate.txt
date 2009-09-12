@@ -92,6 +92,7 @@
 }]
 
 <!-- damage roll (include temporary damage bonus) -->
+[H : CapableOfDamage = if(eval("" + MaxDamage) > 0, 1, 0)]
 [H : DamageRoll = eval(Damage + "+" + TempDamageBonus)]
 [H : MaxDamage = eval("" + MaxDamage + "+" + CriticalDamage + "+" + TempDamageBonus)]
 
@@ -114,4 +115,4 @@
 {PowerName} <b>{if(AttackBonus < 0, "", "+")}{AttackBonus} {AttackStat} vs {Defense}</b><br>
 You use your <b>{Weapon}</b> to attack (<b>{AttackResultOutput}</b>){if(CombatAdvantage == 1, " while having <b>Combat Advantage</b>", "")}.<br>
 {CoverConcealmentOutput}
-You do <b>{DamageResultOutput}</b> points of damage!
+{if(CapableOfDamage == 1, "You do <b>" + DamageResultOutput + "</b> points of damage!", "")}
