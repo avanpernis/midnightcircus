@@ -33,3 +33,8 @@
 
 <!-- show the roll results -->
 <b>Roll Initiative</b> ({InitBonusPrefix}{InitBonus}): <b>{InitResultOutput}</b>
+
+<!-- add this token to the initiative panel -->
+[H : addToInitiative()]
+[H : setInitiative(InitResult)]
+[H : sortInitiative()]
