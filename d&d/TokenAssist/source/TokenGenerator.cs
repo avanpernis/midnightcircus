@@ -146,6 +146,14 @@ namespace TokenAssist
             }
         }
 
+        public static string ConsumableTemplate
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.ConsumableTemplate;
+            }
+        }
+
         private static string GetCheckMacroName(string name)
         {
             return string.Format(@"<b>{0}</b>", name);
