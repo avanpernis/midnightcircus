@@ -427,7 +427,19 @@ namespace TokenAssist
                 {
                     string macro = null;
 
-                    if (power.Weapons.Count == 0)
+                    bool noWeapons = true;
+
+                    // if all the weapons have unknown attack/defense, this is a power with no weapon component
+                    foreach (Weapon weapon in power.Weapons)
+                    {
+                        if ((weapon.AttackStat != "Unknown") || (weapon.Defense != "Unknown"))
+                        {
+                            noWeapons = false;
+                            break;
+                        }
+                    }
+
+                    if (noWeapons)
                     {
                         // this power does not involve weapons -- use the appropriate template
 
