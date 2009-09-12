@@ -71,7 +71,9 @@
     </Compile>
     <Compile Include="CompendiumUtilities.cs" />
     <Compile Include="Dropbox.cs" />
+    <Compile Include="ExtraMacroLoader.cs" />
     <Compile Include="Feat.cs" />
+    <Compile Include="Macro.cs" />
     <Compile Include="MagicItem.cs" />
     <Compile Include="Power.cs" />
     <Compile Include="MainForm.cs">
