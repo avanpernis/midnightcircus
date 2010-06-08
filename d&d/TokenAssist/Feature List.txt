@@ -7,6 +7,8 @@ Please feel free to add desired or possible features to the To Do list.  If you'
 
 To Do:
 ------
+Check the tool with the latest version of the Character Builder
+
 Make the Ranger work:
   1) dual attack powers (like twin strike)
   2) Ranged/Melee modal powers
