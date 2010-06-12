@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -123,9 +122,9 @@ namespace TokenAssist
                     ChosenSourceFile = dialog.FileName;
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                MessageBox.Show("Unable to find dropbox folder", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format("Unable to find dropbox folder: {0}", exception.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

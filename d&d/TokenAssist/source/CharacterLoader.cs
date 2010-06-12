@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -194,7 +193,7 @@ namespace TokenAssist
         private static Stat LoadStat(XmlNode xmlNodeStat)
         {
             Stat stat = new Stat();
-            stat.Name = GetAttributeText(xmlNodeStat, "name").ToLower(); // seems to be some case issues between different files
+            stat.Name = GetDescendantAttributeText(xmlNodeStat, "alias", "name").ToLower(); // seems to be some case issues between different files
             stat.Value = int.Parse(GetAttributeText(xmlNodeStat, "value"));
 
             return stat;
@@ -374,6 +373,7 @@ namespace TokenAssist
         private static Power.ActionType GetAction(string action)
         {
             action = action.Replace("Action", ""); // remove "Action" suffix so that we can enum parse for 'free', 'minor', 'move', and 'standard
+            action = action.Replace(" action", ""); // sometimes there is a lower case 'a'
             action = action.Replace(" ", ""); // remove spaces so that we can enum parse for 'immediate interrupt' and 'immediate reaction'
 
             return (Power.ActionType)Enum.Parse(typeof(Power.ActionType), action);
