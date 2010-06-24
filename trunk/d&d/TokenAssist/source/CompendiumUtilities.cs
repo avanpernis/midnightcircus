@@ -143,7 +143,7 @@ namespace TokenAssist
                 });
 
             // maptool does not handle the 'float' CSS specification so we need to manually adjust the name and level of the power
-            results = Regex.Replace(results, @"\<span[\s\w=""]*>([\w'\s]+)</span\s*>([\w'\s]+)<", delegate(Match match)
+            results = Regex.Replace(results, @"\<span[\s\w=""]*>([\w'\s]+)</span\s*>([\w'\s\[\]]+)<", delegate(Match match)
                 {
                     return match.Result(@"$2: $1<");
                 });
