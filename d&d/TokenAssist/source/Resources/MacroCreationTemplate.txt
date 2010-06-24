@@ -6,7 +6,8 @@
 [H : MacroCode = "__MACRO_CODE__"]
 
 <!-- construct the macro properties -->
-[H : MacroProperties = "autoExecute=true;"]
+[H : MacroProperties = ""]
+[H : MacroProperties = setStrProp(MacroProperties, "autoExecute", "true")]
 [H : MacroProperties = setStrProp(MacroProperties, "color", MacroBackgroundColor)]
 [H : MacroProperties = setStrProp(MacroProperties, "fontColor", MacroForegroundColor)]
 [H : MacroProperties = setStrProp(MacroProperties, "group", MacroGroup)]
