@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -86,8 +87,10 @@ namespace TokenAssist
                 results = FixCompendiumOutput(results);
                 return results;
             }
-            catch
+            catch (Exception e)
             {
+                Debug.WriteLine("GetUrl Exception: " + e.Message);
+
                 return null;
             }
         }
@@ -123,8 +126,7 @@ namespace TokenAssist
             results = results.Replace("\u2022", @"&middot;");
 
             // using the compendium link to their diamond image can be slow -- use an HTML character instead
-            // NOTE: would really like to use &diams; but that renders as a box in input dialogs in maptools (prints to the output console fine)
-            results = results.Replace(@"<img src=""images/bullet.gif"" alt=""""/>", @"&loz;");
+            results = results.Replace(@"<img src=""images/bullet.gif"" alt=""""/>", @"&diams;");
 
             // maptool tries to do funky things with things in brackets [ ], so replace things in brackets
             // NOTE: no longer needed since we embed the final result in a variable, but keeping around the code in case we change our minds...
@@ -175,7 +177,7 @@ namespace TokenAssist
             // cannot load the xml into an xml document with the &XXX; style HTML codes so temporarily convert while processing in xml
             string results = input.Replace("&nbsp;", "nbsp");
             results = results.Replace("&middot;", "middot");
-            results = results.Replace("&loz;", "loz");
+            results = results.Replace("&diams;", "diams");
 
             MemoryStream memoryStream = new MemoryStream();
             XmlTextWriter xmlWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
@@ -195,7 +197,7 @@ namespace TokenAssist
             // restore the &XXX; HTML elements
             results = results.Replace("nbsp", "&nbsp;");
             results = results.Replace("middot", "&middot;");
-            results = results.Replace("loz", "&loz;");
+            results = results.Replace("diams", "&diams;");
 
             // any quotation marks that still exist need to be converted to single quotes
             results = results.Replace("\"", @"'");
