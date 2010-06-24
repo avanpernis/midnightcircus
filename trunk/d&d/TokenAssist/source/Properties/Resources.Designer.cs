@@ -308,7 +308,7 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;&apos;&gt;Melee Basic Attack: Basic Attack&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You resort to the simple attack you learned when you first picked up a melee weapon.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;At-Will&lt;/b&gt;&amp;nbsp;&amp;nbsp; &amp;loz; [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;&apos;&gt;Melee Basic Attack: Basic Attack&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You resort to the simple attack you learned when you first picked up a melee weapon.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;At-Will&lt;/b&gt;&amp;nbsp;&amp;nbsp; &amp;diams; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MeleeBasicAttack {
             get {
@@ -414,7 +414,7 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #961334;&apos;&gt;Second Wind&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You dig into your resolve and endurance to find an extra burst of vitality.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;Encounter&lt;/b&gt;&amp;nbsp;&amp;nbsp; &amp;loz;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;b&gt; [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #961334;&apos;&gt;Second Wind&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You dig into your resolve and endurance to find an extra burst of vitality.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;Encounter&lt;/b&gt;&amp;nbsp;&amp;nbsp; &amp;diams;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;b&gt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SecondWind {
             get {
