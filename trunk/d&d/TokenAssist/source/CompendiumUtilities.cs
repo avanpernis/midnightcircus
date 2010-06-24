@@ -135,6 +135,13 @@ namespace TokenAssist
             //        return match.Result(@"{""$1""}");
             //    });
 
+            // some urls have &'s in them, and that is bad for when we try and use the xml loader to autoformat the results
+            // assume all urls are useless for now, and strip them out
+            results = Regex.Replace(results, @"(<a target[^>]+>)([^<]+)(<[^>]+>)", delegate(Match match)
+                {
+                    return match.Result("$2");
+                });
+
             // maptool does not handle the 'float' CSS specification so we need to manually adjust the name and level of the power
             results = Regex.Replace(results, @"\<span[\s\w=""]*>([\w'\s]+)</span\s*>([\w'\s]+)<", delegate(Match match)
                 {
