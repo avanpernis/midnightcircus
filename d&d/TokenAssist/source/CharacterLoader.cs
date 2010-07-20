@@ -419,12 +419,20 @@ namespace TokenAssist
             // Open the temp file for writing
             StreamWriter output = new StreamWriter(tempFilename);
 
-            // Create a regular expression to match names that have parentheses in them.
+            // Create a regular expression to match names that have invalid characters in them.
+            // For example:
+            //     <ID_INTERNAL_RITUAL_SCROLL_SCROLL_OF_CHAMELEON'S_CLOAK />
+            Regex nameHasInvalidChars = new Regex(@"\x3C[\w']+");
+
+            // Create a regular expression to match names that have invalid characters in them,
+            // inside of parentheses.
             // For example:
             //     <ID_INTERNAL_CLASS_FEATURE_VESTIGE_PACT_(HYBRID) />
             //     <ID_INTERNAL_FEAT_FOCUSED_EXPERTISE_(TRIPLE-HEADED_FLAIL) />
             //     <ID_INTERNAL_FEAT_FOCUSED_EXPERTISE_(XEN'DRIK_BOOMERANG) />
-            Regex nameHasParens = new Regex(@"\x3C\w+\x28[\w'-]+\x29");
+            //     <ID_INTERNAL_CLASS_FEATURE_TRAVELER'S_UNPREDICTABLE_POWER_(FOR_CORMYR!) />
+            //     <ID_INTERNAL_CLASS_FEATURE_TRAVELER'S_UNPREDICTABLE_POWER_(SILVER_TONGUE,_SILVER_BLADE) />
+            Regex nameHasInvalidCharsWithParens = new Regex(@"\x3C[\w']+\x28[\w'\!\-\,]+\x29");
 
             // Copy the file
             string text;
@@ -433,11 +441,13 @@ namespace TokenAssist
                 text = input.ReadLine();
 
                 // Find names that have parentheses in them and remove the parentheses.
-                if (text != null && nameHasParens.IsMatch(text))
+                if (text != null && (nameHasInvalidChars.IsMatch(text) || nameHasInvalidCharsWithParens.IsMatch(text)))
                 {
                     text = text.Replace("(", "");
                     text = text.Replace(")", "");
                     text = text.Replace("'", "-");
+                    text = text.Replace("!", "-");
+                    text = text.Replace(",", "-");
                 }
 
                 output.WriteLine(text);
