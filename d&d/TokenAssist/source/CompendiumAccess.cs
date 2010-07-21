@@ -14,7 +14,7 @@ namespace TokenAssist
     {
         private const string loginUrl = @"http://www.wizards.com/dndinsider/compendium/login.aspx?page=power&id=5093";
         private const string checkUrl = @"http://www.wizards.com/dndinsider/compendium/power.aspx?id=5093";
-        private const string validateText = @"First published in";
+        private const string validateText = @"Published in";
 
         private const string cookieFilename = "cookies.dat";
         private static readonly Uri sCompendiumUri = new UriBuilder("http", "www.wizards.com").Uri;
