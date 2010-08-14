@@ -256,6 +256,7 @@ namespace TokenAssist
         {
             string usage = GetDescendantNodeText(xmlNodePower, "specific[@name='Power Usage']");
             usage = usage.Replace("-", ""); // remove the hyphen so that we can enum parse for 'at-will'
+            usage = usage.Replace(" Special", ""); // remove 'Special' so that we can enum parse for 'Encounter Special'
 
             return (usage != null) ? (Power.UsageType)Enum.Parse(typeof(Power.UsageType), usage) : Power.UsageType.Undefined;
         }
