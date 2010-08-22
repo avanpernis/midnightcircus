@@ -68,6 +68,7 @@
     <Compile Include="Feat.cs" />
     <Compile Include="Macro.cs" />
     <Compile Include="MagicItem.cs" />
+    <Compile Include="MD5Utilities.cs" />
     <Compile Include="Power.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
