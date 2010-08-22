@@ -1,0 +1,39 @@
+<!-- show the user healing options -->
+[H : InputPrompt = input(
+	"UNUSED | " + CurrentHitPoints + " / " + MaxHitPoints + if(TempHitPoints > 0, " (Temp: " + TempHitPoints + ")", "") + " | Hit Points | Label",
+	"UNUSED | " + CurrentHealingSurges + " / " + MaxHealingSurges + " (Value: " + HealingSurgeValue + ") | Healing Surges | Label",
+	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
+	"HealingAmount | " + getStrProp(CombatStatus, "LastHealingAmount") + " | Amount to Heal | TEXT",
+	"SpendHealingSurge | " + getStrProp(CombatStatus, "LastSpendHealingSurge") + " | Spend Healing Surge? | CHECK ")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+
+<!-- Saves Choices -->
+[H : PropsUsedList = "HealingAmount, SpendHealingSurge"]
+[H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
+
+<!-- Confirm that the user has a healing surge -->
+[H : NoHealingSurgesAlert = if(SpendHealingSurge == 1 && CurrentHealingSurges < 1, 'input("UNUSED | No Healing Surges Left | Unable to Heal | LABEL")', "CurrentHealingSurges")]
+[H : eval(NoHealingSurgesAlert)]
+[H : abort(if(SpendHealingSurge == 1 && CurrentHealingSurges < 1, 0, 1))]
+
+<!-- if receiving healing when below 0, set to 0 before healing -->
+<!-- after healing, clamp to max hit points -->
+[H : CurrentHitPoints = max(0, CurrentHitPoints)]
+[H : CurrentHitPoints = min(CurrentHitPoints + HealingAmount, MaxHitPoints)]
+
+<!-- burn a healing surge if necessary -->
+[H : CurrentHealingSurges = if(SpendHealingSurge == 1, CurrentHealingSurges - 1, CurrentHealingSurges)]
+
+<!-- output the results -->
+<b>{"Healed for " + HealingAmount + " Hit Points!"}</b><br>
+<b>{CurrentHitPoints + " / " + MaxHitPoints}</b> Hit Points Remaining<br>
+{if(SpendHealingSurge == 1, "Spent a Healing Surge: <b>" + CurrentHealingSurges + " / " + MaxHealingSurges + "</b> Remaining", "")}
+
+<!-- update token state appropriately -->
+[H : state.Helpless = if(CurrentHitPoints > 0, 0, 1)]
+[H : state.Dead = 1 - max(0, min(1, (MaxHitPoints * 0.5) + CurrentHitPoints))]
+[H : state.Prone = state.Dead + state.Prone + state.Helpless]
+[H : state.Bloodied = if(CurrentHitPoints / MaxHitPoints < 0.5, 1, 0)]
+[H : bar.Health = CurrentHitPoints / MaxHitPoints]

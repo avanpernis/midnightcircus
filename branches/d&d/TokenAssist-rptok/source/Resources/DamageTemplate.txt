@@ -1,0 +1,33 @@
+<!-- show the user damage options -->
+[H : InputPrompt = input(
+	"UNUSED | " + CurrentHitPoints + " / " + MaxHitPoints + if(TempHitPoints > 0, " (Temp: " + TempHitPoints + ")", "") + " | Hit Points | Label",
+	"UNUSED | " + CurrentHealingSurges + " / " + MaxHealingSurges + " (Value: " + HealingSurgeValue + ") | Healing Surges | Label",
+	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
+	"DamageAmount | " + getStrProp(CombatStatus, "LastDamageAmount") + " | Amount of Damage | TEXT")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+
+<!-- Saves Choices -->
+[H : PropsUsedList = "DamageAmount"]
+[H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
+
+<!-- first burn any temp hit points that might exist -->
+[H : TempHitPoints = TempHitPoints - DamageAmount]
+
+<!-- if the above went negative, add it to current hp (effectively a subtract) -->
+[H : CurrentHitPoints = CurrentHitPoints + min(0, TempHitPoints)]
+
+<!-- now adjust the temp hit points if they went negative -->
+[H : TempHitPoints = max(0, TempHitPoints)]
+
+<!-- output the results -->
+<b>{"Damaged for " + DamageAmount + " Hit Points!"}</b><br>
+<b>{CurrentHitPoints + " / " + MaxHitPoints}</b> Hit Points Remaining<br>
+
+<!-- update token state appropriately -->
+[H : state.Helpless = if(CurrentHitPoints > 0, 0, 1)]
+[H : state.Dead = 1 - max(0, min(1, (MaxHitPoints * 0.5) + CurrentHitPoints))]
+[H : state.Prone = state.Dead + state.Prone + state.Helpless]
+[H : state.Bloodied = if(CurrentHitPoints / MaxHitPoints < 0.5, 1, 0)]
+[H : bar.Health = CurrentHitPoints / MaxHitPoints]

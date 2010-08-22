@@ -1,0 +1,40 @@
+[H : CurrentMagicItemID = "__POWER_ID__"]
+[H : MagicItemsUsed = getStrProp(CombatStatus, "MagicItemsUsed")]
+[H : Used = if(band(2^eval("" + CurrentMagicItemID), MagicItemsUsed), 1, 0)]
+[H : Recharge = 0]
+[H : UsedAlert = if(Used, 'input("UNUSED | Recharge Item | This Magic Item has already been Used | LABEL", "Recharge | 0 | Recharge this item? | CHECK") ', "Used")]
+[H : eval(UsedAlert)]
+[H : abort(if(Used && !Recharge, 0, 1))]
+
+<!-- If recharging, confirm that the user has a healing surge -->
+[H : NoHealingSurgesAlert = if(Recharge && CurrentHealingSurges < 1, 'input("UNUSED | No Healing Surges Left | Unable to Charge Item | LABEL")', "CurrentHealingSurges")]
+[H : eval(NoHealingSurgesAlert)]
+[H : abort(if(CurrentHealingSurges < 1, 0, 1))]
+
+[IF(Recharge), CODE : {
+
+   <!-- Burn the healing surge -->
+   [H: CurrentHealingSurges = CurrentHealingSurges - 1]
+
+   <b>__POWER_NAME__</b><br>
+   <i>You funnel your vitality into the item, allowing its use once more.</i><br>
+   {"Spent a Healing Surge: <b>" + CurrentHealingSurges + " / " + MaxHealingSurges + "</b> Remaining"}
+   
+   <!-- Restore the item as usable once more -->
+   [H : CombatStatus = setStrProp(CombatStatus, "MagicItemsUsed", MagicItemsUsed - 2^eval("" + CurrentMagicItemID))]
+
+   <!-- Changes the font color to indicate the item is usable once more. -->
+   {setMacroProps(getMacroButtonIndex(), "fontcolor=black")}
+
+};{
+
+   <!-- Insert Macro Text Here-->
+   __MACRO_TEXT__
+
+   <!-- Flag the item as unusable -->
+   [H : CombatStatus = setStrProp(CombatStatus, "MagicItemsUsed", bor(2^eval("" + CurrentMagicItemID), MagicItemsUsed))]
+
+   <!-- Changes the font color to indicate when the power is used up. -->
+   {setMacroProps(getMacroButtonIndex(), "fontcolor=gray")}
+
+}]

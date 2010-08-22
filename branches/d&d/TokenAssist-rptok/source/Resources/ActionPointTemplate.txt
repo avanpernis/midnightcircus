@@ -1,0 +1,20 @@
+<!-- Confirm that the user has am action point -->
+[H : NoActionPointsAlert = if(ActionPoints < 1, 'input("UNUSED | No Action Points Left | Warning | LABEL")', "ActionPoints")]
+[H : eval(NoActionPointsAlert)]
+[H : abort(if(ActionPoints < 1, 0, 1))]
+
+<!-- Confirm the user's decision to use an action point -->
+[H : InputPrompt = input("SpendActionPoint | 1 | Spend Action Point? | CHECK")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+[H : abort(if(SpendActionPoint == 0, 0, 1))]
+
+<!-- spend the action point -->
+[H : ActionPoints = ActionPoints - 1]
+
+<!-- output the results -->
+{"Spent an Action Point: <b>" + ActionPoints + "</b> Remaining"}
+
+<!-- update token state appropriately -->
+[H : state.UsedAP = 1]
