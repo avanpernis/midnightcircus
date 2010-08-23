@@ -1,0 +1,36 @@
+﻿<!-- The Power ID is a list of numbers that identify the power. A Unique number is required for each use of the power. No power should use a number that is part of another Power's List unless their usage is tied together like Cleric's Channel Divinity powers -->
+[H : CurrentPowerID = "__POWER_ID__"]
+[H : CurrentPowerUses = listCount("" + CurrentPowerID)]
+[H : Used = 0]
+[H : Reuse = 0]
+[H : PowersUsed = getStrProp(CombatStatus, "__USAGE_TYPE__PowersUsed")]
+[H ,C(CurrentPowerUses) : Used = Used + if(band(2^eval("" + listGet("" + CurrentPowerID, roll.count)), PowersUsed), 1, 0)]
+[H : UsedAlert = if(Used == CurrentPowerUses, 'input("UNUSED | Try Another Power | This Power has already been Used | LABEL", "Reuse | 0 | Reuse this power? | CHECK") ', "Used")]
+[H : eval(UsedAlert)]
+[H : Used = Used - Reuse]
+{if(Reuse, token.name + " is Reusing this Power<br>", "")}
+[H : abort(if(Used == CurrentPowerUses, 0, 1))]
+
+<!-- Insert Macro Text Here-->
+__MACRO_TEXT__
+
+[H : CombatStatus = setStrProp(CombatStatus, "__USAGE_TYPE__PowersUsed", bor(2^eval("" + listGet("" + CurrentPowerID, Used)), PowersUsed))]
+
+<!-- Changes the font color to indicate when the power is used up. -->
+[H : PowerUsed = if(Used == (CurrentPowerUses - 1), 'setMacroProps(getMacroButtonIndex(), "fontcolor=gray")', "0")]
+[H : eval("" + PowerUsed)]
+
+<!-- If this power is a Channel Divinity power, we need to disable all other Channel Divinity powers -->
+[H : ChannelDivinityPower = if(indexOf(getMacroName(), "Channel Divinity") != -1, 1, 0)]
+
+[IF(ChannelDivinityPower == 1), CODE : {
+
+	<!-- disable all other channel divinity powers as well -->
+	[H, FOREACH(index, getMacroGroup("__USAGE_TYPE__")), CODE : {
+		[H : MacroProps = getMacroProps(index)]
+		[H : MacroLabel = getStrProp(MacroProps, "label")]
+		[H : PowerUsed = if(indexOf(MacroLabel, "Channel Divinity") != -1 && Used == (CurrentPowerUses - 1), 'setMacroProps(index, "fontcolor=gray")', "0")]
+		[H : eval("" + PowerUsed)]
+	}]
+
+};{}]

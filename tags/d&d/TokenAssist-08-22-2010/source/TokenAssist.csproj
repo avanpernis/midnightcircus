@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0720D965-D6A9-4341-96B6-D02D3C7674D9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TokenAssist</RootNamespace>
+    <AssemblyName>TokenAssist</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\external\x64\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Character.cs" />
+    <Compile Include="CharacterLoader.cs" />
+    <Compile Include="Class.cs" />
+    <Compile Include="CompendiumCache.cs" />
+    <Compile Include="CompendiumLoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompendiumLoginForm.Designer.cs">
+      <DependentUpon>CompendiumLoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CompendiumUtilities.cs" />
+    <Compile Include="Dropbox.cs" />
+    <Compile Include="ExtraMacroLoader.cs" />
+    <Compile Include="Feat.cs" />
+    <Compile Include="Macro.cs" />
+    <Compile Include="MagicItem.cs" />
+    <Compile Include="Power.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CompendiumLoginForm.resx">
+      <DependentUpon>CompendiumLoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="CompendiumAccess.cs" />
+    <Compile Include="Race.cs" />
+    <Compile Include="Stat.cs" />
+    <Compile Include="TokenGenerator.cs" />
+    <Compile Include="UserSettings.cs" />
+    <Compile Include="Weapon.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dropbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NoWeaponTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WeaponTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MacroCreationTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CheckTemplate.txt" />
+    <None Include="Resources\ActionPointTemplate.txt" />
+    <None Include="Resources\ConsumableTemplate.txt" />
+    <None Include="Resources\DailyItemTemplate.txt" />
+    <Content Include="Resources\DamageTemplate.txt" />
+    <Content Include="Resources\FeatTemplate.txt" />
+    <None Include="Resources\HeaderTemplate.txt" />
+    <Content Include="Resources\HealingTemplate.txt" />
+    <Content Include="Resources\InitiativeTemplate.txt" />
+    <Content Include="Resources\LimitedUseTemplate.txt" />
+    <None Include="Resources\MagicItemHealingSurgeTemplate.txt" />
+    <Content Include="Resources\MagicItemTemplate.txt" />
+    <None Include="Resources\RestTemplate.txt" />
+    <None Include="Resources\MilestoneTemplate.txt" />
+    <Content Include="Resources\SavingThrowTemplate.txt" />
+    <Content Include="Resources\TempHPTemplate.txt" />
+    <None Include="Resources\RangedBasicAttack.html" />
+    <None Include="Resources\MeleeBasicAttack.html" />
+    <None Include="Resources\SecondWind.html" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

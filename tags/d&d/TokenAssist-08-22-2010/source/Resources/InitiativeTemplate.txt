@@ -1,0 +1,40 @@
+<!-- generic variables that were populated by TokenAssist -->
+[H : InitBonus = "__INIT_BONUS__"]
+
+<!-- retrieve previously stored values -->
+[H : LastTempInitBonus = getStrProp(CombatStatus, "LastTempInitBonus")]
+
+[H : InputPrompt = input(
+   "UNUSED | Bonus (+" + InitBonus + ") | Roll Initiative | LABEL",
+   "TempInitBonus | " + getStrProp(CombatStatus, "LastTempInitBonus") + " | Temporary bonus | TEXT")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+
+<!-- store the values for next time -->
+[H:CombatStatus = setStrProp(CombatStatus, "LastTempInitBonus", TempInitBonus)]
+
+<!-- get the values from the user input -->
+[H : InitBonus = InitBonus + TempInitBonus]
+[H : InitBonusPrefix = if(eval("" + InitBonus) < 0, "", "+")]
+
+<!-- make the roll -->
+[H : InitRoll = 1d20]
+
+<!-- twenty detection -->
+[H : Twenty = if(InitRoll == 20, 1, 0)]
+
+<!-- adjust the roll -->
+[H : InitResult = InitRoll + InitBonus]
+
+<!-- red text if twenty, black otherwise -->
+[H : InitResultColor = if(Twenty == 1, "red", "black")]
+[H : InitResultOutput = "<span style='color:" + InitResultColor + "'>" + InitResult + "</span>"]
+
+<!-- show the roll results -->
+<b>Roll Initiative</b> ({InitBonusPrefix}{InitBonus}): <b>{InitResultOutput}</b>
+
+<!-- add this token to the initiative panel -->
+[H : addToInitiative()]
+[H : setInitiative(InitResult)]
+[H : sortInitiative()]

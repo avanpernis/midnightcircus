@@ -1,0 +1,15 @@
+<!-- Confirm the user's reaching of a milestone -->
+[H : InputPrompt = input("ReachedMilestone | 1 | Reached a Milestone? | CHECK")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+[H : abort(if(ReachedMilestone == 0, 0, 1))]
+
+<!-- award an action point and a daily item use -->
+[H : ActionPoints = ActionPoints + 1]
+[H : DailyItemUses = DailyItemUses + 1]
+
+<!-- output the results -->
+You reached a Milestone.<br>
+You have <b>{ActionPoints}</b> Action Point{if(ActionPoints > 1, "s", "")}.<br>
+You have <b>{DailyItemUses}</b> Daily Item Use{if(DailyItemUses > 1, "s", "")}.<br>

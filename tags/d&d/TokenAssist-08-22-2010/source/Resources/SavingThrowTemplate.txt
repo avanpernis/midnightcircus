@@ -1,0 +1,35 @@
+<!-- generic variables that were populated by TokenAssist -->
+[H : SaveBonus = "__SAVE_BONUS__"]
+
+<!-- retrieve previously stored values -->
+[H : LastTempSaveBonus = getStrProp(CombatStatus, "LastTempSaveBonus")]
+
+[H : InputPrompt = input(
+   "UNUSED | Bonus (+" + SaveBonus + ") | Saving Throw | LABEL",
+   "TempSaveBonus | " + getStrProp(CombatStatus, "LastTempSaveBonus") + " | Temporary bonus | TEXT")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+
+<!-- store the values for next time -->
+[H:CombatStatus = setStrProp(CombatStatus, "LastTempSaveBonus", TempSaveBonus)]
+
+<!-- get the values from the user input -->
+[H : SaveBonus = SaveBonus + TempSaveBonus]
+[H : SaveBonusPrefix = if(eval("" + SaveBonus) < 0, "", "+")]
+
+<!-- make the save -->
+[H : SaveRoll = 1d20]
+
+<!-- twenty detection -->
+[H : Twenty = if(SaveRoll == 20, 1, 0)]
+
+<!-- adjust the save -->
+[H : SaveResult = SaveRoll + SaveBonus]
+
+<!-- red text if twenty, black otherwise -->
+[H : SaveResultColor = if(Twenty == 1, "red", "black")]
+[H : SaveResultOutput = "<span style='color:" + SaveResultColor + "'>" + SaveResult + "</span>"]
+
+<!-- show the save results -->
+<b>Saving Throw</b> ({SaveBonusPrefix}{SaveBonus}): <b>{SaveResultOutput}</b>

@@ -1,0 +1,70 @@
+<!-- show the user rest options -->
+[H : InputPrompt = input(
+	"RestType | Short, Extended | How long are you resting? | RADIO")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+
+<!-- regardless of rest type, all encounter powers are restored -->
+[H: CombatStatus = setStrProp(CombatStatus, "EncounterPowersUsed", 0), CombatStatus)]
+
+[H:blah = ""]
+
+<!-- restore the text color so encounter powers appear as usable once again -->
+[H, FOREACH(index, getMacroGroup("Encounter")), CODE : {
+	[H : MacroProps = getMacroProps(index)]
+	[H : MacroBackgroundColor = getStrProp(MacroProps, "color")]
+	[setMacroProps(index, "fontcolor=" + if(MacroBackgroundColor == "red", "white", "black"))]
+}]
+
+<!-- for an extended rest, additional things happen
+[IF(RestType == 1), CODE : {
+
+	<!-- during an extended rest, all powers are restored -->
+	[H: CombatStatus = setStrProp(CombatStatus, "DailyPowersUsed", 0), CombatStatus)]
+	
+	<!-- restore the text color so daily powers appear as usable once again -->
+	[H, FOREACH(index, getMacroGroup("Daily")), CODE : {
+		[H : MacroProps = getMacroProps(index)]
+		[H : MacroBackgroundColor = getStrProp(MacroProps, "color")]
+		[setMacroProps(index, "fontcolor=" + if(MacroBackgroundColor == "black", "white", "black"))]
+	}]
+	
+	<!-- restore each magic item that is recharged by a healing surge -->
+	[H: CombatStatus = setStrProp(CombatStatus, "MagicItemsUsed", 0), CombatStatus)]
+	
+	<!-- restore the text color so rechargeable magic items appear as usable once again -->
+	[H, FOREACH(index, getMacroGroup("Healing-Surge")), CODE : {
+		[H : MacroProps = getMacroProps(index)]
+		[H : MacroBackgroundColor = getStrProp(MacroProps, "color")]
+		[setMacroProps(index, "fontcolor=black")]
+	}]
+	
+	<!-- restore hit points and healing surges to maximum -->
+	[H : CurrentHitPoints = MaxHitPoints]
+	[H : CurrentHealingSurges = MaxHealingSurges]
+	
+	<!-- set available action points to 1 -->
+	[H : ActionPoints = 1]
+	
+	<!-- set available daily item uses based on level (one every 10 levels) -->
+	[H : DailyItemUses = ceiling(Level / 10)]
+	
+	You take an extended rest and recover all of your encounter and daily powers.<br>
+	You have <b>{CurrentHitPoints}</b> Hit Points.<br>
+	You have <b>{CurrentHealingSurges}</b> Healing Surges.<br>
+	You have <b>{ActionPoints}</b> Action Point.<br>
+	You have <b>{DailyItemUses}</b> Daily Item Use{if(DailyItemUses > 1, "s", "")}.<br>
+	
+	<!-- update token state appropriately -->
+	[H : state.Helpless = 0]
+	[H : state.Dead = 0]
+	[H : state.Prone = 0]
+	[H : state.Bloodied = 0]
+	[H : bar.Health = 1]
+	
+};{
+
+	You take a short rest and recover your encounter powers.
+
+}]

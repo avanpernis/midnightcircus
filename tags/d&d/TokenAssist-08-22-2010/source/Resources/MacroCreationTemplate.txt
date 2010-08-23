@@ -1,0 +1,19 @@
+<!-- generic variables that were populated by TokenAssist -->
+[H : MacroName = "__MACRO_NAME__"]
+[H : MacroBackgroundColor = "__MACRO_BACKGROUND_COLOR__"]
+[H : MacroForegroundColor = "__MACRO_FOREGROUND_COLOR__"]
+[H : MacroGroup = "__MACRO_GROUP__"]
+[H : MacroCode = "__MACRO_CODE__"]
+
+<!-- construct the macro properties -->
+[H : MacroProperties = ""]
+[H : MacroProperties = setStrProp(MacroProperties, "autoExecute", "true")]
+[H : MacroProperties = setStrProp(MacroProperties, "color", MacroBackgroundColor)]
+[H : MacroProperties = setStrProp(MacroProperties, "fontColor", MacroForegroundColor)]
+[H : MacroProperties = setStrProp(MacroProperties, "group", MacroGroup)]
+
+<!-- create a macro with the specified name, code, and properties -->
+[H : createMacro(MacroName, decode(MacroCode), MacroProperties)]
+
+<!-- HACK: would be nice to set 'applyToSelected' above, but maptool does not allow this during macro creation -->
+[H : setMacroProps(MacroName, "applyToSelected=true;")]

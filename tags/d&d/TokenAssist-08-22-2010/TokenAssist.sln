@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenAssist", "source\TokenAssist.csproj", "{0720D965-D6A9-4341-96B6-D02D3C7674D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenAssistTest", "test\TokenAssistTest.csproj", "{4091F793-5D0C-4A97-9CE3-3E7DAA0F81EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0720D965-D6A9-4341-96B6-D02D3C7674D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0720D965-D6A9-4341-96B6-D02D3C7674D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0720D965-D6A9-4341-96B6-D02D3C7674D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0720D965-D6A9-4341-96B6-D02D3C7674D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4091F793-5D0C-4A97-9CE3-3E7DAA0F81EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4091F793-5D0C-4A97-9CE3-3E7DAA0F81EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4091F793-5D0C-4A97-9CE3-3E7DAA0F81EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4091F793-5D0C-4A97-9CE3-3E7DAA0F81EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
