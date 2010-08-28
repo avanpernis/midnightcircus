@@ -175,13 +175,6 @@ namespace TokenAssist.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap defaultTokenImage {
-            get {
-                object obj = ResourceManager.GetObject("defaultTokenImage", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap dropbox {
             get {
                 object obj = ResourceManager.GetObject("dropbox", resourceCulture);
@@ -314,14 +307,15 @@ namespace TokenAssist.Properties {
         ///    &lt;index&gt;###ENTRY_NUMBER###&lt;/index&gt;
         ///    &lt;colorKey&gt;###BUTTON_COLOR###&lt;/colorKey&gt;
         ///    &lt;hotKey&gt;None&lt;/hotKey&gt;
-        ///    &lt;command&gt;###MACRO_COMMAND###
+        ///    &lt;command&gt;
+        ///    ###MACRO_COMMAND###
         ///    &lt;/command&gt;
         ///    &lt;label&gt;###MACRO_NAME###&lt;/label&gt;
         ///    &lt;group&gt;###MACRO_GROUP###&lt;/group&gt;
         ///    &lt;sortby&gt;###SORTBY###&lt;/sortby&gt;
         ///    &lt;autoExecute&gt;true&lt;/autoExecute&gt;
         ///    &lt;includeLabel&gt;false&lt;/includeLabel&gt;
-        ///    &lt;applyToTokens&gt;false&lt;/app [rest of string was truncated]&quot;;.
+        ///    &lt;applyToTokens&gt;fals [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MacroTemplate {
             get {
@@ -401,28 +395,6 @@ namespace TokenAssist.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
-        ///[H : PowerName = &quot;###NAME###&quot;]
-        ///[H : AttackBonus = &quot;###ATTACK_BONUS###&quot;]
-        ///[H : Damage = &quot;###DAMAGE###&quot;]
-        ///[H : MaxDamage = &quot;###MAX_DAMAGE###&quot;]
-        ///[H : MultipleTargets = ###MULTIPLE_TARGETS###]
-        ///[H : DefenseStat = &quot;###DEFENSE_STAT###&quot;]
-        ///[H : CriticalDamage = 0]
-        ///
-        ///&lt;!-- html power card, as found in the compendium --&gt;
-        ///[H : PowerCard = &quot;###POWER_CARD###&quot;]
-        ///
-        ///&lt;!-- retrieve previously stored values --&gt;
-        ///[H : NumberOfTargets = if(MultipleTargets == 1, ge [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string MonsterPowerMacro {
-            get {
-                return ResourceManager.GetString("MonsterPowerMacro", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
         ///[H : PowerName = &quot;__POWER_NAME__&quot;]
         ///
         ///&lt;!-- html power card, as found in the compendium --&gt;
@@ -453,29 +425,6 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!-- Confirm the user&apos;s decision to reset the monster --&gt;
-        ///[H : InputPrompt = input(&quot;ResetMonster | 1 | ResetMonster? | CHECK&quot;)]
-        ///
-        ///&lt;!-- bail if the user cancels the dialog --&gt;
-        ///[H : abort(InputPrompt)]
-        ///[H : abort(if(ResetMonster == 0, 0, 1))]
-        ///	
-        ///&lt;!-- restore hit points and healing surges to maximum --&gt;
-        ///[H : CurrentHitPoints = MaxHitPoints]
-        ///[H : CurrentHealingSurges = MaxHealingSurges]
-        ///	
-        ///&lt;!-- set available action points to starting value --&gt;
-        ///[H : ActionPoints = StartingActionPoints]
-        ///	
-        ///Monster is re [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string ResetMonsterTemplate {
-            get {
-                return ResourceManager.GetString("ResetMonsterTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;!-- show the user rest options --&gt;
         ///[H : InputPrompt = input(
         ///	&quot;RestType | Short, Extended | How long are you resting? | RADIO&quot;)]
@@ -486,9 +435,10 @@ namespace TokenAssist.Properties {
         ///&lt;!-- regardless of rest type, all encounter powers are restored --&gt;
         ///[H: CombatStatus = setStrProp(CombatStatus, &quot;EncounterPowersUsed&quot;, 0), CombatStatus)]
         ///
+        ///[H:blah = &quot;&quot;]
+        ///
         ///&lt;!-- restore the text color so encounter powers appear as usable once again --&gt;
-        ///[H, FOREACH(index, getMacroGroup(&quot;Encounter&quot;)), CODE : {
-        ///	[H :  [rest of string was truncated]&quot;;.
+        ///[H, FOREACH(index, getMacroGroup(&quot;Encounter&quot;)), [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RestTemplate {
             get {
@@ -543,36 +493,6 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;net.rptools.maptool.model.Asset&gt;
-        ///  &lt;id&gt;
-        ///    &lt;id&gt;###MD5_SUM###&lt;/id&gt;
-        ///  &lt;/id&gt;
-        ///  &lt;name&gt;###NAME###&lt;/name&gt;
-        ///  &lt;extension&gt;###EXTENSION###&lt;/extension&gt;
-        ///  &lt;image/&gt;
-        ///&lt;/net.rptools.maptool.model.Asset&gt;.
-        /// </summary>
-        internal static string TokenAssetTemplate {
-            get {
-                return ResourceManager.GetString("TokenAssetTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;map&gt;
-        ///  &lt;entry&gt;
-        ///    &lt;string&gt;version&lt;/string&gt;
-        ///    &lt;string&gt;1.3.b70&lt;/string&gt;
-        ///  &lt;/entry&gt;
-        ///&lt;/map&gt;.
-        /// </summary>
-        internal static string TokenPropertiesFileTemplate {
-            get {
-                return ResourceManager.GetString("TokenPropertiesFileTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;entry&gt;
         ///  &lt;string&gt;###PROP_NAME###&lt;/string&gt;
         ///  &lt;net.rptools.CaseInsensitiveHashMap_-KeyValue&gt;
@@ -601,7 +521,8 @@ namespace TokenAssist.Properties {
         ///[H : DefenseList = &quot;__DEFENSE_LIST__&quot;]
         ///[H : MultipleTargets = __MULTIPLE_TARGETS__]
         ///
-        ///&lt;!-- html power card, as found in the compendium --&gt;        /// [rest of string was truncated]&quot;;.
+        ///&lt;!-- html power card, as found in the compendium --&gt;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string WeaponTemplate {
             get {
