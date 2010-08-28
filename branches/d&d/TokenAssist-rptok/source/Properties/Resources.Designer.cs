@@ -108,6 +108,37 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;net.rptools.maptool.model.Token&gt;
+        ///  &lt;id&gt;
+        ///    &lt;baGUID&gt;wKgBZTZew/dDAwAAwIAAJA==&lt;/baGUID&gt;
+        ///  &lt;/id&gt;
+        ///  &lt;beingImpersonated&gt;false&lt;/beingImpersonated&gt;
+        ///  &lt;imageAssetMap&gt;
+        ///    &lt;entry&gt;
+        ///      &lt;null/&gt;
+        ///      &lt;net.rptools.lib.MD5Key&gt;
+        ///        &lt;id&gt;###IMAGE_MD5_SUM###&lt;/id&gt;
+        ///      &lt;/net.rptools.lib.MD5Key&gt;
+        ///    &lt;/entry&gt;
+        ///  &lt;/imageAssetMap&gt;
+        ///  &lt;x&gt;400&lt;/x&gt;
+        ///  &lt;y&gt;200&lt;/y&gt;
+        ///  &lt;z&gt;2&lt;/z&gt;
+        ///  &lt;anchorX&gt;0&lt;/anchorX&gt;
+        ///  &lt;anchorY&gt;0&lt;/anchorY&gt;
+        ///  &lt;sizeScale&gt;1.0&lt;/sizeScale&gt;
+        ///  &lt;lastX&gt;0&lt;/lastX&gt;
+        ///  &lt;lastY&gt;0&lt;/lastY&gt;
+        ///  &lt;snapToScale&gt;true&lt;/snapToScale&gt;
+        ///  &lt;width&gt;1 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ContentTemplate {
+            get {
+                return ResourceManager.GetString("ContentTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!-- Decide whether is is currently possible to use a daily item --&gt;
         ///[H : NoDailyItemUsesAlert = if(DailyItemUses &lt; 1, &apos;input(&quot;UNUSED | No Daily Item Uses Left | Warning | LABEL&quot;)&apos;, &quot;DailyItemUses&quot;)]
         ///[H : eval(NoDailyItemUsesAlert)]
@@ -265,6 +296,30 @@ namespace TokenAssist.Properties {
         internal static string MacroCreationTemplate {
             get {
                 return ResourceManager.GetString("MacroCreationTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;entry&gt;
+        ///  &lt;int&gt;###ENTRY_NUMBER###&lt;/int&gt;
+        ///  &lt;net.rptools.maptool.model.MacroButtonProperties&gt;
+        ///    &lt;saveLocation&gt;Token&lt;/saveLocation&gt;
+        ///    &lt;index&gt;###ENTRY_NUMBER###&lt;/index&gt;
+        ///    &lt;colorKey&gt;###BUTTON_COLOR###&lt;/colorKey&gt;
+        ///    &lt;hotKey&gt;None&lt;/hotKey&gt;
+        ///    &lt;command&gt;
+        ///    ###MACRO_COMMAND###
+        ///    &lt;/command&gt;
+        ///    &lt;label&gt;###MACRO_NAME###&lt;/label&gt;
+        ///    &lt;group&gt;###MACRO_GROUP###&lt;/group&gt;
+        ///    &lt;sortby&gt;###SORTBY###&lt;/sortby&gt;
+        ///    &lt;autoExecute&gt;true&lt;/autoExecute&gt;
+        ///    &lt;includeLabel&gt;false&lt;/includeLabel&gt;
+        ///    &lt;applyToTokens&gt;fals [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string MacroTemplate {
+            get {
+                return ResourceManager.GetString("MacroTemplate", resourceCulture);
             }
         }
         
@@ -434,6 +489,23 @@ namespace TokenAssist.Properties {
         internal static string TempHPTemplate {
             get {
                 return ResourceManager.GetString("TempHPTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;entry&gt;
+        ///  &lt;string&gt;###PROP_NAME###&lt;/string&gt;
+        ///  &lt;net.rptools.CaseInsensitiveHashMap_-KeyValue&gt;
+        ///    &lt;key&gt;###PROP_KEY###&lt;/key&gt;
+        ///    &lt;value class=&quot;string&quot;&gt;###PROP_VALUE###&lt;/value&gt;
+        ///    &lt;outer-class reference=&quot;../../../..&quot;/&gt;
+        ///  &lt;/net.rptools.CaseInsensitiveHashMap_-KeyValue&gt;
+        ///&lt;/entry&gt;
+        ///.
+        /// </summary>
+        internal static string TokenPropertyTemplate {
+            get {
+                return ResourceManager.GetString("TokenPropertyTemplate", resourceCulture);
             }
         }
         

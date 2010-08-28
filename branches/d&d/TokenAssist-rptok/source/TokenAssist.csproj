@@ -41,7 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\external\x64\System.Data.SQLite.dll</HintPath>
+      <HintPath>..\external\x86\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Data" />
@@ -49,6 +49,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +76,8 @@
     <Compile Include="Macro.cs" />
     <Compile Include="MagicItem.cs" />
     <Compile Include="MD5Utilities.cs" />
+    <Compile Include="Monster\Monster.cs" />
+    <Compile Include="Monster\AbilityScore.cs" />
     <Compile Include="Power.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -84,6 +87,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Token\Token.cs" />
+    <Compile Include="Token\TokenMacro.cs" />
+    <Compile Include="Token\TokenProperty.cs" />
     <Compile Include="ZipUtilities.cs" />
     <EmbeddedResource Include="CompendiumLoginForm.resx">
       <DependentUpon>CompendiumLoginForm.cs</DependentUpon>
@@ -134,10 +140,12 @@
     <None Include="Resources\MacroCreationTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\TokenPropertyTemplate.xml" />
     <None Include="Resources\CheckTemplate.txt" />
     <None Include="Resources\ActionPointTemplate.txt" />
     <None Include="Resources\ConsumableTemplate.txt" />
     <None Include="Resources\DailyItemTemplate.txt" />
+    <None Include="Resources\ContentTemplate.xml" />
     <Content Include="Resources\DamageTemplate.txt" />
     <Content Include="Resources\FeatTemplate.txt" />
     <None Include="Resources\HeaderTemplate.txt" />
@@ -145,6 +153,7 @@
     <Content Include="Resources\InitiativeTemplate.txt" />
     <Content Include="Resources\LimitedUseTemplate.txt" />
     <None Include="Resources\MagicItemHealingSurgeTemplate.txt" />
+    <None Include="Resources\MacroTemplate.xml" />
     <Content Include="Resources\MagicItemTemplate.txt" />
     <None Include="Resources\RestTemplate.txt" />
     <None Include="Resources\MilestoneTemplate.txt" />
@@ -154,6 +163,7 @@
     <None Include="Resources\MeleeBasicAttack.html" />
     <None Include="Resources\SecondWind.html" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
