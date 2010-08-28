@@ -66,6 +66,12 @@
     <Compile Include="Dropbox.cs" />
     <Compile Include="ExtraMacroLoader.cs" />
     <Compile Include="Feat.cs" />
+    <Compile Include="ImageBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageBrowser.Designer.cs">
+      <DependentUpon>ImageBrowser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Macro.cs" />
     <Compile Include="MagicItem.cs" />
     <Compile Include="MD5Utilities.cs" />
@@ -81,6 +87,9 @@
     <Compile Include="ZipUtilities.cs" />
     <EmbeddedResource Include="CompendiumLoginForm.resx">
       <DependentUpon>CompendiumLoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageBrowser.resx">
+      <DependentUpon>ImageBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

@@ -11,7 +11,8 @@ namespace TokenAssist
 {
     public partial class MainForm : Form
     {
-        private const string Dnd4eFileFilter = @"dnd4e files (*.dnd4e)|*.dnd4e|All files (*.*)|*.*";
+        private const string SourceFileFilter = @"Supported files (*.dnd4e, *.monster)|*.dnd4e;*.monster|Character Builder files (*.dnd4e)|*.dnd4e|Monster files (*.monster)|*.monster|All files (*.*)|*.*";
+        private const string DestinationFileFilter = @"Maptool Token files (*.rptok)|*.rptok|All files (*.*)|*.*";
 
         public MainForm()
             : this(string.Empty)
@@ -27,9 +28,6 @@ namespace TokenAssist
 
             ChosenSourceFile = source;
 
-            // defaulting the destination folder to the desktop seems useful
-            ChosenOutputFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
             // attempt to load our local cookie cache
             CompendiumAccess.Instance.ReadCookies();
         }
@@ -42,11 +40,37 @@ namespace TokenAssist
             }
             set
             {
+                if (value.EndsWith(".monster"))
+                {
+                    MessageBox.Show("Monster files are not supported yet!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 mComboBoxSource.Text = value;
+
+                if (!string.IsNullOrEmpty(ChosenSourceFile))
+                {
+                    // load the specified file, populate some of the other fields with educated guesswork
+                    try
+                    {
+                        Cursor.Current = Cursors.WaitCursor;
+                        mPanelMain.Enabled = false;
+
+                        mCharacter = CharacterLoader.Load(ChosenSourceFile);
+
+                        // defaulting the destination folder to the desktop seems useful
+                        ChosenDestinationFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), string.Format("{0}.rptok", mCharacter.Name));
+                    }
+                    finally
+                    {
+                        mPanelMain.Enabled = true;
+                        Cursor.Current = Cursors.Default;
+                    }
+                }
             }
         }
 
-        private string ChosenOutputFolder
+        private string ChosenDestinationFile
         {
             get
             {
@@ -81,7 +105,7 @@ namespace TokenAssist
         private void BrowseForSourceFile()
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = Dnd4eFileFilter;
+            dialog.Filter = SourceFileFilter;
             dialog.RestoreDirectory = true;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -104,6 +128,11 @@ namespace TokenAssist
             MessageBox.Show(@"TokenAssist (Midnight Circus)", this.Text);
         }
 
+        private void mComboBoxSource_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChosenSourceFile = mComboBoxSource.Text;
+        }
+
         private void mButtonBrowseSource_Click(object sender, EventArgs e)
         {
             BrowseForSourceFile();
@@ -112,11 +141,11 @@ namespace TokenAssist
         private void mButtonBrowseDropbox_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = Dnd4eFileFilter;
+            dialog.Filter = SourceFileFilter;
             dialog.RestoreDirectory = true;
             try
             {
-                dialog.InitialDirectory = Path.Combine(Dropbox.Folder, @"D&D\Characters");
+                dialog.InitialDirectory = Path.Combine(Dropbox.Folder, @"D&D");
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     ChosenSourceFile = dialog.FileName;
@@ -130,10 +159,13 @@ namespace TokenAssist
 
         private void mBrowseDestination_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = DestinationFileFilter;
+            dialog.RestoreDirectory = true;
+
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                ChosenOutputFolder = dialog.SelectedPath;
+                ChosenDestinationFile = dialog.FileName;
             }
         }
 
@@ -144,21 +176,19 @@ namespace TokenAssist
 
         private void mButtonOK_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(ChosenSourceFile))
+            if (mCharacter == null)
             {
-                MessageBox.Show(mLabelSource.Text, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No character has been loaded." , this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (string.IsNullOrEmpty(ChosenOutputFolder))
+            if (string.IsNullOrEmpty(ChosenDestinationFile))
             {
                 MessageBox.Show(mLabelDestination.Text, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            string destination = Path.Combine(ChosenOutputFolder, Path.ChangeExtension(Path.GetFileName(ChosenSourceFile), ".txt"));
-
-            if (File.Exists(destination))
+            if (File.Exists(ChosenDestinationFile))
             {
                 DialogResult result = MessageBox.Show("Specified destination file already exists. Would you like to overwrite?", this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
@@ -172,7 +202,7 @@ namespace TokenAssist
             UserSettings.Instance.OpenedFile(ChosenSourceFile);
             UpdateSourceFiles();
 
-            UserSettings.Instance.UsedDestination(ChosenOutputFolder);
+            UserSettings.Instance.UsedDestination(ChosenDestinationFile);
             UpdateDestinations();
 
             try
@@ -180,9 +210,7 @@ namespace TokenAssist
                 Cursor.Current = Cursors.WaitCursor;
                 mPanelMain.Enabled = false;
 
-                Character character = CharacterLoader.Load(ChosenSourceFile);
-
-                TokenGenerator.Dump(character, destination);
+                TokenGenerator.Dump(mCharacter, ChosenDestinationFile);
             }
             finally
             {
@@ -217,5 +245,7 @@ namespace TokenAssist
 
             ChosenSourceFile = menuItem.Tag as string;
         }
+
+        private Character mCharacter;
     }
 }
