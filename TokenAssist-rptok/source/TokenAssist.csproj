@@ -73,6 +73,8 @@
     <Compile Include="Misc\ZipUtilities.cs" />
     <Compile Include="Monster\Monster.cs" />
     <Compile Include="Monster\AbilityScore.cs" />
+    <Compile Include="Monster\MonsterLoader.cs" />
+    <Compile Include="Monster\MonsterTokenBuilder.cs" />
     <Compile Include="Power.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
