@@ -40,12 +40,6 @@ namespace TokenAssist
             }
             set
             {
-                if (value.EndsWith(".monster"))
-                {
-                    MessageBox.Show("Monster files are not supported yet!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
                 mComboBoxSource.Text = value;
 
                 if (!string.IsNullOrEmpty(ChosenSourceFile))
@@ -56,10 +50,20 @@ namespace TokenAssist
                         Cursor.Current = Cursors.WaitCursor;
                         mPanelMain.Enabled = false;
 
-                        mCharacter = CharacterLoader.Load(ChosenSourceFile);
+                        if (value.EndsWith(".monster"))
+                        {
+                            mMonster = MonsterLoader.Load(ChosenSourceFile);
+                            mCharacter = null;
 
-                        // defaulting the destination folder to the desktop seems useful
-                        ChosenDestinationFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), string.Format("{0}.rptok", mCharacter.Name));
+                            ChosenDestinationFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), string.Format("{0}.rptok", mMonster.Name));
+                        }
+                        else
+                        {
+                            mCharacter = CharacterLoader.Load(ChosenSourceFile);
+                            mMonster = null;
+
+                            ChosenDestinationFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), string.Format("{0}.rptok", mCharacter.Name));
+                        }
                     }
                     finally
                     {
@@ -174,9 +178,10 @@ namespace TokenAssist
             this.Close();
         }
 
+        // user has confirmed setup, write out the token
         private void mButtonOK_Click(object sender, EventArgs e)
         {
-            if (mCharacter == null)
+            if ((mCharacter == null) && (mMonster == null))
             {
                 MessageBox.Show("No character has been loaded." , this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -210,7 +215,10 @@ namespace TokenAssist
                 Cursor.Current = Cursors.WaitCursor;
                 mPanelMain.Enabled = false;
 
-                TokenGenerator.Dump(mCharacter, ChosenDestinationFile);
+                if (mCharacter != null)
+                    TokenGenerator.Dump(mCharacter, ChosenDestinationFile);
+                else if (mMonster != null)
+                    MonsterTokenBuilder.WriteToken(mMonster, ChosenDestinationFile);
             }
             finally
             {
@@ -247,5 +255,6 @@ namespace TokenAssist
         }
 
         private Character mCharacter;
+        private Monster mMonster;
     }
 }
