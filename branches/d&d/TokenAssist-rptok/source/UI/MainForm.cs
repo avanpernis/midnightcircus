@@ -23,6 +23,8 @@ namespace TokenAssist
         {
             InitializeComponent();
 
+            MessageSystem.OnMessage += new EventHandler<MessageEventArgs>(MessageSystem_OnMessage);
+
             UpdateSourceFiles();
             UpdateDestinations();
 
@@ -40,9 +42,7 @@ namespace TokenAssist
             }
             set
             {
-                mComboBoxSource.Text = value;
-
-                if (!string.IsNullOrEmpty(ChosenSourceFile))
+                if (!string.IsNullOrEmpty(value))
                 {
                     // load the specified file, populate some of the other fields with educated guesswork
                     try
@@ -52,18 +52,28 @@ namespace TokenAssist
 
                         if (value.EndsWith(".monster"))
                         {
-                            mMonster = MonsterLoader.Load(ChosenSourceFile);
+                            mMonster = MonsterLoader.Load(value);
                             mCharacter = null;
 
                             ChosenDestinationFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), string.Format("{0}.rptok", mMonster.Name));
                         }
                         else
                         {
-                            mCharacter = CharacterLoader.Load(ChosenSourceFile);
+                            mCharacter = CharacterLoader.Load(value);
                             mMonster = null;
 
                             ChosenDestinationFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), string.Format("{0}.rptok", mCharacter.Name));
                         }
+
+                        mComboBoxSource.Text = value;
+
+                        MessageSystem.Success(ChosenSourceFile + " loaded.");
+                    }
+                    catch (Exception exception)
+                    {
+                        mComboBoxSource.Text = string.Empty;
+
+                        MessageSystem.Error(exception.Message);
                     }
                     finally
                     {
@@ -147,17 +157,19 @@ namespace TokenAssist
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = SourceFileFilter;
             dialog.RestoreDirectory = true;
+            
             try
             {
                 dialog.InitialDirectory = Path.Combine(Dropbox.Folder, @"D&D");
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    ChosenSourceFile = dialog.FileName;
-                }
             }
             catch (Exception exception)
             {
-                MessageBox.Show(string.Format("Unable to find dropbox folder: {0}", exception.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageSystem.Error(string.Format("Unable to find dropbox folder: {0}", exception.Message));
+            }
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                ChosenSourceFile = dialog.FileName;
             }
         }
 
@@ -172,7 +184,7 @@ namespace TokenAssist
                 ChosenDestinationFile = dialog.FileName;
             }
         }
-        
+
         private void mButtonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -183,13 +195,13 @@ namespace TokenAssist
         {
             if ((mCharacter == null) && (mMonster == null))
             {
-                MessageBox.Show("No character has been loaded." , this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageSystem.Error(mLabelSource.Text);
                 return;
             }
 
             if (string.IsNullOrEmpty(ChosenDestinationFile))
             {
-                MessageBox.Show(mLabelDestination.Text, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageSystem.Error(mLabelDestination.Text);
                 return;
             }
 
@@ -201,6 +213,16 @@ namespace TokenAssist
                 {
                     return;
                 }
+            }
+
+            if (mImageBrowserToken.ImageFile == null)
+            {
+                MessageSystem.Warning("No token image specified.");
+            }
+
+            if (mImageBrowserPortrait.ImageFile == null)
+            {
+                MessageSystem.Warning("No portrait image specified.");
             }
 
             // save the user's choices
@@ -219,6 +241,12 @@ namespace TokenAssist
                     TokenGenerator.Dump(mCharacter, ChosenDestinationFile);
                 else if (mMonster != null)
                     MonsterTokenBuilder.WriteToken(mMonster, ChosenDestinationFile);
+
+                MessageSystem.Success(ChosenDestinationFile + " created.");
+            }
+            catch (Exception exception)
+            {
+                MessageSystem.Error(exception.Message);
             }
             finally
             {
@@ -252,6 +280,38 @@ namespace TokenAssist
             ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
 
             ChosenSourceFile = menuItem.Tag as string;
+        }
+
+        void MessageSystem_OnMessage(object sender, MessageEventArgs e)
+        {
+            mListBoxOutput.Items.Add(e);
+        }
+
+        private void mListBoxOutput_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            MessageEventArgs args = mListBoxOutput.Items[e.Index] as MessageEventArgs;
+
+            e.DrawBackground();
+
+            e.Graphics.DrawString(args.Message, e.Font, GetBrush(args.Type), e.Bounds, StringFormat.GenericDefault);
+
+            e.DrawFocusRectangle();
+        }  
+
+        private static Brush GetBrush(MessageType type)
+        {
+            switch(type)
+            {
+                case MessageType.Info:
+                default:
+                    return Brushes.Black;
+                case MessageType.Warning:
+                    return Brushes.Orange;
+                case MessageType.Error:
+                    return Brushes.Red;
+                case MessageType.Success:
+                    return Brushes.Green;
+            }
         }
 
         private Character mCharacter;

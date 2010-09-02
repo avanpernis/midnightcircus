@@ -71,6 +71,7 @@
     <Compile Include="MagicItem.cs" />
     <Compile Include="Misc\Dropbox.cs" />
     <Compile Include="Misc\MD5Utilities.cs" />
+    <Compile Include="Misc\MessageSystem.cs" />
     <Compile Include="Misc\ZipUtilities.cs" />
     <Compile Include="Monster\Monster.cs" />
     <Compile Include="Monster\AbilityScore.cs" />

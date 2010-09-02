@@ -49,6 +49,8 @@
             this.mMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.mPanelMain = new System.Windows.Forms.Panel();
+            this.mListBoxOutput = new System.Windows.Forms.ListBox();
+            this.mLabelOutput = new System.Windows.Forms.Label();
             this.mImageBrowserPortrait = new TokenAssist.ImageBrowser();
             this.mImageBrowserToken = new TokenAssist.ImageBrowser();
             this.mMenu.SuspendLayout();
@@ -57,7 +59,7 @@
             // 
             // mStatusStrip
             // 
-            this.mStatusStrip.Location = new System.Drawing.Point(0, 377);
+            this.mStatusStrip.Location = new System.Drawing.Point(0, 561);
             this.mStatusStrip.Name = "mStatusStrip";
             this.mStatusStrip.Size = new System.Drawing.Size(478, 22);
             this.mStatusStrip.TabIndex = 0;
@@ -65,8 +67,8 @@
             // 
             // mButtonOK
             // 
-            this.mButtonOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.mButtonOK.Location = new System.Drawing.Point(262, 315);
+            this.mButtonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButtonOK.Location = new System.Drawing.Point(262, 499);
             this.mButtonOK.Name = "mButtonOK";
             this.mButtonOK.Size = new System.Drawing.Size(75, 23);
             this.mButtonOK.TabIndex = 6;
@@ -130,9 +132,9 @@
             // 
             // mButtonCancel
             // 
-            this.mButtonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.mButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.mButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.mButtonCancel.Location = new System.Drawing.Point(371, 315);
+            this.mButtonCancel.Location = new System.Drawing.Point(371, 499);
             this.mButtonCancel.Name = "mButtonCancel";
             this.mButtonCancel.Size = new System.Drawing.Size(75, 23);
             this.mButtonCancel.TabIndex = 8;
@@ -142,6 +144,9 @@
             // 
             // mComboBoxSource
             // 
+            this.mComboBoxSource.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.mComboBoxSource.FormattingEnabled = true;
             this.mComboBoxSource.Location = new System.Drawing.Point(15, 34);
             this.mComboBoxSource.Name = "mComboBoxSource";
@@ -151,6 +156,9 @@
             // 
             // mComboBoxDestination
             // 
+            this.mComboBoxDestination.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.mComboBoxDestination.FormattingEnabled = true;
             this.mComboBoxDestination.Location = new System.Drawing.Point(15, 278);
             this.mComboBoxDestination.Name = "mComboBoxDestination";
@@ -183,21 +191,21 @@
             // mMenuItemOpen
             // 
             this.mMenuItemOpen.Name = "mMenuItemOpen";
-            this.mMenuItemOpen.Size = new System.Drawing.Size(152, 22);
+            this.mMenuItemOpen.Size = new System.Drawing.Size(136, 22);
             this.mMenuItemOpen.Text = "&Open";
             this.mMenuItemOpen.Click += new System.EventHandler(this.mMenuItemOpen_Click);
             // 
             // mSeparator1
             // 
             this.mSeparator1.Name = "mSeparator1";
-            this.mSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.mSeparator1.Size = new System.Drawing.Size(133, 6);
             // 
             // mMenuItemRecentFiles
             // 
             this.mMenuItemRecentFiles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mSeparator3});
             this.mMenuItemRecentFiles.Name = "mMenuItemRecentFiles";
-            this.mMenuItemRecentFiles.Size = new System.Drawing.Size(152, 22);
+            this.mMenuItemRecentFiles.Size = new System.Drawing.Size(136, 22);
             this.mMenuItemRecentFiles.Text = "Recent &Files";
             this.mMenuItemRecentFiles.DropDownOpening += new System.EventHandler(this.mMenuItemRecentFiles_DropDownOpening);
             // 
@@ -209,12 +217,12 @@
             // mSeparator2
             // 
             this.mSeparator2.Name = "mSeparator2";
-            this.mSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.mSeparator2.Size = new System.Drawing.Size(133, 6);
             // 
             // mMenuItemExit
             // 
             this.mMenuItemExit.Name = "mMenuItemExit";
-            this.mMenuItemExit.Size = new System.Drawing.Size(152, 22);
+            this.mMenuItemExit.Size = new System.Drawing.Size(136, 22);
             this.mMenuItemExit.Text = "E&xit";
             this.mMenuItemExit.Click += new System.EventHandler(this.mMenuItemExit_Click);
             // 
@@ -230,12 +238,14 @@
             // mMenuItemAbout
             // 
             this.mMenuItemAbout.Name = "mMenuItemAbout";
-            this.mMenuItemAbout.Size = new System.Drawing.Size(152, 22);
+            this.mMenuItemAbout.Size = new System.Drawing.Size(107, 22);
             this.mMenuItemAbout.Text = "&About";
             this.mMenuItemAbout.Click += new System.EventHandler(this.mMenuItemAbout_Click);
             // 
             // mPanelMain
             // 
+            this.mPanelMain.Controls.Add(this.mLabelOutput);
+            this.mPanelMain.Controls.Add(this.mListBoxOutput);
             this.mPanelMain.Controls.Add(this.mImageBrowserPortrait);
             this.mPanelMain.Controls.Add(this.mImageBrowserToken);
             this.mPanelMain.Controls.Add(this.mComboBoxDestination);
@@ -250,8 +260,34 @@
             this.mPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mPanelMain.Location = new System.Drawing.Point(0, 24);
             this.mPanelMain.Name = "mPanelMain";
-            this.mPanelMain.Size = new System.Drawing.Size(478, 353);
+            this.mPanelMain.Size = new System.Drawing.Size(478, 537);
             this.mPanelMain.TabIndex = 7;
+            // 
+            // mListBoxOutput
+            // 
+            this.mListBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mListBoxOutput.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.mListBoxOutput.FormattingEnabled = true;
+            this.mListBoxOutput.HorizontalScrollbar = true;
+            this.mListBoxOutput.Location = new System.Drawing.Point(15, 329);
+            this.mListBoxOutput.Name = "mListBoxOutput";
+            this.mListBoxOutput.ScrollAlwaysVisible = true;
+            this.mListBoxOutput.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.mListBoxOutput.Size = new System.Drawing.Size(451, 160);
+            this.mListBoxOutput.TabIndex = 14;
+            this.mListBoxOutput.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.mListBoxOutput_DrawItem);
+            // 
+            // mLabelOutput
+            // 
+            this.mLabelOutput.AutoSize = true;
+            this.mLabelOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mLabelOutput.Location = new System.Drawing.Point(17, 313);
+            this.mLabelOutput.Name = "mLabelOutput";
+            this.mLabelOutput.Size = new System.Drawing.Size(45, 13);
+            this.mLabelOutput.TabIndex = 15;
+            this.mLabelOutput.Text = "Output";
             // 
             // mImageBrowserPortrait
             // 
@@ -277,7 +313,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.mButtonCancel;
-            this.ClientSize = new System.Drawing.Size(478, 399);
+            this.ClientSize = new System.Drawing.Size(478, 583);
             this.Controls.Add(this.mPanelMain);
             this.Controls.Add(this.mMenu);
             this.Controls.Add(this.mStatusStrip);
@@ -318,6 +354,8 @@
         private System.Windows.Forms.ToolStripMenuItem mMenuItemHelp;
         private System.Windows.Forms.ToolStripMenuItem mMenuItemAbout;
         private System.Windows.Forms.Panel mPanelMain;
+        private System.Windows.Forms.Label mLabelOutput;
+        private System.Windows.Forms.ListBox mListBoxOutput;
     }
 }
 
