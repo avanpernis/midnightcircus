@@ -7,7 +7,8 @@ namespace TokenAssist
     public class Monster : Actor
     {
         public Monster()
-        {       
+            : base()
+        {
         }
     }
 }

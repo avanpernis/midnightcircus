@@ -229,8 +229,8 @@ namespace TokenAssist
 
                 if (mCharacter != null)
                 {
-                    //TokenGenerator.Dump(mCharacter, ChosenDestinationFile);
-                    CharacterTokenBuilder.WriteToken(mCharacter, ChosenDestinationFile, mImageBrowserPortrait.ImageFile, mImageBrowserToken.ImageFile);
+                    TokenGenerator.Dump(mCharacter, ChosenDestinationFile);
+                    //CharacterTokenBuilder.WriteToken(mCharacter, ChosenDestinationFile, mImageBrowserPortrait.ImageFile, mImageBrowserToken.ImageFile);
                 }
                 else if (mMonster != null)
                 {
