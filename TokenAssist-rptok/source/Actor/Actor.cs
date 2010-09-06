@@ -9,14 +9,19 @@ namespace TokenAssist
     ////////////////////////////////////////////////////////////////////////////
     public abstract class Actor
     {
-        public string Name = "Unknown";
-        public int Level = 0;
-        public int HP = 0;
-        public int Speed = 0;
-        public int Initiative = 0;
+        public Actor()
+        {
+            Name = "Undefined";
+        }
 
-        public Abilities Abilities = new Abilities();
-        public Defenses Defenses = new Defenses();
-        public Skills Skills = new Skills();       
+        public string Name { get; set; }
+        public int Level { get; set; }
+        public int HP { get; set; }
+        public int Speed { get; set; }
+        public int Initiative { get; set; }
+
+        public Abilities Abilities { get; set; }
+        public Defenses Defenses { get; set; }
+        public Skills Skills { get; set; }
     }
 }
