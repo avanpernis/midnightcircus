@@ -42,6 +42,9 @@
   <propertyType>###PROP_TYPE###</propertyType>
   <isFlippedX>false</isFlippedX>
   <isFlippedY>false</isFlippedY>
+  <portraitImage>
+    <id>###PORTRAIT_MD5###</id>
+  </portraitImage>
   <hasSight>true</hasSight>
   <state>
     <entry>
