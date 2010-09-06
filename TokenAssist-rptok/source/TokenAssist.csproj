@@ -59,21 +59,28 @@
     <Compile Include="Actor\Actor.cs" />
     <Compile Include="Actor\Defenses.cs" />
     <Compile Include="Actor\Skills.cs" />
-    <Compile Include="Character.cs" />
-    <Compile Include="CharacterLoader.cs" />
+    <Compile Include="Character\Character.cs" />
+    <Compile Include="Character\CharacterLoader.cs" />
     <Compile Include="Character\CharacterTokenBuilder.cs" />
-    <Compile Include="Class.cs" />
+    <Compile Include="Character\Class.cs" />
+    <Compile Include="Character\ExtraMacroLoader.cs" />
+    <Compile Include="Character\Feat.cs" />
+    <Compile Include="Character\Macro.cs" />
+    <Compile Include="Character\MagicItem.cs" />
+    <Compile Include="Character\Power.cs" />
+    <Compile Include="Character\Race.cs" />
+    <Compile Include="Character\Stat.cs" />
+    <Compile Include="Character\TokenGenerator.cs" />
+    <Compile Include="Character\Weapon.cs" />
     <Compile Include="Compendium\CompendiumAccess.cs" />
     <Compile Include="Compendium\CompendiumCache.cs" />
-    <Compile Include="Compendium\CompendiumLoginForm.cs" />
+    <Compile Include="Compendium\CompendiumLoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Compendium\CompendiumLoginForm.designer.cs">
       <DependentUpon>CompendiumLoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Compendium\CompendiumUtilities.cs" />
-    <Compile Include="ExtraMacroLoader.cs" />
-    <Compile Include="Feat.cs" />
-    <Compile Include="Macro.cs" />
-    <Compile Include="MagicItem.cs" />
     <Compile Include="Misc\Dropbox.cs" />
     <Compile Include="Misc\MD5Utilities.cs" />
     <Compile Include="Misc\MemoryZip.cs" />
@@ -82,7 +89,6 @@
     <Compile Include="Monster\Monster.cs" />
     <Compile Include="Monster\MonsterLoader.cs" />
     <Compile Include="Monster\MonsterTokenBuilder.cs" />
-    <Compile Include="Power.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Token\Token.cs" />
@@ -117,9 +123,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Race.cs" />
-    <Compile Include="Stat.cs" />
-    <Compile Include="TokenGenerator.cs" />
     <Compile Include="UI\ImageBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -133,7 +136,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserSettings.cs" />
-    <Compile Include="Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\dropbox.png" />
