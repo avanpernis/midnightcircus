@@ -215,16 +215,6 @@ namespace TokenAssist
                 }
             }
 
-            if (mImageBrowserToken.ImageFile == null)
-            {
-                MessageSystem.Warning("No token image specified.");
-            }
-
-            if (mImageBrowserPortrait.ImageFile == null)
-            {
-                MessageSystem.Warning("No portrait image specified.");
-            }
-
             // save the user's choices
             UserSettings.Instance.OpenedFile(ChosenSourceFile);
             UpdateSourceFiles();
@@ -240,7 +230,7 @@ namespace TokenAssist
                 if (mCharacter != null)
                     TokenGenerator.Dump(mCharacter, ChosenDestinationFile);
                 else if (mMonster != null)
-                    MonsterTokenBuilder.WriteToken(mMonster, ChosenDestinationFile);
+                    MonsterTokenBuilder.WriteToken(mMonster, ChosenDestinationFile, mImageBrowserPortrait.ImageFile, mImageBrowserToken.ImageFile);
 
                 MessageSystem.Success(ChosenDestinationFile + " created.");
             }

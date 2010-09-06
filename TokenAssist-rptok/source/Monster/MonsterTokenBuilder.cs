@@ -7,9 +7,12 @@ namespace TokenAssist
 {
     public static class MonsterTokenBuilder
     {
-        public static void WriteToken(Monster m, string filename)
+        public static void WriteToken(Monster m, string filename, string tokenImage, string tokenPortrait)
         {
             Token t = new Token();
+
+            t.TokenImage = tokenImage;
+            t.TokenPortrait = tokenPortrait;
 
             foreach (KeyValuePair<string, AbilityScore> pair in m.Abilities)
             {

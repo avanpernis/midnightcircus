@@ -493,6 +493,20 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;map&gt;
+        ///  &lt;entry&gt;
+        ///    &lt;string&gt;version&lt;/string&gt;
+        ///    &lt;string&gt;1.3.b70&lt;/string&gt;
+        ///  &lt;/entry&gt;
+        ///&lt;/map&gt;.
+        /// </summary>
+        internal static string TokenPropertiesFileTemplate {
+            get {
+                return ResourceManager.GetString("TokenPropertiesFileTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;entry&gt;
         ///  &lt;string&gt;###PROP_NAME###&lt;/string&gt;
         ///  &lt;net.rptools.CaseInsensitiveHashMap_-KeyValue&gt;

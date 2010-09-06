@@ -144,12 +144,15 @@
     <None Include="Resources\MacroCreationTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\TokenPropertiesFileTemplate.xml" />
     <None Include="Resources\TokenPropertyTemplate.xml" />
     <None Include="Resources\CheckTemplate.txt" />
     <None Include="Resources\ActionPointTemplate.txt" />
     <None Include="Resources\ConsumableTemplate.txt" />
     <None Include="Resources\DailyItemTemplate.txt" />
-    <None Include="Resources\ContentTemplate.xml" />
+    <None Include="Resources\ContentTemplate.xml">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Resources\DamageTemplate.txt" />
     <Content Include="Resources\FeatTemplate.txt" />
     <None Include="Resources\HeaderTemplate.txt" />
