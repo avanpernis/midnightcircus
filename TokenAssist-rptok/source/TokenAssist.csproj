@@ -150,6 +150,8 @@
     <None Include="Resources\MacroCreationTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\defaultTokenImage.png" />
+    <Content Include="Resources\TokenAssetTemplate.xml" />
     <Content Include="Resources\TokenPropertiesFileTemplate.xml" />
     <None Include="Resources\TokenPropertyTemplate.xml" />
     <None Include="Resources\CheckTemplate.txt" />

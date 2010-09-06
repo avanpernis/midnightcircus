@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Reflection;
 
 namespace TokenAssist
 {
@@ -15,7 +16,11 @@ namespace TokenAssist
 
         public List<TokenMacro> Macros = new List<TokenMacro>();
         public List<TokenProperty> Properties = new List<TokenProperty>();
-        
+
+        private string mTokenImageMD5 = null;
+        private string mTokenPortraitMD5 = null;
+        private string mAssetPath = null;
+
         /// <summary>
         /// Write the given file to a rptok at the given file
         /// </summary>
@@ -31,8 +36,57 @@ namespace TokenAssist
 
             System.IO.Directory.CreateDirectory(tokenPath);
 
-            string assetpath = System.IO.Path.Combine(tokenPath, "assets");
-            System.IO.Directory.CreateDirectory(assetpath);
+
+            mAssetPath = System.IO.Path.Combine(tokenPath, "assets");
+            System.IO.Directory.CreateDirectory(mAssetPath);
+
+            // no token image specified, create a default as it would not be exportable otherwise
+            if (TokenImage == null)
+            {
+                MessageSystem.Warning("No token image specified, using default instead");
+
+                mTokenImageMD5 = AddDefaultTokenImage();
+            }
+            else
+            {
+                try
+                {
+                    mTokenImageMD5 = AddAsset(TokenImage, false);
+                }
+                catch (Exception e)
+                {
+                    MessageSystem.Warning("Problem loading token image" + e.Message);
+                    MessageSystem.Warning("Attempting default");
+                    try
+                    {
+                        mTokenImageMD5 = AddDefaultTokenImage();
+                    }
+                    catch (Exception e2)
+                    {
+                        MessageSystem.Error("Problem loading token image" + e2.Message);
+                        throw;
+                    }
+                }
+            }
+
+            // handle the portrait image
+            if (TokenPortrait == null)
+            {
+                MessageSystem.Warning("No token portrait image specified");
+            }
+            else
+            {
+                try
+                {
+                    mTokenPortraitMD5 = AddAsset(TokenPortrait, false);
+                }
+                catch (Exception e)
+                {
+                    MessageSystem.Warning("Problem loading token image" + e.Message);
+                }
+            }
+
+
 
             // create the content.xml file
             string contentPath = System.IO.Path.Combine(tokenPath, "content.xml");
@@ -61,6 +115,51 @@ namespace TokenAssist
             ZipUtilities.ZipDirectory(tokenPath, filename);
         }
 
+        protected string AddDefaultTokenImage()
+        {
+            string imageFilename = System.IO.Path.Combine(mAssetPath, "default.png");
+        
+            using (Stream imageStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("TokenAssist.Resources.defaultTokenImage.png"))
+            using (FileStream tempFile = new FileStream(imageFilename, FileMode.Create))
+            {
+                imageStream.CopyTo(tempFile);
+            }
+
+            return AddAsset(imageFilename, true);
+        }
+
+        /// <summary>
+        /// Add the given file to the assets of this token.
+        /// </summary>
+        /// <param name="filename">The full path of the file to add to this token</param>
+        /// <param name="rename">true if we should move the file, false if we make a duplicate</param>
+        /// TODO: remove hack assumption all files are png
+        protected string AddAsset(string filename, bool rename = false)
+        {
+            string md5 = MD5Utilities.ComputeChecksum(filename);
+
+            string destFile = System.IO.Path.Combine(mAssetPath, md5);
+
+            // write the xml reference file for this asset
+            string assetEntry = TokenAssist.Properties.Resources.TokenAssetTemplate;
+            assetEntry = assetEntry.Replace(@"###MD5_SUM###", md5);
+            assetEntry = assetEntry.Replace(@"###NAME###", "thing");
+            assetEntry = assetEntry.Replace(@"###EXTENSION###", "png");
+
+            using (StreamWriter file = new StreamWriter(destFile))
+            {
+                file.Write(assetEntry);
+            }
+
+            // place the actual asset under its appropriate filename
+            if (rename)
+                System.IO.File.Move(filename, destFile+".png");
+            else
+                System.IO.File.Copy(filename, destFile+".png");
+
+            return md5;
+        }
+
 
         /// <summary>
         /// Create the content.xml file that is part of the token with the given full path filename
@@ -77,43 +176,18 @@ namespace TokenAssist
                 result = result.Replace(@"###TOKEN_NAME###", Name);
                 result = result.Replace(@"###PROP_TYPE###", PropertyType);
 
-                // put in the md5 calculated for the token image
-                string portraitMD5 = "";
-                if (TokenPortrait == null)
-                {
-                    MessageSystem.Warning("No token portrait image specified");
-                }
-                else
-                {
-                    try
-                    {
-                        portraitMD5 = MD5Utilities.ComputeChecksum(TokenPortrait);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageSystem.Warning("Problem loading token image" + e.Message);
-                    }
-                }
-                result = result.Replace(@"###IMAGE_MD5_SUM###", TokenImage);
+                result = result.Replace(@"###IMAGE_MD5_SUM###", mTokenImageMD5);
 
-                // put in the md5 calculated for the portrait image
-                string tokenImageMD5 = "";
-                if (TokenImage == null)
+                if (mTokenPortraitMD5 == null)
                 {
-                    MessageSystem.Warning("No token image specified");
+                    result = result.Replace(@"###PORTRAIT_SECTION###", "");
                 }
                 else
                 {
-                    try
-                    {
-                        tokenImageMD5 = MD5Utilities.ComputeChecksum(TokenImage);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageSystem.Warning("Problem loading portrait image" + e.Message);
-                    }
+                    string portraitSection = "<portraitImage><id>###PORTRAIT_MD5###</id></portraitImage>";
+                    portraitSection = portraitSection.Replace("###PORTRAIT_MD5%###", mTokenPortraitMD5);
+                    result = result.Replace(@"###PORTRAIT_SECTION###", portraitSection);
                 }
-                result = result.Replace(@"###PORTRAIT_MD5###", TokenPortrait);
 
                 // build the property block
                 builder.Clear();

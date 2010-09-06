@@ -11,6 +11,7 @@ namespace TokenAssist
         {
             Token t = new Token();
 
+            t.Name = System.IO.Path.GetFileNameWithoutExtension(filename);
             t.TokenImage = tokenImage;
             t.TokenPortrait = tokenPortrait;
 
@@ -18,6 +19,7 @@ namespace TokenAssist
             {
                 TokenProperty p = new TokenProperty();
                 p.Name = pair.Key;
+                p.Key = pair.Key;
                 p.Value = pair.Value.Value.ToString();
                 t.Properties.Add(p);
             }
@@ -26,6 +28,7 @@ namespace TokenAssist
             {
                 TokenProperty p = new TokenProperty();
                 p.Name = pair.Key;
+                p.Key = pair.Key;
                 p.Value = pair.Value.ToString();
                 t.Properties.Add(p);
             }
@@ -34,6 +37,7 @@ namespace TokenAssist
             {
                 TokenProperty p = new TokenProperty();
                 p.Name = pair.Key;
+                p.Key = pair.Key;
                 p.Value = pair.Value.ToString();
                 t.Properties.Add(p);
             }
