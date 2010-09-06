@@ -175,6 +175,13 @@ namespace TokenAssist.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap defaultTokenImage {
+            get {
+                object obj = ResourceManager.GetObject("defaultTokenImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap dropbox {
             get {
                 object obj = ResourceManager.GetObject("dropbox", resourceCulture);
@@ -489,6 +496,22 @@ namespace TokenAssist.Properties {
         internal static string TempHPTemplate {
             get {
                 return ResourceManager.GetString("TempHPTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;net.rptools.maptool.model.Asset&gt;
+        ///  &lt;id&gt;
+        ///    &lt;id&gt;###MD5_SUM###&lt;/id&gt;
+        ///  &lt;/id&gt;
+        ///  &lt;name&gt;###NAME###&lt;/name&gt;
+        ///  &lt;extension&gt;###EXTENSION###&lt;/extension&gt;
+        ///  &lt;image/&gt;
+        ///&lt;/net.rptools.maptool.model.Asset&gt;.
+        /// </summary>
+        internal static string TokenAssetTemplate {
+            get {
+                return ResourceManager.GetString("TokenAssetTemplate", resourceCulture);
             }
         }
         

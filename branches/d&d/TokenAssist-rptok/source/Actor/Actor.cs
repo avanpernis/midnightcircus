@@ -12,6 +12,10 @@ namespace TokenAssist
         public Actor()
         {
             Name = "Undefined";
+
+            Abilities = new Abilities();
+            Defenses = new Defenses();
+            Skills = new Skills();
         }
 
         public string Name { get; set; }
