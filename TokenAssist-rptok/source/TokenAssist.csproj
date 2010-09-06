@@ -63,14 +63,13 @@
     <Compile Include="CharacterLoader.cs" />
     <Compile Include="Character\CharacterTokenBuilder.cs" />
     <Compile Include="Class.cs" />
-    <Compile Include="CompendiumCache.cs" />
-    <Compile Include="CompendiumLoginForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CompendiumLoginForm.Designer.cs">
+    <Compile Include="Compendium\CompendiumAccess.cs" />
+    <Compile Include="Compendium\CompendiumCache.cs" />
+    <Compile Include="Compendium\CompendiumLoginForm.cs" />
+    <Compile Include="Compendium\CompendiumLoginForm.designer.cs">
       <DependentUpon>CompendiumLoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CompendiumUtilities.cs" />
+    <Compile Include="Compendium\CompendiumUtilities.cs" />
     <Compile Include="ExtraMacroLoader.cs" />
     <Compile Include="Feat.cs" />
     <Compile Include="Macro.cs" />
@@ -89,7 +88,7 @@
     <Compile Include="Token\Token.cs" />
     <Compile Include="Token\TokenMacro.cs" />
     <Compile Include="Token\TokenProperty.cs" />
-    <EmbeddedResource Include="CompendiumLoginForm.resx">
+    <EmbeddedResource Include="Compendium\CompendiumLoginForm.resx">
       <DependentUpon>CompendiumLoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -118,7 +117,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="CompendiumAccess.cs" />
     <Compile Include="Race.cs" />
     <Compile Include="Stat.cs" />
     <Compile Include="TokenGenerator.cs" />
