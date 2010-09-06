@@ -5,6 +5,9 @@ using System.Text;
 
 namespace TokenAssist
 {
+    ////////////////////////////////////////////////////////////////////////////
+    // Information about the value of a single ability score and modifier
+    ////////////////////////////////////////////////////////////////////////////
     public class AbilityScore
     {
         public int Value
@@ -12,14 +15,18 @@ namespace TokenAssist
             get
             {
                 if (mValue != null)
+                {
                     return (int)mValue;
+                }
                 else
+                {
                     throw new NullReferenceException("attempt to read a value that was never initialized");
+                }
             }
 
-            set 
-            { 
-                mValue = value; 
+            set
+            {
+                mValue = value;
             }
         }
 

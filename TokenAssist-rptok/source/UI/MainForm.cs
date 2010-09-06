@@ -228,9 +228,14 @@ namespace TokenAssist
                 mPanelMain.Enabled = false;
 
                 if (mCharacter != null)
-                    TokenGenerator.Dump(mCharacter, ChosenDestinationFile);
+                {
+                    //TokenGenerator.Dump(mCharacter, ChosenDestinationFile);
+                    CharacterTokenBuilder.WriteToken(mCharacter, ChosenDestinationFile, mImageBrowserPortrait.ImageFile, mImageBrowserToken.ImageFile);
+                }
                 else if (mMonster != null)
+                {
                     MonsterTokenBuilder.WriteToken(mMonster, ChosenDestinationFile, mImageBrowserPortrait.ImageFile, mImageBrowserToken.ImageFile);
+                }
 
                 MessageSystem.Success(ChosenDestinationFile + " created.");
             }
