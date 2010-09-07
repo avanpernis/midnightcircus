@@ -133,7 +133,6 @@ namespace TokenAssist
         /// </summary>
         /// <param name="filename">The full path of the file to add to this token</param>
         /// <param name="rename">true if we should move the file, false if we make a duplicate</param>
-        /// TODO: remove hack assumption all files are png
         protected string AddAsset(string filename, bool rename = false)
         {
             string md5 = MD5Utilities.ComputeChecksum(filename);
