@@ -140,11 +140,15 @@ namespace TokenAssist
 
             string destFile = System.IO.Path.Combine(mAssetPath, md5);
 
+            string extension = System.IO.Path.GetExtension(filename).TrimStart('.');
+            if (extension.Equals("jpg", StringComparison.CurrentCultureIgnoreCase))
+                extension = "jpeg";
+
             // write the xml reference file for this asset
             string assetEntry = TokenAssist.Properties.Resources.TokenAssetTemplate;
             assetEntry = assetEntry.Replace(@"###MD5_SUM###", md5);
-            assetEntry = assetEntry.Replace(@"###NAME###", "thing");
-            assetEntry = assetEntry.Replace(@"###EXTENSION###", "png");
+            assetEntry = assetEntry.Replace(@"###NAME###", System.IO.Path.GetFileNameWithoutExtension(filename));
+            assetEntry = assetEntry.Replace(@"###EXTENSION###", extension);
 
             using (StreamWriter file = new StreamWriter(destFile))
             {
@@ -153,9 +157,9 @@ namespace TokenAssist
 
             // place the actual asset under its appropriate filename
             if (rename)
-                System.IO.File.Move(filename, destFile+".png");
+                System.IO.File.Move(filename, destFile + '.' + extension);
             else
-                System.IO.File.Copy(filename, destFile+".png");
+                System.IO.File.Copy(filename, destFile + '.' + extension);
 
             return md5;
         }
@@ -185,7 +189,7 @@ namespace TokenAssist
                 else
                 {
                     string portraitSection = "<portraitImage><id>###PORTRAIT_MD5###</id></portraitImage>";
-                    portraitSection = portraitSection.Replace("###PORTRAIT_MD5%###", mTokenPortraitMD5);
+                    portraitSection = portraitSection.Replace("###PORTRAIT_MD5###", mTokenPortraitMD5);
                     result = result.Replace(@"###PORTRAIT_SECTION###", portraitSection);
                 }
 
