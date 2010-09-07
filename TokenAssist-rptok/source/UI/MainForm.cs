@@ -234,7 +234,7 @@ namespace TokenAssist
                 }
                 else if (mMonster != null)
                 {
-                    MonsterTokenBuilder.WriteToken(mMonster, ChosenDestinationFile, mImageBrowserPortrait.ImageFile, mImageBrowserToken.ImageFile);
+                    MonsterTokenBuilder.WriteToken(mMonster, ChosenDestinationFile, mImageBrowserToken.ImageFile, mImageBrowserPortrait.ImageFile);
                 }
 
                 MessageSystem.Success(ChosenDestinationFile + " created.");

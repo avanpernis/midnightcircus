@@ -11,7 +11,7 @@ namespace TokenAssist
         {
             Token t = new Token();
 
-            t.Name = System.IO.Path.GetFileNameWithoutExtension(filename);
+            t.Name = m.Name;
             t.TokenImage = tokenImage;
             t.TokenPortrait = tokenPortrait;
 
