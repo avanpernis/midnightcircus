@@ -19,15 +19,15 @@ namespace TokenAssist
             t.AddProperty("Level", monster.Level);
             t.AddProperty("HalfLevel", monster.HalfLevel);
             t.AddProperty("Speed", monster.Speed);
-            t.AddProperty("ActionPoints", 0); // TODO
+            t.AddProperty("ActionPoints", monster.ActionPoints);
 
             t.AddProperty("CurrentHitPoints", monster.HP);
             t.AddProperty("MaxHitPoints", monster.HP);
             t.AddProperty("TempHitPoints", 0);
 
-            t.AddProperty("CurrentHealingSurges", 1); // TODO
-            t.AddProperty("MaxHealingSurges", 1); // TODO
-            t.AddProperty("HealingSurgeValue", 1337); // TODO
+            t.AddProperty("CurrentHealingSurges", monster.HealingSurges);
+            t.AddProperty("MaxHealingSurges", monster.HealingSurges);
+            t.AddProperty("HealingSurgeValue", monster.HP / 4);
 
             foreach (KeyValuePair<string, AbilityScore> pair in monster.Abilities)
             {
