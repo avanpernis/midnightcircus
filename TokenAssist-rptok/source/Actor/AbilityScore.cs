@@ -33,7 +33,6 @@ namespace TokenAssist
         public int Modifier
         {
             get { return ((int)mValue - 10) / 2; }
-            set { mValue = 10 + value * 2; }
         }
 
         private int? mValue = null;

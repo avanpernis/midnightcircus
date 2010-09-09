@@ -27,5 +27,7 @@ namespace TokenAssist
         public Abilities Abilities { get; set; }
         public Defenses Defenses { get; set; }
         public Skills Skills { get; set; }
+
+        public int HalfLevel { get { return Level / 2; } }
     }
 }

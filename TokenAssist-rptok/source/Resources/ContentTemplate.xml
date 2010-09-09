@@ -39,7 +39,7 @@
   <tokenShape>SQUARE</tokenShape>
   <tokenType>PC</tokenType>
   <layer>TOKEN</layer>
-  <propertyType>###PROP_TYPE###</propertyType>
+  <propertyType>###TOKEN_TYPE###</propertyType>
   <isFlippedX>false</isFlippedX>
   <isFlippedY>false</isFlippedY>
   ###PORTRAIT_SECTION###
