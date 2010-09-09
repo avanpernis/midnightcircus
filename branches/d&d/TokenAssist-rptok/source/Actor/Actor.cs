@@ -30,6 +30,14 @@ namespace TokenAssist
         public Defenses Defenses { get; set; }
         public Skills Skills { get; set; }
 
-        public int HalfLevel { get { return Level / 2; } }
+        public int HalfLevel
+        {
+            get { return Level / 2; }
+        }
+
+        public virtual int HealingSurgeValue
+        {
+            get { return HP / 4; }
+        }
     }
 }

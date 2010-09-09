@@ -7,13 +7,12 @@ namespace TokenAssist
 {
     public static class CharacterTokenBuilder
     {
-        public static void WriteToken(Character c, string filename, string tokenImage, string tokenPortrait)
+        public static void WriteToken(Character character, string filename, string tokenImage, string tokenPortrait)
         {
-            Token t = new Token();
+            Token t = ActorTokenFactory.Create(character, "4ePlayer", tokenImage, tokenPortrait);
 
-            t.TokenImage = tokenImage;
-            t.TokenPortrait = tokenPortrait;
-            
+            // TODO custom player stuff
+
             t.Write(filename);
         }
     }

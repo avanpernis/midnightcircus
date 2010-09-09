@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace TokenAssist
 {
-    class Token
+    public class Token
     {
         public Token()
         {

@@ -11,6 +11,11 @@ namespace TokenAssist
         {
         }
 
+        public override int HealingSurgeValue
+        {
+            get { return HP / 4 + GetStatValue("healing surge value"); }
+        }
+
         public Race Race { get; set; }
         public Class Class { get; set; }
         public List<Power> Powers { get; set; }
