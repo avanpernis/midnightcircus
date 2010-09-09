@@ -7,39 +7,42 @@ namespace TokenAssist
 {
     public static class MonsterTokenBuilder
     {
-        public static void WriteToken(Monster m, string filename, string tokenImage, string tokenPortrait)
+        public static void WriteToken(Monster monster, string filename, string tokenImage, string tokenPortrait)
         {
             Token t = new Token();
 
-            t.Name = m.Name;
+            t.Name = monster.Name;
+            t.TokenType = "4eMonster";
             t.TokenImage = tokenImage;
             t.TokenPortrait = tokenPortrait;
 
-            foreach (KeyValuePair<string, AbilityScore> pair in m.Abilities)
+            t.AddProperty("Level", monster.Level);
+            t.AddProperty("HalfLevel", monster.HalfLevel);
+            t.AddProperty("Speed", monster.Speed);
+            t.AddProperty("ActionPoints", 0); // TODO
+
+            t.AddProperty("CurrentHitPoints", monster.HP);
+            t.AddProperty("MaxHitPoints", monster.HP);
+            t.AddProperty("TempHitPoints", 0);
+
+            t.AddProperty("CurrentHealingSurges", 1); // TODO
+            t.AddProperty("MaxHealingSurges", 1); // TODO
+            t.AddProperty("HealingSurgeValue", 1337); // TODO
+
+            foreach (KeyValuePair<string, AbilityScore> pair in monster.Abilities)
             {
-                TokenProperty p = new TokenProperty();
-                p.Name = pair.Key;
-                p.Key = pair.Key;
-                p.Value = pair.Value.Value.ToString();
-                t.Properties.Add(p);
+                t.AddProperty(pair.Key, pair.Value.Value);
+                t.AddProperty(pair.Key + "Modifier", pair.Value.Modifier);
             }
 
-            foreach (KeyValuePair<string, int?> pair in m.Defenses)
+            foreach (KeyValuePair<string, int?> pair in monster.Defenses)
             {
-                TokenProperty p = new TokenProperty();
-                p.Name = pair.Key;
-                p.Key = pair.Key;
-                p.Value = pair.Value.ToString();
-                t.Properties.Add(p);
+                t.AddProperty(pair.Key, pair.Value);
             }
 
-            foreach (KeyValuePair<string, int> pair in m.Skills)
+            foreach (KeyValuePair<string, int> pair in monster.Skills)
             {
-                TokenProperty p = new TokenProperty();
-                p.Name = pair.Key;
-                p.Key = pair.Key;
-                p.Value = pair.Value.ToString();
-                t.Properties.Add(p);
+                t.AddProperty(pair.Key, pair.Value);
             }
             
             t.Write(filename);

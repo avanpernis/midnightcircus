@@ -6,10 +6,16 @@ using System.Text;
 namespace TokenAssist
 {
     class TokenProperty
-    {
-        public string Name = "";
-        public string Key = "";
-        public string Value = "";
+    {       
+        public TokenProperty(string name, object value)
+        {
+            Name = Key = name;
+            Value = value.ToString();
+        }
+
+        public string Name { get; set; }
+        public string Key { get; set; }
+        public string Value { get; set; }
 
         public override string ToString()
         {

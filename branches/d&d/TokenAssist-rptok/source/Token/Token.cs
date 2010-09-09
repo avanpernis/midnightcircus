@@ -9,17 +9,28 @@ namespace TokenAssist
 {
     class Token
     {
-        public string Name = "";
-        public string PropertyType = "4ePlayer";
-        public string TokenPortrait = null;
-        public string TokenImage = null;
+        public Token()
+        {
+            Name = "Untitled Token";
+            TokenType = "4ePlayer";
+        }
+
+        public string Name { get; set; }
+        public string TokenType { get; set; }
+        public string TokenPortrait { get; set; }
+        public string TokenImage { get; set; }
 
         public List<TokenMacro> Macros = new List<TokenMacro>();
-        public List<TokenProperty> Properties = new List<TokenProperty>();
+        private List<TokenProperty> Properties = new List<TokenProperty>();
 
         private string mTokenImageMD5 = null;
         private string mTokenPortraitMD5 = null;
         private string mAssetPath = null;
+
+        public void AddProperty(string key, object value)
+        {
+            Properties.Add(new TokenProperty(key, value));
+        }
 
         /// <summary>
         /// Write the given file to a rptok at the given file
@@ -177,7 +188,7 @@ namespace TokenAssist
                 string result = global::TokenAssist.Properties.Resources.ContentTemplate;
 
                 result = result.Replace(@"###TOKEN_NAME###", Name);
-                result = result.Replace(@"###PROP_TYPE###", PropertyType);
+                result = result.Replace(@"###TOKEN_TYPE###", TokenType);
 
                 result = result.Replace(@"###IMAGE_MD5_SUM###", mTokenImageMD5);
 
