@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TokenAssist
 {
-    public enum ColorType { green, red, blue, grey, black };
+    public enum ColorType { white, green, red, blue, grey, black };
 
     public class TokenMacro
     {
@@ -16,7 +16,7 @@ namespace TokenAssist
         public string ToolTip = "";
         public int Index = 1;
 
-        public ColorType ButtonColor = ColorType.green;
+        public ColorType ButtonColor = ColorType.white;
         public ColorType FontColor = ColorType.black;
 
         public override string ToString()

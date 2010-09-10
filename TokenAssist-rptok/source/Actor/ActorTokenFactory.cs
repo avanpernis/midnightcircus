@@ -45,6 +45,11 @@ namespace TokenAssist
                 token.AddProperty(pair.Key, pair.Value);
             }
 
+            string abilityChecks = Properties.Resources.CheckTemplate;
+            abilityChecks = abilityChecks.Replace(@"__CHECK_NAME_LIST__", string.Join(",", actor.Abilities.Select(x => x.Key).ToArray()));
+            abilityChecks = abilityChecks.Replace(@"__CHECK_BONUS_LIST__", string.Join(",", actor.Abilities.Select(x => x.Value.Modifier + actor.HalfLevel).ToArray()));
+            token.AddMacro("Ability", "1:Check", ColorType.white, ColorType.black, abilityChecks);
+
             return token;
         }
     }
