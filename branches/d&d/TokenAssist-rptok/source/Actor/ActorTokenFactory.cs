@@ -45,10 +45,25 @@ namespace TokenAssist
                 token.AddProperty(pair.Key, pair.Value);
             }
 
+            string groupName = "1:Check";
+
             string abilityChecks = Properties.Resources.CheckTemplate;
             abilityChecks = abilityChecks.Replace(@"__CHECK_NAME_LIST__", string.Join(",", actor.Abilities.Select(x => x.Key).ToArray()));
             abilityChecks = abilityChecks.Replace(@"__CHECK_BONUS_LIST__", string.Join(",", actor.Abilities.Select(x => x.Value.Modifier + actor.HalfLevel).ToArray()));
-            token.AddMacro("Ability", "1:Check", ColorType.white, ColorType.black, abilityChecks);
+            token.AddMacro("Ability", groupName, ColorType.white, ColorType.black, abilityChecks);
+
+            string skillChecks = Properties.Resources.CheckTemplate;
+            skillChecks = skillChecks.Replace(@"__CHECK_NAME_LIST__", string.Join(",", actor.Skills.Select(x => x.Key).ToArray()));
+            skillChecks = skillChecks.Replace(@"__CHECK_BONUS_LIST__", string.Join(",", actor.Skills.Select(x => x.Value).ToArray()));
+            token.AddMacro("Skill", groupName, ColorType.white, ColorType.black, skillChecks);
+
+            string savingThrow = Properties.Resources.SavingThrowTemplate;
+            savingThrow = savingThrow.Replace(@"__SAVE_BONUS__", actor.SavingThrow.ToString());
+            token.AddMacro("Saving Throw", groupName, ColorType.white, ColorType.black, savingThrow);
+
+            groupName = "2:Misc";
+
+            // TODO: healing, etc
 
             return token;
         }

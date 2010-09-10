@@ -25,6 +25,7 @@ namespace TokenAssist
         public int Initiative { get; set; }
         public int ActionPoints { get; set; }
         public virtual int HealingSurges { get; set; }
+        public int SavingThrow { get; set; }
 
         public Abilities Abilities { get; set; }
         public Defenses Defenses { get; set; }

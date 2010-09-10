@@ -41,7 +41,6 @@ namespace TokenAssist
             command = command.Replace("<", "&lt;");
             command = command.Replace(">", "&gt;");
             command = command.Replace("\"", "&quot;");
-            command = command.Replace(System.Environment.NewLine, "&#xd;");
 
             TokenMacro macro = new TokenMacro();
             macro.Name = name;

@@ -5,8 +5,7 @@
     <index>###ENTRY_NUMBER###</index>
     <colorKey>###BUTTON_COLOR###</colorKey>
     <hotKey>None</hotKey>
-    <command>
-    ###MACRO_COMMAND###
+    <command>###MACRO_COMMAND###
     </command>
     <label>###MACRO_NAME###</label>
     <group>###MACRO_GROUP###</group>
