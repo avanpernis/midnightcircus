@@ -13,6 +13,9 @@ namespace TokenAssist
         {
             Name = "Untitled Token";
             TokenType = "4ePlayer";
+
+            Properties = new List<TokenProperty>();
+            Macros = new List<TokenMacro>();
         }
 
         public string Name { get; set; }
@@ -20,8 +23,8 @@ namespace TokenAssist
         public string TokenPortrait { get; set; }
         public string TokenImage { get; set; }
 
-        public List<TokenMacro> Macros = new List<TokenMacro>();
-        private List<TokenProperty> Properties = new List<TokenProperty>();
+        private List<TokenProperty> Properties { get; set; }
+        private List<TokenMacro> Macros { get; set; }
 
         private string mTokenImageMD5 = null;
         private string mTokenPortraitMD5 = null;
@@ -30,6 +33,23 @@ namespace TokenAssist
         public void AddProperty(string key, object value)
         {
             Properties.Add(new TokenProperty(key, value));
+        }
+
+        public void AddMacro(string name, string group, ColorType buttonColor, ColorType fontColor, string command)
+        {
+            // replace some characters that do not play so well in XML
+            command = command.Replace("<", "&lt;");
+            command = command.Replace(">", "&gt;");
+            command = command.Replace("\"", "&quot;");
+            command = command.Replace(System.Environment.NewLine, "&#xd;");
+
+            TokenMacro macro = new TokenMacro();
+            macro.Name = name;
+            macro.Group = group;
+            macro.ButtonColor = buttonColor;
+            macro.FontColor = fontColor;
+            macro.Command = command;
+            Macros.Add(macro);
         }
 
         /// <summary>
@@ -216,7 +236,7 @@ namespace TokenAssist
                 for (int i = 0; i < Macros.Count; ++i)
                 {
                     Macros[i].Index = i + 1;
-                    builder.Append(Macros.ToString());
+                    builder.Append(Macros[i].ToString());
                 }
                 result = result.Replace(@"###MACRO_SECTION###", builder.ToString());
 

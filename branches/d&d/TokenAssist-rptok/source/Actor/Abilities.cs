@@ -12,10 +12,10 @@ namespace TokenAssist
         public Abilities()
         {
             Add("Strength", new AbilityScore());
-            Add("Intelligence", new AbilityScore());
-            Add("Wisdom", new AbilityScore());
             Add("Dexterity", new AbilityScore());
             Add("Constitution", new AbilityScore());
+            Add("Intelligence", new AbilityScore());
+            Add("Wisdom", new AbilityScore());
             Add("Charisma", new AbilityScore());
         }
     }
