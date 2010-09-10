@@ -30,6 +30,16 @@ namespace TokenAssist
         private string mTokenPortraitMD5 = null;
         private string mAssetPath = null;
 
+        private static string MakeSafeForXml(string input)
+        {
+            // replace some characters that do not play so well in XML
+            string result = input.Replace("<", "&lt;");
+            result = result.Replace(">", "&gt;");
+            result = result.Replace("\"", "&quot;");
+
+            return result;
+        }
+
         public void AddProperty(string key, object value)
         {
             Properties.Add(new TokenProperty(key, value));
@@ -37,17 +47,12 @@ namespace TokenAssist
 
         public void AddMacro(string name, string group, ColorType buttonColor, ColorType fontColor, string command)
         {
-            // replace some characters that do not play so well in XML
-            command = command.Replace("<", "&lt;");
-            command = command.Replace(">", "&gt;");
-            command = command.Replace("\"", "&quot;");
-
             TokenMacro macro = new TokenMacro();
-            macro.Name = name;
+            macro.Name = MakeSafeForXml(name);
             macro.Group = group;
             macro.ButtonColor = buttonColor;
             macro.FontColor = fontColor;
-            macro.Command = command;
+            macro.Command = MakeSafeForXml(command);
             Macros.Add(macro);
         }
 

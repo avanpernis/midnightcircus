@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="Compendium\CompendiumUtilities.cs" />
     <Compile Include="Misc\Dropbox.cs" />
+    <Compile Include="Misc\HtmlUtilities.cs" />
     <Compile Include="Misc\MD5Utilities.cs" />
     <Compile Include="Misc\MemoryZip.cs" />
     <Compile Include="Misc\MessageSystem.cs" />
