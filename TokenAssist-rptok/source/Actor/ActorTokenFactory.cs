@@ -7,6 +7,9 @@ namespace TokenAssist
 {
     public static class ActorTokenFactory
     {
+        public static string CheckGroup = "1:Check";
+        public static string MiscGroup = "2:Misc";
+
         public static Token Create(Actor actor, string tokenType, string tokenImage, string tokenPortrait)
         {
             Token token = new Token();
@@ -43,27 +46,30 @@ namespace TokenAssist
             foreach (KeyValuePair<string, int> pair in actor.Skills)
             {
                 token.AddProperty(pair.Key, pair.Value);
-            }
-
-            string groupName = "1:Check";
+            }           
 
             string abilityChecks = Properties.Resources.CheckTemplate;
             abilityChecks = abilityChecks.Replace(@"__CHECK_NAME_LIST__", string.Join(",", actor.Abilities.Select(x => x.Key).ToArray()));
             abilityChecks = abilityChecks.Replace(@"__CHECK_BONUS_LIST__", string.Join(",", actor.Abilities.Select(x => x.Value.Modifier + actor.HalfLevel).ToArray()));
-            token.AddMacro(HtmlUtilities.Bold("Ability"), groupName, ColorType.white, ColorType.black, abilityChecks);
+            token.AddMacro(HtmlUtilities.Bold("Ability"), CheckGroup, ColorType.white, ColorType.black, abilityChecks);
 
             string skillChecks = Properties.Resources.CheckTemplate;
             skillChecks = skillChecks.Replace(@"__CHECK_NAME_LIST__", string.Join(",", actor.Skills.Select(x => x.Key).ToArray()));
             skillChecks = skillChecks.Replace(@"__CHECK_BONUS_LIST__", string.Join(",", actor.Skills.Select(x => x.Value).ToArray()));
-            token.AddMacro(HtmlUtilities.Bold("Skill"), groupName, ColorType.white, ColorType.black, skillChecks);
+            token.AddMacro(HtmlUtilities.Bold("Skill"), CheckGroup, ColorType.white, ColorType.black, skillChecks);
 
             string savingThrow = Properties.Resources.SavingThrowTemplate;
             savingThrow = savingThrow.Replace(@"__SAVE_BONUS__", actor.SavingThrow.ToString());
-            token.AddMacro(HtmlUtilities.Bold("Saving Throw"), groupName, ColorType.white, ColorType.black, savingThrow);
+            token.AddMacro(HtmlUtilities.Bold("Saving Throw"), CheckGroup, ColorType.white, ColorType.black, savingThrow);
 
-            groupName = "2:Misc";
+            string initiative = Properties.Resources.InitiativeTemplate;
+            initiative = initiative.Replace(@"__INIT_BONUS__", actor.Initiative.ToString());
+            token.AddMacro(HtmlUtilities.Bold("Initiative"), CheckGroup, ColorType.white, ColorType.black, initiative);
 
-            // TODO: healing, etc
+            token.AddMacro(HtmlUtilities.Bold("Healing"), MiscGroup, ColorType.white, ColorType.black, Properties.Resources.HealingTemplate);
+            token.AddMacro(HtmlUtilities.Bold("Damage"), MiscGroup, ColorType.white, ColorType.black, Properties.Resources.DamageTemplate);
+            token.AddMacro(HtmlUtilities.Bold("Temp HP"), MiscGroup, ColorType.white, ColorType.black, Properties.Resources.TempHPTemplate);
+            token.AddMacro(HtmlUtilities.Bold("Action Point"), MiscGroup, ColorType.white, ColorType.black, Properties.Resources.ActionPointTemplate);
 
             return token;
         }

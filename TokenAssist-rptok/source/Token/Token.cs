@@ -33,7 +33,8 @@ namespace TokenAssist
         private static string MakeSafeForXml(string input)
         {
             // replace some characters that do not play so well in XML
-            string result = input.Replace("<", "&lt;");
+            string result = input.Replace("&", "&amp;"); // must replace ampersands first!
+            result = result.Replace("<", "&lt;");
             result = result.Replace(">", "&gt;");
             result = result.Replace("\"", "&quot;");
 
