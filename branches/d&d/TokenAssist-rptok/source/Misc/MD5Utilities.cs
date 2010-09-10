@@ -21,7 +21,7 @@ namespace TokenAssist
 
                 foreach (byte b in sMD5.ComputeHash(stream))
                 {
-                    builder.Append(b.ToString("x"));
+                    builder.Append(b.ToString("x2"));
                 }
 
                 return builder.ToString();
