@@ -9,11 +9,13 @@ namespace TokenAssist
     {
         public static void WriteToken(Character character, string filename, string tokenImage, string tokenPortrait)
         {
-            Token t = ActorTokenFactory.Create(character, "4ePlayer", tokenImage, tokenPortrait);
+            Token token = ActorTokenFactory.Create(character, "4ePlayer", tokenImage, tokenPortrait);
 
-            // TODO custom player stuff
+            // only characters take rests and finish milestones
+            token.AddMacro(HtmlUtilities.Bold("Rest"), ActorTokenFactory.MiscGroup, ColorType.white, ColorType.black, Properties.Resources.RestTemplate);
+            token.AddMacro(HtmlUtilities.Bold("Milestone"), ActorTokenFactory.MiscGroup, ColorType.white, ColorType.black, Properties.Resources.MilestoneTemplate);
 
-            t.Write(filename);
+            token.Write(filename);
         }
     }
 }
