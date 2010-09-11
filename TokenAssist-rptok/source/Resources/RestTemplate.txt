@@ -8,9 +8,6 @@
 <!-- regardless of rest type, all encounter powers are restored -->
 [H: CombatStatus = setStrProp(CombatStatus, "EncounterPowersUsed", 0), CombatStatus)]
 
-<!-- regardless of rest type, a new encounter will allow the use of an action point yet again -->
-[H : state.UsedAP = 0]
-
 <!-- restore the text color so encounter powers appear as usable once again -->
 [H, FOREACH(index, getMacroGroup("Encounter")), CODE : {
 	[H : MacroProps = getMacroProps(index)]
