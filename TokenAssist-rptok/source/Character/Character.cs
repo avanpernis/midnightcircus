@@ -9,6 +9,18 @@ namespace TokenAssist
         public Character()
             : base()
         {
+            Powers = new List<Power>();
+            Feats = new List<Feat>();
+            MagicItems = new List<MagicItem>();
+            Stats = new Dictionary<string, Stat>();
+        }
+
+        public int DailyItemuses
+        {
+            // heroic tier (levels 1 through 10) = 1 daily item use
+            // paragon tier (levels 11 through 20) = 2 daily item uses
+            // epic tier (levels 21 through 30) = 3 daily item uses
+            get { return ((Level - 1) / 10) + 1; }
         }
 
         public override int HealingSurgeValue

@@ -71,7 +71,6 @@
     <Compile Include="Character\Power.cs" />
     <Compile Include="Character\Race.cs" />
     <Compile Include="Character\Stat.cs" />
-    <Compile Include="Character\TokenGenerator.cs" />
     <Compile Include="Character\Weapon.cs" />
     <Compile Include="Compendium\CompendiumAccess.cs" />
     <Compile Include="Compendium\CompendiumCache.cs" />
