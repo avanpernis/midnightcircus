@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using System.Security;
 
 namespace TokenAssist
 {
@@ -30,17 +31,6 @@ namespace TokenAssist
         private string mTokenPortraitMD5 = null;
         private string mAssetPath = null;
 
-        private static string MakeSafeForXml(string input)
-        {
-            // replace some characters that do not play so well in XML
-            string result = input.Replace("&", "&amp;"); // must replace ampersands first!
-            result = result.Replace("<", "&lt;");
-            result = result.Replace(">", "&gt;");
-            result = result.Replace("\"", "&quot;");
-
-            return result;
-        }
-
         public void AddProperty(string key, object value)
         {
             Properties.Add(new TokenProperty(key, value));
@@ -49,11 +39,11 @@ namespace TokenAssist
         public void AddMacro(string name, string group, ColorType buttonColor, ColorType fontColor, string command)
         {
             TokenMacro macro = new TokenMacro();
-            macro.Name = MakeSafeForXml(name);
+            macro.Name = SecurityElement.Escape(name);
             macro.Group = group;
             macro.ButtonColor = buttonColor;
             macro.FontColor = fontColor;
-            macro.Command = MakeSafeForXml(command);
+            macro.Command = SecurityElement.Escape(command);
             Macros.Add(macro);
         }
 

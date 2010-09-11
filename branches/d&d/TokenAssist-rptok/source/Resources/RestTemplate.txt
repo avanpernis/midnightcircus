@@ -8,8 +8,6 @@
 <!-- regardless of rest type, all encounter powers are restored -->
 [H: CombatStatus = setStrProp(CombatStatus, "EncounterPowersUsed", 0), CombatStatus)]
 
-[H:blah = ""]
-
 <!-- restore the text color so encounter powers appear as usable once again -->
 [H, FOREACH(index, getMacroGroup("Encounter")), CODE : {
 	[H : MacroProps = getMacroProps(index)]
