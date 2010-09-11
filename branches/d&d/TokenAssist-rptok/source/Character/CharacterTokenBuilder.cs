@@ -12,13 +12,6 @@ namespace TokenAssist
 
         public static void WriteToken(Character character, string filename, string tokenImage, string tokenPortrait)
         {
-            //////////////////////
-            // TODO remove this after andrew fixes the parsing code.
-            MessageSystem.Error("This will break until Andrew fixes parsing code to load into common data store");
-            return;
-            // END TODO
-            //////////////////////
-
             Token token = ActorTokenFactory.Create(character, "4ePlayer", tokenImage, tokenPortrait);
 
             // only characters use daily item powers

@@ -65,7 +65,120 @@ namespace TokenAssist
             {
                 Stat stat = LoadStat(xmlNodeStat);
 
-                character.Stats.Add(stat.Name, stat);
+                switch (stat.Name)
+                {
+                    // Ability Scores
+                    case "strength":
+                        character.Abilities["Strength"].Value = stat.Value;
+                        break;
+                    case "constitution":
+                        character.Abilities["Constitution"].Value = stat.Value;
+                        break;
+                    case "dexterity":
+                        character.Abilities["Dexterity"].Value = stat.Value;
+                        break;
+                    case "intelligence":
+                        character.Abilities["Intelligence"].Value = stat.Value;
+                        break;
+                    case "wisdom":
+                        character.Abilities["Wisdom"].Value = stat.Value;
+                        break;
+                    case "charisma":
+                        character.Abilities["Charisma"].Value = stat.Value;
+                        break;
+
+                    // Defenses
+                    case "ac":
+                        character.Defenses["AC"] = stat.Value;
+                        break;
+                    case "fortitude defense":
+                        character.Defenses["Fortitude"] = stat.Value;
+                        break;
+                    case "reflex defense":
+                        character.Defenses["Reflex"] = stat.Value;
+                        break;
+                    case "will defense":
+                        character.Defenses["Will"] = stat.Value;
+                        break;
+
+                    // Skills
+                    case "acrobatics":
+                        character.Skills["Acrobatics"] = stat.Value;
+                        break;
+                    case "arcana":
+                        character.Skills["Arcana"] = stat.Value;
+                        break;
+                    case "athletics":
+                        character.Skills["Athletics"] = stat.Value;
+                        break;
+                    case "bluff":
+                        character.Skills["Bluff"] = stat.Value;
+                        break;
+                    case "diplomacy":
+                        character.Skills["Diplomacy"] = stat.Value;
+                        break;
+                    case "dungeoneering":
+                        character.Skills["Dungeoneering"] = stat.Value;
+                        break;
+                    case "endurance":
+                        character.Skills["Endurance"] = stat.Value;
+                        break;
+                    case "heal":
+                        character.Skills["Heal"] = stat.Value;
+                        break;
+                    case "history":
+                        character.Skills["History"] = stat.Value;
+                        break;
+                    case "insight":
+                        character.Skills["Insight"] = stat.Value;
+                        break;
+                    case "intimidate":
+                        character.Skills["Intimidate"] = stat.Value;
+                        break;
+                    case "nature":
+                        character.Skills["Nature"] = stat.Value;
+                        break;
+                    case "perception":
+                        character.Skills["Perception"] = stat.Value;
+                        break;
+                    case "religion":
+                        character.Skills["Religion"] = stat.Value;
+                        break;
+                    case "stealth":
+                        character.Skills["Stealth"] = stat.Value;
+                        break;
+                    case "streetwise":
+                        character.Skills["Streetwise"] = stat.Value;
+                        break;
+                    case "thievery":
+                        character.Skills["Thievery"] = stat.Value;
+                        break;
+
+                    // Misc. Stats
+                    case "level":
+                        character.Level = stat.Value;
+                        break;
+                    case "hit points":
+                        character.HP = stat.Value;
+                        break;
+                    case "healing surges":
+                        character.HealingSurges = stat.Value;
+                        break;
+                    case "initiative":
+                        character.Initiative = stat.Value;
+                        break;
+                    case "_baseactionpoints":
+                        character.ActionPoints = stat.Value;
+                        break;
+                    case "speed":
+                        character.Speed = stat.Value;
+                        break;
+                    case "saving throws":
+                        character.SavingThrow = stat.Value;
+                        break;
+                    default:
+                        break;
+                }
             }
 
             // we use this to get the url information for many things
