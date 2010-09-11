@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TokenAssist
 {
-    public enum ColorType { white, green, red, blue, grey, black };
+    public enum ColorType { white, green, red, blue, grey, black, orange };
 
     public class TokenMacro
     {
