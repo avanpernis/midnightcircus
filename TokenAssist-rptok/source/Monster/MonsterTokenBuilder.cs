@@ -12,6 +12,12 @@ namespace TokenAssist
         {
             Token token = ActorTokenFactory.Create(monster, "4eMonster", tokenImage, tokenPortrait);
 
+            // when a monster is reset, it needs to know its starting amount of action points
+            token.AddProperty("StartingActionPoints", monster.ActionPoints);
+
+            // only monsters can be reset
+            token.AddMacro(HtmlUtilities.Bold("Reset"), ActorTokenFactory.MiscGroup, ColorType.white, ColorType.black, Properties.Resources.ResetMonsterTemplate);
+
             // convert monster powers to token powers
             foreach (MonsterPower p in monster.Powers)
             {

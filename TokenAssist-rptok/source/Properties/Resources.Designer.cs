@@ -406,13 +406,14 @@ namespace TokenAssist.Properties {
         ///[H : Damage = &quot;###DAMAGE###&quot;]
         ///[H : MaxDamage = &quot;###MAX_DAMAGE###&quot;]
         ///[H : MultipleTargets = ###MULTIPLE_TARGETS###]
+        ///[H : DefenseStat = &quot;###DEFENSE_STAT###&quot;]
+        ///[H : CriticalDamage = 0]
         ///
         ///&lt;!-- html power card, as found in the compendium --&gt;
         ///[H : PowerCard = &quot;###POWER_CARD###&quot;]
         ///
         ///&lt;!-- retrieve previously stored values --&gt;
-        ///[H : NumberOfTargets = if(MultipleTargets == 1, getStrProp(CombatStatus, &quot;LastNumberOfTargets&quot;), 1)]
-        ///[H : CombatAdvan [rest of string was truncated]&quot;;.
+        ///[H : NumberOfTargets = if(MultipleTargets == 1, ge [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MonsterPowerMacro {
             get {
@@ -448,6 +449,29 @@ namespace TokenAssist.Properties {
         internal static string RangedBasicAttack {
             get {
                 return ResourceManager.GetString("RangedBasicAttack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- Confirm the user&apos;s decision to reset the monster --&gt;
+        ///[H : InputPrompt = input(&quot;ResetMonster | 1 | ResetMonster? | CHECK&quot;)]
+        ///
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPrompt)]
+        ///[H : abort(if(ResetMonster == 0, 0, 1))]
+        ///	
+        ///&lt;!-- restore hit points and healing surges to maximum --&gt;
+        ///[H : CurrentHitPoints = MaxHitPoints]
+        ///[H : CurrentHealingSurges = MaxHealingSurges]
+        ///	
+        ///&lt;!-- set available action points to starting value --&gt;
+        ///[H : ActionPoints = StartingActionPoints]
+        ///	
+        ///Monster is re [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ResetMonsterTemplate {
+            get {
+                return ResourceManager.GetString("ResetMonsterTemplate", resourceCulture);
             }
         }
         

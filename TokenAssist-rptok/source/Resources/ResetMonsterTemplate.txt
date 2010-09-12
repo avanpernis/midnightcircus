@@ -1,0 +1,25 @@
+<!-- Confirm the user's decision to reset the monster -->
+[H : InputPrompt = input("ResetMonster | 1 | ResetMonster? | CHECK")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+[H : abort(if(ResetMonster == 0, 0, 1))]
+	
+<!-- restore hit points and healing surges to maximum -->
+[H : CurrentHitPoints = MaxHitPoints]
+[H : CurrentHealingSurges = MaxHealingSurges]
+	
+<!-- set available action points to starting value -->
+[H : ActionPoints = StartingActionPoints]
+	
+Monster is reset and recovers all encounter and recharge powers.<br>
+Monster has <b>{CurrentHitPoints}</b> Hit Points.<br>
+Monster has <b>{CurrentHealingSurges}</b> Healing Surges.<br>
+Monster has <b>{ActionPoints}</b> Action Point.<br>
+	
+<!-- update token state appropriately -->
+[H : state.Helpless = 0]
+[H : state.Dead = 0]
+[H : state.Prone = 0]
+[H : state.Bloodied = 0]
+[H : bar.Health = 1]
