@@ -4,6 +4,8 @@
 [H : Damage = "###DAMAGE###"]
 [H : MaxDamage = "###MAX_DAMAGE###"]
 [H : MultipleTargets = ###MULTIPLE_TARGETS###]
+[H : DefenseStat = "###DEFENSE_STAT###"]
+[H : CriticalDamage = 0]
 
 <!-- html power card, as found in the compendium -->
 [H : PowerCard = "###POWER_CARD###"]
@@ -87,7 +89,7 @@
 <!-- show the power card to the other players -->
 
 <!-- show the attack results -->
-{PowerName} <b>{if(AttackBonus < 0, "", "+")}{AttackBonus} {AttackStat} vs {Defense}</b><br>
-You use your <b>{Weapon}</b> to attack (<b>{AttackResultOutput}</b>){if(CombatAdvantage == 1, " while having <b>Combat Advantage</b>", "")}.<br>
+<b>{PowerName}: {if(AttackBonus < 0, "", "+")}{AttackBonus} vs {DefenseStat}</b><hr><br>
+Attack(<b>{AttackResultOutput}</b>){if(CombatAdvantage == 1, " while having <b>Combat Advantage</b>", "")}.<br>
 {CoverConcealmentOutput}
 {if(CapableOfDamage == 1, "You do <b>" + DamageResultOutput + "</b> points of damage!", "")}

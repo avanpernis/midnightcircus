@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Security;
 
 namespace TokenAssist
 {
@@ -28,11 +29,11 @@ namespace TokenAssist
             result = result.Replace(@"###BUTTON_COLOR###", ButtonColor.ToString());
             result = result.Replace(@"###FONT_COLOR###", FontColor.ToString());
 
-            result = result.Replace(@"###MACRO_NAME###", Name);
-            result = result.Replace(@"###TOOLTIP###", ToolTip);
-            result = result.Replace(@"###MACRO_GROUP###", Group);
-            result = result.Replace(@"###MACRO_COMMAND###", Command);
-            result = result.Replace(@"###SORTBY###", SortBy);
+            result = result.Replace(@"###MACRO_NAME###", SecurityElement.Escape(Name));
+            result = result.Replace(@"###TOOLTIP###", SecurityElement.Escape(ToolTip));
+            result = result.Replace(@"###MACRO_GROUP###", SecurityElement.Escape(Group));
+            result = result.Replace(@"###MACRO_COMMAND###", SecurityElement.Escape(Command));
+            result = result.Replace(@"###SORTBY###", SecurityElement.Escape(SortBy));
 
             return result;
         }
