@@ -27,12 +27,7 @@ namespace TokenAssist
                 mDamage = value;
 
                 // also calculate the maximum damage that this weapon is capable of
-                mMaxDamage = Regex.Replace(Damage, @"(\d*)d(\d+)", delegate(Match match)
-                {
-                    int value1 = int.Parse(match.Groups[1].Value);
-                    int value2 = int.Parse(match.Groups[2].Value);
-                    return match.Result((value1 * value2).ToString());
-                });
+                mMaxDamage = RollUtilities.EvaluateMaximum(Damage).ToString();
             }
         }
 

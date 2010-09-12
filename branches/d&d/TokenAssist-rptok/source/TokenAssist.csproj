@@ -86,6 +86,7 @@
     <Compile Include="Misc\MD5Utilities.cs" />
     <Compile Include="Misc\MemoryZip.cs" />
     <Compile Include="Misc\MessageSystem.cs" />
+    <Compile Include="Misc\RollUtilities.cs" />
     <Compile Include="Misc\ZipUtilities.cs" />
     <Compile Include="Monster\Monster.cs" />
     <Compile Include="Monster\MonsterLoader.cs" />
