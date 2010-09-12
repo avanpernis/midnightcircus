@@ -314,15 +314,14 @@ namespace TokenAssist.Properties {
         ///    &lt;index&gt;###ENTRY_NUMBER###&lt;/index&gt;
         ///    &lt;colorKey&gt;###BUTTON_COLOR###&lt;/colorKey&gt;
         ///    &lt;hotKey&gt;None&lt;/hotKey&gt;
-        ///    &lt;command&gt;
-        ///    ###MACRO_COMMAND###
+        ///    &lt;command&gt;###MACRO_COMMAND###
         ///    &lt;/command&gt;
         ///    &lt;label&gt;###MACRO_NAME###&lt;/label&gt;
         ///    &lt;group&gt;###MACRO_GROUP###&lt;/group&gt;
         ///    &lt;sortby&gt;###SORTBY###&lt;/sortby&gt;
         ///    &lt;autoExecute&gt;true&lt;/autoExecute&gt;
         ///    &lt;includeLabel&gt;false&lt;/includeLabel&gt;
-        ///    &lt;applyToTokens&gt;fals [rest of string was truncated]&quot;;.
+        ///    &lt;applyToTokens&gt;false&lt;/app [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MacroTemplate {
             get {
@@ -402,6 +401,27 @@ namespace TokenAssist.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
+        ///[H : PowerName = &quot;###NAME###&quot;]
+        ///[H : AttackBonus = &quot;###ATTACK_BONUS###&quot;]
+        ///[H : Damage = &quot;###DAMAGE###&quot;]
+        ///[H : MaxDamage = &quot;###MAX_DAMAGE###&quot;]
+        ///[H : MultipleTargets = ###MULTIPLE_TARGETS###]
+        ///
+        ///&lt;!-- html power card, as found in the compendium --&gt;
+        ///[H : PowerCard = &quot;###POWER_CARD###&quot;]
+        ///
+        ///&lt;!-- retrieve previously stored values --&gt;
+        ///[H : NumberOfTargets = if(MultipleTargets == 1, getStrProp(CombatStatus, &quot;LastNumberOfTargets&quot;), 1)]
+        ///[H : CombatAdvan [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string MonsterPowerMacro {
+            get {
+                return ResourceManager.GetString("MonsterPowerMacro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
         ///[H : PowerName = &quot;__POWER_NAME__&quot;]
         ///
         ///&lt;!-- html power card, as found in the compendium --&gt;
@@ -442,10 +462,9 @@ namespace TokenAssist.Properties {
         ///&lt;!-- regardless of rest type, all encounter powers are restored --&gt;
         ///[H: CombatStatus = setStrProp(CombatStatus, &quot;EncounterPowersUsed&quot;, 0), CombatStatus)]
         ///
-        ///[H:blah = &quot;&quot;]
-        ///
         ///&lt;!-- restore the text color so encounter powers appear as usable once again --&gt;
-        ///[H, FOREACH(index, getMacroGroup(&quot;Encounter&quot;)), [rest of string was truncated]&quot;;.
+        ///[H, FOREACH(index, getMacroGroup(&quot;Encounter&quot;)), CODE : {
+        ///	[H :  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RestTemplate {
             get {

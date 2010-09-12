@@ -147,13 +147,11 @@
     <None Include="Resources\NoWeaponTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\WeaponTemplate.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\MacroCreationTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\defaultTokenImage.png" />
+    <None Include="Resources\MonsterPowerMacro.txt" />
     <Content Include="Resources\TextFile1.txt" />
     <Content Include="Resources\TokenAssetTemplate.xml" />
     <Content Include="Resources\TokenPropertiesFileTemplate.xml" />

@@ -11,6 +11,9 @@ namespace TokenAssist
         public static Monster Load(string filename)
         {
             Monster m = new Monster();
+
+            RollUtilities.EvaluateMaximum("1d6 + 5 + 2");
+
             try
             {
                 XElement root = XElement.Load(filename);
@@ -179,7 +182,7 @@ namespace TokenAssist
             // attempt to find the damage done by the attack
             try
             {
-                newPower.Damage = attackNode.XPathSelectElement("//Hit//Expression").Value;
+                newPower.Damage = attackNode.XPathSelectElement(".//Hit//Expression").Value;
             }
             catch { }
 
@@ -206,7 +209,7 @@ namespace TokenAssist
 
                 try
                 {
-                    newPower.Defense = attackBonuses.XPathSelectElement("//DefenseName").Value;
+                    newPower.Defense = attackBonuses.XPathSelectElement(".//DefenseName").Value;
                 }
                 catch { }
             }

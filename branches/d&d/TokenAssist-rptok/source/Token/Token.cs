@@ -36,6 +36,11 @@ namespace TokenAssist
             Properties.Add(new TokenProperty(key, value));
         }
 
+        public void AddMacro(TokenMacro newMacro)
+        {
+            Macros.Add(newMacro);
+        }
+
         public void AddMacro(string name, string group, ColorType buttonColor, ColorType fontColor, string command)
         {
             TokenMacro macro = new TokenMacro();
