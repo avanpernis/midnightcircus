@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace TokenAssist
 {
@@ -18,6 +19,7 @@ namespace TokenAssist
                 LoadAbilities(m, root);
                 LoadDefenses(m, root);
                 LoadSkills(m, root);
+                LoadPowers(m, root);
             }
             catch (Exception ex)
             {
@@ -27,7 +29,7 @@ namespace TokenAssist
             }
 
             return m;
-        }        
+        }
         
         private static void LoadMisc(Monster m, XElement docRoot)
         {
@@ -51,6 +53,14 @@ namespace TokenAssist
                 () => m.Initiative = int.Parse(docRoot.Element("Initiative").Attribute("FinalValue").Value),
                 "Initiative"
             );
+            GuardedExec(
+                () => m.ActionPoints = int.Parse(docRoot.Element("ActionPoints").Attribute("FinalValue").Value),
+                "Action Points"
+            );
+            GuardedExec(
+                () => m.SavingThrow = int.Parse(docRoot.XPathSelectElement("//SavingThrows//MonsterSavingThrow").Attribute("FinalValue").Value),
+                "Saving Throw"
+            );
         }
 
         private static void LoadAbilities(Monster m, XElement docRoot)
@@ -69,7 +79,7 @@ namespace TokenAssist
             }
             catch (Exception e)
             {
-                System.Console.WriteLine("Warning: error loading abilities, " + e.Message);
+                MessageSystem.Warning("Warning: error loading abilities, " + e.Message);
             }
         }
 
@@ -88,7 +98,7 @@ namespace TokenAssist
             }
             catch (Exception e)
             {
-                System.Console.WriteLine("Warning: error loading defenses, " + e.Message);
+                MessageSystem.Warning("Warning: error loading defenses, " + e.Message);
             }
         }
         
@@ -107,7 +117,98 @@ namespace TokenAssist
             }
             catch (Exception e)
             {
-                System.Console.WriteLine("Warning: error loading skills, " + e.Message);
+                MessageSystem.Warning("error loading skills, " + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Read the powers and append them to the Monster
+        /// </summary>
+        /// <param name="m">The monster we are going to fill in</param>
+        /// <param name="docRoot">The root of the xml to examine</param>
+        private static void LoadPowers(Monster m, XElement docRoot)
+        {
+            XElement powersRoot = docRoot.Element("Powers");
+            if (powersRoot == null)
+            {
+                MessageSystem.Warning("error loading powers.  Aborting power processing.");
+                return;
+            }
+
+            foreach (XElement powerElement in powersRoot.Elements("MonsterPower"))
+            {
+                try
+                {
+                    MonsterPower newPower = new MonsterPower();
+                    newPower.Name = powerElement.Element("Name").Value;
+                    newPower.Category = powerElement.Element("Usage").Value;
+
+                    // add keywords
+                    XElement keywordNode = powerElement.Element("Keywords");
+                    if (keywordNode != null)
+                    {
+                        foreach (XElement keyword in keywordNode.Elements("Name"))
+                        {
+                            newPower.Keywords.Add(keyword.Value);
+                        }
+                    }
+
+                    LoadAttackFromPower(powerElement, ref newPower);
+
+                    m.Powers.AddLast(newPower);
+                }
+                catch (Exception e)
+                {
+                    MessageSystem.Warning("error loading powers, " + e.Message);
+                }
+            }
+        }
+
+        private static void LoadAttackFromPower(XElement powerElement, ref MonsterPower newPower)
+        {
+            XElement attackNode = null;
+            try
+            {
+                attackNode = powerElement.Element("Attacks").Element("MonsterAttack");
+            }
+            catch
+            {
+                return;
+            }
+
+            // attempt to find the damage done by the attack
+            try
+            {
+                newPower.Damage = attackNode.XPathSelectElement("//Hit//Expression").Value;
+            }
+            catch { }
+
+            // attempt to find information on the effect
+            XElement effectNode = attackNode.Element("Effect");
+            if (effectNode != null)
+            {
+                try
+                {
+                    newPower.Description = effectNode.XPathSelectElement("Description").Value;
+                }
+                catch { }
+            }
+
+            // attempt to determine the effect of the attack
+            XElement attackBonuses = attackNode.Element("AttackBonuses");
+            if (attackBonuses != null)
+            {
+                try
+                {
+                    newPower.AttackBonus = int.Parse(attackBonuses.Element("MonsterPowerAttackNumber").Attribute("FinalValue").Value);
+                }
+                catch { }
+
+                try
+                {
+                    newPower.Defense = attackBonuses.XPathSelectElement("//DefenseName").Value;
+                }
+                catch { }
             }
         }
 
@@ -119,6 +220,7 @@ namespace TokenAssist
             }
             catch (Exception)
             {
+                MessageSystem.Warning("could not load field " + fieldName);
             }
         }
     }

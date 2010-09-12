@@ -89,6 +89,7 @@
     <Compile Include="Misc\ZipUtilities.cs" />
     <Compile Include="Monster\Monster.cs" />
     <Compile Include="Monster\MonsterLoader.cs" />
+    <Compile Include="Monster\MonsterPower.cs" />
     <Compile Include="Monster\MonsterTokenBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -152,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\defaultTokenImage.png" />
+    <Content Include="Resources\TextFile1.txt" />
     <Content Include="Resources\TokenAssetTemplate.xml" />
     <Content Include="Resources\TokenPropertiesFileTemplate.xml" />
     <None Include="Resources\TokenPropertyTemplate.xml" />
