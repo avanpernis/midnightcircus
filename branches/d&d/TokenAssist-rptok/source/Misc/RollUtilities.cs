@@ -25,7 +25,7 @@ namespace TokenAssist
             // expand any addition or subtraction operators (eg. 2+3, 6-1)
             while (true)
             {
-                Match match = Regex.Match(expression, @"(\d*)\s*([-\+])\s*(\d+)");
+                Match match = Regex.Match(expression, @"(\d*)\s*([\-+])\s*(\d+)");
 
                 if (!match.Success)
                 {
