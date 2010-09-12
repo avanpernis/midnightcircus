@@ -1,5 +1,5 @@
 <!-- Confirm the user's decision to reset the monster -->
-[H : InputPrompt = input("ResetMonster | 1 | ResetMonster? | CHECK")]
+[H : InputPrompt = input("ResetMonster | 1 | Reset Monster? | CHECK")]
 
 <!-- bail if the user cancels the dialog -->
 [H : abort(InputPrompt)]
