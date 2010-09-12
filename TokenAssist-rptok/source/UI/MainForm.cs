@@ -229,7 +229,7 @@ namespace TokenAssist
 
                 if (mCharacter != null)
                 {
-                    CharacterTokenBuilder.WriteToken(mCharacter, ChosenDestinationFile, mImageBrowserPortrait.ImageFile, mImageBrowserToken.ImageFile);
+                    CharacterTokenBuilder.WriteToken(mCharacter, ChosenDestinationFile, mImageBrowserToken.ImageFile, mImageBrowserPortrait.ImageFile);
                 }
                 else if (mMonster != null)
                 {
