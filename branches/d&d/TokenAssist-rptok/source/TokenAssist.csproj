@@ -152,6 +152,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\defaultTokenImage.png" />
     <None Include="Resources\MonsterPowerMacro.txt" />
+    <Content Include="Resources\ResetMonsterTemplate.txt" />
     <Content Include="Resources\TokenAssetTemplate.xml" />
     <Content Include="Resources\TokenPropertiesFileTemplate.xml" />
     <None Include="Resources\TokenPropertyTemplate.xml" />
