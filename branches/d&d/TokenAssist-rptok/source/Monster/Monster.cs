@@ -6,6 +6,8 @@ namespace TokenAssist
 {
     public class Monster : Actor
     {
+        public LinkedList<MonsterPower> Powers = new LinkedList<MonsterPower>();
+
         public Monster()
             : base()
         {
