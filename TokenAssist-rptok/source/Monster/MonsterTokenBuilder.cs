@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Security;
+
 
 namespace TokenAssist
 {
@@ -15,24 +15,15 @@ namespace TokenAssist
             // convert monster powers to token powers
             foreach (MonsterPower p in monster.Powers)
             {
-                TokenMacro m = MacroFromPower(p);
-                token.AddMacro(m);
+                BuildMacroFromPower(token, p);
             }
             
             token.Write(filename);
         }
-        
-        public static TokenMacro MacroFromPower(MonsterPower power)
+
+        public static void BuildMacroFromPower(Token token, MonsterPower power)
         {
-            TokenMacro macro = new TokenMacro();
-
             string command = null;
-
-            macro.Name = SecurityElement.Escape(power.Name);
-            macro.Group = SecurityElement.Escape(power.Category);
-
-            macro.FontColor = ColorType.black;
-            macro.ButtonColor = ColorType.white;
 
             if ((power.AttackBonus != null) && (power.Damage != null))
             {
@@ -41,6 +32,7 @@ namespace TokenAssist
                 command = command.Replace(@"###ATTACK_BONUS###", power.AttackBonus.ToString());
                 command = command.Replace(@"###DAMAGE###", power.Damage);
                 command = command.Replace(@"###MAX_DAMAGE###", RollUtilities.EvaluateMaximum(power.Damage).ToString());
+                command = command.Replace(@"###DEFENSE_STAT###", power.Defense);
 
                 if (power.MultiTarget == true)
                     command = command.Replace(@"###MULTIPLE_TARGETS###", "1");
@@ -55,9 +47,7 @@ namespace TokenAssist
 
             command = command.Replace(@"###POWER_CARD###", desc);
 
-            macro.Command = SecurityElement.Escape(command);
-
-            return macro;
+            token.AddMacro(power.Name, power.Category, ColorType.white, ColorType.black, command);
         }
     }
 }

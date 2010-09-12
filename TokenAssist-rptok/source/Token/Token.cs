@@ -44,11 +44,11 @@ namespace TokenAssist
         public void AddMacro(string name, string group, ColorType buttonColor, ColorType fontColor, string command)
         {
             TokenMacro macro = new TokenMacro();
-            macro.Name = SecurityElement.Escape(name);
+            macro.Name = name;
             macro.Group = group;
             macro.ButtonColor = buttonColor;
             macro.FontColor = fontColor;
-            macro.Command = SecurityElement.Escape(command);
+            macro.Command = command;
             Macros.Add(macro);
         }
 
