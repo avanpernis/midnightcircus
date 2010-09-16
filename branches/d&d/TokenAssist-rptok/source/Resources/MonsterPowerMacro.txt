@@ -27,13 +27,15 @@
    "TargetCover | None, Partial, Superior | Target Cover | RADIO | SELECT = " + TargetCover,
    "TargetConcealment | None, Partial, Total | Target Concealment | RADIO | SELECT = " + TargetConcealment,
    "TempAttackBonus | " + TempAttackBonus + " | Temporary Attack Bonus | TEXT",
-   "TempDamageBonus | " + TempDamageBonus + " | Temporary Damage Bonus | TEXT")]
+   "TempDamageBonus | " + TempDamageBonus + " | Temporary Damage Bonus | TEXT",
+   "SecretRoll | " + getStrProp(CombatStatus, "LastSecretRoll") + " | Check to make roll secret | CHECK"
+)]
 
 <!-- bail if the user cancels the dialog -->
 [H : abort(InputPrompt)]
 
 <!-- store the values for next time -->
-[H : PropsUsedList = "NumberOfTargets, CombatAdvantage, TargetCover, TargetConcealment, TempAttackBonus, TempDamageBonus"]
+[H : PropsUsedList = "NumberOfTargets, CombatAdvantage, TargetCover, TargetConcealment, TempAttackBonus, TempDamageBonus, SecretRoll"]
 [H, C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- attack rolls -->
@@ -89,7 +91,19 @@
 <!-- show the power card to the other players -->
 
 <!-- show the attack results -->
-<b>{PowerName}: {if(AttackBonus < 0, "", "+")}{AttackBonus} vs {DefenseStat}</b><hr><br>
-Attack(<b>{AttackResultOutput}</b>){if(CombatAdvantage == 1, " while having <b>Combat Advantage</b>", "")}.<br>
-{CoverConcealmentOutput}
-{if(CapableOfDamage == 1, "You do <b>" + DamageResultOutput + "</b> points of damage!", "")}
+[h,if(SecretRoll == 1),CODE: {
+ [dialog("Attack OutCome"): {
+ <html>
+ <b>[R:PowerName]: [R:if(AttackBonus < 0, "", "+")][R:AttackBonus] vs [R:DefenseStat]</b><hr><br>
+ Attack(<b>[R:AttackResultOutput]</b>)[R:if(CombatAdvantage == 1, " while having <b>Combat Advantage</b>", "")].<br>
+ [R:CoverConcealmentOutput]
+ [R:if(CapableOfDamage == 1, "You do <b>" + DamageResultOutput + "</b> points of damage!", "")]
+ </html>
+ }]
+}]
+[H:abort(!SecretRoll)] 
+
+<b>[R:PowerName]: [R:if(AttackBonus < 0, "", "+")][R:AttackBonus] vs [R:DefenseStat]</b><hr><br>
+ Attack(<b>[R:AttackResultOutput]</b>)[R:if(CombatAdvantage == 1, " while having <b>Combat Advantage</b>", "")].<br>
+ [R:CoverConcealmentOutput]
+ [R:if(CapableOfDamage == 1, "You do <b>" + DamageResultOutput + "</b> points of damage!", "")]
