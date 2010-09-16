@@ -20,9 +20,14 @@ namespace TokenAssist
         public string Damage = null;
 
         /// <summary>
-        /// Flavor text, or explination
+        /// Explanation of what happens should the power hit
         /// </summary>
-        public string Description;
+        public string OnHitText;
+
+        /// <summary>
+        /// Explanation of what happens regardless of power outcome
+        /// </summary>
+        public string EffectText;
 
         /// <summary>
         /// The bonus to attack roll that will be applied for this power
