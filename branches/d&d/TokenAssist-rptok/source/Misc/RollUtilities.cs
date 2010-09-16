@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace TokenAssist
@@ -25,28 +26,19 @@ namespace TokenAssist
             // expand any addition or subtraction operators (eg. 2+3, 6-1)
             while (true)
             {
-                Match match = Regex.Match(expression, @"(\d*)\s*([\-+])\s*(\d+)");
+                Match match = Regex.Match(expression, @"(\d*)([\-+\s]+)(\d+)");
 
                 if (!match.Success)
                 {
                     break;
                 }
 
-                int value1 = int.Parse(match.Groups[1].Value);               
+                int value1 = int.Parse(match.Groups[1].Value);
                 int value2 = int.Parse(match.Groups[3].Value);
-                
-                int newValue;
-                switch (match.Groups[2].Value)
-                {
-                    case "+":
-                        newValue = value1 + value2;
-                        break;
-                    case "-":
-                        newValue = value1 - value2;
-                        break;
-                    default:
-                        throw new ArgumentException("EvaluateMaximum - Unsupported operator: " + match.Groups[2].Value);
-                }
+
+                // look for the number of minus symbols (odd is subtraction, even is addition)
+                bool addition = (match.Groups[2].Value.Count(c => c == '-') % 2) == 0;
+                int newValue = addition ? value1 + value2 : value1 - value2;
 
                 expression = expression.Remove(match.Index, match.Length);
                 expression = expression.Insert(match.Index, newValue.ToString());
