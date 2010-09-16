@@ -59,8 +59,14 @@ namespace TokenAssist
 
             // load the description
             string desc = "";
-            if (power.Description != null)
-                desc = power.Description;
+            if (power.OnHitText != null)
+            {
+                desc += "Hit: " + power.OnHitText;
+            }
+            if (power.EffectText != null)
+            {
+                desc += "Effect: " + power.EffectText;
+            }
 
             command = command.Replace(@"###POWER_CARD###", desc);
 

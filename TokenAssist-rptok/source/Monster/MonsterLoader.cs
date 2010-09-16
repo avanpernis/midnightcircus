@@ -186,13 +186,20 @@ namespace TokenAssist
             }
             catch { }
 
-            // attempt to find information on the effect
+            // attempt to find the "on hit" information of the power
+            try
+            {
+                newPower.OnHitText = attackNode.XPathSelectElement("Hit//Description").Value;
+            }
+            catch { }
+
+            // attempt to find information on the effect of the power
             XElement effectNode = attackNode.Element("Effect");
             if (effectNode != null)
             {
                 try
                 {
-                    newPower.Description = effectNode.XPathSelectElement("Description").Value;
+                    newPower.EffectText = effectNode.XPathSelectElement("Description").Value;
                 }
                 catch { }
             }
