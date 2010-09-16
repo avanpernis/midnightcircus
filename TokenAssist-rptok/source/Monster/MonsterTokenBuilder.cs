@@ -31,20 +31,31 @@ namespace TokenAssist
         {
             string command = null;
 
-            if ((power.AttackBonus != null) && (power.Damage != null))
-            {
-                command = TokenAssist.Properties.Resources.MonsterPowerMacro;
-                command = command.Replace(@"###NAME###", power.Name);
-                command = command.Replace(@"###ATTACK_BONUS###", power.AttackBonus.ToString());
-                command = command.Replace(@"###DAMAGE###", power.Damage);
-                command = command.Replace(@"###MAX_DAMAGE###", RollUtilities.EvaluateMaximum(power.Damage).ToString());
-                command = command.Replace(@"###DEFENSE_STAT###", power.Defense);
+            command = TokenAssist.Properties.Resources.MonsterPowerMacro;
+            command = command.Replace(@"###NAME###", power.Name);
 
-                if (power.MultiTarget == true)
-                    command = command.Replace(@"###MULTIPLE_TARGETS###", "1");
-                else
-                    command = command.Replace(@"###MULTIPLE_TARGETS###", "0");
+            int attackBonus = (power.AttackBonus == null) ? 0 : 1;
+            command = command.Replace(@"###ATTACK_BONUS###", attackBonus.ToString());
+
+            string dmg = (power.Damage == null) ? "0" : power.Damage;
+            command = command.Replace(@"###DAMAGE###", power.Damage);
+            try
+            {
+                string maxdmg = RollUtilities.EvaluateMaximum(power.Damage).ToString();
+                command = command.Replace(@"###MAX_DAMAGE###", maxdmg);
             }
+            catch
+            {
+                command = command.Replace(@"###MAX_DAMAGE###", "0");
+            }
+            
+
+            command = command.Replace(@"###DEFENSE_STAT###", power.Defense);
+
+            if (power.MultiTarget == true)
+                command = command.Replace(@"###MULTIPLE_TARGETS###", "1");
+            else
+                command = command.Replace(@"###MULTIPLE_TARGETS###", "0");
 
             // load the description
             string desc = "";
