@@ -1,32 +1,28 @@
-<!-- retrieve previously stored values -->
-[H : LastTempHPAmount = getStrProp(CombatStatus, "LastTempHPAmount")]
-[H : LastTempHPStacks = getStrProp(CombatStatus, "LastTempHPStacks")]
-[H : LastSecretRoll = getStrProp(CombatStatus, "LastSecretRoll")]
-
 <!-- show the user healing options -->
 [H : InputPrompt = input(
 	"UNUSED | " + CurrentHitPoints + " / " + MaxHitPoints + if(TempHitPoints > 0, " (Temp: " + TempHitPoints + ")", "") + " | Hit Points | Label",
 	"UNUSED | " + CurrentHealingSurges + " / " + MaxHealingSurges + " (Value: " + HealingSurgeValue + ") | Healing Surges | Label",
 	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
-	"TempHPAmount | " + LastTempHPAmount + " | Amount of Temp HP | TEXT",
-	"TempHPStacks | " + LastTempHPStacks + " | Temp HP Stacks? | CHECK ",
-	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
-	"SecretRoll | " + LastSecretRoll + " | Secret Roll? | CHECK")]
+	"TempHPAmount | " + getStrProp(CombatStatus, "LastTempHPAmount") + " | Amount of Temp HP | TEXT",
+	"TempHPStacks | " + getStrProp(CombatStatus, "LastTempHPStacks") + " | Temp HP Stacks? | CHECK ")]
 
 <!-- bail if the user cancels the dialog -->
 [H : abort(InputPrompt)]
 
 <!-- Saves Choices -->
-[H : PropsUsedList = "TempHPAmount, TempHPStacks, SecretRoll"]
+[H : PropsUsedList = "TempHPAmount, TempHPStacks"]
 [H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- if the temp hit points are not stackable, the new value is simply the maximum of the current and new values -->
 [H : TempHitPoints = if(TempHPStacks == 1, TempHitPoints + TempHPAmount, max(TempHitPoints, TempHPAmount))]
 
 <!-- format the output -->
-[H : Results = 
+[H : TempHPResult = 
 	if(TempHPStacks == 1, "You stack an additional <b>" + TempHPAmount + "</b> Temporary Hit Points!<br>", "") +
 	"<b>You now have " + TempHitPoints + " Temporary Hit Points!</b>"]
+
+<!-- output the results -->
+{TempHPResult}
 
 <!-- update token state appropriately -->
 [H : state.Helpless = if(CurrentHitPoints > 0, 0, 1)]
@@ -34,11 +30,3 @@
 [H : state.Prone = state.Dead + state.Prone + state.Helpless]
 [H : state.Bloodied = if(CurrentHitPoints / MaxHitPoints < 0.5, 1, 0)]
 [H : bar.Health = CurrentHitPoints / MaxHitPoints]
-
-<!-- output the results -->
-[IF(SecretRoll == 1), CODE : {
-	[dialog("Results") : { <html>[R : Results]</html> }]
-	[H : abort(0)]
-};{
-	{Results}
-}]
