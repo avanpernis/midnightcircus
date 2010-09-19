@@ -26,10 +26,14 @@
 <!-- burn a healing surge if necessary -->
 [H : CurrentHealingSurges = if(SpendHealingSurge == 1, CurrentHealingSurges - 1, CurrentHealingSurges)]
 
+<!-- format the output -->
+[H : HealingResult =
+	"<b>Healed for " + HealingAmount + " Hit Points!</b><br>" + 
+	"<b>" + CurrentHitPoints + " / " + MaxHitPoints + "</b> Hit Points Remaining<br>" +
+	if(SpendHealingSurge == 1, "Spent a Healing Surge: <b>" + CurrentHealingSurges + " / " + MaxHealingSurges + "</b> Remaining", "")]
+
 <!-- output the results -->
-<b>{"Healed for " + HealingAmount + " Hit Points!"}</b><br>
-<b>{CurrentHitPoints + " / " + MaxHitPoints}</b> Hit Points Remaining<br>
-{if(SpendHealingSurge == 1, "Spent a Healing Surge: <b>" + CurrentHealingSurges + " / " + MaxHealingSurges + "</b> Remaining", "")}
+{HealingResult}
 
 <!-- update token state appropriately -->
 [H : state.Helpless = if(CurrentHitPoints > 0, 0, 1)]

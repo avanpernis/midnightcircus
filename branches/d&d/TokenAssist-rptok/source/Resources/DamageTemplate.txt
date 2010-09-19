@@ -21,9 +21,13 @@
 <!-- now adjust the temp hit points if they went negative -->
 [H : TempHitPoints = max(0, TempHitPoints)]
 
+<!-- format the output -->
+[H : DamageResult =
+	"<b>Damaged for " + DamageAmount + " Hit Points!</b><br>" + 
+	"<b>" + CurrentHitPoints + " / " + MaxHitPoints + "</b> Hit Points Remaining<br>"]
+
 <!-- output the results -->
-<b>{"Damaged for " + DamageAmount + " Hit Points!"}</b><br>
-<b>{CurrentHitPoints + " / " + MaxHitPoints}</b> Hit Points Remaining<br>
+{DamageResult}
 
 <!-- update token state appropriately -->
 [H : state.Helpless = if(CurrentHitPoints > 0, 0, 1)]

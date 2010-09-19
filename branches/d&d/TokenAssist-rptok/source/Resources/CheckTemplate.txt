@@ -43,7 +43,7 @@
 
 <!-- red text if twenty, black otherwise -->
 [H : CheckResultColor = if(Twenty == 1, "red", "black")]
-[H : CheckResultOutput = "<span style='color:" + CheckResultColor + "'>" + CheckResult + "</span>"]
+[H : CheckResultOutput = "<b>" + CheckName + " Check</b> (" + CheckBonusPrefix + CheckBonus + "): <b><span style='color:" + CheckResultColor + "'>" + CheckResult + "</span></b>"]
 
 <!-- show the check results -->
-<b>{CheckName} Check</b> ({CheckBonusPrefix}{CheckBonus}): <b>{CheckResultOutput}</b>
+{CheckResultOutput}

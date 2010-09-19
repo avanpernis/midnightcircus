@@ -14,11 +14,15 @@
 [H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- if the temp hit points are not stackable, the new value is simply the maximum of the current and new values -->
-[H: TempHitPoints = if(TempHPStacks == 1, TempHitPoints + TempHPAmount, max(TempHitPoints, TempHPAmount))]
+[H : TempHitPoints = if(TempHPStacks == 1, TempHitPoints + TempHPAmount, max(TempHitPoints, TempHPAmount))]
+
+<!-- format the output -->
+[H : TempHPResult = 
+	if(TempHPStacks == 1, "You stack an additional <b>" + TempHPAmount + "</b> Temporary Hit Points!<br>", "") +
+	"<b>You now have " + TempHitPoints + " Temporary Hit Points!</b>"]
 
 <!-- output the results -->
-{if(TempHPStacks == 1, "You stack an additional <b>" + TempHPAmount + "</b> Temporary Hit Points!<br>", "")}
-<b>{"You now have " + TempHitPoints + " Temporary Hit Points!"}</b>
+{TempHPResult}
 
 <!-- update token state appropriately -->
 [H : state.Helpless = if(CurrentHitPoints > 0, 0, 1)]

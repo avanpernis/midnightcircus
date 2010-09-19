@@ -29,10 +29,10 @@
 
 <!-- red text if twenty, black otherwise -->
 [H : InitResultColor = if(Twenty == 1, "red", "black")]
-[H : InitResultOutput = "<span style='color:" + InitResultColor + "'>" + InitResult + "</span>"]
+[H : InitResultOutput = "<b>Roll Initiative</b> (" + InitBonusPrefix + InitBonus + "): <b><span style='color:" + InitResultColor + "'>" + InitResult + "</span></b>"]
 
 <!-- show the roll results -->
-<b>Roll Initiative</b> ({InitBonusPrefix}{InitBonus}): <b>{InitResultOutput}</b>
+{InitResultOutput}
 
 <!-- add this token to the initiative panel -->
 [H : addToInitiative()]

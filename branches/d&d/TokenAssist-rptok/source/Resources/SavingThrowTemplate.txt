@@ -29,7 +29,7 @@
 
 <!-- red text if twenty, black otherwise -->
 [H : SaveResultColor = if(Twenty == 1, "red", "black")]
-[H : SaveResultOutput = "<span style='color:" + SaveResultColor + "'>" + SaveResult + "</span>"]
+[H : SaveResultOutput = "<b>Saving Throw</b> (" + SaveBonusPrefix + SaveBonus + "): <b><span style='color:" + SaveResultColor + "'>" + SaveResult + "</span></b>"]
 
 <!-- show the save results -->
-<b>Saving Throw</b> ({SaveBonusPrefix}{SaveBonus}): <b>{SaveResultOutput}</b>
+{SaveResultOutput}
