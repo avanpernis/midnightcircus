@@ -34,7 +34,7 @@ namespace TokenAssist
             command = TokenAssist.Properties.Resources.MonsterPowerMacro;
             command = command.Replace(@"###NAME###", power.Name);
 
-            int attackBonus = (power.AttackBonus == null) ? 0 : 1;
+            int attackBonus = (power.AttackBonus == null) ? 0 : (int)power.AttackBonus;
             command = command.Replace(@"###ATTACK_BONUS###", attackBonus.ToString());
 
             string dmg = (power.Damage == null) ? "0" : power.Damage;
