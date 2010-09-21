@@ -17,7 +17,12 @@ namespace TokenAssist
         /// <summary>
         /// The expression that represents how much damage should be dealt
         /// </summary>
-        public string Damage = null;
+        public string Damage;
+
+        /// <summary>
+        /// Description of the range for this attack
+        /// </summary>
+        public string RangeText;
 
         /// <summary>
         /// Explanation of what happens should the power hit
@@ -32,17 +37,17 @@ namespace TokenAssist
         /// <summary>
         /// The bonus to attack roll that will be applied for this power
         /// </summary>
-        public int? AttackBonus = null;
+        public int? AttackBonus;
 
         /// <summary>
         /// The attribute that you must beat with your attack roll
         /// </summary>
-        public string Defense = null;
+        public string Defense;
 
         /// <summary>
         /// Does this power involve multiple attack rolls?
         /// </summary>
-        public bool MultiTarget = false;
+        public bool MultiTarget;
 
         public SortedSet<string> Keywords = new SortedSet<string>();
 

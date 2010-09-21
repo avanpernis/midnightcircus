@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using System.IO;
 
 namespace TokenAssist
 {
@@ -167,58 +168,59 @@ namespace TokenAssist
             }
         }
 
+        /// <summary>
+        /// Attempt to read the attack attributes for this power, and fill the passed power with them.
+        /// </summary>
+        /// <param name="powerElement">The root XML node to read from</param>
+        /// <param name="newPower">The power to fill</param>
         private static void LoadAttackFromPower(XElement powerElement, ref MonsterPower newPower)
         {
             XElement attackNode = null;
-            try
-            {
-                attackNode = powerElement.Element("Attacks").Element("MonsterAttack");
-            }
-            catch
-            {
+            attackNode = powerElement.XPathSelectElement(".//Attacks//MonsterAttack");
+            if (attackNode == null)
                 return;
-            }
+
+            XElement exp;
+
+            // find the range value
+            exp = attackNode.Element("Range");
+            if (exp != null)
+                newPower.RangeText = exp.Value;
 
             // attempt to find the damage done by the attack
-            try
-            {
-                newPower.Damage = attackNode.XPathSelectElement("Hit//Expression").Value;
-            }
-            catch { }
+            exp = attackNode.XPathSelectElement("./Hit//Expression");
+            if (exp != null)
+                newPower.Damage = exp.Value;
 
             // attempt to find the "on hit" information of the power
-            try
-            {
-                newPower.OnHitText = attackNode.XPathSelectElement("Hit//Description").Value;
-            }
-            catch { }
+            exp = attackNode.XPathSelectElement("./Hit//Description");
+            if (exp != null)
+                newPower.OnHitText = exp.Value;
 
             // attempt to find information on the effect of the power
-            XElement effectNode = attackNode.Element("Effect");
+            XElement effectNode = attackNode.XPathSelectElement("./Effect//Description");
             if (effectNode != null)
             {
-                try
-                {
-                    newPower.EffectText = effectNode.XPathSelectElement("Description").Value;
-                }
-                catch { }
+                newPower.EffectText = effectNode.Value;
             }
 
-            // attempt to determine the effect of the attack
+            // pull out information on the attack roll and defenses
             XElement attackBonuses = attackNode.Element("AttackBonuses");
             if (attackBonuses != null)
             {
-                try
+                exp = attackBonuses.Element("MonsterPowerAttackNumber");
+                if (exp != null)
                 {
-                    newPower.AttackBonus = int.Parse(attackBonuses.Element("MonsterPowerAttackNumber").Attribute("FinalValue").Value);
+                    XAttribute attr = exp.Attribute("FinalValue");
+                    if (exp != null)
+                        newPower.AttackBonus = int.Parse(attr.Value);
                 }
-                catch { }
 
-                try
+                exp = attackBonuses.XPathSelectElement(".//DefenseName");
+                if (exp != null)
                 {
-                    newPower.Defense = attackBonuses.XPathSelectElement("DefenseName").Value;
+                    newPower.Defense = exp.Value;
                 }
-                catch { }
             }
         }
 
