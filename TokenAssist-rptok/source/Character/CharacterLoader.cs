@@ -463,7 +463,7 @@ namespace TokenAssist
 
         private static void GetMagicItemPower(MagicItem magicItem)
         {
-            Regex usagePattern = new Regex(@"Power\s*\(([^)&]*)");
+            Regex usagePattern = new Regex(@"Power\s*\(([^)\s&]*)");
             Match usageMatch = usagePattern.Match(magicItem.CompendiumEntry);
 
             // this magic item may have a power -- if so, figure out its usage and action types
@@ -489,6 +489,8 @@ namespace TokenAssist
             action = action.Replace("Action", ""); // remove "Action" suffix so that we can enum parse for 'free', 'minor', 'move', and 'standard
             action = action.Replace(" action", ""); // sometimes there is a lower case 'a'
             action = action.Replace("(Special)", ""); // some actions have a special qualifier, but we don't care about that for purposes of token creation
+            action = action.Replace("Special", "");
+            action = action.Replace("</b>", ""); //remove bold formatting from some actions
             action = action.Replace(" ", ""); // remove spaces so that we can enum parse for 'immediate interrupt' and 'immediate reaction'
 
             return (Power.ActionType)Enum.Parse(typeof(Power.ActionType), action);
