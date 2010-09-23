@@ -42,6 +42,9 @@ namespace TokenAssist
             }
             set
             {
+                if (ChosenSourceFile == value)
+                    return;
+
                 if (!string.IsNullOrEmpty(value))
                 {
                     // load the specified file, populate some of the other fields with educated guesswork
