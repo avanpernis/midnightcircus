@@ -70,7 +70,27 @@ namespace TokenAssist
 
             command = command.Replace(@"###POWER_CARD###", desc);
 
-            token.AddMacro(power.Name, power.Category, ColorType.white, ColorType.black, command);
+            token.AddMacro(power.Name, power.Category, ColorFromCatagory(power.Category), ColorType.black, command);
+        }
+
+        public static ColorType ColorFromCatagory(string Category)
+        {
+            ColorType result = ColorType.white;
+
+            if (Category.Equals("at-will", StringComparison.CurrentCultureIgnoreCase))
+            {
+                result = ColorType.green;
+            }
+            else if (Category.Equals("encounter", StringComparison.CurrentCultureIgnoreCase))
+            {
+                result = ColorType.red;
+            }
+            else if (Category.Equals("recharge", StringComparison.CurrentCultureIgnoreCase))
+            {
+                result = ColorType.red;
+            }
+
+            return result;
         }
     }
 }

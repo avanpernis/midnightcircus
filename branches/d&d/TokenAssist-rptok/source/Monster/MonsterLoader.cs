@@ -185,7 +185,7 @@ namespace TokenAssist
             // find the range value
             exp = attackNode.Element("Range");
             if (exp != null)
-                newPower.RangeText = exp.Value;
+                newPower.RangeText = HtmlUtilities.ScrubString(exp.Value);
 
             // attempt to find the damage done by the attack
             exp = attackNode.XPathSelectElement("./Hit//Expression");
@@ -195,13 +195,13 @@ namespace TokenAssist
             // attempt to find the "on hit" information of the power
             exp = attackNode.XPathSelectElement("./Hit//Description");
             if (exp != null)
-                newPower.OnHitText = exp.Value;
+                newPower.OnHitText = HtmlUtilities.ScrubString(exp.Value);
 
             // attempt to find information on the effect of the power
             XElement effectNode = attackNode.XPathSelectElement("./Effect//Description");
             if (effectNode != null)
             {
-                newPower.EffectText = effectNode.Value;
+                newPower.EffectText = HtmlUtilities.ScrubString(effectNode.Value);
             }
 
             // pull out information on the attack roll and defenses

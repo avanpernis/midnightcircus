@@ -104,21 +104,7 @@ namespace TokenAssist
 
             results = results.Substring(start, end - start + 6).Trim(); // + 6 to get past '</div>'
 
-            // for some reason, compendium uses 3 ?'s for an apostrophe
-            results = results.Replace(@"???", @"'");
-
-            // sometimes there are funky unicode apostrophes as well
-            results = results.Replace("\u2019", @"'");
-
-            // sometimes there are strange unicode spaces
-            results = results.Replace("\uF020", @" ");
-
-            // sometimes there are weird non-hyphen characters used for negative modifiers/penalties
-            results = results.Replace("\u2013", @"-");
-
-            // sometimes there are weird quotation mark characters that do not play nicely
-            results = results.Replace("\u201c", @"'");
-            results = results.Replace("\u201d", @"'");
+            results = HtmlUtilities.ScrubString(results);
 
             // some magic items use a unicode circle to separate things like "(Consumable • Healing)"
             // it is also used as the bullet for an unordered list in some powers
