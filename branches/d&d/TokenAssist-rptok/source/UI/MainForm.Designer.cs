@@ -49,8 +49,8 @@
             this.mMenuItemHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mMenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.mPanelMain = new System.Windows.Forms.Panel();
-            this.mListBoxOutput = new System.Windows.Forms.ListBox();
             this.mLabelOutput = new System.Windows.Forms.Label();
+            this.mListBoxOutput = new System.Windows.Forms.ListBox();
             this.mImageBrowserPortrait = new TokenAssist.ImageBrowser();
             this.mImageBrowserToken = new TokenAssist.ImageBrowser();
             this.mMenu.SuspendLayout();
@@ -152,7 +152,7 @@
             this.mComboBoxSource.Name = "mComboBoxSource";
             this.mComboBoxSource.Size = new System.Drawing.Size(415, 21);
             this.mComboBoxSource.TabIndex = 10;
-            this.mComboBoxSource.SelectedIndexChanged += new System.EventHandler(this.mComboBoxSource_SelectedIndexChanged);
+            this.mComboBoxSource.SelectionChangeCommitted += new System.EventHandler(this.mComboBoxSource_SelectionChangeCommitted);
             // 
             // mComboBoxDestination
             // 
@@ -263,6 +263,16 @@
             this.mPanelMain.Size = new System.Drawing.Size(478, 537);
             this.mPanelMain.TabIndex = 7;
             // 
+            // mLabelOutput
+            // 
+            this.mLabelOutput.AutoSize = true;
+            this.mLabelOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mLabelOutput.Location = new System.Drawing.Point(17, 313);
+            this.mLabelOutput.Name = "mLabelOutput";
+            this.mLabelOutput.Size = new System.Drawing.Size(45, 13);
+            this.mLabelOutput.TabIndex = 15;
+            this.mLabelOutput.Text = "Output";
+            // 
             // mListBoxOutput
             // 
             this.mListBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -278,16 +288,6 @@
             this.mListBoxOutput.Size = new System.Drawing.Size(451, 160);
             this.mListBoxOutput.TabIndex = 14;
             this.mListBoxOutput.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.mListBoxOutput_DrawItem);
-            // 
-            // mLabelOutput
-            // 
-            this.mLabelOutput.AutoSize = true;
-            this.mLabelOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mLabelOutput.Location = new System.Drawing.Point(17, 313);
-            this.mLabelOutput.Name = "mLabelOutput";
-            this.mLabelOutput.Size = new System.Drawing.Size(45, 13);
-            this.mLabelOutput.TabIndex = 15;
-            this.mLabelOutput.Text = "Output";
             // 
             // mImageBrowserPortrait
             // 

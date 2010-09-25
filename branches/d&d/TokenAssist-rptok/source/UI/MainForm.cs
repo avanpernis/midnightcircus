@@ -42,9 +42,6 @@ namespace TokenAssist
             }
             set
             {
-                if (ChosenSourceFile == value)
-                    return;
-
                 if (!string.IsNullOrEmpty(value))
                 {
                     // load the specified file, populate some of the other fields with educated guesswork
@@ -145,10 +142,10 @@ namespace TokenAssist
             MessageBox.Show(@"TokenAssist (Midnight Circus)", this.Text);
         }
 
-        private void mComboBoxSource_SelectedIndexChanged(object sender, EventArgs e)
+        private void mComboBoxSource_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            ChosenSourceFile = mComboBoxSource.Text;
-        }
+            ChosenSourceFile = mComboBoxSource.SelectedItem as string;
+        }       
 
         private void mButtonBrowseSource_Click(object sender, EventArgs e)
         {
