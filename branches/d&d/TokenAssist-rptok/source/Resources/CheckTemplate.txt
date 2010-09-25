@@ -45,12 +45,12 @@
 
 <!-- red text if twenty, black otherwise -->
 [H : CheckResultColor = if(Twenty == 1, "red", "black")]
-[H : CheckResultOutput = "<b>" + CheckName + " Check</b> (" + CheckBonusPrefix + CheckBonus + "): <b><span style='color:" + CheckResultColor + "'>" + CheckResult + "</span></b>"]
+[H : Results = "<b>" + CheckName + " Check</b> (" + CheckBonusPrefix + CheckBonus + "): <b><span style='color:" + CheckResultColor + "'>" + CheckResult + "</span></b>"]
 
 <!-- show the check results -->
 [IF(SecretRoll == 1), CODE : {
-	[dialog("Results") : { <html>[R : CheckResultOutput]</html> }]
+	[dialog("Results") : { <html>[R : Results]</html> }]
 	[H : abort(0)]
 };{
-	{CheckResultOutput}
+	{Results}
 }]
