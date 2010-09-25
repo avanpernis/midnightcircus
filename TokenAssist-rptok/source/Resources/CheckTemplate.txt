@@ -20,6 +20,7 @@
 [H : InputPrompt = input(
    "CheckChoice | " + CheckNameAndBonusList + " | Check | LIST | SELECT = " + LastCheckChoice,
    "TempCheckBonus | " + LastTempCheckBonus + " | Temporary bonus | TEXT",
+   "UNUSED | <html></html> | | LABEL | SPAN = TRUE",
    "SecretRoll | " + LastSecretRoll + " | Secret Roll? | CHECK")]
 
 <!-- bail if the user cancels the dialog -->

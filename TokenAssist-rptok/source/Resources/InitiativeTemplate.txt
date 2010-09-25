@@ -8,6 +8,7 @@
 [H : InputPrompt = input(
    "UNUSED | Bonus (+" + InitBonus + ") | Roll Initiative | LABEL",
    "TempInitBonus | " + LastTempInitBonus + " | Temporary bonus | TEXT",
+   "UNUSED | <html></html> | | LABEL | SPAN = TRUE",
    "SecretRoll | " + LastSecretRoll + " | Secret Roll? | CHECK")]
 
 <!-- bail if the user cancels the dialog -->
