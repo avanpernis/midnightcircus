@@ -57,6 +57,7 @@ namespace TokenAssist
 
             XmlNode xmlNodeDetails = xmlDocument.SelectSingleNode("//Details");
             character.Name = GetDescendantNodeText(xmlNodeDetails, "name");
+            character.Portrait = GetDescendantNodeText(xmlNodeDetails, "Portrait");
 
             // load in the character's Stat Block
             XmlNode xmlNodeStatBlock = xmlDocument.SelectSingleNode("//StatBlock");

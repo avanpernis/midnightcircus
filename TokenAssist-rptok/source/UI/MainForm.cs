@@ -63,6 +63,17 @@ namespace TokenAssist
                             mMonster = null;
 
                             ChosenDestinationFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), string.Format("{0}.rptok", mCharacter.Name));
+
+                            // initialize the token/portrait images, if one has been specified in the character builder
+                            if (!string.IsNullOrEmpty(mCharacter.Portrait))
+                            {
+                                Uri uri = new Uri(mCharacter.Portrait);
+                                if (File.Exists(uri.LocalPath))
+                                {
+                                    mImageBrowserToken.ImageFile = uri.LocalPath;
+                                    mImageBrowserPortrait.ImageFile = uri.LocalPath;
+                                }
+                            }
                         }
 
                         mComboBoxSource.Text = value;

@@ -22,6 +22,7 @@ namespace TokenAssist
             get { return ((Level - 1) / 10) + 1; }
         }
 
+        public string Portrait { get; set; }
         public Race Race { get; set; }
         public Class Class { get; set; }
         public List<Power> Powers { get; set; }
