@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -54,6 +55,27 @@ namespace TokenAssist
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = ImageFileFilter;
             dialog.RestoreDirectory = true;
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                ImageFile = dialog.FileName;
+            }
+        }
+
+        private void mButtonBrowseDropbox_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = ImageFileFilter;
+            dialog.RestoreDirectory = true;
+
+            try
+            {
+                dialog.InitialDirectory = Path.Combine(Dropbox.Folder, @"D&D");
+            }
+            catch (Exception exception)
+            {
+                MessageSystem.Error(string.Format("Unable to find dropbox folder: {0}", exception.Message));
+            }
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {

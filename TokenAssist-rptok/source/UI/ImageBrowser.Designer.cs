@@ -31,6 +31,7 @@
             this.mLabel = new System.Windows.Forms.Label();
             this.mPictureBox = new System.Windows.Forms.PictureBox();
             this.mButtonBrowse = new System.Windows.Forms.Button();
+            this.mButtonBrowseDropbox = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             // mButtonBrowse
             // 
             this.mButtonBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mButtonBrowse.Location = new System.Drawing.Point(103, 120);
+            this.mButtonBrowse.Location = new System.Drawing.Point(103, 101);
             this.mButtonBrowse.Name = "mButtonBrowse";
             this.mButtonBrowse.Size = new System.Drawing.Size(24, 20);
             this.mButtonBrowse.TabIndex = 17;
@@ -68,10 +69,23 @@
             this.mButtonBrowse.UseVisualStyleBackColor = true;
             this.mButtonBrowse.Click += new System.EventHandler(this.mButtonBrowse_Click);
             // 
+            // mButtonBrowseDropbox
+            // 
+            this.mButtonBrowseDropbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButtonBrowseDropbox.BackgroundImage = global::TokenAssist.Properties.Resources.dropbox;
+            this.mButtonBrowseDropbox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.mButtonBrowseDropbox.Location = new System.Drawing.Point(103, 120);
+            this.mButtonBrowseDropbox.Name = "mButtonBrowseDropbox";
+            this.mButtonBrowseDropbox.Size = new System.Drawing.Size(24, 20);
+            this.mButtonBrowseDropbox.TabIndex = 18;
+            this.mButtonBrowseDropbox.UseVisualStyleBackColor = true;
+            this.mButtonBrowseDropbox.Click += new System.EventHandler(this.mButtonBrowseDropbox_Click);
+            // 
             // ImageBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.mButtonBrowseDropbox);
             this.Controls.Add(this.mButtonBrowse);
             this.Controls.Add(this.mPictureBox);
             this.Controls.Add(this.mLabel);
@@ -87,5 +101,6 @@
         private System.Windows.Forms.Label mLabel;
         private System.Windows.Forms.PictureBox mPictureBox;
         private System.Windows.Forms.Button mButtonBrowse;
+        private System.Windows.Forms.Button mButtonBrowseDropbox;
     }
 }
