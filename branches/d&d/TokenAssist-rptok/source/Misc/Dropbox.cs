@@ -9,7 +9,7 @@ namespace TokenAssist
 {
     public static class Dropbox
     {
-        private static readonly string sFolder = null;
+        private static string sFolder = null;
 
         public static bool IsInstalled
         {
@@ -34,44 +34,21 @@ namespace TokenAssist
                     return sFolder;
                 }
 
-                string connectionString = string.Format(@"Data Source={0};Version=3;New=False;Compress=True;", DatabasePath);
-
-                using (SQLiteConnection sqlConnection = new SQLiteConnection(connectionString))
+                using (StreamReader tmpFile = new StreamReader(DatabasePath))
                 {
-                    sqlConnection.Open();
+                    string line = null;
+                    string nextLine = null;
+                    while ((nextLine = tmpFile.ReadLine()) != null) // until end of file
+                        line = tmpFile.ReadLine(); // write current line to var
 
-                    SQLiteCommand sqlCommand = sqlConnection.CreateCommand();
-                    sqlCommand.CommandText = @"SELECT value FROM config WHERE key=""dropbox_path""";
-
-                    SQLiteDataReader sqlReader = sqlCommand.ExecuteReader();
-
-                    DataTable dataTable = new DataTable();
-                    dataTable.Load(sqlReader);
-
-                    string value = null;
-
-                    if (dataTable.Rows.Count > 0)
+                    if (line != null)
                     {
-                        value = dataTable.Rows[0]["value"] as string;
-                        value = Encoding.Default.GetString(System.Convert.FromBase64String(value));
-
-                        // the dropbox path has a python pickle -- we need to work around this.
-                        // The 'V' in the start specifies it is an unicode string object.
-                        // The \u005C is a backslash in unicode.
-                        // After that, there is '\npX\n.' which specifies the protocol it uses (p1) and the end of the object (lone dot).
-                        value = value.Substring(1, value.IndexOf("\n") - 1).Replace(@"\u005C", @"\");
+                        sFolder = DecodeFrom64(line);
+                        return sFolder;
                     }
                     else
-                    {
-                        value = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"My Dropbox");
-                    }
+                        return null;
 
-                    if (value == null)
-                    {
-                        throw new Exception("Couldn't find dropbox");
-                    }
-                    else
-                        return value;
                 }
             }
         }
@@ -80,8 +57,24 @@ namespace TokenAssist
         {
             get
             {
-                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Dropbox\dropbox.db");
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Dropbox\host.db");
             }
+        }
+
+        /// <summary>
+        /// The method to Decode your Base64 strings.
+        /// </summary>
+        /// <param name="encodedData">The String containing the characters to decode.</param>
+        /// <returns>A String containing the results of decoding the specified sequence of bytes.</returns>
+        private static string DecodeFrom64(string encodedData)
+        {
+
+            byte[] encodedDataAsBytes = System.Convert.FromBase64String(encodedData);
+
+            string returnValue = System.Text.Encoding.UTF8.GetString(encodedDataAsBytes);
+
+            return returnValue;
+
         }
     }
 }
