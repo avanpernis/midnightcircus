@@ -28,7 +28,7 @@ namespace TokenAssistTest
 
             Character character = CharacterLoader.Load(source);
 
-            TokenGenerator.Dump(character, destination);
+            CharacterTokenBuilder.WriteToken(character, destination, null, null);
         }
 
         [Test]

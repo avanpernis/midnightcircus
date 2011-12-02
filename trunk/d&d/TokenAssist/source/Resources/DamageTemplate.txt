@@ -1,15 +1,21 @@
+<!-- retrieve previously stored values -->
+[H : LastDamageAmount = getStrProp(CombatStatus, "LastDamageAmount")]
+[H : LastSecretRoll = getStrProp(CombatStatus, "LastSecretRoll")]
+
 <!-- show the user damage options -->
 [H : InputPrompt = input(
 	"UNUSED | " + CurrentHitPoints + " / " + MaxHitPoints + if(TempHitPoints > 0, " (Temp: " + TempHitPoints + ")", "") + " | Hit Points | Label",
 	"UNUSED | " + CurrentHealingSurges + " / " + MaxHealingSurges + " (Value: " + HealingSurgeValue + ") | Healing Surges | Label",
 	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
-	"DamageAmount | " + getStrProp(CombatStatus, "LastDamageAmount") + " | Amount of Damage | TEXT")]
+	"DamageAmount | " + LastDamageAmount + " | Amount of Damage | TEXT",
+	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
+	"SecretRoll | " + LastSecretRoll + " | Secret Roll? | CHECK")]
 
 <!-- bail if the user cancels the dialog -->
 [H : abort(InputPrompt)]
 
-<!-- Saves Choices -->
-[H : PropsUsedList = "DamageAmount"]
+<!-- store the values for next time -->
+[H : PropsUsedList = "DamageAmount, SecretRoll"]
 [H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- first burn any temp hit points that might exist -->
@@ -21,9 +27,10 @@
 <!-- now adjust the temp hit points if they went negative -->
 [H : TempHitPoints = max(0, TempHitPoints)]
 
-<!-- output the results -->
-<b>{"Damaged for " + DamageAmount + " Hit Points!"}</b><br>
-<b>{CurrentHitPoints + " / " + MaxHitPoints}</b> Hit Points Remaining<br>
+<!-- format the output -->
+[H : Results =
+	"<b>Damaged for " + DamageAmount + " Hit Points!</b><br>" + 
+	"<b>" + CurrentHitPoints + " / " + MaxHitPoints + "</b> Hit Points Remaining<br>"]
 
 <!-- update token state appropriately -->
 [H : state.Helpless = if(CurrentHitPoints > 0, 0, 1)]
@@ -31,3 +38,11 @@
 [H : state.Prone = state.Dead + state.Prone + state.Helpless]
 [H : state.Bloodied = if(CurrentHitPoints / MaxHitPoints < 0.5, 1, 0)]
 [H : bar.Health = CurrentHitPoints / MaxHitPoints]
+
+<!-- output the results -->
+[IF(SecretRoll == 1), CODE : {
+	[dialog("Results") : { <html>[R : Results]</html> }]
+	[H : abort(0)]
+};{
+	{Results}
+}]

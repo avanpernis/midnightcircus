@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -17,6 +18,7 @@ namespace TokenAssist
         [STAThread]
         static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(OnAssemblyResolve);
             Application.ApplicationExit += new EventHandler(OnApplicationExit);
 
             LoadUserSettings();
@@ -33,6 +35,19 @@ namespace TokenAssist
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm(source));
+        }
+
+        static System.Reflection.Assembly OnAssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            if (args.Name.Contains("SQLite"))
+            {
+                string platform = (IntPtr.Size == 8) ? "x64" : "x86";
+                string path = Path.Combine(Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), platform), "System.Data.SQLite.dll");
+
+                return Assembly.LoadFrom(path);
+            }
+
+            return null;
         }
 
         public static void OnApplicationExit(object sender, EventArgs e)
