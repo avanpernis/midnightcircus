@@ -13,8 +13,11 @@
 <!-- spend the action point -->
 [H : ActionPoints = ActionPoints - 1]
 
+<!-- format the results -->
+[H : ActionPointResult = "Spent an Action Point: <b>" + ActionPoints + "</b> Remaining"]
+
 <!-- output the results -->
-{"Spent an Action Point: <b>" + ActionPoints + "</b> Remaining"}
+{ActionPointResult}
 
 <!-- update token state appropriately -->
 [H : state.UsedAP = 1]

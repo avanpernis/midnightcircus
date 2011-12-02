@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TokenAssist</RootNamespace>
     <AssemblyName>TokenAssist</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
@@ -41,7 +41,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\external\x64\System.Data.SQLite.dll</HintPath>
+      <HintPath>..\external\x86\System.Data.SQLite.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Data" />
@@ -49,38 +50,55 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Character.cs" />
-    <Compile Include="CharacterLoader.cs" />
-    <Compile Include="Class.cs" />
-    <Compile Include="CompendiumCache.cs" />
-    <Compile Include="CompendiumLoginForm.cs">
+    <Compile Include="Actor\Abilities.cs" />
+    <Compile Include="Actor\AbilityScore.cs" />
+    <Compile Include="Actor\Actor.cs" />
+    <Compile Include="Actor\ActorTokenFactory.cs" />
+    <Compile Include="Actor\Defenses.cs" />
+    <Compile Include="Actor\Skills.cs" />
+    <Compile Include="Character\Character.cs" />
+    <Compile Include="Character\CharacterLoader.cs" />
+    <Compile Include="Character\CharacterTokenBuilder.cs" />
+    <Compile Include="Character\Class.cs" />
+    <Compile Include="Character\ExtraMacroLoader.cs" />
+    <Compile Include="Character\Feat.cs" />
+    <Compile Include="Character\Macro.cs" />
+    <Compile Include="Character\MagicItem.cs" />
+    <Compile Include="Character\Power.cs" />
+    <Compile Include="Character\Race.cs" />
+    <Compile Include="Character\Stat.cs" />
+    <Compile Include="Character\Weapon.cs" />
+    <Compile Include="Compendium\CompendiumAccess.cs" />
+    <Compile Include="Compendium\CompendiumCache.cs" />
+    <Compile Include="Compendium\CompendiumLoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CompendiumLoginForm.Designer.cs">
+    <Compile Include="Compendium\CompendiumLoginForm.designer.cs">
       <DependentUpon>CompendiumLoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CompendiumUtilities.cs" />
-    <Compile Include="Dropbox.cs" />
-    <Compile Include="ExtraMacroLoader.cs" />
-    <Compile Include="Feat.cs" />
-    <Compile Include="Macro.cs" />
-    <Compile Include="MagicItem.cs" />
-    <Compile Include="Power.cs" />
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Compendium\CompendiumUtilities.cs" />
+    <Compile Include="Misc\Dropbox.cs" />
+    <Compile Include="Misc\HtmlUtilities.cs" />
+    <Compile Include="Misc\MD5Utilities.cs" />
+    <Compile Include="Misc\MemoryZip.cs" />
+    <Compile Include="Misc\MessageSystem.cs" />
+    <Compile Include="Misc\RollUtilities.cs" />
+    <Compile Include="Misc\ZipUtilities.cs" />
+    <Compile Include="Monster\Monster.cs" />
+    <Compile Include="Monster\MonsterLoader.cs" />
+    <Compile Include="Monster\MonsterPower.cs" />
+    <Compile Include="Monster\MonsterTokenBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CompendiumLoginForm.resx">
+    <Compile Include="Token\Token.cs" />
+    <Compile Include="Token\TokenMacro.cs" />
+    <Compile Include="Token\TokenProperty.cs" />
+    <EmbeddedResource Include="Compendium\CompendiumLoginForm.resx">
       <DependentUpon>CompendiumLoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -92,6 +110,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\ImageBrowser.resx">
+      <DependentUpon>ImageBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -102,12 +126,19 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="CompendiumAccess.cs" />
-    <Compile Include="Race.cs" />
-    <Compile Include="Stat.cs" />
-    <Compile Include="TokenGenerator.cs" />
-    <Compile Include="UserSettings.cs" />
-    <Compile Include="Weapon.cs" />
+    <Compile Include="UI\ImageBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ImageBrowser.Designer.cs">
+      <DependentUpon>ImageBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\dropbox.png" />
@@ -116,16 +147,22 @@
     <None Include="Resources\NoWeaponTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\WeaponTemplate.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\MacroCreationTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\defaultTokenImage.png" />
+    <None Include="Resources\MonsterPowerMacro.txt" />
+    <Content Include="Resources\ResetMonsterTemplate.txt" />
+    <Content Include="Resources\TokenAssetTemplate.xml" />
+    <Content Include="Resources\TokenPropertiesFileTemplate.xml" />
+    <None Include="Resources\TokenPropertyTemplate.xml" />
     <None Include="Resources\CheckTemplate.txt" />
     <None Include="Resources\ActionPointTemplate.txt" />
     <None Include="Resources\ConsumableTemplate.txt" />
     <None Include="Resources\DailyItemTemplate.txt" />
+    <None Include="Resources\ContentTemplate.xml">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Resources\DamageTemplate.txt" />
     <Content Include="Resources\FeatTemplate.txt" />
     <None Include="Resources\HeaderTemplate.txt" />
@@ -133,6 +170,7 @@
     <Content Include="Resources\InitiativeTemplate.txt" />
     <Content Include="Resources\LimitedUseTemplate.txt" />
     <None Include="Resources\MagicItemHealingSurgeTemplate.txt" />
+    <None Include="Resources\MacroTemplate.xml" />
     <Content Include="Resources\MagicItemTemplate.txt" />
     <None Include="Resources\RestTemplate.txt" />
     <None Include="Resources\MilestoneTemplate.txt" />
@@ -142,7 +180,15 @@
     <None Include="Resources\MeleeBasicAttack.html" />
     <None Include="Resources\SecondWind.html" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir "$(TargetDir)x86"
+xcopy /y "$(SolutionDir)external\x86" "$(TargetDir)x86"
+
+mkdir "$(TargetDir)x64"
+xcopy /y "$(SolutionDir)external\x64" "$(TargetDir)x64"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

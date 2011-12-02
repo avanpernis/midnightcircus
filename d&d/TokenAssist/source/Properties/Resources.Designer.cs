@@ -108,6 +108,37 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;net.rptools.maptool.model.Token&gt;
+        ///  &lt;id&gt;
+        ///    &lt;baGUID&gt;wKgBZTZew/dDAwAAwIAAJA==&lt;/baGUID&gt;
+        ///  &lt;/id&gt;
+        ///  &lt;beingImpersonated&gt;false&lt;/beingImpersonated&gt;
+        ///  &lt;imageAssetMap&gt;
+        ///    &lt;entry&gt;
+        ///      &lt;null/&gt;
+        ///      &lt;net.rptools.lib.MD5Key&gt;
+        ///        &lt;id&gt;###IMAGE_MD5_SUM###&lt;/id&gt;
+        ///      &lt;/net.rptools.lib.MD5Key&gt;
+        ///    &lt;/entry&gt;
+        ///  &lt;/imageAssetMap&gt;
+        ///  &lt;x&gt;400&lt;/x&gt;
+        ///  &lt;y&gt;200&lt;/y&gt;
+        ///  &lt;z&gt;2&lt;/z&gt;
+        ///  &lt;anchorX&gt;0&lt;/anchorX&gt;
+        ///  &lt;anchorY&gt;0&lt;/anchorY&gt;
+        ///  &lt;sizeScale&gt;1.0&lt;/sizeScale&gt;
+        ///  &lt;lastX&gt;0&lt;/lastX&gt;
+        ///  &lt;lastY&gt;0&lt;/lastY&gt;
+        ///  &lt;snapToScale&gt;true&lt;/snapToScale&gt;
+        ///  &lt;width&gt;1 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ContentTemplate {
+            get {
+                return ResourceManager.GetString("ContentTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!-- Decide whether is is currently possible to use a daily item --&gt;
         ///[H : NoDailyItemUsesAlert = if(DailyItemUses &lt; 1, &apos;input(&quot;UNUSED | No Daily Item Uses Left | Warning | LABEL&quot;)&apos;, &quot;DailyItemUses&quot;)]
         ///[H : eval(NoDailyItemUsesAlert)]
@@ -141,6 +172,13 @@ namespace TokenAssist.Properties {
         internal static string DamageTemplate {
             get {
                 return ResourceManager.GetString("DamageTemplate", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap defaultTokenImage {
+            get {
+                object obj = ResourceManager.GetObject("defaultTokenImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -258,13 +296,36 @@ namespace TokenAssist.Properties {
         ///[H : MacroCode = &quot;__MACRO_CODE__&quot;]
         ///
         ///&lt;!-- construct the macro properties --&gt;
-        ///[H : MacroProperties = &quot;autoExecute=true;&quot;]
-        ///[H : MacroProperties = setStrProp(MacroProperties, &quot;color&quot;, MacroBackgroundColor)]
-        ///[H : MacroProperties = setStrProp(MacroProperties [rest of string was truncated]&quot;;.
+        ///[H : MacroProperties = &quot;&quot;]
+        ///[H : MacroProperties = setStrProp(MacroProperties, &quot;autoExecute&quot;, &quot;true&quot;)]
+        ///[H : MacroProperties = setStrProp(MacroProperties, &quot;color&quot;, MacroBackgroun [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MacroCreationTemplate {
             get {
                 return ResourceManager.GetString("MacroCreationTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;entry&gt;
+        ///  &lt;int&gt;###ENTRY_NUMBER###&lt;/int&gt;
+        ///  &lt;net.rptools.maptool.model.MacroButtonProperties&gt;
+        ///    &lt;saveLocation&gt;Token&lt;/saveLocation&gt;
+        ///    &lt;index&gt;###ENTRY_NUMBER###&lt;/index&gt;
+        ///    &lt;colorKey&gt;###BUTTON_COLOR###&lt;/colorKey&gt;
+        ///    &lt;hotKey&gt;None&lt;/hotKey&gt;
+        ///    &lt;command&gt;###MACRO_COMMAND###
+        ///    &lt;/command&gt;
+        ///    &lt;label&gt;###MACRO_NAME###&lt;/label&gt;
+        ///    &lt;group&gt;###MACRO_GROUP###&lt;/group&gt;
+        ///    &lt;sortby&gt;###SORTBY###&lt;/sortby&gt;
+        ///    &lt;autoExecute&gt;true&lt;/autoExecute&gt;
+        ///    &lt;includeLabel&gt;false&lt;/includeLabel&gt;
+        ///    &lt;applyToTokens&gt;false&lt;/app [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string MacroTemplate {
+            get {
+                return ResourceManager.GetString("MacroTemplate", resourceCulture);
             }
         }
         
@@ -308,7 +369,7 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;&apos;&gt;Melee Basic Attack: Basic Attack&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You resort to the simple attack you learned when you first picked up a melee weapon.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;At-Will&lt;/b&gt;&amp;nbsp;&amp;nbsp; &amp;diams; [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;&apos;&gt;Melee Basic Attack: Basic Attack&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You resort to the simple attack you learned when you first picked up a melee weapon.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;At-Will&lt;/b&gt;&amp;nbsp;&amp;nbsp; &amp;diam [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MeleeBasicAttack {
             get {
@@ -340,6 +401,28 @@ namespace TokenAssist.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
+        ///[H : PowerName = &quot;###NAME###&quot;]
+        ///[H : AttackBonus = &quot;###ATTACK_BONUS###&quot;]
+        ///[H : Damage = &quot;###DAMAGE###&quot;]
+        ///[H : MaxDamage = &quot;###MAX_DAMAGE###&quot;]
+        ///[H : MultipleTargets = ###MULTIPLE_TARGETS###]
+        ///[H : DefenseStat = &quot;###DEFENSE_STAT###&quot;]
+        ///[H : CriticalDamage = 0]
+        ///
+        ///&lt;!-- html power card, as found in the compendium --&gt;
+        ///[H : PowerCard = &quot;###POWER_CARD###&quot;]
+        ///
+        ///&lt;!-- retrieve previously stored values --&gt;
+        ///[H : NumberOfTargets = if(MultipleTargets == 1, ge [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string MonsterPowerMacro {
+            get {
+                return ResourceManager.GetString("MonsterPowerMacro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
         ///[H : PowerName = &quot;__POWER_NAME__&quot;]
         ///
         ///&lt;!-- html power card, as found in the compendium --&gt;
@@ -361,11 +444,34 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;&apos;&gt;Ranged Basic Attack: Basic Attack&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You resort to the simple attack you learned when you first picked up a ranged weapon.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;At-Will&lt;/b&gt;&amp;nbsp;&amp;nbsp; &amp;lo [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #619869;&apos;&gt;Ranged Basic Attack: Basic Attack&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You resort to the simple attack you learned when you first picked up a ranged weapon.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;At-Will&lt;/b&gt;&amp;nbsp;&amp;nbsp; &amp;di [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RangedBasicAttack {
             get {
                 return ResourceManager.GetString("RangedBasicAttack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- Confirm the user&apos;s decision to reset the monster --&gt;
+        ///[H : InputPrompt = input(&quot;ResetMonster | 1 | ResetMonster? | CHECK&quot;)]
+        ///
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPrompt)]
+        ///[H : abort(if(ResetMonster == 0, 0, 1))]
+        ///	
+        ///&lt;!-- restore hit points and healing surges to maximum --&gt;
+        ///[H : CurrentHitPoints = MaxHitPoints]
+        ///[H : CurrentHealingSurges = MaxHealingSurges]
+        ///	
+        ///&lt;!-- set available action points to starting value --&gt;
+        ///[H : ActionPoints = StartingActionPoints]
+        ///	
+        ///Monster is re [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ResetMonsterTemplate {
+            get {
+                return ResourceManager.GetString("ResetMonsterTemplate", resourceCulture);
             }
         }
         
@@ -380,10 +486,9 @@ namespace TokenAssist.Properties {
         ///&lt;!-- regardless of rest type, all encounter powers are restored --&gt;
         ///[H: CombatStatus = setStrProp(CombatStatus, &quot;EncounterPowersUsed&quot;, 0), CombatStatus)]
         ///
-        ///[H:blah = &quot;&quot;]
-        ///
         ///&lt;!-- restore the text color so encounter powers appear as usable once again --&gt;
-        ///[H, FOREACH(index, getMacroGroup(&quot;Encounter&quot;)), [rest of string was truncated]&quot;;.
+        ///[H, FOREACH(index, getMacroGroup(&quot;Encounter&quot;)), CODE : {
+        ///	[H :  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RestTemplate {
             get {
@@ -414,7 +519,7 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #961334;&apos;&gt;Second Wind&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You dig into your resolve and endurance to find an extra burst of vitality.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;Encounter&lt;/b&gt;&amp;nbsp;&amp;nbsp; &amp;diams;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;b&gt; [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to &lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.09em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #961334;&apos;&gt;Second Wind&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;&apos;&gt;&lt;i&gt;You dig into your resolve and endurance to find an extra burst of vitality.&lt;/i&gt;&lt;/p&gt;&lt;p style=&apos;padding-left: color: #3e141e; padding: 0px 0px 0px 15px; margin: 0; background: #ffffff;&apos;&gt;&lt;b&gt;Encounter&lt;/b&gt;&amp;nbsp;&amp;nbsp; &amp;diams;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SecondWind {
             get {
@@ -434,6 +539,53 @@ namespace TokenAssist.Properties {
         internal static string TempHPTemplate {
             get {
                 return ResourceManager.GetString("TempHPTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;net.rptools.maptool.model.Asset&gt;
+        ///  &lt;id&gt;
+        ///    &lt;id&gt;###MD5_SUM###&lt;/id&gt;
+        ///  &lt;/id&gt;
+        ///  &lt;name&gt;###NAME###&lt;/name&gt;
+        ///  &lt;extension&gt;###EXTENSION###&lt;/extension&gt;
+        ///  &lt;image/&gt;
+        ///&lt;/net.rptools.maptool.model.Asset&gt;.
+        /// </summary>
+        internal static string TokenAssetTemplate {
+            get {
+                return ResourceManager.GetString("TokenAssetTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;map&gt;
+        ///  &lt;entry&gt;
+        ///    &lt;string&gt;version&lt;/string&gt;
+        ///    &lt;string&gt;1.3.b70&lt;/string&gt;
+        ///  &lt;/entry&gt;
+        ///&lt;/map&gt;.
+        /// </summary>
+        internal static string TokenPropertiesFileTemplate {
+            get {
+                return ResourceManager.GetString("TokenPropertiesFileTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;entry&gt;
+        ///  &lt;string&gt;###PROP_NAME###&lt;/string&gt;
+        ///  &lt;net.rptools.CaseInsensitiveHashMap_-KeyValue&gt;
+        ///    &lt;key&gt;###PROP_KEY###&lt;/key&gt;
+        ///    &lt;value class=&quot;string&quot;&gt;###PROP_VALUE###&lt;/value&gt;
+        ///    &lt;outer-class reference=&quot;../../../..&quot;/&gt;
+        ///  &lt;/net.rptools.CaseInsensitiveHashMap_-KeyValue&gt;
+        ///&lt;/entry&gt;
+        ///.
+        /// </summary>
+        internal static string TokenPropertyTemplate {
+            get {
+                return ResourceManager.GetString("TokenPropertyTemplate", resourceCulture);
             }
         }
         
