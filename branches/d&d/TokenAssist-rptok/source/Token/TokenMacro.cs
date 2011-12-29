@@ -6,7 +6,7 @@ using System.Security;
 
 namespace TokenAssist
 {
-    public enum ColorType { white, green, red, blue, grey, black, orange };
+    public enum ColorType { white, green, red, blue, grey, black, orange, purple };
 
     public class TokenMacro
     {

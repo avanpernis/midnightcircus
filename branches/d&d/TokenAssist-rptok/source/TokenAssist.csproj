@@ -59,6 +59,7 @@
     <Compile Include="Character\CharacterLoader.cs" />
     <Compile Include="Character\CharacterTokenBuilder.cs" />
     <Compile Include="Character\Class.cs" />
+    <Compile Include="Character\ClassFeature.cs" />
     <Compile Include="Character\ExtraMacroLoader.cs" />
     <Compile Include="Character\Feat.cs" />
     <Compile Include="Character\Macro.cs" />
@@ -147,6 +148,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\defaultTokenImage.png" />
     <None Include="Resources\MonsterPowerMacro.txt" />
+    <Content Include="Resources\ClassFeatureTemplate.txt" />
     <Content Include="Resources\ResetMonsterTemplate.txt" />
     <Content Include="Resources\TokenAssetTemplate.xml" />
     <Content Include="Resources\TokenPropertiesFileTemplate.xml" />

@@ -7,6 +7,7 @@ namespace TokenAssist
 {
     public static class CharacterTokenBuilder
     {
+        public static string ClassFeatureGroup = "Class Feature";
         public static string FeatGroup = "Feat";
         public static string MagicItemGroup = "Magic Item";
 
@@ -20,6 +21,15 @@ namespace TokenAssist
             // only characters take rests and finish milestones
             token.AddMacro(HtmlUtilities.Bold("Rest"), ActorTokenFactory.MiscGroup, ColorType.white, ColorType.black, Properties.Resources.RestTemplate);
             token.AddMacro(HtmlUtilities.Bold("Milestone"), ActorTokenFactory.MiscGroup, ColorType.white, ColorType.black, Properties.Resources.MilestoneTemplate);
+
+            foreach (ClassFeature classFeature in character.ClassFeatures)
+            {
+                string macro = Properties.Resources.ClassFeatureTemplate;
+                macro = macro.Replace(@"__CLASS_FEATURE_NAME__", classFeature.Name);
+                macro = macro.Replace(@"__CLASS_FEATURE_DESCRIPTION__", classFeature.Description);
+
+                token.AddMacro(HtmlUtilities.Bold(classFeature.Name), ClassFeatureGroup, ColorType.purple, ColorType.white, macro);
+            }
 
             int ChannelDivinityPowerId = 0; // all channel divinity powers will use the same power id
             int EncounterPowerCount = 1; // all other encounter powers will start at id #1

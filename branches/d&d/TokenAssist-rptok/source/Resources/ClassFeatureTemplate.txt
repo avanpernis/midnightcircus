@@ -1,0 +1,16 @@
+<!-- generic variables that were populated by TokenAssist -->
+[H : ClassFeatureName = "__CLASS_FEATURE_NAME__"]
+
+<!-- class feature description -->
+[H : ClassFeatureDescription = "__CLASS_FEATURE_DESCRIPTION__"]
+
+[H : ClassFeatureCard = "<div style='width: 600;'><h1 style='font-size: 1.35em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #1d3d5e;'>" + ClassFeatureName + "</h1><p style='padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;'>" + ClassFeatureDescription + "</p></div>"]
+
+<!-- show the user the class feature they have selected -->
+[H : InputPrompt = input(ClassFeatureName + " | <html>" + ClassFeatureCard + "</html> | | LABEL | SPAN = TRUE")]
+
+<!-- bail if the user cancels the dialog -->
+[H : abort(InputPrompt)]
+
+<!-- show the class feature to the other players -->
+{ClassFeatureCard}
