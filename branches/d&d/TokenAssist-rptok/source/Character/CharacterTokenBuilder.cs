@@ -19,8 +19,8 @@ namespace TokenAssist
             token.AddProperty("DailyItemUses", character.DailyItemuses);
 
             // only characters take rests and finish milestones
-            token.AddMacro(HtmlUtilities.Bold("Rest"), ActorTokenFactory.MiscGroup, ColorType.white, ColorType.black, Properties.Resources.RestTemplate);
-            token.AddMacro(HtmlUtilities.Bold("Milestone"), ActorTokenFactory.MiscGroup, ColorType.white, ColorType.black, Properties.Resources.MilestoneTemplate);
+            token.AddMacro(HtmlUtilities.Bold("Rest"), ActorTokenFactory.MiscGroup, Color.white, Color.black, Properties.Resources.RestTemplate);
+            token.AddMacro(HtmlUtilities.Bold("Milestone"), ActorTokenFactory.MiscGroup, Color.white, Color.black, Properties.Resources.MilestoneTemplate);
 
             foreach (ClassFeature classFeature in character.ClassFeatures)
             {
@@ -28,7 +28,7 @@ namespace TokenAssist
                 macro = macro.Replace(@"__CLASS_FEATURE_NAME__", classFeature.Name);
                 macro = macro.Replace(@"__CLASS_FEATURE_DESCRIPTION__", classFeature.Description);
 
-                token.AddMacro(HtmlUtilities.Bold(classFeature.Name), ClassFeatureGroup, ColorType.purple, ColorType.white, macro);
+                token.AddMacro(HtmlUtilities.Bold(classFeature.Name), ClassFeatureGroup, Color.purple, Color.white, macro);
             }
 
             int ChannelDivinityPowerId = 0; // all channel divinity powers will use the same power id
@@ -126,7 +126,7 @@ namespace TokenAssist
                 macro = macro.Replace(@"__FEAT_NAME__", feat.Name);
                 macro = macro.Replace(@"__FEAT_CARD__", (feat.CompendiumEntry != null) ? feat.CompendiumEntry : string.Empty);
 
-                token.AddMacro(HtmlUtilities.Bold(feat.Name), FeatGroup, ColorType.blue, ColorType.white, macro);
+                token.AddMacro(HtmlUtilities.Bold(feat.Name), FeatGroup, Color.blue, Color.white, macro);
             }
 
             int HealingSurgeMagicItemCount = 0; // Keep track of Magic Item IDs for items that can be recharged with a healing surge
@@ -137,7 +137,7 @@ namespace TokenAssist
                 macro = macro.Replace(@"__MAGIC_ITEM_NAME__", magicItem.Name);
                 macro = macro.Replace(@"__MAGIC_ITEM_CARD__", (magicItem.CompendiumEntry != null) ? magicItem.CompendiumEntry : string.Empty);
 
-                token.AddMacro(GetMacroName(magicItem), MagicItemGroup, ColorType.orange, ColorType.black, macro);
+                token.AddMacro(GetMacroName(magicItem), MagicItemGroup, Color.orange, Color.black, macro);
 
                 if (magicItem.HasPower)
                 {
@@ -186,7 +186,7 @@ namespace TokenAssist
                         }
                     }
 
-                    token.AddMacro(GetMacroName(magicItem), GetMacroGroup(magicItem), ColorType.orange, ColorType.black, macro);
+                    token.AddMacro(GetMacroName(magicItem), GetMacroGroup(magicItem), Color.orange, Color.black, macro);
                 }
             }
 
@@ -220,30 +220,30 @@ namespace TokenAssist
             }
         }
 
-        private static ColorType GetMacroButtonColor(Power power)
+        private static ColorValue GetMacroButtonColor(Power power)
         {
             switch (power.Usage)
             {
                 default:
                 case Power.UsageType.AtWill:
-                    return ColorType.green;
+                    return Color.green;
                 case Power.UsageType.Encounter:
-                    return ColorType.red;
+                    return Color.red;
                 case Power.UsageType.Daily:
-                    return ColorType.black;
+                    return Color.black;
             }
         }
 
-        private static ColorType GetMacroFontColor(Power power)
+        private static ColorValue GetMacroFontColor(Power power)
         {
             switch (power.Usage)
             {
                 default:
                 case Power.UsageType.AtWill:
-                    return ColorType.black;
+                    return Color.black;
                 case Power.UsageType.Encounter:
                 case Power.UsageType.Daily:
-                    return ColorType.white;
+                    return Color.white;
             }
         }
 
