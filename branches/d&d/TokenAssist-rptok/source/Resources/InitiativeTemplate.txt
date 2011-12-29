@@ -3,7 +3,7 @@
 
 <!-- retrieve previously stored values -->
 [H : LastTempInitBonus = getStrProp(CombatStatus, "LastTempInitBonus")]
-[H : LastSecretRoll = getStrProp(CombatStatus, "LastSecretRoll")]
+[H : LastSecretRoll = 0]
 
 [H : InputPrompt = input(
    "UNUSED | Bonus (+" + InitBonus + ") | Roll Initiative | LABEL",

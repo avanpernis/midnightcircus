@@ -11,6 +11,9 @@ namespace TokenAssist
         public static void WriteToken(Monster monster, string filename, string tokenImage, string tokenPortrait)
         {
             Token token = ActorTokenFactory.Create(monster, "4eMonster", tokenImage, tokenPortrait);
+            
+            // default him to secret roll
+            token.AddProperty("CombatStatus", " LastSecretRoll=1 ;");
 
             // when a monster is reset, it needs to know its starting amount of action points
             token.AddProperty("StartingActionPoints", monster.ActionPoints);
