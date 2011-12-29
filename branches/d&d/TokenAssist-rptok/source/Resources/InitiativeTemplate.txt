@@ -15,7 +15,7 @@
 [H : abort(InputPrompt)]
 
 <!-- store the values for next time -->
-[H : PropsUsedList = "TempInitBonus, SecretRoll"]
+[H : PropsUsedList = "TempInitBonus"]
 [H, C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- get the values from the user input -->
