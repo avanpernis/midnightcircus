@@ -11,6 +11,9 @@
 <!-- regardless of rest type, a new encounter will allow the use of an action point yet again -->
 [H : state.UsedAP = 0]
 
+<!-- regardless of rest type, temporary hitpoints should be reset
+[H : TempHitPoints = 0]
+
 <!-- restore the text color so encounter powers appear as usable once again -->
 [H, FOREACH(index, getMacroGroup("Encounter")), CODE : {
 	[H : MacroProps = getMacroProps(index)]
