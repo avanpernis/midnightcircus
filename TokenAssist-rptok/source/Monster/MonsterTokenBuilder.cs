@@ -19,7 +19,7 @@ namespace TokenAssist
             token.AddProperty("StartingActionPoints", monster.ActionPoints);
 
             // only monsters can be reset
-            token.AddMacro(HtmlUtilities.Bold("Reset"), ActorTokenFactory.MiscGroup, ColorType.white, ColorType.black, Properties.Resources.ResetMonsterTemplate);
+            token.AddMacro(HtmlUtilities.Bold("Reset"), ActorTokenFactory.MiscGroup, Color.white, Color.black, Properties.Resources.ResetMonsterTemplate);
 
             // convert monster powers to token powers
             foreach (MonsterPower p in monster.Powers)
@@ -73,24 +73,24 @@ namespace TokenAssist
 
             command = command.Replace(@"###POWER_CARD###", desc);
 
-            token.AddMacro(power.Name, power.Category, ColorFromCatagory(power.Category), ColorType.black, command);
+            token.AddMacro(power.Name, power.Category, ColorFromCatagory(power.Category), Color.black, command);
         }
 
-        public static ColorType ColorFromCatagory(string Category)
+        public static ColorValue ColorFromCatagory(string Category)
         {
-            ColorType result = ColorType.white;
+            ColorValue result = Color.white;
 
             if (Category.Equals("at-will", StringComparison.CurrentCultureIgnoreCase))
             {
-                result = ColorType.green;
+                result = Color.green;
             }
             else if (Category.Equals("encounter", StringComparison.CurrentCultureIgnoreCase))
             {
-                result = ColorType.red;
+                result = Color.red;
             }
             else if (Category.Equals("recharge", StringComparison.CurrentCultureIgnoreCase))
             {
-                result = ColorType.red;
+                result = Color.red;
             }
 
             return result;

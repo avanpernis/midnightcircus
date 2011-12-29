@@ -5,9 +5,7 @@ using System.Text;
 using System.Security;
 
 namespace TokenAssist
-{
-    public enum ColorType { white, green, red, blue, grey, black, orange, purple };
-
+{   
     public class TokenMacro
     {
         public string Name = "";
@@ -17,11 +15,12 @@ namespace TokenAssist
         public string ToolTip = "";
         public int Index = 1;
 
-        public ColorType ButtonColor = ColorType.white;
-        public ColorType FontColor = ColorType.black;
+        public ColorValue ButtonColor = Color.white;
+        public ColorValue FontColor = Color.black;
 
         public override string ToString()
         {
+            
             string result = Properties.Resources.MacroTemplate;
 
             result = result.Replace(@"###ENTRY_NUMBER###", Index.ToString());

@@ -51,25 +51,25 @@ namespace TokenAssist
             string abilityChecks = Properties.Resources.CheckTemplate;
             abilityChecks = abilityChecks.Replace(@"__CHECK_NAME_LIST__", string.Join(",", actor.Abilities.Select(x => x.Key).ToArray()));
             abilityChecks = abilityChecks.Replace(@"__CHECK_BONUS_LIST__", string.Join(",", actor.Abilities.Select(x => x.Value.Modifier + actor.HalfLevel).ToArray()));
-            token.AddMacro(HtmlUtilities.Bold("Ability"), CheckGroup, ColorType.white, ColorType.black, abilityChecks);
+            token.AddMacro(HtmlUtilities.Bold("Ability"), CheckGroup, Color.white, Color.black, abilityChecks);
 
             string skillChecks = Properties.Resources.CheckTemplate;
             skillChecks = skillChecks.Replace(@"__CHECK_NAME_LIST__", string.Join(",", actor.Skills.Select(x => x.Key).ToArray()));
             skillChecks = skillChecks.Replace(@"__CHECK_BONUS_LIST__", string.Join(",", actor.Skills.Select(x => x.Value).ToArray()));
-            token.AddMacro(HtmlUtilities.Bold("Skill"), CheckGroup, ColorType.white, ColorType.black, skillChecks);
+            token.AddMacro(HtmlUtilities.Bold("Skill"), CheckGroup, Color.white, Color.black, skillChecks);
 
             string savingThrow = Properties.Resources.SavingThrowTemplate;
             savingThrow = savingThrow.Replace(@"__SAVE_BONUS__", actor.SavingThrow.ToString());
-            token.AddMacro(HtmlUtilities.Bold("Saving Throw"), CheckGroup, ColorType.white, ColorType.black, savingThrow);
-
+            token.AddMacro(HtmlUtilities.Bold("Saving Throw"), CheckGroup, Color.white, Color.black, savingThrow);
+            
             string initiative = Properties.Resources.InitiativeTemplate;
             initiative = initiative.Replace(@"__INIT_BONUS__", actor.Initiative.ToString());
-            token.AddMacro(HtmlUtilities.Bold("Initiative"), CheckGroup, ColorType.white, ColorType.black, initiative);
+            token.AddMacro(HtmlUtilities.Bold("Initiative"), CheckGroup, Color.white, Color.black, initiative);
 
-            token.AddMacro(HtmlUtilities.Bold("Healing"), MiscGroup, ColorType.white, ColorType.black, Properties.Resources.HealingTemplate);
-            token.AddMacro(HtmlUtilities.Bold("Damage"), MiscGroup, ColorType.white, ColorType.black, Properties.Resources.DamageTemplate);
-            token.AddMacro(HtmlUtilities.Bold("Temp HP"), MiscGroup, ColorType.white, ColorType.black, Properties.Resources.TempHPTemplate);
-            token.AddMacro(HtmlUtilities.Bold("Action Point"), MiscGroup, ColorType.white, ColorType.black, Properties.Resources.ActionPointTemplate);
+            token.AddMacro(HtmlUtilities.Bold("Healing"), MiscGroup, Color.white, Color.black, Properties.Resources.HealingTemplate);
+            token.AddMacro(HtmlUtilities.Bold("Damage"), MiscGroup, Color.white, Color.black, Properties.Resources.DamageTemplate);
+            token.AddMacro(HtmlUtilities.Bold("Temp HP"), MiscGroup, Color.white, Color.black, Properties.Resources.TempHPTemplate);
+            token.AddMacro(HtmlUtilities.Bold("Action Point"), MiscGroup, Color.white, Color.black, Properties.Resources.ActionPointTemplate);
 
             return token;
         }

@@ -8,6 +8,41 @@ using System.Security;
 
 namespace TokenAssist
 {
+    // a color definition as supported by maptool
+    public class ColorValue
+    {
+        protected string Value = null;
+
+        public ColorValue(string colorValue)
+        {
+            Value = colorValue;
+        }
+
+        public override string ToString()
+        {
+            return Value;
+        }
+    }
+    
+    // Offers our predefined color palette to match the manuals and
+    // also provides a factory for ColorValue.
+    static public class Color
+    {
+        static public ColorValue white = new ColorValue("white");
+        static public ColorValue red = new ColorValue("#801c32");
+        static public ColorValue green = new ColorValue("#5b8f62");
+        static public ColorValue blue = new ColorValue("blue");
+        static public ColorValue grey = new ColorValue("grey");
+        static public ColorValue black = new ColorValue("black");
+        static public ColorValue orange = new ColorValue("black");
+        static public ColorValue purple= new ColorValue("purple");
+
+        static ColorValue custom(string value)
+        {
+            return new ColorValue(value);
+        }
+    }
+
     public class Token
     {
         public Token()
@@ -41,7 +76,7 @@ namespace TokenAssist
             Macros.Add(newMacro);
         }
 
-        public void AddMacro(string name, string group, ColorType buttonColor, ColorType fontColor, string command)
+        public void AddMacro(string name, string group, ColorValue buttonColor, ColorValue fontColor, string command)
         {
             TokenMacro macro = new TokenMacro();
             macro.Name = name;
