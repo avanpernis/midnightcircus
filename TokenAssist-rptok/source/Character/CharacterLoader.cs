@@ -188,6 +188,16 @@ namespace TokenAssist
             character.Race = GetRace(xmlNodeRules);
             character.Class = GetClass(xmlNodeRules);
 
+            // look for all class features
+            XmlNodeList xmlNodeListClassFeatures = xmlNodeRules.SelectNodes("RulesElement[@type='Class Feature']");
+
+            foreach (XmlNode xmlNodeClassFeature in xmlNodeListClassFeatures)
+            {
+                ClassFeature classFeature = LoadClassFeature(xmlNodeClassFeature);
+
+                character.ClassFeatures.Add(classFeature);
+            }
+
             // look for all powers
             XmlNode xmlNodePowersRoot = xmlDocument.SelectSingleNode("//PowerStats");
 
@@ -255,7 +265,6 @@ namespace TokenAssist
                 character.MagicItems.Add(magicItem);
             }
 
-
             // Remove the temporary copy of the file
             File.Delete(filename);
 
@@ -282,6 +291,27 @@ namespace TokenAssist
             cls.Url = GetAttributeText(xmlNodeRace, "url");
 
             return cls;
+        }
+
+        private static ClassFeature LoadClassFeature(XmlNode xmlNodeClassFeature)
+        {
+            ClassFeature classFeature = new ClassFeature();
+
+            classFeature.Name = GetAttributeText(xmlNodeClassFeature, "name");
+            string description = xmlNodeClassFeature.LastChild.Value;
+
+            if (description == null)
+            {
+                description = GetDescendantNodeText(xmlNodeClassFeature, "specific[@name='Short Description']");
+            }
+
+            if (description != null)
+            {
+                // this is going to get embedded in some html later, so we do a bit of massaging
+                classFeature.Description = description.Trim().Replace(Environment.NewLine, "<br />").Replace("<br /><br />", "<br />").Replace("<br />", "<br /><br />");
+            }
+
+            return classFeature;
         }
 
         private static Power LoadPower(XmlNode xmlNodePower)
