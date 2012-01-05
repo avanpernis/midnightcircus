@@ -146,6 +146,7 @@
     <None Include="Resources\MacroCreationTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\WeaponTemplate.txt" />
     <EmbeddedResource Include="Resources\defaultTokenImage.png" />
     <None Include="Resources\MonsterPowerMacro.txt" />
     <Content Include="Resources\ClassFeatureTemplate.txt" />
