@@ -15,6 +15,11 @@ namespace TokenAssist
         public string Category;
 
         /// <summary>
+        /// The type of action needed for this power
+        /// </summary>
+        public string Action;
+
+        /// <summary>
         /// The expression that represents how much damage should be dealt
         /// </summary>
         public string Damage;

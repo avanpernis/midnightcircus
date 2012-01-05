@@ -167,7 +167,9 @@
     <Content Include="Resources\InitiativeTemplate.txt" />
     <Content Include="Resources\LimitedUseTemplate.txt" />
     <None Include="Resources\MagicItemHealingSurgeTemplate.txt" />
-    <None Include="Resources\MacroTemplate.xml" />
+    <None Include="Resources\MacroTemplate.xml">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Resources\MagicItemTemplate.txt" />
     <None Include="Resources\RestTemplate.txt" />
     <None Include="Resources\MilestoneTemplate.txt" />
