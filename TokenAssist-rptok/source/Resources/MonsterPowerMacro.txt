@@ -9,7 +9,7 @@
 [H : CriticalDamage = 0]
 
 <!-- html power card, as found in the compendium -->
-[H : PowerCard = "<b>###NAME###</b>: ###ATTACK_BONUS### vs ###DEFENSE_STAT### <br><hr> ###POWER_CARD###"]
+[H : PowerCard = "<div style='width: 600;'><font size='4' color='blue'>" + string(token.name) + "</font> - <b>###NAME###</b>: ###ATTACK_BONUS### vs ###DEFENSE_STAT### <br><hr> ###POWER_CARD###</dev>"]
 
 <!-- retrieve previously stored values -->
 [H : NumberOfTargets = if(MultipleTargets == 1, getStrProp(CombatStatus, "LastNumberOfTargets"), 1)]
