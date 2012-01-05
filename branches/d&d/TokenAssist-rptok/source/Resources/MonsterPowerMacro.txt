@@ -1,4 +1,5 @@
-/gm <br>
+/gm <br> <!-- print everything to the GM channel -->
+
 <!-- generic variables that were populated by TokenAssist -->
 [H : PowerName = "###NAME###"]
 [H : AttackBonus = "###ATTACK_BONUS###"]
@@ -8,10 +9,11 @@
 [H : DefenseStat = "###DEFENSE_STAT###"]
 [H : CriticalDamage = 0]
 
+[H : PowerTitle = string(token.name) + " - ###NAME###: +###ATTACK_BONUS### vs. ###DEFENSE_STAT###"]
+[H : PowerDescription = "###POWER_CARD###"]
 
-
-<!-- html power card, as found in the compendium -->
-[H : PowerCard = "<div style='width: 600;'><font size='4' color='blue'>" + string(token.name) + "</font> - <b>###NAME###</b>: +###ATTACK_BONUS### vs ###DEFENSE_STAT### <br><hr> ###POWER_CARD###</dev>"]
+<!-- fabricated power card -->
+[H : PowerCard = "<div style='width: 600;'><h1 style='font-size: 1.35em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #1d3d5e;'>" + PowerTitle + "</h1><p style='padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;'>" + PowerDescription + "</p></div>"]
 
 <!-- retrieve previously stored values -->
 [H : NumberOfTargets = if(MultipleTargets == 1, getStrProp(CombatStatus, "LastNumberOfTargets"), 1)]
