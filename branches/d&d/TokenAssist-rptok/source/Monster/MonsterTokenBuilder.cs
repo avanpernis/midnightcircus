@@ -51,10 +51,9 @@ namespace TokenAssist
             {
                 command = command.Replace(@"###MAX_DAMAGE###", "0");
             }
-            
 
             command = command.Replace(@"###DEFENSE_STAT###", power.Defense);
-
+            
             if (power.MultiTarget == true)
                 command = command.Replace(@"###MULTIPLE_TARGETS###", "1");
             else
@@ -62,18 +61,20 @@ namespace TokenAssist
 
             // load the description
             string desc = "";
+            
+            desc += power.Action + " " + power.RangeText + "<br>";
             if (power.OnHitText != null)
             {
-                desc += "Hit: " + power.OnHitText;
+                desc += "Hit: " + power.OnHitText + "<br>";
             }
             if (power.EffectText != null)
             {
-                desc += "Effect: " + power.EffectText;
+                desc += "Effect: " + power.EffectText + "<br>";
             }
 
             command = command.Replace(@"###POWER_CARD###", desc);
 
-            token.AddMacro(power.Name, power.Category, ColorFromCatagory(power.Category), Color.black, command);
+            token.AddMacro("<b>"+power.Name+"</b><br>"+power.Action+" "+power.RangeText, power.Category, ColorFromCatagory(power.Category), Color.black, command);
         }
 
         public static ColorValue ColorFromCatagory(string Category)

@@ -145,6 +145,11 @@ namespace TokenAssist
                 {
                     MonsterPower newPower = new MonsterPower();
                     newPower.Name = powerElement.Element("Name").Value;
+
+                    XElement actionElement = powerElement.Element("Action");
+                    if (actionElement != null)
+                        newPower.Action = actionElement.Value;
+
                     newPower.Category = powerElement.Element("Usage").Value;
 
                     // add keywords
