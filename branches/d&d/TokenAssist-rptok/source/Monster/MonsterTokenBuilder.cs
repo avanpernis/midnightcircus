@@ -38,6 +38,8 @@ namespace TokenAssist
 
             command = TokenAssist.Properties.Resources.MonsterPowerMacro;
             command = command.Replace(@"###NAME###", power.Name);
+            command = command.Replace(@"###TYPE###", power.Category);
+            command = command.Replace(@"###RANGE###", power.RangeText);
 
             int attackBonus = (power.AttackBonus == null) ? 0 : (int)power.AttackBonus;
             command = command.Replace(@"###ATTACK_BONUS###", attackBonus.ToString());
@@ -63,15 +65,18 @@ namespace TokenAssist
 
             // load the description
             string desc = "";
-            
-            desc += power.Action + " " + power.RangeText + "<br>";
+
+            if ((power.AttackBonus != null) && (power.Defense != null))
+            {
+                desc += string.Format("<i>Attack:</i> {0}; {1}{2} vs. {3}<br>", power.RangeText, (power.AttackBonus >= 0) ? "+" : "", power.AttackBonus, power.Defense);
+            }
             if (power.OnHitText != null)
             {
-                desc += "Hit: " + power.OnHitText + "<br>";
+                desc += "<i>Hit:</i> " + power.OnHitText + "<br>";
             }
             if (power.EffectText != null)
             {
-                desc += "Effect: " + power.EffectText + "<br>";
+                desc += "<i>Effect:</i> " + power.EffectText + "<br>";
             }
 
             command = command.Replace(@"###POWER_CARD###", desc);

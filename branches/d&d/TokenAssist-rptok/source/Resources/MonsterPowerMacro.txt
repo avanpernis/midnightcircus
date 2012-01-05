@@ -2,6 +2,8 @@
 
 <!-- generic variables that were populated by TokenAssist -->
 [H : PowerName = "###NAME###"]
+[H : PowerType = "###TYPE###"]
+[H : PowerRange = "###RANGE###"]
 [H : AttackBonus = "###ATTACK_BONUS###"]
 [H : Damage = "###DAMAGE###"]
 [H : MaxDamage = "###MAX_DAMAGE###"]
@@ -9,11 +11,12 @@
 [H : DefenseStat = "###DEFENSE_STAT###"]
 [H : CriticalDamage = 0]
 
+[H : MonsterName = string(token.name)]
 [H : PowerTitle = string(token.name) + " - ###NAME###: +###ATTACK_BONUS### vs. ###DEFENSE_STAT###"]
 [H : PowerDescription = "###POWER_CARD###"]
 
 <!-- fabricated power card -->
-[H : PowerCard = "<div style='width: 600;'><h1 style='font-size: 1.35em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #1d3d5e;'>" + PowerTitle + "</h1><p style='padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #d6d6c2;'>" + PowerDescription + "</p></div>"]
+[H : PowerCard = "<div style='width: 600;'><h1 style='font-size: 1.20em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #374f27;'>" + MonsterName + "</h1><h2 style='font-size: 1.10em; line-height: 2; padding-left: 15px; margin: 0; color: #000000; background: #9fa48c;'>" + PowerName + "&nbsp;&nbsp;&diams;&nbsp;&nbsp;" + PowerType + "</h2><p style='padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #e1e6c4;'>" + PowerDescription + "</p></div>"]
 
 <!-- retrieve previously stored values -->
 [H : NumberOfTargets = if(MultipleTargets == 1, getStrProp(CombatStatus, "LastNumberOfTargets"), 1)]
