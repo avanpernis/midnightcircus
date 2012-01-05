@@ -1,7 +1,6 @@
 <!-- retrieve previously stored values -->
 [H : LastHealingAmount = getStrProp(CombatStatus, "LastHealingAmount")]
 [H : LastSpendHealingSurge = getStrProp(CombatStatus, "LastSpendHealingSurge")]
-[H : LastSecretRoll = getStrProp(CombatStatus, "LastSecretRoll")]
 
 <!-- show the user healing options -->
 [H : InputPrompt = input(
@@ -10,14 +9,13 @@
 	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
 	"HealingAmount | " + LastHealingAmount + " | Amount to Heal | TEXT",
 	"SpendHealingSurge | " + LastSpendHealingSurge + " | Spend Healing Surge? | CHECK ",
-	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
-	"SecretRoll | " + LastSecretRoll + " | Secret Roll? | CHECK")]
+	"UNUSED | <html></html> | | LABEL | SPAN = TRUE")]
 
 <!-- bail if the user cancels the dialog -->
 [H : abort(InputPrompt)]
 
 <!-- Saves Choices -->
-[H : PropsUsedList = "HealingAmount, SpendHealingSurge, SecretRoll"]
+[H : PropsUsedList = "HealingAmount, SpendHealingSurge"]
 [H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- Confirm that the user has a healing surge -->
@@ -47,9 +45,4 @@
 [H : bar.Health = CurrentHitPoints / MaxHitPoints]
 
 <!-- output the results -->
-[IF(SecretRoll == 1), CODE : {
-	[dialog("Results") : { <html>[R : Results]</html> }]
-	[H : abort(0)]
-};{
-	{Results}
-}]
+{Results}

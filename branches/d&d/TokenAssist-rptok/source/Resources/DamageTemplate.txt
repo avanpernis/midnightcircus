@@ -1,6 +1,5 @@
 <!-- retrieve previously stored values -->
 [H : LastDamageAmount = getStrProp(CombatStatus, "LastDamageAmount")]
-[H : LastSecretRoll = getStrProp(CombatStatus, "LastSecretRoll")]
 
 <!-- show the user damage options -->
 [H : InputPrompt = input(
@@ -8,14 +7,13 @@
 	"UNUSED | " + CurrentHealingSurges + " / " + MaxHealingSurges + " (Value: " + HealingSurgeValue + ") | Healing Surges | Label",
 	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
 	"DamageAmount | " + LastDamageAmount + " | Amount of Damage | TEXT",
-	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
-	"SecretRoll | " + LastSecretRoll + " | Secret Roll? | CHECK")]
+	"UNUSED | <html></html> | | LABEL | SPAN = TRUE")]
 
 <!-- bail if the user cancels the dialog -->
 [H : abort(InputPrompt)]
 
 <!-- store the values for next time -->
-[H : PropsUsedList = "DamageAmount, SecretRoll"]
+[H : PropsUsedList = "DamageAmount"]
 [H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- first burn any temp hit points that might exist -->
@@ -40,9 +38,4 @@
 [H : bar.Health = CurrentHitPoints / MaxHitPoints]
 
 <!-- output the results -->
-[IF(SecretRoll == 1), CODE : {
-	[dialog("Results") : { <html>[R : Results]</html> }]
-	[H : abort(0)]
-};{
-	{Results}
-}]
+{Results}

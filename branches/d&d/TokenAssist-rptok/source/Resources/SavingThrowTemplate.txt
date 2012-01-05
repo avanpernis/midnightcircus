@@ -3,19 +3,17 @@
 
 <!-- retrieve previously stored values -->
 [H : LastTempSaveBonus = getStrProp(CombatStatus, "LastTempSaveBonus")]
-[H : LastSecretRoll = getStrProp(CombatStatus, "LastSecretRoll")]
 
 [H : InputPrompt = input(
    "UNUSED | Bonus (+" + SaveBonus + ") | Saving Throw | LABEL",
    "TempSaveBonus | " + LastTempSaveBonus + " | Temporary bonus | TEXT",
-   "UNUSED | <html></html> | | LABEL | SPAN = TRUE",
-   "SecretRoll | " + LastSecretRoll + " | Secret Roll? | CHECK")]
+   "UNUSED | <html></html> | | LABEL | SPAN = TRUE")]
 
 <!-- bail if the user cancels the dialog -->
 [H : abort(InputPrompt)]
 
 <!-- store the values for next time -->
-[H : PropsUsedList = "TempSaveBonus, SecretRoll"]
+[H : PropsUsedList = "TempSaveBonus"]
 [H, C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- get the values from the user input -->
@@ -36,9 +34,4 @@
 [H : Results = "<b>Saving Throw</b> (" + SaveBonusPrefix + SaveBonus + "): <b><span style='color:" + SaveResultColor + "'>" + SaveResult + "</span></b>"]
 
 <!-- show the save results -->
-[IF(SecretRoll == 1), CODE : {
-	[dialog("Results") : { <html>[R : Results]</html> }]
-	[H : abort(0)]
-};{
-	{Results}
-}]
+{Results}
