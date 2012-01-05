@@ -1,3 +1,4 @@
+/gm <br>
 <!-- Confirm the user's decision to reset the monster -->
 [H : InputPrompt = input("ResetMonster | 1 | Reset Monster? | CHECK")]
 

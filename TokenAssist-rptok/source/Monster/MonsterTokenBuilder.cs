@@ -8,10 +8,15 @@ namespace TokenAssist
 {
     public static class MonsterTokenBuilder
     {
+        public static string gmStrWrapper(string input)
+        {
+            return "/gm <br>\n" + input;
+        }
+
         public static void WriteToken(Monster monster, string filename, string tokenImage, string tokenPortrait)
         {
-            Token token = ActorTokenFactory.Create(monster, "4eMonster", tokenImage, tokenPortrait);           
-
+            Token token = ActorTokenFactory.Create(monster, "4eMonster", tokenImage, tokenPortrait, gmStrWrapper);
+            
             // when a monster is reset, it needs to know its starting amount of action points
             token.AddProperty("StartingActionPoints", monster.ActionPoints);
 
