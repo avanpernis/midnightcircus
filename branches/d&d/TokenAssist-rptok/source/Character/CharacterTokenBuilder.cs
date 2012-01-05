@@ -210,11 +210,11 @@ namespace TokenAssist
             switch (power.Usage)
             {
                 case Power.UsageType.AtWill:
-                    return "At-Will";
+                    return "3:At-Will";
                 case Power.UsageType.Encounter:
-                    return "Encounter";
+                    return "4:Encounter";
                 case Power.UsageType.Daily:
-                    return "Daily";
+                    return "5:Daily";
                 default:
                     return null;
             }
@@ -264,15 +264,15 @@ namespace TokenAssist
             switch (magicItem.PowerUsage)
             {
                 case MagicItem.PowerUsageType.AtWill:
-                    return "At-Will";
+                    return "3:At-Will";
                 case MagicItem.PowerUsageType.Encounter:
-                    return "Encounter";
+                    return "4:Encounter";
                 case MagicItem.PowerUsageType.Daily:
-                    return "Daily";
+                    return "5:Daily";
                 case MagicItem.PowerUsageType.HealingSurge:
-                    return "Healing-Surge";
+                    return "6:Healing-Surge";
                 case MagicItem.PowerUsageType.Consumable:
-                    return "Consumable";
+                    return "6:Consumable";
                 default:
                     return null;
             }
