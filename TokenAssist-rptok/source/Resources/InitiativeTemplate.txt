@@ -3,13 +3,11 @@
 
 <!-- retrieve previously stored values -->
 [H : LastTempInitBonus = getStrProp(CombatStatus, "LastTempInitBonus")]
-[H : LastSecretRoll = 0]
 
 [H : InputPrompt = input(
    "UNUSED | Bonus (+" + InitBonus + ") | Roll Initiative | LABEL",
    "TempInitBonus | " + LastTempInitBonus + " | Temporary bonus | TEXT",
-   "UNUSED | <html></html> | | LABEL | SPAN = TRUE",
-   "SecretRoll | " + LastSecretRoll + " | Secret Roll? | CHECK")]
+   "UNUSED | <html></html> | | LABEL | SPAN = TRUE")]
 
 <!-- bail if the user cancels the dialog -->
 [H : abort(InputPrompt)]
@@ -36,12 +34,7 @@
 [H : Results = "<b>Roll Initiative</b> (" + InitBonusPrefix + InitBonus + "): <b><span style='color:" + InitResultColor + "'>" + InitResult + "</span></b>"]
 
 <!-- show the roll results -->
-[IF(SecretRoll == 1), CODE : {
-	[dialog("Results") : { <html>[R : Results]</html> }]
-	[H : abort(0)]
-};{
-	{Results}
-}]
+{Results}
 
 <!-- add this token to the initiative panel -->
 [H : addToInitiative()]

@@ -1,7 +1,6 @@
 <!-- retrieve previously stored values -->
 [H : LastTempHPAmount = getStrProp(CombatStatus, "LastTempHPAmount")]
 [H : LastTempHPStacks = getStrProp(CombatStatus, "LastTempHPStacks")]
-[H : LastSecretRoll = getStrProp(CombatStatus, "LastSecretRoll")]
 
 <!-- show the user healing options -->
 [H : InputPrompt = input(
@@ -10,14 +9,13 @@
 	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
 	"TempHPAmount | " + LastTempHPAmount + " | Amount of Temp HP | TEXT",
 	"TempHPStacks | " + LastTempHPStacks + " | Temp HP Stacks? | CHECK ",
-	"UNUSED | <html></html> | | LABEL | SPAN = TRUE",
-	"SecretRoll | " + LastSecretRoll + " | Secret Roll? | CHECK")]
+	"UNUSED | <html></html> | | LABEL | SPAN = TRUE")]
 
 <!-- bail if the user cancels the dialog -->
 [H : abort(InputPrompt)]
 
 <!-- Saves Choices -->
-[H : PropsUsedList = "TempHPAmount, TempHPStacks, SecretRoll"]
+[H : PropsUsedList = "TempHPAmount, TempHPStacks"]
 [H ,C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- if the temp hit points are not stackable, the new value is simply the maximum of the current and new values -->
@@ -36,9 +34,4 @@
 [H : bar.Health = CurrentHitPoints / MaxHitPoints]
 
 <!-- output the results -->
-[IF(SecretRoll == 1), CODE : {
-	[dialog("Results") : { <html>[R : Results]</html> }]
-	[H : abort(0)]
-};{
-	{Results}
-}]
+{Results}

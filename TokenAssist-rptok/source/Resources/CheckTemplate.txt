@@ -5,7 +5,6 @@
 <!-- retrieve previously stored values -->
 [H : LastCheckChoice = getStrProp(CombatStatus, "LastCheckChoice")]
 [H : LastTempCheckBonus = getStrProp(CombatStatus, "LastTempCheckBonus")]
-[H : LastSecretRoll = getStrProp(CombatStatus, "LastSecretRoll")]
 
 <!-- build a list of checks and bonuses to display in order to faciliate selection by the user -->
 [H : CheckNameAndBonusList = ""]
@@ -20,14 +19,13 @@
 [H : InputPrompt = input(
    "CheckChoice | " + CheckNameAndBonusList + " | Check | LIST | SELECT = " + LastCheckChoice,
    "TempCheckBonus | " + LastTempCheckBonus + " | Temporary bonus | TEXT",
-   "UNUSED | <html></html> | | LABEL | SPAN = TRUE",
-   "SecretRoll | " + LastSecretRoll + " | Secret Roll? | CHECK")]
+   "UNUSED | <html></html> | | LABEL | SPAN = TRUE")]
 
 <!-- bail if the user cancels the dialog -->
 [H : abort(InputPrompt)]
 
 <!-- store the values for next time -->
-[H : PropsUsedList = "CheckChoice, TempCheckBonus, SecretRoll"]
+[H : PropsUsedList = "CheckChoice, TempCheckBonus"]
 [H, C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- get the values associated with the selected check -->
@@ -49,9 +47,4 @@
 [H : Results = "<b>" + CheckName + " Check</b> (" + CheckBonusPrefix + CheckBonus + "): <b><span style='color:" + CheckResultColor + "'>" + CheckResult + "</span></b>"]
 
 <!-- show the check results -->
-[IF(SecretRoll == 1), CODE : {
-	[dialog("Results") : { <html>[R : Results]</html> }]
-	[H : abort(0)]
-};{
-	{Results}
-}]
+{Results}

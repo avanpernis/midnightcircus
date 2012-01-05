@@ -87,7 +87,6 @@ namespace TokenAssist.Properties {
         ///&lt;!-- retrieve previously stored values --&gt;
         ///[H : LastCheckChoice = getStrProp(CombatStatus, &quot;LastCheckChoice&quot;)]
         ///[H : LastTempCheckBonus = getStrProp(CombatStatus, &quot;LastTempCheckBonus&quot;)]
-        ///[H : LastSecretRoll = getStrProp(CombatStatus, &quot;LastSecretRoll&quot;)]
         ///
         ///&lt;!-- build a list of checks and bonuses to display in order to faciliate selection by the user --&gt; [rest of string was truncated]&quot;;.
         /// </summary>
@@ -183,7 +182,6 @@ namespace TokenAssist.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;!-- retrieve previously stored values --&gt;
         ///[H : LastDamageAmount = getStrProp(CombatStatus, &quot;LastDamageAmount&quot;)]
-        ///[H : LastSecretRoll = getStrProp(CombatStatus, &quot;LastSecretRoll&quot;)]
         ///
         ///&lt;!-- show the user damage options --&gt;
         ///[H : InputPrompt = input(
@@ -260,7 +258,6 @@ namespace TokenAssist.Properties {
         ///   Looks up a localized string similar to &lt;!-- retrieve previously stored values --&gt;
         ///[H : LastHealingAmount = getStrProp(CombatStatus, &quot;LastHealingAmount&quot;)]
         ///[H : LastSpendHealingSurge = getStrProp(CombatStatus, &quot;LastSpendHealingSurge&quot;)]
-        ///[H : LastSecretRoll = getStrProp(CombatStatus, &quot;LastSecretRoll&quot;)]
         ///
         ///&lt;!-- show the user healing options --&gt;
         ///[H : InputPrompt = input(
@@ -279,7 +276,6 @@ namespace TokenAssist.Properties {
         ///
         ///&lt;!-- retrieve previously stored values --&gt;
         ///[H : LastTempInitBonus = getStrProp(CombatStatus, &quot;LastTempInitBonus&quot;)]
-        ///[H : LastSecretRoll = getStrProp(CombatStatus, &quot;LastSecretRoll&quot;)]
         ///
         ///[H : InputPrompt = input(
         ///   &quot;UNUSED | Bonus (+&quot; + InitBonus + &quot;) | Roll Initiative | LABEL&quot;,
@@ -524,7 +520,6 @@ namespace TokenAssist.Properties {
         ///
         ///&lt;!-- retrieve previously stored values --&gt;
         ///[H : LastTempSaveBonus = getStrProp(CombatStatus, &quot;LastTempSaveBonus&quot;)]
-        ///[H : LastSecretRoll = getStrProp(CombatStatus, &quot;LastSecretRoll&quot;)]
         ///
         ///[H : InputPrompt = input(
         ///   &quot;UNUSED | Bonus (+&quot; + SaveBonus + &quot;) | Saving Throw | LABEL&quot;,
@@ -551,7 +546,6 @@ namespace TokenAssist.Properties {
         ///   Looks up a localized string similar to &lt;!-- retrieve previously stored values --&gt;
         ///[H : LastTempHPAmount = getStrProp(CombatStatus, &quot;LastTempHPAmount&quot;)]
         ///[H : LastTempHPStacks = getStrProp(CombatStatus, &quot;LastTempHPStacks&quot;)]
-        ///[H : LastSecretRoll = getStrProp(CombatStatus, &quot;LastSecretRoll&quot;)]
         ///
         ///&lt;!-- show the user healing options --&gt;
         ///[H : InputPrompt = input(
