@@ -1,3 +1,4 @@
+/gm <br>
 <!-- generic variables that were populated by TokenAssist -->
 [H : PowerName = "###NAME###"]
 [H : AttackBonus = "###ATTACK_BONUS###"]
@@ -8,7 +9,7 @@
 [H : CriticalDamage = 0]
 
 <!-- html power card, as found in the compendium -->
-[H : PowerCard = "###POWER_CARD###"]
+[H : PowerCard = "<b>###NAME###</b>: ###ATTACK_BONUS### vs ###DEFENSE_STAT### <br><hr> ###POWER_CARD###"]
 
 <!-- retrieve previously stored values -->
 [H : NumberOfTargets = if(MultipleTargets == 1, getStrProp(CombatStatus, "LastNumberOfTargets"), 1)]
@@ -21,21 +22,20 @@
 <!-- prompt for target information, tactical state, temporary bonuses, etc... -->
 [H : InputPrompt = input(
    PowerName + " | <html>" + PowerCard + "</html> | | LABEL | SPAN = TRUE",
-   "UNUSED | <html><hr></html> | | LABEL | SPAN = TRUE",
+   "UNUSED | <html></html> | | LABEL | SPAN = TRUE",
    if(MultipleTargets == 1, "NumberOfTargets | " + NumberOfTargets + " | Number Of Targets | TEXT", ""),
    "CombatAdvantage | " + CombatAdvantage + " | Combat Advantage | CHECK",
    "TargetCover | None, Partial, Superior | Target Cover | RADIO | SELECT = " + TargetCover,
    "TargetConcealment | None, Partial, Total | Target Concealment | RADIO | SELECT = " + TargetConcealment,
    "TempAttackBonus | " + TempAttackBonus + " | Temporary Attack Bonus | TEXT",
-   "TempDamageBonus | " + TempDamageBonus + " | Temporary Damage Bonus | TEXT",
-   "SecretRoll | " + getStrProp(CombatStatus, "LastSecretRoll") + " | Check to make roll secret | CHECK"
+   "TempDamageBonus | " + TempDamageBonus + " | Temporary Damage Bonus | TEXT"
 )]
 
 <!-- bail if the user cancels the dialog -->
 [H : abort(InputPrompt)]
 
 <!-- store the values for next time -->
-[H : PropsUsedList = "NumberOfTargets, CombatAdvantage, TargetCover, TargetConcealment, TempAttackBonus, TempDamageBonus, SecretRoll"]
+[H : PropsUsedList = "NumberOfTargets, CombatAdvantage, TargetCover, TargetConcealment, TempAttackBonus, TempDamageBonus"]
 [H, C(listCount(PropsUsedList)) : CombatStatus = setStrProp(CombatStatus, "Last" + listGet(PropsUsedList, roll.count), eval(listGet(PropsUsedList, roll.count)))]
 
 <!-- attack rolls -->
@@ -89,20 +89,9 @@
    + if(TargetCover != 0 || TargetConcealment != 0, ".<br>", "")]
 
 <!-- show the power card to the other players -->
+<html>{PowerCard}</html>
 
 <!-- show the attack results -->
-[h,if(SecretRoll == 1),CODE: {
- [dialog("Attack OutCome"): {
- <html>
- <b>[R:PowerName]: [R:if(AttackBonus < 0, "", "+")][R:AttackBonus] vs [R:DefenseStat]</b><hr><br>
- Attack(<b>[R:AttackResultOutput]</b>)[R:if(CombatAdvantage == 1, " while having <b>Combat Advantage</b>", "")].<br>
- [R:CoverConcealmentOutput]
- [R:if(CapableOfDamage == 1, "You do <b>" + DamageResultOutput + "</b> points of damage!", "")]
- </html>
- }]
-}]
-[H:abort(!SecretRoll)] 
-
 <b>[R:PowerName]: [R:if(AttackBonus < 0, "", "+")][R:AttackBonus] vs [R:DefenseStat]</b><hr><br>
  Attack(<b>[R:AttackResultOutput]</b>)[R:if(CombatAdvantage == 1, " while having <b>Combat Advantage</b>", "")].<br>
  [R:CoverConcealmentOutput]
