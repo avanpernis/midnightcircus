@@ -10,7 +10,7 @@ namespace TokenAssist
     {
         public static string gmStrWrapper(string input)
         {
-            return "/gm <br>\n" + input;
+            return "/gm <br><font size='4' color='blue'>{token.name}</font>\n" + input;
         }
 
         public static void WriteToken(Monster monster, string filename, string tokenImage, string tokenPortrait)
