@@ -1,0 +1,7 @@
+#summary Current Task List
+#labels Phase-Requirements
+
+= Current Task List =
+
+  * Print damage roll in Monster power card.
+  * Print miss effect in Monster power card.
