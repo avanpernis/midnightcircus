@@ -177,7 +177,7 @@ namespace TokenAssist
                     int vulnerabilityAmount = int.Parse(e.Element("Amount").Attribute("FinalValue").Value);
                     string vulnerabilityDetails = e.Element("Details").Value;
 
-                    m.Resistances.Add(new DamageDetails(vulnerabilityName, vulnerabilityAmount, vulnerabilityDetails));
+                    m.Vulnerabilities.Add(new DamageDetails(vulnerabilityName, vulnerabilityAmount, vulnerabilityDetails));
                 }
             }
             catch (Exception e)
