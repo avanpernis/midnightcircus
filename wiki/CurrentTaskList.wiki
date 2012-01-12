@@ -1,7 +1,8 @@
 #summary Current Task List
+#labels Phase-Requirements
 
 = Current Task List =
 
   * Print damage roll in monster power card.
   * Print miss effect in monster power card.
-  * Add macros for Trigger Actions for monsters. See Koptila.monster for an example.
+  * Add macros for Triggered Actions for monsters. See Koptila.monster for an example.
