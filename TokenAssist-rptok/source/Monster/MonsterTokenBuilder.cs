@@ -16,6 +16,22 @@ namespace TokenAssist
         public static void WriteToken(Monster monster, string filename, string tokenImage, string tokenPortrait)
         {
             Token token = ActorTokenFactory.Create(monster, "4eMonster", tokenImage, tokenPortrait, gmStrWrapper);
+
+            // right now, only monsters support immunities, resistances, and vulnerabilities
+            if (monster.Immunities.Count > 0)
+            {
+                token.AddProperty("Immune", string.Join(", ", monster.Immunities));
+            }
+
+            if (monster.Resistances.Count > 0)
+            {
+                token.AddProperty("Resist", string.Join(", ", monster.Resistances));
+            }
+
+            if (monster.Vulnerabilities.Count > 0)
+            {
+                token.AddProperty("Vulnerable", string.Join(", ", monster.Vulnerabilities));
+            }
             
             // when a monster is reset, it needs to know its starting amount of action points
             token.AddProperty("StartingActionPoints", monster.ActionPoints);
