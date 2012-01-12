@@ -1,0 +1,6 @@
+#summary Current Task List
+
+= Current Task List =
+
+  * Print damage roll in Monster power card.
+  * Print miss effect in Monster power card.
