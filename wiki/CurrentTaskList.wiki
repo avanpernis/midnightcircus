@@ -2,5 +2,6 @@
 
 = Current Task List =
 
-  * Print damage roll in Monster power card.
-  * Print miss effect in Monster power card.
+  * Print damage roll in monster power card.
+  * Print miss effect in monster power card.
+  * Add macros for Trigger Actions for monsters. See Koptila.monster for an example.
