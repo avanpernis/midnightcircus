@@ -7,4 +7,3 @@
   * Print miss effect in monster power card.
   * Add macros for Triggered Actions for monsters. See Koptila.monster for an example.
   * Add macros for Traits for monsters. See Hulking Zombie.monster for an example.
-  * Support multiple targets for monster powers. See Ogre Warhulk.monster and the power Flail Hurricane for an example.
