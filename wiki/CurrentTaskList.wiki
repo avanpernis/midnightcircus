@@ -6,3 +6,4 @@
   * Print damage roll in monster power card.
   * Print miss effect in monster power card.
   * Add macros for Triggered Actions for monsters. See Koptila.monster for an example.
+  * Add macros for Traits for monsters. See Hulking Zombie.monster for an example.
