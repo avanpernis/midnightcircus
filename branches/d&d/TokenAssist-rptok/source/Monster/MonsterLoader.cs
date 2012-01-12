@@ -23,6 +23,9 @@ namespace TokenAssist
                 LoadAbilities(m, root);
                 LoadDefenses(m, root);
                 LoadSkills(m, root);
+                LoadImmunities(m, root);
+                LoadResistances(m, root);
+                LoadVulnerabilities(m, root);
                 LoadPowers(m, root);
             }
             catch (Exception ex)
@@ -122,6 +125,64 @@ namespace TokenAssist
             catch (Exception e)
             {
                 MessageSystem.Warning("error loading skills, " + e.Message);
+            }
+        }
+
+        private static void LoadImmunities(Monster m, XElement docRoot)
+        {
+            try
+            {
+                XElement immunityRoot = docRoot.Element("Immunities");
+                foreach (XElement e in immunityRoot.Elements("ObjectReference"))
+                {
+                    string immunityName = e.Element("ReferencedObject").Element("Name").Value;                   
+
+                    m.Immunities.Add(new DamageDetails(immunityName));
+                }
+            }
+            catch (Exception e)
+            {
+                MessageSystem.Warning("error loading immunities, " + e.Message);
+            }
+        }
+
+        private static void LoadResistances(Monster m, XElement docRoot)
+        {
+            try
+            {
+                XElement resistanceRoot = docRoot.Element("Resistances");
+                foreach (XElement e in resistanceRoot.Elements("CreatureSusceptibility"))
+                {
+                    string resistanceName = e.Element("ReferencedObject").Element("Name").Value;
+                    int resistanceAmount = int.Parse(e.Element("Amount").Attribute("FinalValue").Value);
+                    string resistanceDetails = e.Element("Details").Value;
+
+                    m.Resistances.Add(new DamageDetails(resistanceName, resistanceAmount, resistanceDetails));
+                }
+            }
+            catch (Exception e)
+            {
+                MessageSystem.Warning("error loading immunities, " + e.Message);
+            }
+        }
+
+        private static void LoadVulnerabilities(Monster m, XElement docRoot)
+        {
+            try
+            {
+                XElement vulnerabilityRoot = docRoot.Element("Weaknesses");
+                foreach (XElement e in vulnerabilityRoot.Elements("CreatureSusceptibility"))
+                {
+                    string vulnerabilityName = e.Element("ReferencedObject").Element("Name").Value;
+                    int vulnerabilityAmount = int.Parse(e.Element("Amount").Attribute("FinalValue").Value);
+                    string vulnerabilityDetails = e.Element("Details").Value;
+
+                    m.Resistances.Add(new DamageDetails(vulnerabilityName, vulnerabilityAmount, vulnerabilityDetails));
+                }
+            }
+            catch (Exception e)
+            {
+                MessageSystem.Warning("error loading immunities, " + e.Message);
             }
         }
 

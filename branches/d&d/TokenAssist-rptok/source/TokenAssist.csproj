@@ -53,6 +53,7 @@
     <Compile Include="Actor\AbilityScore.cs" />
     <Compile Include="Actor\Actor.cs" />
     <Compile Include="Actor\ActorTokenFactory.cs" />
+    <Compile Include="Actor\DamageDetails.cs" />
     <Compile Include="Actor\Defenses.cs" />
     <Compile Include="Actor\Skills.cs" />
     <Compile Include="Character\Character.cs" />

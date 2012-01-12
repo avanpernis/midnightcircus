@@ -7,6 +7,9 @@ namespace TokenAssist
     public class Monster : Actor
     {
         public LinkedList<MonsterPower> Powers = new LinkedList<MonsterPower>();
+        public List<DamageDetails> Immunities = new List<DamageDetails>();
+        public List<DamageDetails> Resistances = new List<DamageDetails>();
+        public List<DamageDetails> Vulnerabilities = new List<DamageDetails>();
 
         public Monster()
             : base()
