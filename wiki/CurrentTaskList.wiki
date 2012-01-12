@@ -7,3 +7,4 @@
   * Print miss effect in monster power card.
   * Add macros for Triggered Actions for monsters. See Koptila.monster for an example.
   * Add macros for Traits for monsters. See Hulking Zombie.monster for an example.
+  * Display monster damage modifiers (Immune/Resist/Vulnerable) on monster token card.
