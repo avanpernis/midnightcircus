@@ -114,6 +114,9 @@ namespace TokenAssist
             // using the compendium link to their diamond image can be slow -- use an HTML character instead
             results = results.Replace(@"<img src=""images/bullet.gif"" alt=""""/>", @"&diams;");
 
+            // special unicode dash makes maptool strings unhappy
+            results = results.Replace("\u2014", @"-");
+
             // maptool tries to do funky things with things in brackets [ ], so replace things in brackets
             // NOTE: no longer needed since we embed the final result in a variable, but keeping around the code in case we change our minds...
             //results = Regex.Replace(results, @"(\[\w*\])", delegate(Match match)
