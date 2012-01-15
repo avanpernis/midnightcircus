@@ -4,9 +4,12 @@
 
 <!-- generic variables that were populated by TokenAssist -->
 [H : MonsterTraitName = "__MONSTER_TRAIT_NAME__"]
-
-<!-- monster trait description -->
+[H : MonsterTraitRange = "__MONSTER_TRAIT_RANGE__"]
+[H : MonsterTraitKeywords = "__MONSTER_TRAIT_KEYWORDS__"]
 [H : MonsterTraitDescription = "__MONSTER_TRAIT_DESCRIPTION__"]
+
+[H : MonsterTraitName = if(MonsterTraitKeywords == "", MonsterTraitName, MonsterTraitName + " (" + MonsterTraitKeywords + ")")]
+[H : MonsterTraitName = if(MonsterTraitRange == "", MonsterTraitName, MonsterTraitName + "&nbsp;&nbsp;&diams;&nbsp;&nbsp;" + MonsterTraitRange)]
 
 <!-- fabricated trait card -->
 [H : MonsterTraitCard = "<div style='width: 600;'><h1 style='font-size: 1.20em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #374f27;'>" + MonsterName + "</h1><h2 style='font-size: 1.10em; line-height: 2; padding-left: 15px; margin: 0; color: #000000; background: #9fa48c;'>" + MonsterTraitName + "</h2><p style='padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: #e1e6c4;'>" + MonsterTraitDescription + "</p></div>"]
