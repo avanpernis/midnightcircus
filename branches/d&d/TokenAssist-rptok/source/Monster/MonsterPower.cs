@@ -35,6 +35,11 @@ namespace TokenAssist
         public string RangeText;
 
         /// <summary>
+        /// Explanation of what triggers the use of the power
+        /// </summary>
+        public string TriggerText;
+
+        /// <summary>
         /// Explanation of what happens should the power hit
         /// </summary>
         public string OnHitText;
