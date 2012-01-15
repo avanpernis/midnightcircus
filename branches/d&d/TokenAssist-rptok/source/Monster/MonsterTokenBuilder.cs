@@ -123,9 +123,17 @@ namespace TokenAssist
         {
             string command = TokenAssist.Properties.Resources.MonsterTraitTemplate;
             command = command.Replace(@"__MONSTER_TRAIT_NAME__", trait.Name);
+            command = command.Replace(@"__MONSTER_TRAIT_RANGE__", (trait.Range > 0) ? "Aura " + trait.Range : string.Empty);
+            command = command.Replace(@"__MONSTER_TRAIT_KEYWORDS__", string.Join(", ", trait.Keywords));
             command = command.Replace(@"__MONSTER_TRAIT_DESCRIPTION__", HtmlUtilities.ScrubString(trait.Description));
 
-            token.AddMacro(HtmlUtilities.Bold(trait.Name), "Traits", Color.MonsterCategory, Color.white, command);
+            string name = HtmlUtilities.Bold(trait.Name);
+            if (trait.Range > 0)
+            {
+                name += "<br>Aura " + trait.Range;
+            }
+
+            token.AddMacro(name, "Traits", Color.MonsterCategory, Color.white, command);
         }
 
         public static ColorValue ColorFromCatagory(string Category)

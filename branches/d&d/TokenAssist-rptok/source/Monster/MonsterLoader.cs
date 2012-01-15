@@ -202,7 +202,13 @@ namespace TokenAssist
                 {
                     Trait trait = new Trait();
                     trait.Name = traitElement.Element("Name").Value;
+                    trait.Range = int.Parse(traitElement.Element("Range").Attribute("FinalValue").Value);
                     trait.Description = traitElement.Element("Details").Value;
+
+                    foreach (XElement e in traitElement.Element("Keywords").Elements("ObjectReference"))
+                    {
+                        trait.Keywords.Add(e.Element("ReferencedObject").Element("Name").Value.Trim().ToLower());
+                    }
 
                     m.Traits.Add(trait);
                 }
