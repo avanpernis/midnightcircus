@@ -66,11 +66,11 @@ namespace TokenAssist
             int attackBonus = (power.AttackBonus == null) ? 0 : (int)power.AttackBonus;
             command = command.Replace(@"###ATTACK_BONUS###", attackBonus.ToString());
 
-            string dmg = (power.Damage == null) ? "0" : power.Damage;
-            command = command.Replace(@"###DAMAGE###", power.Damage);
+            string dmg = (power.HitDamageExp == null) ? "0" : power.HitDamageExp;
+            command = command.Replace(@"###DAMAGE###", power.HitDamageExp);
             try
             {
-                string maxdmg = RollUtilities.EvaluateMaximum(power.Damage).ToString();
+                string maxdmg = RollUtilities.EvaluateMaximum(power.HitDamageExp).ToString();
                 command = command.Replace(@"###MAX_DAMAGE###", maxdmg);
             }
             catch
@@ -92,10 +92,23 @@ namespace TokenAssist
             {
                 desc += string.Format("<i>Attack:</i> {0}; {1}{2} vs. {3}<br>", power.RangeText, (power.AttackBonus >= 0) ? "+" : "", power.AttackBonus, power.Defense);
             }
+
             if (power.OnHitText != null)
             {
-                desc += "<i>Hit:</i> " + power.OnHitText + "<br>";
+                desc += "<i>Hit:</i> ";
+                if (power.HitDamageExp != null)
+                    desc += "<b>" + power.HitDamageExp + "</b> ";
+                desc += power.OnHitText + "<br>";
             }
+
+            if (power.OnMissText != null)
+            {
+                desc += "<i>Miss:</i> ";
+                if (power.MissDamageExp != null)
+                    desc += "<b>" + power.MissDamageExp + "</b> ";
+                desc += power.OnMissText + "<br>";
+            }
+
             if (power.EffectText != null)
             {
                 desc += "<i>Effect:</i> " + power.EffectText + "<br>";
