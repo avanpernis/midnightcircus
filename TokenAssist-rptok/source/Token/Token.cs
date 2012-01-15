@@ -37,6 +37,12 @@ namespace TokenAssist
         static public ColorValue orange = new ColorValue("orange");
         static public ColorValue purple= new ColorValue("purple");
 
+        // monster colors
+        static public ColorValue MonsterHeader = new ColorValue("#374F27");
+        static public ColorValue MonsterCategory = new ColorValue("#727C55");
+        static public ColorValue MonsterAbility = new ColorValue("#9FA48C");
+        static public ColorValue MonsterText = new ColorValue("#E1E6C4");
+
         static ColorValue custom(string value)
         {
             return new ColorValue(value);

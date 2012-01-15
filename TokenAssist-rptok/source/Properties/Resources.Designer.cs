@@ -88,7 +88,9 @@ namespace TokenAssist.Properties {
         ///[H : LastCheckChoice = getStrProp(CombatStatus, &quot;LastCheckChoice&quot;)]
         ///[H : LastTempCheckBonus = getStrProp(CombatStatus, &quot;LastTempCheckBonus&quot;)]
         ///
-        ///&lt;!-- build a list of checks and bonuses to display in order to faciliate selection by the user --&gt; [rest of string was truncated]&quot;;.
+        ///&lt;!-- build a list of checks and bonuses to display in order to faciliate selection by the user --&gt;
+        ///[H : CheckNameAndBonusList = &quot;&quot;]
+        ///[H, C(listCount(CheckNameList)) [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CheckTemplate {
             get {
@@ -98,19 +100,12 @@ namespace TokenAssist.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
-        ///[H : FeatName = &quot;__FEAT_NAME__&quot;]
+        ///[H : ClassFeatureName = &quot;__CLASS_FEATURE_NAME__&quot;]
         ///
-        ///&lt;!-- html feat card, as found in the compendium --&gt;
-        ///[H : FeatCard = &quot;__FEAT_CARD__&quot;]
+        ///&lt;!-- class feature description --&gt;
+        ///[H : ClassFeatureDescription = &quot;__CLASS_FEATURE_DESCRIPTION__&quot;]
         ///
-        ///&lt;!-- show the user the feat they have selected --&gt;
-        ///[H : InputPrompt = input(FeatName + &quot; | &lt;html&gt;&quot; + FeatCard + &quot;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;)]
-        ///
-        ///&lt;!-- bail if the user cancels the dialog --&gt;
-        ///[H : abort(InputPrompt)]
-        ///
-        ///&lt;!-- show the feat to the other players --&gt;
-        ///{FeatCard}.
+        ///[H : ClassFeatureCard = &quot;&lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.35em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #1d3d5e;&apos;&gt;&quot; + ClassFeatureName + &quot;&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: # [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ClassFeatureTemplate {
             get {
@@ -186,7 +181,9 @@ namespace TokenAssist.Properties {
         ///&lt;!-- show the user damage options --&gt;
         ///[H : InputPrompt = input(
         ///	&quot;UNUSED | &quot; + CurrentHitPoints + &quot; / &quot; + MaxHitPoints + if(TempHitPoints &gt; 0, &quot; (Temp: &quot; + TempHitPoints + &quot;)&quot;, &quot;&quot;) + &quot; | Hit Points | Label&quot;,
-        ///	&quot;UNUSED | &quot; + CurrentHealingSurges + &quot; / &quot; + MaxHealingSurges + &quot; (Value: &quot; + HealingSurgeValue + &quot;) | Healing Surge [rest of string was truncated]&quot;;.
+        ///	&quot;UNUSED | &quot; + CurrentHealingSurges + &quot; / &quot; + MaxHealingSurges + &quot; (Value: &quot; + HealingSurgeValue + &quot;) | Healing Surges | Label&quot;,
+        ///	&quot;UNUSED | &lt;html&gt;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;,
+        ///	&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DamageTemplate {
             get {
@@ -262,7 +259,7 @@ namespace TokenAssist.Properties {
         ///&lt;!-- show the user healing options --&gt;
         ///[H : InputPrompt = input(
         ///	&quot;UNUSED | &quot; + CurrentHitPoints + &quot; / &quot; + MaxHitPoints + if(TempHitPoints &gt; 0, &quot; (Temp: &quot; + TempHitPoints + &quot;)&quot;, &quot;&quot;) + &quot; | Hit Points | Label&quot;,
-        ///	&quot;UNUSED | &quot; + CurrentHealingSurg [rest of string was truncated]&quot;;.
+        ///	&quot;UNUSED | &quot; + CurrentHealingSurges + &quot; / &quot; + MaxHealingSurges + &quot; (Value: &quot; + HealingSurgeValue + &quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string HealingTemplate {
             get {
@@ -280,8 +277,10 @@ namespace TokenAssist.Properties {
         ///[H : InputPrompt = input(
         ///   &quot;UNUSED | Bonus (+&quot; + InitBonus + &quot;) | Roll Initiative | LABEL&quot;,
         ///   &quot;TempInitBonus | &quot; + LastTempInitBonus + &quot; | Temporary bonus | TEXT&quot;,
-        ///   &quot;UNUSED | &lt;html&gt;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;,
-        ///  [rest of string was truncated]&quot;;.
+        ///   &quot;UNUSED | &lt;html&gt;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;)]
+        ///
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPro [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string InitiativeTemplate {
             get {
@@ -417,8 +416,12 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
+        ///   Looks up a localized string similar to /gm &lt;br&gt; &lt;!-- print everything to the GM channel --&gt;
+        ///
+        ///&lt;!-- generic variables that were populated by TokenAssist --&gt;
         ///[H : PowerName = &quot;###NAME###&quot;]
+        ///[H : PowerType = &quot;###TYPE###&quot;]
+        ///[H : PowerRange = &quot;###RANGE###&quot;]
         ///[H : AttackBonus = &quot;###ATTACK_BONUS###&quot;]
         ///[H : Damage = &quot;###DAMAGE###&quot;]
         ///[H : MaxDamage = &quot;###MAX_DAMAGE###&quot;]
@@ -426,15 +429,27 @@ namespace TokenAssist.Properties {
         ///[H : DefenseStat = &quot;###DEFENSE_STAT###&quot;]
         ///[H : CriticalDamage = 0]
         ///
-        ///&lt;!-- html power card, as found in the compendium --&gt;
-        ///[H : PowerCard = &quot;###POWER_CARD###&quot;]
-        ///
-        ///&lt;!-- retrieve previously stored values --&gt;
-        ///[H : NumberOfTargets = if(MultipleTargets == 1, ge [rest of string was truncated]&quot;;.
+        ///[H : MonsterName = string(token.name)]
+        ///[H : PowerTitle = string(t [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MonsterPowerMacro {
             get {
                 return ResourceManager.GetString("MonsterPowerMacro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- generic variables that were populated by TokenAssist --&gt;
+        ///[H : ClassFeatureName = &quot;__CLASS_FEATURE_NAME__&quot;]
+        ///
+        ///&lt;!-- class feature description --&gt;
+        ///[H : ClassFeatureDescription = &quot;__CLASS_FEATURE_DESCRIPTION__&quot;]
+        ///
+        ///[H : ClassFeatureCard = &quot;&lt;div style=&apos;width: 600;&apos;&gt;&lt;h1 style=&apos;font-size: 1.35em; line-height: 2; padding-left: 15px; margin: 0; color: #ffffff; background: #1d3d5e;&apos;&gt;&quot; + ClassFeatureName + &quot;&lt;/h1&gt;&lt;p style=&apos;padding-left: color: #3e141e; display: block; padding: 2px 15px; margin: 0; background: # [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string MonsterTraitTemplate {
+            get {
+                return ResourceManager.GetString("MonsterTraitTemplate", resourceCulture);
             }
         }
         
@@ -470,7 +485,8 @@ namespace TokenAssist.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!-- Confirm the user&apos;s decision to reset the monster --&gt;
+        ///   Looks up a localized string similar to /gm &lt;br&gt;
+        ///&lt;!-- Confirm the user&apos;s decision to reset the monster --&gt;
         ///[H : InputPrompt = input(&quot;ResetMonster | 1 | Reset Monster? | CHECK&quot;)]
         ///
         ///&lt;!-- bail if the user cancels the dialog --&gt;
@@ -484,7 +500,7 @@ namespace TokenAssist.Properties {
         ///&lt;!-- set available action points to starting value --&gt;
         ///[H : ActionPoints = StartingActionPoints]
         ///
-        ///&lt;!-- format t [rest of string was truncated]&quot;;.
+        ///&lt;!- [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ResetMonsterTemplate {
             get {
@@ -524,8 +540,10 @@ namespace TokenAssist.Properties {
         ///[H : InputPrompt = input(
         ///   &quot;UNUSED | Bonus (+&quot; + SaveBonus + &quot;) | Saving Throw | LABEL&quot;,
         ///   &quot;TempSaveBonus | &quot; + LastTempSaveBonus + &quot; | Temporary bonus | TEXT&quot;,
-        ///   &quot;UNUSED | &lt;html&gt;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;,
-        ///   &quot; [rest of string was truncated]&quot;;.
+        ///   &quot;UNUSED | &lt;html&gt;&lt;/html&gt; | | LABEL | SPAN = TRUE&quot;)]
+        ///
+        ///&lt;!-- bail if the user cancels the dialog --&gt;
+        ///[H : abort(InputPrompt [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SavingThrowTemplate {
             get {
@@ -550,7 +568,7 @@ namespace TokenAssist.Properties {
         ///&lt;!-- show the user healing options --&gt;
         ///[H : InputPrompt = input(
         ///	&quot;UNUSED | &quot; + CurrentHitPoints + &quot; / &quot; + MaxHitPoints + if(TempHitPoints &gt; 0, &quot; (Temp: &quot; + TempHitPoints + &quot;)&quot;, &quot;&quot;) + &quot; | Hit Points | Label&quot;,
-        ///	&quot;UNUSED | &quot; + CurrentHealingSurges + &quot; / &quot; + [rest of string was truncated]&quot;;.
+        ///	&quot;UNUSED | &quot; + CurrentHealingSurges + &quot; / &quot; + MaxHealingSurges + &quot; (Value: &quot; + HealingSurgeValue + &quot;) | Healing  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TempHPTemplate {
             get {
