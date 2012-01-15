@@ -12,7 +12,6 @@
 [H : CriticalDamage = 0]
 
 [H : MonsterName = string(token.name)]
-[H : PowerTitle = string(token.name) + " - ###NAME###: +###ATTACK_BONUS### vs. ###DEFENSE_STAT###"]
 [H : PowerDescription = "###POWER_CARD###"]
 
 <!-- fabricated power card -->

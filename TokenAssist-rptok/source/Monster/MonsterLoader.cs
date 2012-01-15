@@ -240,6 +240,10 @@ namespace TokenAssist
 
                     newPower.Category = powerElement.Element("Usage").Value;
 
+                    XElement node = powerElement.Element("UsageDetails");
+                    if (node != null)
+                        newPower.UsageDetails = node.Value;
+
                     // add keywords
                     XElement keywordNode = powerElement.Element("Keywords");
                     if (keywordNode != null)
@@ -282,21 +286,34 @@ namespace TokenAssist
 
             // attempt to find the damage done by the attack
             exp = attackNode.XPathSelectElement("./Hit//Expression");
-            if (exp != null)
-                newPower.Damage = exp.Value;
+            if ((exp != null) && (exp.Value != ""))
+                newPower.HitDamageExp = exp.Value;
 
             // attempt to find the "on hit" information of the power
             exp = attackNode.XPathSelectElement("./Hit//Description");
-            if (exp != null)
+            if ((exp != null) && (exp.Value != ""))
+            {
                 newPower.OnHitText = HtmlUtilities.ScrubString(exp.Value);
+            }
+            
+            exp = attackNode.XPathSelectElement("./Miss//Expression");
+            if ((exp != null) && (exp.Value != ""))
+            {
+                newPower.MissDamageExp = HtmlUtilities.ScrubString(exp.Value);
+            }
+
+            exp = attackNode.XPathSelectElement("./Miss//Description");
+            if ((exp != null) && (exp.Value != ""))
+            {
+                newPower.OnMissText = HtmlUtilities.ScrubString(exp.Value);
+            }
 
             // attempt to find information on the effect of the power
             XElement effectNode = attackNode.XPathSelectElement("./Effect//Description");
-            if (effectNode != null)
+            if ((effectNode != null) && (effectNode.Value != ""))
             {
                 newPower.EffectText = HtmlUtilities.ScrubString(effectNode.Value);
             }
-
             // pull out information on the attack roll and defenses
             XElement attackBonuses = attackNode.Element("AttackBonuses");
             if (attackBonuses != null)
