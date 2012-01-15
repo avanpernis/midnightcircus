@@ -3,8 +3,8 @@
 
 = Current Task List =
 
-  * DANIEL - Print damage roll in monster power card.
-  * DANIEL - Print miss effect in monster power card.
+  * DANIEL - ~~Print damage roll in monster power card.~~
+  * DANIEL - ~~Print miss effect in monster power card.~~
   * Add macros for Triggered Actions for monsters. See Koptila.monster for an example.
   * BRIAN - Add macros for Traits for monsters. See Hulking Zombie.monster for an example.
   * BRIAN - ~~Display monster damage modifiers (Immune/Resist/Vulnerable) on monster token card.~~
