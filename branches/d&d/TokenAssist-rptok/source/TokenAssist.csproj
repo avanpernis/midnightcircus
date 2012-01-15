@@ -89,6 +89,7 @@
     <Compile Include="Monster\MonsterLoader.cs" />
     <Compile Include="Monster\MonsterPower.cs" />
     <Compile Include="Monster\MonsterTokenBuilder.cs" />
+    <Compile Include="Monster\Trait.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Token\Token.cs" />
@@ -147,6 +148,7 @@
     <None Include="Resources\MacroCreationTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\MonsterTraitTemplate.txt" />
     <Content Include="Resources\WeaponTemplate.txt" />
     <EmbeddedResource Include="Resources\defaultTokenImage.png" />
     <None Include="Resources\MonsterPowerMacro.txt" />

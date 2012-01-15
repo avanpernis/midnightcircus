@@ -39,10 +39,16 @@ namespace TokenAssist
             // only monsters can be reset
             token.AddMacro(HtmlUtilities.Bold("Reset"), ActorTokenFactory.MiscGroup, Color.white, Color.black, Properties.Resources.ResetMonsterTemplate);
 
-            // convert monster powers to token powers
+            // convert monster powers to token macros
             foreach (MonsterPower p in monster.Powers)
             {
                 BuildMacroFromPower(token, p);
+            }
+
+            // convert monster traits to token macros
+            foreach (Trait trait in monster.Traits)
+            {
+                BuildMacroFromTrait(token, trait);
             }
             
             token.Write(filename);
@@ -97,7 +103,16 @@ namespace TokenAssist
 
             command = command.Replace(@"###POWER_CARD###", desc);
 
-            token.AddMacro("<b>"+power.Name+"</b><br>"+power.Action+" "+power.RangeText, power.Category, ColorFromCatagory(power.Category), Color.black, command);
+            token.AddMacro(HtmlUtilities.Bold(power.Name)+"<br>"+power.Action+" "+power.RangeText, power.Category, ColorFromCatagory(power.Category), Color.black, command);
+        }
+
+        public static void BuildMacroFromTrait(Token token, Trait trait)
+        {
+            string command = TokenAssist.Properties.Resources.MonsterTraitTemplate;
+            command = command.Replace(@"__MONSTER_TRAIT_NAME__", trait.Name);
+            command = command.Replace(@"__MONSTER_TRAIT_DESCRIPTION__", HtmlUtilities.ScrubString(trait.Description));
+
+            token.AddMacro(HtmlUtilities.Bold(trait.Name), "Traits", Color.MonsterCategory, Color.white, command);
         }
 
         public static ColorValue ColorFromCatagory(string Category)

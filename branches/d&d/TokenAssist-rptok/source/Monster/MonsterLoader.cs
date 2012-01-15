@@ -26,6 +26,7 @@ namespace TokenAssist
                 LoadImmunities(m, root);
                 LoadResistances(m, root);
                 LoadVulnerabilities(m, root);
+                LoadTraits(m, root);
                 LoadPowers(m, root);
             }
             catch (Exception ex)
@@ -183,6 +184,32 @@ namespace TokenAssist
             catch (Exception e)
             {
                 MessageSystem.Warning("error loading immunities, " + e.Message);
+            }
+        }
+
+        private static void LoadTraits(Monster m, XElement docRoot)
+        {
+            XElement powersRoot = docRoot.Element("Powers");
+            if (powersRoot == null)
+            {
+                MessageSystem.Warning("error loading traits.  Aborting trait processing.");
+                return;
+            }
+
+            foreach (XElement traitElement in powersRoot.Elements("MonsterTrait"))
+            {
+                try
+                {
+                    Trait trait = new Trait();
+                    trait.Name = traitElement.Element("Name").Value;
+                    trait.Description = traitElement.Element("Details").Value;
+
+                    m.Traits.Add(trait);
+                }
+                catch (Exception e)
+                {
+                    MessageSystem.Warning("error loading traits, " + e.Message);
+                }
             }
         }
 

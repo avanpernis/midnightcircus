@@ -10,6 +10,7 @@ namespace TokenAssist
         public List<DamageDetails> Immunities = new List<DamageDetails>();
         public List<DamageDetails> Resistances = new List<DamageDetails>();
         public List<DamageDetails> Vulnerabilities = new List<DamageDetails>();
+        public List<Trait> Traits = new List<Trait>();
 
         public Monster()
             : base()
