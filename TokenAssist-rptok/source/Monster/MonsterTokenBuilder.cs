@@ -88,6 +88,11 @@ namespace TokenAssist
             // load the description
             string desc = "";
 
+            if (power.TriggerText != null)
+            {
+                desc += "<i>Trigger:</i> " + power.TriggerText + "<br>"; ;
+            }
+
             if ((power.AttackBonus != null) && (power.Defense != null))
             {
                 desc += string.Format("<i>Attack:</i> {0}; {1}{2} vs. {3}<br>", power.RangeText, (power.AttackBonus >= 0) ? "+" : "", power.AttackBonus, power.Defense);
@@ -116,7 +121,7 @@ namespace TokenAssist
 
             command = command.Replace(@"###POWER_CARD###", desc);
 
-            token.AddMacro(HtmlUtilities.Bold(power.Name)+"<br>"+power.Action+" "+power.RangeText, power.Category, ColorFromCatagory(power.Category), Color.black, command);
+            token.AddMacro(HtmlUtilities.Bold(power.Name)+"<br>"+power.Action+" "+power.RangeText, power.Category, ColorFromCategory(power.Category), Color.black, command);
         }
 
         public static void BuildMacroFromTrait(Token token, Trait trait)
@@ -136,21 +141,24 @@ namespace TokenAssist
             token.AddMacro(name, "Traits", Color.MonsterCategory, Color.white, command);
         }
 
-        public static ColorValue ColorFromCatagory(string Category)
+        public static ColorValue ColorFromCategory(string Category)
         {
             ColorValue result = Color.white;
 
-            if (Category.Equals("at-will", StringComparison.CurrentCultureIgnoreCase))
+            if (Category != null)
             {
-                result = Color.green;
-            }
-            else if (Category.Equals("encounter", StringComparison.CurrentCultureIgnoreCase))
-            {
-                result = Color.red;
-            }
-            else if (Category.Equals("recharge", StringComparison.CurrentCultureIgnoreCase))
-            {
-                result = Color.red;
+                if (Category.Equals("at-will", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    result = Color.green;
+                }
+                else if (Category.Equals("encounter", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    result = Color.red;
+                }
+                else if (Category.Equals("recharge", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    result = Color.red;
+                }
             }
 
             return result;

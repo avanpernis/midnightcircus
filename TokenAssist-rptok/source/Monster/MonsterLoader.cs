@@ -244,7 +244,13 @@ namespace TokenAssist
                     if (actionElement != null)
                         newPower.Action = actionElement.Value;
 
-                    newPower.Category = powerElement.Element("Usage").Value;
+                    XElement usageElement = powerElement.Element("Usage");
+                    if (usageElement != null)
+                        newPower.Category = usageElement.Value;
+                    else
+                    {
+                        newPower.Category = "At-Will";
+                    }
 
                     XElement node = powerElement.Element("UsageDetails");
                     if (node != null)
@@ -259,6 +265,11 @@ namespace TokenAssist
                             newPower.Keywords.Add(keyword.Value);
                         }
                     }
+
+                    // power trigger
+                    XElement triggerNode = powerElement.Element("Trigger");
+                    if (triggerNode != null)
+                        newPower.TriggerText = triggerNode.Value;
 
                     LoadAttackFromPower(powerElement, ref newPower);
 
