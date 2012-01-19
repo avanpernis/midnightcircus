@@ -13,3 +13,6 @@
   * Re-enable recharge powers when recharge roll is made.
   * character tokens should display ability scores/modifiers on the character sheet mouseover
   * weapon critical seems to not be working (check weapon of defense on kaddim, level 8) -- should be an extra 2d6?
+  * temporary bonus/minus attack/damage states (Brian suggested a sword and shield with +/- icons)
+  * monster encounter powers should gray-out like player encounter powers
+  * non working magic items (see Fundin)
