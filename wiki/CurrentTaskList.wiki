@@ -12,3 +12,4 @@
   * Gray out recharge powers when used.
   * Re-enable recharge powers when recharge roll is made.
   * character tokens should display ability scores/modifiers on the character sheet mouseover
+  * weapon critical seems to not be working (check weapon of defense on kaddim, level 8) -- should be an extra 2d6?
