@@ -11,3 +11,4 @@
   * DANIEL - Display recharge details on monster power card. See Koptila.monster for example recharge powers.
   * Gray out recharge powers when used.
   * Re-enable recharge powers when recharge roll is made.
+  * character tokens should display ability scores/modifiers on the character sheet mouseover
