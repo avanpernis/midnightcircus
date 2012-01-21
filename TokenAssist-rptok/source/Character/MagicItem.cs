@@ -47,7 +47,7 @@ namespace TokenAssist
             set { mPowerUsage = value; }
         }
 
-        public Power.ActionType PowerAction
+        public CharacterPower.ActionType PowerAction
         {
             get { return mPowerAction; }
             set { mPowerAction = value; }
@@ -55,7 +55,7 @@ namespace TokenAssist
 
         public bool HasPower
         {
-            get { return (PowerUsage != PowerUsageType.Undefined) && (PowerAction != Power.ActionType.Undefined); }
+            get { return (PowerUsage != PowerUsageType.Undefined) && (PowerAction != CharacterPower.ActionType.Undefined); }
         }
 
         private string mName = string.Empty;
@@ -63,6 +63,6 @@ namespace TokenAssist
         private string mUrl = null;
         private string mCompendiumEntry = null;
         private PowerUsageType mPowerUsage = PowerUsageType.Undefined;
-        private Power.ActionType mPowerAction = Power.ActionType.Undefined;
+        private CharacterPower.ActionType mPowerAction = CharacterPower.ActionType.Undefined;
     }
 }

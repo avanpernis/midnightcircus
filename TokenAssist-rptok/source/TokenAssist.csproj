@@ -53,6 +53,9 @@
     <Compile Include="Actor\AbilityScore.cs" />
     <Compile Include="Actor\Actor.cs" />
     <Compile Include="Actor\ActorTokenFactory.cs" />
+    <Compile Include="Actor\Builder.cs" />
+    <Compile Include="Actor\Loader.cs" />
+    <Compile Include="Actor\Power.cs" />
     <Compile Include="Actor\DamageDetails.cs" />
     <Compile Include="Actor\Defenses.cs" />
     <Compile Include="Actor\Skills.cs" />
@@ -65,7 +68,7 @@
     <Compile Include="Character\Feat.cs" />
     <Compile Include="Character\Macro.cs" />
     <Compile Include="Character\MagicItem.cs" />
-    <Compile Include="Character\Power.cs" />
+    <Compile Include="Character\CharacterPower.cs" />
     <Compile Include="Character\Race.cs" />
     <Compile Include="Character\Stat.cs" />
     <Compile Include="Character\Weapon.cs" />

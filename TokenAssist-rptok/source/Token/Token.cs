@@ -48,7 +48,11 @@ namespace TokenAssist
             return new ColorValue(value);
         }
     }
-
+    
+    /// <summary>
+    /// This class contains the knowledge on how to build a maptool token
+    /// to file given its current internal properties.
+    /// </summary>
     public class Token
     {
         public Token()

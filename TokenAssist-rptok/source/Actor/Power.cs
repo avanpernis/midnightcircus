@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace TokenAssist
 {
@@ -12,6 +12,7 @@ namespace TokenAssist
             AtWill,
             Encounter,
             Daily,
+            Recharge,
             Undefined
         }
 
@@ -33,7 +34,7 @@ namespace TokenAssist
             get { return mName; }
             set { mName = value; }
         }
-
+        
         public UsageType Usage
         {
             get { return mUsage; }
@@ -46,43 +47,8 @@ namespace TokenAssist
             set { mAction = value; }
         }
 
-        public string AttackTypeAndRange
-        {
-            get { return mAttackTypeAndRange; }
-            set { mAttackTypeAndRange = value; }
-        }
-
-        public bool AllowsForMultipleAttacks
-        {
-            get { return mAllowsForMultipleAttacks; }
-            set { mAllowsForMultipleAttacks = value; }
-        }
-
-        public List<Weapon> Weapons
-        {
-            get { return mWeapons; }
-            set { mWeapons = value; }
-        }
-
-        public string Url
-        {
-            get { return mUrl; }
-            set { mUrl = value; }
-        }
-
-        public string CompendiumEntry
-        {
-            get { return mCompendiumEntry; }
-            set { mCompendiumEntry = value; }
-        }
-
         private string mName = string.Empty;
         private UsageType mUsage = UsageType.Undefined;
         private ActionType mAction = ActionType.Undefined;
-        private string mAttackTypeAndRange = string.Empty;
-        private bool mAllowsForMultipleAttacks = false;
-        private List<Weapon> mWeapons = new List<Weapon>();
-        private string mUrl = null;
-        private string mCompendiumEntry = null;
     }
 }

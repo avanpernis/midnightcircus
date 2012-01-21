@@ -10,7 +10,7 @@ namespace TokenAssist
             : base()
         {
             ClassFeatures = new List<ClassFeature>();
-            Powers = new List<Power>();
+            Powers = new List<CharacterPower>();
             Feats = new List<Feat>();
             MagicItems = new List<MagicItem>();
         }
@@ -27,7 +27,7 @@ namespace TokenAssist
         public Race Race { get; set; }
         public Class Class { get; set; }
         public List<ClassFeature> ClassFeatures { get; set; }
-        public List<Power> Powers { get; set; }
+        public List<CharacterPower> Powers { get; set; }
         public List<Feat> Feats { get; set; }
         public List<MagicItem> MagicItems { get; set; }
     }
