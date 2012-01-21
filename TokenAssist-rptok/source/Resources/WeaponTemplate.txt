@@ -94,7 +94,7 @@
 <!-- damage roll (include temporary damage bonus) -->
 [H : CapableOfDamage = if(eval("" + MaxDamage) > 0, 1, 0)]
 [H : DamageRoll = eval(Damage + "+" + TempDamageBonus)]
-[H : MaxDamage = eval("" + MaxDamage + "+" + CriticalDamage + "+" + TempDamageBonus)]
+[H : MaxDamage = eval("" + CriticalDamage + "+" + TempDamageBonus)]
 
 <!-- build a pretty output string to indicate which damage was critical and which was not -->
 [H : DamageOutput = "<span style='color:black'>" + DamageRoll + "</span>"]
