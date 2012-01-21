@@ -8,40 +8,20 @@ using System.Xml;
 
 namespace TokenAssist
 {
-    public static class CharacterLoader
+    public class CharacterLoader : Loader
     {
-        public static string MeleeBasicAttack
-        {
-            get
-            {
-                return global::TokenAssist.Properties.Resources.MeleeBasicAttack;
-            }
-        }
-
-        public static string RangedBasicAttack
-        {
-            get
-            {
-                return global::TokenAssist.Properties.Resources.RangedBasicAttack;
-            }
-        }
-
-        public static string SecondWind
-        {
-            get
-            {
-                return global::TokenAssist.Properties.Resources.SecondWind;
-            }
-        }
-
-        public static Character Load(string filename)
+        static public Character Load(string filename)
         {
             // Make a temporary copy of the character file to work on
             filename = MakeTempCopy(filename);
 
-            Character character = new Character();
+            CharacterLoader loader = new CharacterLoader(filename);
+            return loader.Character;
+        }
 
-            CompendiumUtilities.ActiveCharacter = character;
+        public CharacterLoader(string filename)
+        {
+            CompendiumUtilities.ActiveCharacter = mCharacter;
 
             XmlDocument xmlDocument = new XmlDocument();
 
@@ -52,12 +32,12 @@ namespace TokenAssist
             catch (XmlException e)
             {
                 MessageBox.Show(e.Message, "Error Reading Character", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return character;
+                return;
             }
 
             XmlNode xmlNodeDetails = xmlDocument.SelectSingleNode("//Details");
-            character.Name = GetDescendantNodeText(xmlNodeDetails, "name");
-            character.Portrait = GetDescendantNodeText(xmlNodeDetails, "Portrait");
+            mCharacter.Name = GetDescendantNodeText(xmlNodeDetails, "name");
+            mCharacter.Portrait = GetDescendantNodeText(xmlNodeDetails, "Portrait");
 
             // load in the character's Stat Block
             XmlNode xmlNodeStatBlock = xmlDocument.SelectSingleNode("//StatBlock");
@@ -70,112 +50,112 @@ namespace TokenAssist
                 {
                     // Ability Scores
                     case "strength":
-                        character.Abilities["Strength"].Value = stat.Value;
+                        mCharacter.Abilities["Strength"].Value = stat.Value;
                         break;
                     case "constitution":
-                        character.Abilities["Constitution"].Value = stat.Value;
+                        mCharacter.Abilities["Constitution"].Value = stat.Value;
                         break;
                     case "dexterity":
-                        character.Abilities["Dexterity"].Value = stat.Value;
+                        mCharacter.Abilities["Dexterity"].Value = stat.Value;
                         break;
                     case "intelligence":
-                        character.Abilities["Intelligence"].Value = stat.Value;
+                        mCharacter.Abilities["Intelligence"].Value = stat.Value;
                         break;
                     case "wisdom":
-                        character.Abilities["Wisdom"].Value = stat.Value;
+                        mCharacter.Abilities["Wisdom"].Value = stat.Value;
                         break;
                     case "charisma":
-                        character.Abilities["Charisma"].Value = stat.Value;
+                        mCharacter.Abilities["Charisma"].Value = stat.Value;
                         break;
 
                     // Defenses
                     case "ac":
-                        character.Defenses["AC"] = stat.Value;
+                        mCharacter.Defenses["AC"] = stat.Value;
                         break;
                     case "fortitude defense":
-                        character.Defenses["Fortitude"] = stat.Value;
+                        mCharacter.Defenses["Fortitude"] = stat.Value;
                         break;
                     case "reflex defense":
-                        character.Defenses["Reflex"] = stat.Value;
+                        mCharacter.Defenses["Reflex"] = stat.Value;
                         break;
                     case "will defense":
-                        character.Defenses["Will"] = stat.Value;
+                        mCharacter.Defenses["Will"] = stat.Value;
                         break;
 
                     // Skills
                     case "acrobatics":
-                        character.Skills["Acrobatics"] = stat.Value;
+                        mCharacter.Skills["Acrobatics"] = stat.Value;
                         break;
                     case "arcana":
-                        character.Skills["Arcana"] = stat.Value;
+                        mCharacter.Skills["Arcana"] = stat.Value;
                         break;
                     case "athletics":
-                        character.Skills["Athletics"] = stat.Value;
+                        mCharacter.Skills["Athletics"] = stat.Value;
                         break;
                     case "bluff":
-                        character.Skills["Bluff"] = stat.Value;
+                        mCharacter.Skills["Bluff"] = stat.Value;
                         break;
                     case "diplomacy":
-                        character.Skills["Diplomacy"] = stat.Value;
+                        mCharacter.Skills["Diplomacy"] = stat.Value;
                         break;
                     case "dungeoneering":
-                        character.Skills["Dungeoneering"] = stat.Value;
+                        mCharacter.Skills["Dungeoneering"] = stat.Value;
                         break;
                     case "endurance":
-                        character.Skills["Endurance"] = stat.Value;
+                        mCharacter.Skills["Endurance"] = stat.Value;
                         break;
                     case "heal":
-                        character.Skills["Heal"] = stat.Value;
+                        mCharacter.Skills["Heal"] = stat.Value;
                         break;
                     case "history":
-                        character.Skills["History"] = stat.Value;
+                        mCharacter.Skills["History"] = stat.Value;
                         break;
                     case "insight":
-                        character.Skills["Insight"] = stat.Value;
+                        mCharacter.Skills["Insight"] = stat.Value;
                         break;
                     case "intimidate":
-                        character.Skills["Intimidate"] = stat.Value;
+                        mCharacter.Skills["Intimidate"] = stat.Value;
                         break;
                     case "nature":
-                        character.Skills["Nature"] = stat.Value;
+                        mCharacter.Skills["Nature"] = stat.Value;
                         break;
                     case "perception":
-                        character.Skills["Perception"] = stat.Value;
+                        mCharacter.Skills["Perception"] = stat.Value;
                         break;
                     case "religion":
-                        character.Skills["Religion"] = stat.Value;
+                        mCharacter.Skills["Religion"] = stat.Value;
                         break;
                     case "stealth":
-                        character.Skills["Stealth"] = stat.Value;
+                        mCharacter.Skills["Stealth"] = stat.Value;
                         break;
                     case "streetwise":
-                        character.Skills["Streetwise"] = stat.Value;
+                        mCharacter.Skills["Streetwise"] = stat.Value;
                         break;
                     case "thievery":
-                        character.Skills["Thievery"] = stat.Value;
+                        mCharacter.Skills["Thievery"] = stat.Value;
                         break;
 
                     // Misc. Stats
                     case "level":
-                        character.Level = stat.Value;
+                        mCharacter.Level = stat.Value;
                         break;
                     case "hit points":
-                        character.HP = stat.Value;
+                        mCharacter.HP = stat.Value;
                         break;
                     case "healing surges":
-                        character.HealingSurges = stat.Value;
+                        mCharacter.HealingSurges = stat.Value;
                         break;
                     case "initiative":
-                        character.Initiative = stat.Value;
+                        mCharacter.Initiative = stat.Value;
                         break;
                     case "_baseactionpoints":
-                        character.ActionPoints = stat.Value;
+                        mCharacter.ActionPoints = stat.Value;
                         break;
                     case "speed":
-                        character.Speed = stat.Value;
+                        mCharacter.Speed = stat.Value;
                         break;
                     case "saving throws":
-                        character.SavingThrow = stat.Value;
+                        mCharacter.SavingThrow = stat.Value;
                         break;
                     default:
                         break;
@@ -185,8 +165,8 @@ namespace TokenAssist
             // we use this to get the url information for many things
             XmlNode xmlNodeRules = xmlDocument.SelectSingleNode("//RulesElementTally");
 
-            character.Race = GetRace(xmlNodeRules);
-            character.Class = GetClass(xmlNodeRules);
+            mCharacter.Race = GetRace(xmlNodeRules);
+            mCharacter.Class = GetClass(xmlNodeRules);
 
             // look for all class features
             XmlNodeList xmlNodeListClassFeatures = xmlNodeRules.SelectNodes("RulesElement[@type='Class Feature']");
@@ -195,7 +175,7 @@ namespace TokenAssist
             {
                 ClassFeature classFeature = LoadClassFeature(xmlNodeClassFeature);
 
-                character.ClassFeatures.Add(classFeature);
+                mCharacter.ClassFeatures.Add(classFeature);
             }
 
             // look for all powers
@@ -203,7 +183,7 @@ namespace TokenAssist
 
             foreach (XmlNode xmlNodePower in xmlNodePowersRoot.ChildNodes)
             {
-                Power power = LoadPower(xmlNodePower);
+                CharacterPower power = LoadPower(xmlNodePower);
                 power.Url = GetPowerUrl(xmlNodeRules, power.Name);
 
                 if (power.Url != null)
@@ -232,18 +212,18 @@ namespace TokenAssist
                     power.AttackTypeAndRange = "Ranged weapon";
                 }
 
-                character.Powers.Add(power);
+                mCharacter.Powers.Add(power);
             }
 
             // every character gets a second wind power -- set it up with the standard properties (can be overridden per character if needed)
-            Power secondWind = new Power();
+            CharacterPower secondWind = new CharacterPower();
             secondWind.Name = "Second Wind";
-            secondWind.Usage = Power.UsageType.Encounter;
-            secondWind.Action = Power.ActionType.Standard;
+            secondWind.Usage = CharacterPower.UsageType.Encounter;
+            secondWind.Action = CharacterPower.ActionType.Standard;
             secondWind.CompendiumEntry = CompendiumUtilities.ApplyFormatting(SecondWind);
             secondWind.AttackTypeAndRange = GetPowerAttackTypeAndRange(secondWind.CompendiumEntry);
             secondWind.AllowsForMultipleAttacks = GetPowerAllowsForMultipleAttacks(secondWind.CompendiumEntry);
-            character.Powers.Add(secondWind);
+            mCharacter.Powers.Add(secondWind);
 
             // look for all feats
             XmlNodeList xmlNodeListFeats = xmlNodeRules.SelectNodes("RulesElement[@type='Feat']");
@@ -252,7 +232,7 @@ namespace TokenAssist
             {
                 Feat feat = LoadFeat(xmlnodeFeat);
 
-                character.Feats.Add(feat);
+                mCharacter.Feats.Add(feat);
             }
 
             // look for all magic items
@@ -262,16 +242,14 @@ namespace TokenAssist
             {
                 MagicItem magicItem = LoadMagicItem(xmlNodeMagicItem);
 
-                character.MagicItems.Add(magicItem);
+                mCharacter.MagicItems.Add(magicItem);
             }
 
             // Remove the temporary copy of the file
             File.Delete(filename);
-
-            return character;
         }
 
-        private static Race GetRace(XmlNode xmlNodeRules)
+        private Race GetRace(XmlNode xmlNodeRules)
         {
             XmlNode xmlNodeRace = xmlNodeRules.SelectSingleNode("RulesElement[@type='Race']");
 
@@ -282,7 +260,7 @@ namespace TokenAssist
             return race;
         }
 
-        private static Class GetClass(XmlNode xmlNodeRules)
+        private Class GetClass(XmlNode xmlNodeRules)
         {
             XmlNode xmlNodeRace = xmlNodeRules.SelectSingleNode("RulesElement[@type='Class']");
 
@@ -293,7 +271,7 @@ namespace TokenAssist
             return cls;
         }
 
-        private static ClassFeature LoadClassFeature(XmlNode xmlNodeClassFeature)
+        private ClassFeature LoadClassFeature(XmlNode xmlNodeClassFeature)
         {
             ClassFeature classFeature = new ClassFeature();
 
@@ -314,9 +292,9 @@ namespace TokenAssist
             return classFeature;
         }
 
-        private static Power LoadPower(XmlNode xmlNodePower)
+        private CharacterPower LoadPower(XmlNode xmlNodePower)
         {
-            Power power = new Power();
+            CharacterPower power = new CharacterPower();
 
             power.Name = GetAttributeText(xmlNodePower, "name");
             power.Usage = GetPowerUsage(xmlNodePower);
@@ -334,7 +312,7 @@ namespace TokenAssist
             return power;
         }
 
-        private static Stat LoadStat(XmlNode xmlNodeStat)
+        private Stat LoadStat(XmlNode xmlNodeStat)
         {
             Stat stat = new Stat();
             stat.Name = GetDescendantAttributeText(xmlNodeStat, "alias", "name").ToLower(); // seems to be some case issues between different files
@@ -343,7 +321,7 @@ namespace TokenAssist
             return stat;
         }
 
-        private static Feat LoadFeat(XmlNode xmlNodeFeat)
+        private Feat LoadFeat(XmlNode xmlNodeFeat)
         {
             Feat feat = new Feat();
 
@@ -360,7 +338,7 @@ namespace TokenAssist
             return feat;
         }
 
-        private static MagicItem LoadMagicItem(XmlNode xmlNodeMagicItem)
+        private MagicItem LoadMagicItem(XmlNode xmlNodeMagicItem)
         {
             MagicItem magicItem = new MagicItem();
 
@@ -382,7 +360,7 @@ namespace TokenAssist
             return magicItem;
         }
 
-        private static Weapon LoadWeapon(XmlNode xmlNodeWeapon)
+        private Weapon LoadWeapon(XmlNode xmlNodeWeapon)
         {
             Weapon weapon = new Weapon();
 
@@ -396,23 +374,21 @@ namespace TokenAssist
             return weapon;
         }
 
-        private static Power.UsageType GetPowerUsage(XmlNode xmlNodePower)
+        private Power.UsageType GetPowerUsage(XmlNode xmlNodePower)
         {
             string usage = GetDescendantNodeText(xmlNodePower, "specific[@name='Power Usage']");
-            usage = usage.Replace("-", ""); // remove the hyphen so that we can enum parse for 'at-will'
-            usage = usage.Replace(" Special", ""); // remove 'Special' so that we can enum parse for 'Encounter Special'
 
-            return (usage != null) ? (Power.UsageType)Enum.Parse(typeof(Power.UsageType), usage) : Power.UsageType.Undefined;
+            return (usage != null) ? UsageFromStr(usage) : Power.UsageType.Undefined;
         }
 
-        private static Power.ActionType GetPowerAction(XmlNode xmlNodePower)
+        private CharacterPower.ActionType GetPowerAction(XmlNode xmlNodePower)
         {
             string action = GetDescendantNodeText(xmlNodePower, "specific[@name='Action Type']");
 
-            return GetAction(action);
+            return ActionFromStr(action);
         }
 
-        private static string GetPowerUrl(XmlNode xmlNodeUrls, string name)
+        private string GetPowerUrl(XmlNode xmlNodeUrls, string name)
         {
             // using \" here because some names have that darned apostrophe
             string url = GetDescendantAttributeText(xmlNodeUrls, string.Format("RulesElement[@name=\"{0}\" and @type=\"Power\"]", name), "url");
@@ -420,7 +396,7 @@ namespace TokenAssist
             return (url != null) ? url : null;
         }
 
-        private static string GetPowerAttackTypeAndRange(string entry)
+        private string GetPowerAttackTypeAndRange(string entry)
         {
             // find all paragraph blocks
             Regex pPattern = new Regex(@"<p[^>]*>(.*?)</p>");
@@ -436,7 +412,7 @@ namespace TokenAssist
             return tagsPattern.Replace(result, "").Trim();
         }
 
-        private static bool GetPowerAllowsForMultipleAttacks(string entry)
+        private bool GetPowerAllowsForMultipleAttacks(string entry)
         {
             Regex targetPattern = new Regex(@"<p[^>]*><b>\s*Target\s*</b>\s*:?\s*(.*?)</p>");
             Match match = targetPattern.Match(entry);
@@ -461,14 +437,14 @@ namespace TokenAssist
             return (attackBonus != null) ? int.Parse(attackBonus) : int.MinValue;
         }
 
-        private static string GetWeaponDamage(XmlNode xmlNodeWeapon)
+        private string GetWeaponDamage(XmlNode xmlNodeWeapon)
         {
             string damage = GetDescendantNodeText(xmlNodeWeapon, "Damage");
 
             return string.IsNullOrEmpty(damage) ? "0" : damage;
         }
 
-        private static string GetWeaponCriticalDamage(XmlNode xmlNodeWeapon)
+        private string GetWeaponCriticalDamage(XmlNode xmlNodeWeapon)
         {
             // get the url for the magic weapon
             string url = GetDescendantAttributeText(xmlNodeWeapon, "RulesElement[@type='Magic Item']", "url");
@@ -492,7 +468,7 @@ namespace TokenAssist
             return match.Success ? match.Groups[1].Value : "0";
         }
 
-        private static void GetMagicItemPower(MagicItem magicItem)
+        private void GetMagicItemPower(MagicItem magicItem)
         {
             Regex usagePattern = new Regex(@"Power\s*\(([^)\s&]*)");
             Match usageMatch = usagePattern.Match(magicItem.CompendiumEntry);
@@ -511,42 +487,10 @@ namespace TokenAssist
 
             if (actionMatch.Success)
             {
-                magicItem.PowerAction = GetAction(actionMatch.Groups[1].Value.Trim());               
+                magicItem.PowerAction = ActionFromStr(actionMatch.Groups[1].Value.Trim());
             }
         }
 
-        private static Power.ActionType GetAction(string action)
-        {
-            action = action.Replace("Action", ""); // remove "Action" suffix so that we can enum parse for 'free', 'minor', 'move', and 'standard
-            action = action.Replace(" action", ""); // sometimes there is a lower case 'a'
-            action = action.Replace("(Special)", ""); // some actions have a special qualifier, but we don't care about that for purposes of token creation
-            action = action.Replace("Special", "");
-            action = action.Replace("</b>", ""); //remove bold formatting from some actions
-            action = action.Replace(" ", ""); // remove spaces so that we can enum parse for 'immediate interrupt' and 'immediate reaction'
-
-            return (Power.ActionType)Enum.Parse(typeof(Power.ActionType), action);
-        }
-
-        private static string GetDescendantAttributeText(XmlNode xmlNodeParent, string xPath, string attributeName)
-        {
-            XmlNode xmlNodeDescendant = xmlNodeParent.SelectSingleNode(xPath);
-
-            return (xmlNodeDescendant != null) ? GetAttributeText(xmlNodeDescendant, attributeName) : null;
-        }
-
-        private static string GetAttributeText(XmlNode xmlNode, string attributeName)
-        {
-            XmlAttribute xmlAttribute = xmlNode.Attributes[attributeName];
-
-            return (xmlAttribute != null) ? xmlAttribute.InnerText.Trim() : null;
-        }
-
-        private static string GetDescendantNodeText(XmlNode xmlNodeParent, string xPath)
-        {
-            XmlNode xmlNodeDescendant = xmlNodeParent.SelectSingleNode(xPath);
-
-            return (xmlNodeDescendant != null) ? xmlNodeDescendant.InnerText.Trim() : null;
-        }
 
         /// <summary>
         /// The .dnd4e file may not be directly readable by the XmlDocument class. 
@@ -601,8 +545,38 @@ namespace TokenAssist
             } while (text != null);
             input.Close();
             output.Close();
-   
+
             return tempFilename;
         }
+
+        public static string MeleeBasicAttack
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.MeleeBasicAttack;
+            }
+        }
+
+        public static string RangedBasicAttack
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.RangedBasicAttack;
+            }
+        }
+
+        public static string SecondWind
+        {
+            get
+            {
+                return global::TokenAssist.Properties.Resources.SecondWind;
+            }
+        }
+
+        public Character Character
+        {
+            get { return mCharacter; }
+        }
+        private Character mCharacter = new Character();
     }
 }

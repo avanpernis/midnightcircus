@@ -6,13 +6,20 @@ using System.Text;
 
 namespace TokenAssist
 {
-    public static class MonsterTokenBuilder
+    public class MonsterTokenBuilder : Builder
     {
         public static string gmStrWrapper(string input)
         {
             return "/gm <br><font size='4' color='blue'>{token.name}</font>\n" + input;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="monster"></param>
+        /// <param name="filename"></param>
+        /// <param name="tokenImage"></param>
+        /// <param name="tokenPortrait"></param>
         public static void WriteToken(Monster monster, string filename, string tokenImage, string tokenPortrait)
         {
             Token token = ActorTokenFactory.Create(monster, "4eMonster", tokenImage, tokenPortrait, gmStrWrapper);
@@ -60,7 +67,7 @@ namespace TokenAssist
 
             command = TokenAssist.Properties.Resources.MonsterPowerMacro;
             command = command.Replace(@"###NAME###", power.Name);
-            command = command.Replace(@"###TYPE###", power.Category);
+            command = command.Replace(@"###TYPE###", power.Usage.ToString());
             command = command.Replace(@"###RANGE###", power.RangeText);
 
             int attackBonus = (power.AttackBonus == null) ? 0 : (int)power.AttackBonus;
@@ -102,7 +109,7 @@ namespace TokenAssist
             {
                 desc += "<i>Hit:</i> ";
                 if (power.HitDamageExp != null)
-                    desc += "<b>" + power.HitDamageExp + "</b> ";
+                    desc += HtmlUtilities.Bold(power.HitDamageExp) + " ";
                 desc += power.OnHitText + "<br>";
             }
 
@@ -110,7 +117,7 @@ namespace TokenAssist
             {
                 desc += "<i>Miss:</i> ";
                 if (power.MissDamageExp != null)
-                    desc += "<b>" + power.MissDamageExp + "</b> ";
+                    desc += HtmlUtilities.Bold(power.MissDamageExp) + " ";
                 desc += power.OnMissText + "<br>";
             }
 
@@ -121,7 +128,7 @@ namespace TokenAssist
 
             command = command.Replace(@"###POWER_CARD###", desc);
 
-            token.AddMacro(HtmlUtilities.Bold(power.Name)+"<br>"+power.Action+" "+power.RangeText, power.Category, ColorFromCategory(power.Category), Color.black, command);
+            token.AddMacro(HtmlUtilities.Bold(power.Name) + "<br>" + power.Action + " " + power.RangeText, power.Usage.ToString(), GetMacroButtonColor(power), GetMacroFontColor(power), command);
         }
 
         public static void BuildMacroFromTrait(Token token, Trait trait)
@@ -139,29 +146,6 @@ namespace TokenAssist
             }
 
             token.AddMacro(name, "Traits", Color.MonsterCategory, Color.white, command);
-        }
-
-        public static ColorValue ColorFromCategory(string Category)
-        {
-            ColorValue result = Color.white;
-
-            if (Category != null)
-            {
-                if (Category.Equals("at-will", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    result = Color.green;
-                }
-                else if (Category.Equals("encounter", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    result = Color.red;
-                }
-                else if (Category.Equals("recharge", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    result = Color.red;
-                }
-            }
-
-            return result;
         }
     }
 }

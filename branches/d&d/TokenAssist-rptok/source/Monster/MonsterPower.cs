@@ -5,24 +5,12 @@ using System.Text;
 
 namespace TokenAssist
 {
-    public class MonsterPower
+    public class MonsterPower : Power
     {
-        public string Name;
-
-        /// <summary>
-        /// The category this power should appear in
-        /// </summary>
-        public string Category;
-
         /// <summary>
         /// The details on the power usage, so far this only seems useful to know the recharge limits
         /// </summary>
         public string UsageDetails;
-
-        /// <summary>
-        /// The type of action needed for this power
-        /// </summary>
-        public string Action;
 
         /// <summary>
         /// The expression that represents how much damage should be dealt on a hit
@@ -75,7 +63,5 @@ namespace TokenAssist
         public bool MultiTarget;
 
         public SortedSet<string> Keywords = new SortedSet<string>();
-
-        
     };
 }

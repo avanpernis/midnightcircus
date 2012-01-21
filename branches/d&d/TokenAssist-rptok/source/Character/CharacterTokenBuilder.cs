@@ -35,7 +35,7 @@ namespace TokenAssist
             int EncounterPowerCount = 1; // all other encounter powers will start at id #1
             int DailyPowerCount = 0; // daily powers can start at id #0
 
-            foreach (Power power in character.Powers)
+            foreach (CharacterPower power in character.Powers)
             {
                 string macro = null;
 
@@ -97,20 +97,20 @@ namespace TokenAssist
 
                 // insert macro into Encounter or Daily macro
 
-                if (power.Usage == Power.UsageType.Encounter || power.Usage == Power.UsageType.Daily)
+                if (power.Usage == CharacterPower.UsageType.Encounter || power.Usage == CharacterPower.UsageType.Daily)
                 {
                     string tempMacro = Properties.Resources.LimitedUseTemplate;
                     macro = tempMacro.Replace(@"__MACRO_TEXT__", macro);
                     switch (power.Usage)
                     {
-                        case Power.UsageType.Encounter:
+                        case CharacterPower.UsageType.Encounter:
                             {
                                 bool channelDivinity = (power.CompendiumEntry != null) && (power.CompendiumEntry.Contains("Channel Divinity"));
                                 macro = macro.Replace(@"__POWER_ID__", string.Format("{0}", channelDivinity ? ChannelDivinityPowerId : EncounterPowerCount++));
                                 macro = macro.Replace(@"__USAGE_TYPE__", "Encounter");
                                 break;
                             }
-                        case Power.UsageType.Daily:
+                        case CharacterPower.UsageType.Daily:
                             macro = macro.Replace(@"__POWER_ID__", string.Format("{0}", DailyPowerCount++));
                             macro = macro.Replace(@"__USAGE_TYPE__", "Daily");
                             break;
@@ -193,7 +193,7 @@ namespace TokenAssist
             token.Write(filename);
         }
 
-        private static string GetMacroName(Power power)
+        private static string GetMacroName(CharacterPower power)
         {
             string name = power.Name;
 
@@ -205,44 +205,44 @@ namespace TokenAssist
             return string.Format(@"{0}<br>{1} {2}", HtmlUtilities.Bold(name), power.Action.ToString(), power.AttackTypeAndRange);
         }
 
-        private static string GetMacroGroup(Power power)
+        private static string GetMacroGroup(CharacterPower power)
         {
             switch (power.Usage)
             {
-                case Power.UsageType.AtWill:
+                case CharacterPower.UsageType.AtWill:
                     return "3:At-Will";
-                case Power.UsageType.Encounter:
+                case CharacterPower.UsageType.Encounter:
                     return "4:Encounter";
-                case Power.UsageType.Daily:
+                case CharacterPower.UsageType.Daily:
                     return "5:Daily";
                 default:
                     return null;
             }
         }
 
-        private static ColorValue GetMacroButtonColor(Power power)
+        private static ColorValue GetMacroButtonColor(CharacterPower power)
         {
             switch (power.Usage)
             {
                 default:
-                case Power.UsageType.AtWill:
+                case CharacterPower.UsageType.AtWill:
                     return Color.green;
-                case Power.UsageType.Encounter:
+                case CharacterPower.UsageType.Encounter:
                     return Color.red;
-                case Power.UsageType.Daily:
+                case CharacterPower.UsageType.Daily:
                     return Color.black;
             }
         }
 
-        private static ColorValue GetMacroFontColor(Power power)
+        private static ColorValue GetMacroFontColor(CharacterPower power)
         {
             switch (power.Usage)
             {
                 default:
-                case Power.UsageType.AtWill:
+                case CharacterPower.UsageType.AtWill:
                     return Color.black;
-                case Power.UsageType.Encounter:
-                case Power.UsageType.Daily:
+                case CharacterPower.UsageType.Encounter:
+                case CharacterPower.UsageType.Daily:
                     return Color.white;
             }
         }

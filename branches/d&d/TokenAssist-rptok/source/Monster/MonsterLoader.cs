@@ -7,27 +7,34 @@ using System.IO;
 
 namespace TokenAssist
 {
-    public static class MonsterLoader
+    /// <summary>
+    /// This class creates a Monster instance containing all the relevant
+    /// data found in the file
+    /// </summary>
+    public class MonsterLoader : Loader
     {
-        public static Monster Load(string filename)
+        static public Monster Load(string filename)
         {
-            Monster m = new Monster();
+            MonsterLoader loader = new MonsterLoader(filename);
+            return loader.Monster;
+        }
+        
 
-            RollUtilities.EvaluateMaximum("1d6 + 5 + 2");
-
+        public MonsterLoader(string filename)
+        {
             try
             {
                 XElement root = XElement.Load(filename);
 
-                LoadMisc(m, root);
-                LoadAbilities(m, root);
-                LoadDefenses(m, root);
-                LoadSkills(m, root);
-                LoadImmunities(m, root);
-                LoadResistances(m, root);
-                LoadVulnerabilities(m, root);
-                LoadTraits(m, root);
-                LoadPowers(m, root);
+                LoadMisc(root);
+                LoadAbilities(root);
+                LoadDefenses(root);
+                LoadSkills(root);
+                LoadImmunities(root);
+                LoadResistances(root);
+                LoadVulnerabilities(root);
+                LoadTraits(root);
+                LoadPowers(root);
             }
             catch (Exception ex)
             {
@@ -35,43 +42,42 @@ namespace TokenAssist
                     "Reason: " + ex.Message
                     );
             }
-
-            return m;
         }
+
         
-        private static void LoadMisc(Monster m, XElement docRoot)
+        private void LoadMisc(XElement docRoot)
         {
             GuardedExec(
-                () => m.Name = docRoot.Element("Name").Value,
+                () => mMonster.Name = docRoot.Element("Name").Value,
                 "Name"
             );
             GuardedExec(
-                () => m.Level = int.Parse(docRoot.Element("Level").Value),
+                () => mMonster.Level = int.Parse(docRoot.Element("Level").Value),
                 "Level"
             );
             GuardedExec(
-                () => m.HP = int.Parse(docRoot.Element("HitPoints").Attribute("FinalValue").Value),
+                () => mMonster.HP = int.Parse(docRoot.Element("HitPoints").Attribute("FinalValue").Value),
                 "HP"
             );
             GuardedExec(
-                () => m.Speed = int.Parse(docRoot.Element("LandSpeed").Element("Speed").Attribute("FinalValue").Value),
+                () => mMonster.Speed = int.Parse(docRoot.Element("LandSpeed").Element("Speed").Attribute("FinalValue").Value),
                 "Level"
             );
             GuardedExec(
-                () => m.Initiative = int.Parse(docRoot.Element("Initiative").Attribute("FinalValue").Value),
+                () => mMonster.Initiative = int.Parse(docRoot.Element("Initiative").Attribute("FinalValue").Value),
                 "Initiative"
             );
             GuardedExec(
-                () => m.ActionPoints = int.Parse(docRoot.Element("ActionPoints").Attribute("FinalValue").Value),
+                () => mMonster.ActionPoints = int.Parse(docRoot.Element("ActionPoints").Attribute("FinalValue").Value),
                 "Action Points"
             );
             GuardedExec(
-                () => m.SavingThrow = int.Parse(docRoot.XPathSelectElement("//SavingThrows//MonsterSavingThrow").Attribute("FinalValue").Value),
+                () => mMonster.SavingThrow = int.Parse(docRoot.XPathSelectElement("//SavingThrows//MonsterSavingThrow").Attribute("FinalValue").Value),
                 "Saving Throw"
             );
         }
 
-        private static void LoadAbilities(Monster m, XElement docRoot)
+        private void LoadAbilities(XElement docRoot)
         {
             try
             {
@@ -82,7 +88,7 @@ namespace TokenAssist
                     string abilityName = ab.Element("Name").Value;
                     int abilityValue = int.Parse(ab.Attribute("FinalValue").Value);
 
-                    m.Abilities[abilityName].Value = abilityValue;
+                    mMonster.Abilities[abilityName].Value = abilityValue;
                 }
             }
             catch (Exception e)
@@ -91,7 +97,7 @@ namespace TokenAssist
             }
         }
 
-        private static void LoadDefenses(Monster m, XElement docRoot)
+        private void LoadDefenses(XElement docRoot)
         {
             try
             {
@@ -101,7 +107,7 @@ namespace TokenAssist
                     string name = e.Element("Name").Value;
                     int value = int.Parse(e.Attribute("FinalValue").Value);
 
-                    m.Defenses[name] = value;
+                    mMonster.Defenses[name] = value;
                 }
             }
             catch (Exception e)
@@ -110,7 +116,7 @@ namespace TokenAssist
             }
         }
         
-        private static void LoadSkills(Monster m, XElement docRoot)
+        private void LoadSkills(XElement docRoot)
         {
             try
             {
@@ -120,7 +126,7 @@ namespace TokenAssist
                     string skillName = ab.Element("Name").Value;
                     int skillValue = int.Parse(ab.Attribute("FinalValue").Value);
 
-                    m.Skills[skillName] = skillValue;
+                    mMonster.Skills[skillName] = skillValue;
                 }
             }
             catch (Exception e)
@@ -129,16 +135,16 @@ namespace TokenAssist
             }
         }
 
-        private static void LoadImmunities(Monster m, XElement docRoot)
+        private void LoadImmunities(XElement docRoot)
         {
             try
             {
                 XElement immunityRoot = docRoot.Element("Immunities");
                 foreach (XElement e in immunityRoot.Elements("ObjectReference"))
                 {
-                    string immunityName = e.Element("ReferencedObject").Element("Name").Value;                   
+                    string immunityName = e.Element("ReferencedObject").Element("Name").Value;
 
-                    m.Immunities.Add(new DamageDetails(immunityName));
+                    mMonster.Immunities.Add(new DamageDetails(immunityName));
                 }
             }
             catch (Exception e)
@@ -147,7 +153,7 @@ namespace TokenAssist
             }
         }
 
-        private static void LoadResistances(Monster m, XElement docRoot)
+        private void LoadResistances(XElement docRoot)
         {
             try
             {
@@ -158,7 +164,7 @@ namespace TokenAssist
                     int resistanceAmount = int.Parse(e.Element("Amount").Attribute("FinalValue").Value);
                     string resistanceDetails = e.Element("Details").Value;
 
-                    m.Resistances.Add(new DamageDetails(resistanceName, resistanceAmount, resistanceDetails));
+                    mMonster.Resistances.Add(new DamageDetails(resistanceName, resistanceAmount, resistanceDetails));
                 }
             }
             catch (Exception e)
@@ -167,7 +173,7 @@ namespace TokenAssist
             }
         }
 
-        private static void LoadVulnerabilities(Monster m, XElement docRoot)
+        private void LoadVulnerabilities(XElement docRoot)
         {
             try
             {
@@ -178,7 +184,7 @@ namespace TokenAssist
                     int vulnerabilityAmount = int.Parse(e.Element("Amount").Attribute("FinalValue").Value);
                     string vulnerabilityDetails = e.Element("Details").Value;
 
-                    m.Vulnerabilities.Add(new DamageDetails(vulnerabilityName, vulnerabilityAmount, vulnerabilityDetails));
+                    mMonster.Vulnerabilities.Add(new DamageDetails(vulnerabilityName, vulnerabilityAmount, vulnerabilityDetails));
                 }
             }
             catch (Exception e)
@@ -187,7 +193,7 @@ namespace TokenAssist
             }
         }
 
-        private static void LoadTraits(Monster m, XElement docRoot)
+        private void LoadTraits(XElement docRoot)
         {
             XElement powersRoot = docRoot.Element("Powers");
             if (powersRoot == null)
@@ -210,7 +216,7 @@ namespace TokenAssist
                         trait.Keywords.Add(e.Element("ReferencedObject").Element("Name").Value.Trim().ToLower());
                     }
 
-                    m.Traits.Add(trait);
+                    mMonster.Traits.Add(trait);
                 }
                 catch (Exception e)
                 {
@@ -219,12 +225,12 @@ namespace TokenAssist
             }
         }
 
+
         /// <summary>
         /// Read the powers and append them to the Monster
         /// </summary>
-        /// <param name="m">The monster we are going to fill in</param>
         /// <param name="docRoot">The root of the xml to examine</param>
-        private static void LoadPowers(Monster m, XElement docRoot)
+        private void LoadPowers(XElement docRoot)
         {
             XElement powersRoot = docRoot.Element("Powers");
             if (powersRoot == null)
@@ -242,15 +248,13 @@ namespace TokenAssist
 
                     XElement actionElement = powerElement.Element("Action");
                     if (actionElement != null)
-                        newPower.Action = actionElement.Value;
+                        newPower.Action = ActionFromStr(actionElement.Value);
 
                     XElement usageElement = powerElement.Element("Usage");
                     if (usageElement != null)
-                        newPower.Category = usageElement.Value;
+                        newPower.Usage = UsageFromStr(usageElement.Value);
                     else
-                    {
-                        newPower.Category = "At-Will";
-                    }
+                        newPower.Usage = Power.UsageType.AtWill;
 
                     XElement node = powerElement.Element("UsageDetails");
                     if (node != null)
@@ -273,7 +277,7 @@ namespace TokenAssist
 
                     LoadAttackFromPower(powerElement, ref newPower);
 
-                    m.Powers.AddLast(newPower);
+                    mMonster.Powers.AddLast(newPower);
                 }
                 catch (Exception e)
                 {
@@ -282,12 +286,13 @@ namespace TokenAssist
             }
         }
 
+
         /// <summary>
         /// Attempt to read the attack attributes for this power, and fill the passed power with them.
         /// </summary>
         /// <param name="powerElement">The root XML node to read from</param>
         /// <param name="newPower">The power to fill</param>
-        private static void LoadAttackFromPower(XElement powerElement, ref MonsterPower newPower)
+        private void LoadAttackFromPower(XElement powerElement, ref MonsterPower newPower)
         {
             XElement attackNode = null;
             attackNode = powerElement.XPathSelectElement(".//Attacks//MonsterAttack");
@@ -350,7 +355,8 @@ namespace TokenAssist
                 }
             }
         }
-
+        
+        
         private static void GuardedExec(System.Action act, string fieldName)
         {
             try
@@ -362,5 +368,15 @@ namespace TokenAssist
                 MessageSystem.Warning("could not load field " + fieldName);
             }
         }
+        
+        
+        /// <summary>
+        ///  The Monster object that this instance will act on
+        /// </summary>
+        public Monster Monster
+        {
+            get { return mMonster; }
+        }
+        private Monster mMonster = new Monster();
     }
 }
