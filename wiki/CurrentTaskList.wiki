@@ -16,3 +16,4 @@
   * temporary bonus/minus attack/damage states (Brian suggested a sword and shield with +/- icons)
   * monster encounter powers should gray-out like player encounter powers
   * non working magic items (see Fundin)
+  * BRIAN - ~~monster multiple attack powers~~
