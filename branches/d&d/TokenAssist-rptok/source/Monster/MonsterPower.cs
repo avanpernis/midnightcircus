@@ -23,6 +23,11 @@ namespace TokenAssist
         public string RangeText;
 
         /// <summary>
+        /// Description of the eligible targets for this attack
+        /// </summary>
+        public string Targets;
+
+        /// <summary>
         /// Explanation of what triggers the use of the power
         /// </summary>
         public string TriggerText;
