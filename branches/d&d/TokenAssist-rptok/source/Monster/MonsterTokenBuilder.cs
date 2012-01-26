@@ -103,7 +103,26 @@ namespace TokenAssist
 
             command = TokenAssist.Properties.Resources.MonsterPowerMacro;
             command = command.Replace(@"###NAME###", power.Name);
-            command = command.Replace(@"###TYPE###", power.Usage.ToString());
+
+            StringBuilder powerUsage = new StringBuilder(power.Usage.ToString());
+            if (!string.IsNullOrWhiteSpace(power.UsageDetails))
+            {
+                int recharge;
+                if (int.TryParse(power.UsageDetails, out recharge))
+                {
+                    powerUsage.Append(" ");
+
+                    for (int i = recharge; i < 6; ++i)
+                    {
+                        powerUsage.Append(i.ToString() + ", ");
+                    }
+
+                    powerUsage.Append("6");
+                }
+            }
+
+            command = command.Replace(@"###TYPE###", powerUsage.ToString());
+
             command = command.Replace(@"###RANGE###", power.RangeText);
 
             int attackBonus = (power.AttackBonus == null) ? 0 : (int)power.AttackBonus;
