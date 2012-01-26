@@ -8,11 +8,6 @@ namespace TokenAssist
 {
     public class MonsterTokenBuilder : Builder
     {
-        public static string gmStrWrapper(string input)
-        {
-            return "/gm <br><font size='4' color='blue'>{token.name}</font>\n" + input;
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -22,46 +17,87 @@ namespace TokenAssist
         /// <param name="tokenPortrait"></param>
         public static void WriteToken(Monster monster, string filename, string tokenImage, string tokenPortrait)
         {
-            Token token = ActorTokenFactory.Create(monster, "4eMonster", tokenImage, tokenPortrait, gmStrWrapper);
+            MonsterTokenBuilder builder = new MonsterTokenBuilder(monster, tokenImage, tokenPortrait);
+            Token token = builder.Token;
+            token.Write(filename);
+        }
+
+
+        protected static string gmStrWrapper(string input)
+        {
+            return "/gm <br><font size='4' color='blue'>{token.name}</font>\n" + input;
+        }
+
+
+        public MonsterTokenBuilder(Monster monster, string tokenImage, string tokenPortrait)
+        {
+            mToken = ActorTokenFactory.Create(monster, "4eMonster", tokenImage, tokenPortrait, gmStrWrapper);
 
             // right now, only monsters support immunities, resistances, and vulnerabilities
             if (monster.Immunities.Count > 0)
             {
-                token.AddProperty("Immune", string.Join(", ", monster.Immunities));
+                mToken.AddProperty("Immune", string.Join(", ", monster.Immunities));
             }
 
             if (monster.Resistances.Count > 0)
             {
-                token.AddProperty("Resist", string.Join(", ", monster.Resistances));
+                mToken.AddProperty("Resist", string.Join(", ", monster.Resistances));
             }
 
             if (monster.Vulnerabilities.Count > 0)
             {
-                token.AddProperty("Vulnerable", string.Join(", ", monster.Vulnerabilities));
+                mToken.AddProperty("Vulnerable", string.Join(", ", monster.Vulnerabilities));
             }
-            
+
             // when a monster is reset, it needs to know its starting amount of action points
-            token.AddProperty("StartingActionPoints", monster.ActionPoints);
+            mToken.AddProperty("StartingActionPoints", monster.ActionPoints);
 
             // only monsters can be reset
-            token.AddMacro(HtmlUtilities.Bold("Reset"), ActorTokenFactory.MiscGroup, Color.white, Color.black, Properties.Resources.ResetMonsterTemplate);
+            mToken.AddMacro(HtmlUtilities.Bold("Reset"), ActorTokenFactory.MiscGroup, Color.white, Color.black, Properties.Resources.ResetMonsterTemplate);
 
-            // convert monster powers to token macros
+            // add monster power macros
             foreach (MonsterPower p in monster.Powers)
             {
-                BuildMacroFromPower(token, p);
+                BuildMacroFromPower(p);
             }
 
             // convert monster traits to token macros
             foreach (Trait trait in monster.Traits)
             {
-                BuildMacroFromTrait(token, trait);
+                BuildMacroFromTrait(trait);
             }
-            
-            token.Write(filename);
         }
 
-        public static void BuildMacroFromPower(Token token, MonsterPower power)
+
+        public void BuildMacroFromPower(MonsterPower power)
+        {
+            string buttonTitle = HtmlUtilities.Bold(power.Name) + "<br>" + power.Action + " " + power.RangeText;
+
+            string macroBody = MacroBodyFromPower(power);
+            string macroText = macroBody;
+            
+            string group = power.Usage.ToString();
+
+            if (power.isLimitedUse())
+            {
+                macroText = TokenAssist.Properties.Resources.LimitedUseTemplate;
+                macroText = macroText.Replace(@"__POWER_ID__", mPowerId.ToString());
+                macroText = macroText.Replace(@"__MACRO_TEXT__", macroBody);
+                macroText = macroText.Replace(@"__USAGE_TYPE__", group);
+
+                ++mPowerId;
+            }
+
+            // hide for gm
+            macroText = gmStrWrapper(macroText);
+
+            mToken.AddMacro(
+                buttonTitle, group, GetMacroButtonColor(power), 
+                GetMacroFontColor(power), macroText
+            );
+        }
+
+        public static string MacroBodyFromPower(MonsterPower power)
         {
             string command = null;
 
@@ -128,10 +164,10 @@ namespace TokenAssist
 
             command = command.Replace(@"###POWER_CARD###", desc);
 
-            token.AddMacro(HtmlUtilities.Bold(power.Name) + "<br>" + power.Action + " " + power.RangeText, power.Usage.ToString(), GetMacroButtonColor(power), GetMacroFontColor(power), command);
+            return command;
         }
 
-        public static void BuildMacroFromTrait(Token token, Trait trait)
+        public void BuildMacroFromTrait(Trait trait)
         {
             string command = TokenAssist.Properties.Resources.MonsterTraitTemplate;
             command = command.Replace(@"__MONSTER_TRAIT_NAME__", trait.Name);
@@ -145,7 +181,18 @@ namespace TokenAssist
                 name += "<br>Aura " + trait.Range;
             }
 
-            token.AddMacro(name, "Traits", Color.MonsterCategory, Color.white, command);
+            mToken.AddMacro(name, "Traits", Color.MonsterCategory, Color.white, command);
         }
+
+        /// <summary>
+        ///  The Token object that this instance will build and act upon
+        /// </summary>
+        public Token Token
+        {
+            get { return mToken; }
+        }
+        private Token mToken = null;
+
+        private int mPowerId = 0;
     }
 }
