@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TokenAssist
 {
-    public static class CharacterTokenBuilder
+    public class CharacterTokenBuilder : Builder
     {
         public static string ClassFeatureGroup = "Class Feature";
         public static string FeatGroup = "Feat";
@@ -205,7 +205,7 @@ namespace TokenAssist
             return string.Format(@"{0}<br>{1} {2}", HtmlUtilities.Bold(name), power.Action.ToString(), power.AttackTypeAndRange);
         }
 
-        private static string GetMacroGroup(CharacterPower power)
+	    private static string GetMacroGroup(CharacterPower power)
         {
             switch (power.Usage)
             {
@@ -218,35 +218,8 @@ namespace TokenAssist
                 default:
                     return null;
             }
-        }
-
-        private static ColorValue GetMacroButtonColor(CharacterPower power)
-        {
-            switch (power.Usage)
-            {
-                default:
-                case CharacterPower.UsageType.AtWill:
-                    return Color.green;
-                case CharacterPower.UsageType.Encounter:
-                    return Color.red;
-                case CharacterPower.UsageType.Daily:
-                    return Color.black;
-            }
-        }
-
-        private static ColorValue GetMacroFontColor(CharacterPower power)
-        {
-            switch (power.Usage)
-            {
-                default:
-                case CharacterPower.UsageType.AtWill:
-                    return Color.black;
-                case CharacterPower.UsageType.Encounter:
-                case CharacterPower.UsageType.Daily:
-                    return Color.white;
-            }
-        }
-
+        }    
+        
         private static string GetMacroName(MagicItem magicItem)
         {
             string macroName = HtmlUtilities.Bold(magicItem.Name);

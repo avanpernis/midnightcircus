@@ -1,5 +1,3 @@
-/gm <br> <!-- print everything to the GM channel -->
-
 <!-- generic variables that were populated by TokenAssist -->
 [H : PowerName = "###NAME###"]
 [H : PowerType = "###TYPE###"]

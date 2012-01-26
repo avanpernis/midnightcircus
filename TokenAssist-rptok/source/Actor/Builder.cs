@@ -7,7 +7,7 @@ namespace TokenAssist
 {
     public class Builder
     {
-       public static ColorValue GetMacroButtonColor(Power power)
+        protected static ColorValue GetMacroButtonColor(Power power)
         {
             switch (power.Usage)
             {
@@ -23,7 +23,7 @@ namespace TokenAssist
             }
         }
 
-        public static ColorValue GetMacroFontColor(Power power)
+        protected static ColorValue GetMacroFontColor(Power power)
         {
             switch (power.Usage)
             {

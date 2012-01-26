@@ -50,5 +50,12 @@ namespace TokenAssist
         private string mName = string.Empty;
         private UsageType mUsage = UsageType.Undefined;
         private ActionType mAction = ActionType.Undefined;
+
+        public bool isLimitedUse()
+        {
+            return (mUsage == UsageType.Encounter) || (mUsage == UsageType.Recharge) ||
+                (mUsage == UsageType.Daily);
+        }
+    
     }
 }
