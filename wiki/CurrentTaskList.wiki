@@ -9,12 +9,12 @@
   * BRIAN - ~~Add macros for Traits for monsters. See Hulking Zombie.monster for an example.~~
   * BRIAN - ~~Display monster damage modifiers (Immune/Resist/Vulnerable) on monster token card.~~
   * DANIEL - Display recharge details on monster power card. See Koptila.monster for example recharge powers.
-  * Gray out recharge powers when used.
+  * DANIEL - ~~Gray out recharge powers when used.~~
   * Re-enable recharge powers when recharge roll is made.
   * character tokens should display ability scores/modifiers on the character sheet mouseover
   * BRIAN - ~~weapon critical seems to not be working (check weapon of defense on kaddim, level 8) -- should be an extra 2d6?~~
   * temporary bonus/minus attack/damage states (Brian suggested a sword and shield with +/- icons)
-  * monster encounter powers should gray-out like player encounter powers
+  * DANIEL - ~~monster encounter powers should gray-out like player encounter powers~~
   * BRIAN - ~~monster multiple attack powers~~
 
 
