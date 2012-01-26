@@ -306,6 +306,18 @@ namespace TokenAssist
             if (exp != null)
                 newPower.RangeText = HtmlUtilities.ScrubString(exp.Value);
 
+            // find the target information
+            exp = attackNode.Element("Targets");
+            if (exp != null)
+                newPower.Targets = HtmlUtilities.ScrubString(exp.Value);
+
+            newPower.MultiTarget = false;
+            if (!string.IsNullOrWhiteSpace(newPower.Targets))
+            {
+                newPower.MultiTarget |= newPower.Targets.Contains("enemies");
+                newPower.MultiTarget |= newPower.Targets.Contains("creatures");
+            }
+
             // attempt to find the damage done by the attack
             exp = attackNode.XPathSelectElement("./Hit//Expression");
             if ((exp != null) && (exp.Value != ""))

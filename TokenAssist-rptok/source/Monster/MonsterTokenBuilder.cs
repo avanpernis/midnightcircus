@@ -136,9 +136,15 @@ namespace TokenAssist
                 desc += "<i>Trigger:</i> " + power.TriggerText + "<br>"; ;
             }
 
+            string targetsText = string.Empty;
+            if (!string.IsNullOrWhiteSpace(power.Targets))
+            {
+                targetsText = string.Format(" ({0})", power.Targets);
+            }
+
             if ((power.AttackBonus != null) && (power.Defense != null))
             {
-                desc += string.Format("<i>Attack:</i> {0}; {1}{2} vs. {3}<br>", power.RangeText, (power.AttackBonus >= 0) ? "+" : "", power.AttackBonus, power.Defense);
+                desc += string.Format("<i>Attack:</i> {0}{1}; {2}{3} vs. {4}<br>", power.RangeText, targetsText, (power.AttackBonus >= 0) ? "+" : "", power.AttackBonus, power.Defense);
             }
 
             if (power.OnHitText != null)
