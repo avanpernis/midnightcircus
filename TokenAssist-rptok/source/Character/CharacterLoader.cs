@@ -415,7 +415,7 @@ namespace TokenAssist
 
         private bool GetPowerAllowsForMultipleAttacks(string entry)
         {
-            Regex targetPattern = new Regex(@"<p[^>]*><b>\s*Target\s*</b>\s*:?\s*(.*?)</p>");
+            Regex targetPattern = new Regex(@"<p[^>]*><b>\s*Targets?\s*</b>\s*:?\s*(.*?)</p>");
             Match match = targetPattern.Match(entry);
 
             bool allowsForMultipleAttacks = false;
@@ -426,6 +426,7 @@ namespace TokenAssist
 
                 allowsForMultipleAttacks |= targetInfo.Contains("Each enemy");
                 allowsForMultipleAttacks |= targetInfo.Contains("Each creature");
+                allowsForMultipleAttacks |= targetInfo.Contains("One or two");
             }
 
             return allowsForMultipleAttacks;
