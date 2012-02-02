@@ -124,7 +124,7 @@ namespace TokenAssist
             {
                 string macro = Properties.Resources.FeatTemplate;
                 macro = macro.Replace(@"__FEAT_NAME__", feat.Name);
-                macro = macro.Replace(@"__FEAT_CARD__", (feat.CompendiumEntry != null) ? feat.CompendiumEntry : string.Empty);
+                macro = macro.Replace(@"__FEAT_CARD__", (feat.CompendiumEntry != null) ? feat.CompendiumEntry : string.Format("<b>{0}</b>: {1}", feat.Name, feat.Description));
 
                 token.AddMacro(HtmlUtilities.Bold(feat.Name), FeatGroup, Color.blue, Color.white, macro);
             }
