@@ -30,5 +30,11 @@ namespace TokenAssist
         public List<CharacterPower> Powers { get; set; }
         public List<Feat> Feats { get; set; }
         public List<MagicItem> MagicItems { get; set; }
+        public int BonusHealingSurgeValue { get; set; }
+
+        public override int HealingSurgeValue
+        {
+            get { return base.HealingSurgeValue + BonusHealingSurgeValue; }
+        }
     }
 }

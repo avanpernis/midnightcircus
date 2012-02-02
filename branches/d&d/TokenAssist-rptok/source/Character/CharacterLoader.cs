@@ -145,6 +145,9 @@ namespace TokenAssist
                     case "healing surges":
                         mCharacter.HealingSurges = stat.Value;
                         break;
+                    case "healing surge value":
+                        mCharacter.BonusHealingSurgeValue = stat.Value;
+                        break;
                     case "initiative":
                         mCharacter.Initiative = stat.Value;
                         break;
@@ -333,7 +336,7 @@ namespace TokenAssist
                 feat.CompendiumEntry = CompendiumUtilities.GetFeat(feat.Url);
             }
 
-            feat.Description = xmlNodeFeat.LastChild.Value.Trim();
+            feat.Description = (xmlNodeFeat.LastChild.Value != null) ? xmlNodeFeat.LastChild.Value.Trim() : string.Empty;
             feat.ShortDescription = GetDescendantNodeText(xmlNodeFeat, "specific[@name='Short Description']");
 
             return feat;
