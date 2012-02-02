@@ -333,6 +333,7 @@ namespace TokenAssist
                 feat.CompendiumEntry = CompendiumUtilities.GetFeat(feat.Url);
             }
 
+            feat.Description = xmlNodeFeat.LastChild.Value.Trim();
             feat.ShortDescription = GetDescendantNodeText(xmlNodeFeat, "specific[@name='Short Description']");
 
             return feat;

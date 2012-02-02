@@ -25,6 +25,12 @@ namespace TokenAssist
             set { mCompendiumEntry = value; }
         }
 
+        public string Description
+        {
+            get { return mDescription; }
+            set { mDescription = value; }
+        }
+
         public string ShortDescription
         {
             get { return mShortDescription; }
@@ -34,6 +40,7 @@ namespace TokenAssist
         private string mName = string.Empty;
         private string mUrl = null;
         private string mCompendiumEntry = null;
+        private string mDescription = null;
         private string mShortDescription = null;
     }
 }
