@@ -17,6 +17,7 @@
   * DANIEL - ~~monster encounter powers should gray-out like player encounter powers~~
   * BRIAN - ~~monster multiple attack powers~~
   * Some monsters have set initiative rolls (see Bel Shalor)
+  * Crit damage breaks if weapon deals different crit bonuses in different situations. (see Longsword of Evil Undone on Rhasgar Ebonsnarl)
 
 
 = Known Issues =
