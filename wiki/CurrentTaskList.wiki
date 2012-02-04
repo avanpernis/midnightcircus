@@ -13,7 +13,7 @@
   * Re-enable recharge powers when recharge roll is made.
   * DANIEL - ~~character tokens should display ability scores/modifiers on the character sheet mouseover~~
   * BRIAN - ~~weapon critical seems to not be working (check weapon of defense on kaddim, level 8) -- should be an extra 2d6?~~
-  * BEN - ~~temporary bonus/minus attack/damage states (Brian suggested a sword and shield with +/- icons)
+  * BEN - ~~temporary bonus/minus attack/damage states (Brian suggested a sword and shield with +/- icons)~~
   * DANIEL - ~~monster encounter powers should gray-out like player encounter powers~~
   * BRIAN - ~~monster multiple attack powers~~
   * Some monsters have set initiative rolls (see Bel Shalor)
