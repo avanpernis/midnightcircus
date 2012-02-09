@@ -13,13 +13,13 @@
   * Re-enable recharge powers when recharge roll is made.
   * DANIEL - ~~character tokens should display ability scores/modifiers on the character sheet mouseover~~
   * BRIAN - ~~weapon critical seems to not be working (check weapon of defense on kaddim, level 8) -- should be an extra 2d6?~~
-  * BEN - ~~temporary bonus/minus attack/damage states (Brian suggested a sword and shield with +/- icons)~~
+  * BEN - (Now under Modifiers group) ~~temporary bonus/minus attack/damage states (Brian suggested a sword and shield with +/- icons)~~
   * DANIEL - ~~monster encounter powers should gray-out like player encounter powers~~
   * BRIAN - ~~monster multiple attack powers~~
   * Some monsters have set initiative rolls (see Bel Shalor)
   * Crit damage breaks if weapon deals different crit bonuses in different situations. (see Longsword of Evil Undone on Rhasgar Ebonsnarl)
   * Powers granted by feats are not being created. (see Battle Awareness feat on Rhasgar Ebonsnarl)
-  * No regen state
+  * BEN - (Now under Powers group) ~~No regen state
   * Powers not refreshing on character
   * Powers not refreshing on monsters
   * No recharge macro on Calastryx
