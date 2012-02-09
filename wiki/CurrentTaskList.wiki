@@ -19,6 +19,11 @@
   * Some monsters have set initiative rolls (see Bel Shalor)
   * Crit damage breaks if weapon deals different crit bonuses in different situations. (see Longsword of Evil Undone on Rhasgar Ebonsnarl)
   * Powers granted by feats are not being created. (see Battle Awareness feat on Rhasgar Ebonsnarl)
+  * No regen state
+  * Powers not refreshing on character
+  * Powers not refreshing on monsters
+  * No recharge macro on Calastryx
+  * Quarry macro doesn't work
 
 
 = Known Issues =
