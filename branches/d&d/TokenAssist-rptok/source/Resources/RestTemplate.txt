@@ -15,10 +15,10 @@
 [H : TempHitPoints = 0]
 
 <!-- restore the text color so encounter powers appear as usable once again -->
-[H, FOREACH(index, getMacroGroup("Encounter")), CODE : {
+[H, FOREACH(index, getMacroGroup("4:Encounter")), CODE : {
 	[H : MacroProps = getMacroProps(index)]
 	[H : MacroBackgroundColor = getStrProp(MacroProps, "color")]
-	[setMacroProps(index, "fontcolor=" + if(MacroBackgroundColor == "red", "white", "black"))]
+	[setMacroProps(index, "fontcolor=__ENCOUNTER_FONT_COLOR__")]
 }]
 
 <!-- for an extended rest, additional things happen
@@ -28,10 +28,10 @@
 	[H: CombatStatus = setStrProp(CombatStatus, "DailyPowersUsed", 0), CombatStatus)]
 	
 	<!-- restore the text color so daily powers appear as usable once again -->
-	[H, FOREACH(index, getMacroGroup("Daily")), CODE : {
+	[H, FOREACH(index, getMacroGroup("5:Daily")), CODE : {
 		[H : MacroProps = getMacroProps(index)]
 		[H : MacroBackgroundColor = getStrProp(MacroProps, "color")]
-		[setMacroProps(index, "fontcolor=" + if(MacroBackgroundColor == "black", "white", "black"))]
+		[setMacroProps(index, "fontcolor=__DAILY_FONT_COLOR__")]
 	}]
 	
 	<!-- restore each magic item that is recharged by a healing surge -->
