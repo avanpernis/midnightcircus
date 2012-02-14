@@ -53,7 +53,11 @@ namespace TokenAssist
             mToken.AddProperty("StartingActionPoints", monster.ActionPoints);
 
             // only monsters can be reset
-            mToken.AddMacro(HtmlUtilities.Bold("Reset"), ActorTokenFactory.MiscGroup, Color.white, Color.black, Properties.Resources.ResetMonsterTemplate);
+            string resetBody = Properties.Resources.ResetMonsterTemplate;
+            resetBody = resetBody.Replace(@"__ENCOUNTER_FONT_COLOR__", GetMacroFontColor(Power.UsageType.Encounter).ToString());
+            resetBody = resetBody.Replace(@"__RECHARGE_FONT_COLOR__", GetMacroFontColor(Power.UsageType.Recharge).ToString());
+
+            mToken.AddMacro(HtmlUtilities.Bold("Reset"), ActorTokenFactory.MiscGroup, Color.white, Color.black, resetBody);
 
             // add monster power macros
             foreach (MonsterPower p in monster.Powers)

@@ -20,6 +20,20 @@
 	"Monster has <b>" + CurrentHealingSurges + "</b> Healing Surges.<br>" +
 	"Monster has <b>" + ActionPoints + "</b> Action Point.<br>"]
 
+<!-- restore the text color so encounter powers appear as usable once again -->
+[H, FOREACH(index, getMacroGroup("Encounter")), CODE : {
+	[H : MacroProps = getMacroProps(index)]
+	[H : MacroBackgroundColor = getStrProp(MacroProps, "color")]
+	[setMacroProps(index, "fontcolor=__ENCOUNTER_FONT_COLOR__")]
+}]
+
+<!-- restore the text color so encounter powers appear as usable once again -->
+[H, FOREACH(index, getMacroGroup("Recharge")), CODE : {
+	[H : MacroProps = getMacroProps(index)]
+	[H : MacroBackgroundColor = getStrProp(MacroProps, "color")]
+	[setMacroProps(index, "fontcolor=__RECHARGE_FONT_COLOR__")]
+}]
+
 <!-- output the result -->
 {ResetResult}
 	

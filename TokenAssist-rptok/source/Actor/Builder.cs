@@ -9,7 +9,12 @@ namespace TokenAssist
     {
         protected static ColorValue GetMacroButtonColor(Power power)
         {
-            switch (power.Usage)
+            return GetMacroButtonColor(power.Usage);
+        }
+
+        protected static ColorValue GetMacroButtonColor(Power.UsageType usage)
+        {
+            switch (usage)
             {
                 case Power.UsageType.AtWill:
                     return Color.green;
@@ -25,7 +30,13 @@ namespace TokenAssist
 
         protected static ColorValue GetMacroFontColor(Power power)
         {
-            switch (power.Usage)
+            return GetMacroFontColor(power.Usage);
+        }
+
+
+        protected static ColorValue GetMacroFontColor(Power.UsageType usage)
+        {
+            switch (usage)
             {
                 default:
                 case Power.UsageType.AtWill:

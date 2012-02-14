@@ -19,7 +19,11 @@ namespace TokenAssist
             token.AddProperty("DailyItemUses", character.DailyItemuses);
 
             // only characters take rests and finish milestones
-            token.AddMacro(HtmlUtilities.Bold("Rest"), ActorTokenFactory.MiscGroup, Color.white, Color.black, Properties.Resources.RestTemplate);
+            string restStr = Properties.Resources.RestTemplate;
+            restStr = restStr.Replace(@"__ENCOUNTER_FONT_COLOR__", GetMacroFontColor(Power.UsageType.Encounter).ToString());
+            restStr = restStr.Replace(@"__DAILY_FONT_COLOR__", GetMacroFontColor(Power.UsageType.Daily).ToString());
+
+            token.AddMacro(HtmlUtilities.Bold("Rest"), ActorTokenFactory.MiscGroup, Color.white, Color.black, restStr);
             token.AddMacro(HtmlUtilities.Bold("Milestone"), ActorTokenFactory.MiscGroup, Color.white, Color.black, Properties.Resources.MilestoneTemplate);
 
             foreach (ClassFeature classFeature in character.ClassFeatures)
