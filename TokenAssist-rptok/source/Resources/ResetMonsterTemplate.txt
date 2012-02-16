@@ -13,6 +13,11 @@
 <!-- set available action points to starting value -->
 [H : ActionPoints = StartingActionPoints]
 
+<!-- regardless of rest type, all encounter powers are restored -->
+[H: CombatStatus = setStrProp(CombatStatus, "EncounterPowersUsed", 0), CombatStatus)]
+[H: CombatStatus = setStrProp(CombatStatus, "RechargePowersUsed", 0), CombatStatus)]
+
+
 <!-- format the output -->
 [H : ResetResult =
 	"Monster is reset and recovers all encounter and recharge powers.<br>" +
