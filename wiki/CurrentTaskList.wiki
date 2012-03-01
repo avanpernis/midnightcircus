@@ -24,6 +24,7 @@
   * Powers not refreshing on monsters
   * No recharge macro on Calastryx
   * Quarry macro doesn't work
+  * Skull Lord Servitor doesn't export his minor action powers correctly.
 
 
 = Known Issues =
