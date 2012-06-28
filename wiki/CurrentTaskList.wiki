@@ -25,6 +25,7 @@
   * No recharge macro on Calastryx
   * Quarry macro doesn't work
   * Skull Lord Servitor doesn't export his minor action powers correctly.
+  * Hill Giant Avalancher's Crushing Charge power doesn't work.
 
 
 = Known Issues =
