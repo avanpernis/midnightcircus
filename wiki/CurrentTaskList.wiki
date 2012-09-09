@@ -26,6 +26,7 @@
   * Quarry macro doesn't work
   * Skull Lord Servitor doesn't export his minor action powers correctly.
   * Hill Giant Avalancher's Crushing Charge power doesn't work.
+  * Feramaug's bite damage is wrong
 
 
 = Known Issues =
