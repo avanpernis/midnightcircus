@@ -31,4 +31,6 @@
 
 = Known Issues =
 
+  * Unable to parse Predatory Greatsword +3 fails on parse -- This weapon is currently being used on Klunk Bloodsproket. {Dropbox}/Characters/Klunk Bloodsproket - Barbarian/Klunk-updated.dnd4e
+
   * non working magic items -- Bug sent to D&D Insider. Basically the character builder exports compendium URLs that no longer exist. They acknowledged the issue and said they are working on it.
