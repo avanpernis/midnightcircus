@@ -1,0 +1,33 @@
+# Current Task List #
+
+  * DANIEL - ~~Print damage roll in monster power card.~~
+  * DANIEL - ~~Print miss effect in monster power card.~~
+  * BRIAN - ~~Add macros for Triggered Actions for monsters. See Koptila.monster for an example.~~
+  * BRIAN - ~~Add macros for Traits for monsters. See Hulking Zombie.monster for an example.~~
+  * BRIAN - ~~Display monster damage modifiers (Immune/Resist/Vulnerable) on monster token card.~~
+  * BRIAN - ~~Display recharge details on monster power card. See Koptila.monster for example recharge powers.~~
+  * DANIEL - ~~Gray out recharge powers when used.~~
+  * Re-enable recharge powers when recharge roll is made.
+  * DANIEL - ~~character tokens should display ability scores/modifiers on the character sheet mouseover~~
+  * BRIAN - ~~weapon critical seems to not be working (check weapon of defense on kaddim, level 8) -- should be an extra 2d6?~~
+  * BEN - (Now under Modifiers group) ~~temporary bonus/minus attack/damage states (Brian suggested a sword and shield with +/- icons)~~
+  * DANIEL - ~~monster encounter powers should gray-out like player encounter powers~~
+  * BRIAN - ~~monster multiple attack powers~~
+  * Some monsters have set initiative rolls (see Bel Shalor)
+  * Crit damage breaks if weapon deals different crit bonuses in different situations. (see Longsword of Evil Undone on Rhasgar Ebonsnarl)
+  * Powers granted by feats are not being created. (see Battle Awareness feat on Rhasgar Ebonsnarl)
+  * BEN - (Now under Powers group) ~~No regen state
+  * Powers not refreshing on character
+  * Powers not refreshing on monsters
+  * No recharge macro on Calastryx
+  * Quarry macro doesn't work
+  * Skull Lord Servitor doesn't export his minor action powers correctly.
+  * Hill Giant Avalancher's Crushing Charge power doesn't work.
+  * Feramaug's bite damage is wrong~~
+
+
+# Known Issues #
+
+  * Unable to parse Predatory Greatsword +3 fails on parse -- This weapon is currently being used on Klunk Bloodsproket. {Dropbox}/Characters/Klunk Bloodsproket - Barbarian/Klunk-updated.dnd4e
+
+  * non working magic items -- Bug sent to D&D Insider. Basically the character builder exports compendium URLs that no longer exist. They acknowledged the issue and said they are working on it.
