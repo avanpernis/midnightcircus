@@ -1,8 +1,0 @@
-﻿<entry>
-  <string>###PROP_NAME###</string>
-  <net.rptools.CaseInsensitiveHashMap_-KeyValue>
-    <key>###PROP_KEY###</key>
-    <value class="string">###PROP_VALUE###</value>
-    <outer-class reference="../../../.."/>
-  </net.rptools.CaseInsensitiveHashMap_-KeyValue>
-</entry>

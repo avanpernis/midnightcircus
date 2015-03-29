@@ -1,8 +1,0 @@
-﻿<net.rptools.maptool.model.Asset>
-  <id>
-    <id>###MD5_SUM###</id>
-  </id>
-  <name>###NAME###</name>
-  <extension>###EXTENSION###</extension>
-  <image/>
-</net.rptools.maptool.model.Asset>
